@@ -81,8 +81,16 @@ class UserController extends Controller
         }
         return Response()->json([
             'success' => false,
-            'message' => 'login credentails are invalid.',
+            'message' => 'Login credentails are invalid.',
         ], 404);
     }
-
+    public function logout(Request $request)
+    {
+        $token = Auth::user()->toekn();
+        $request->user()->tokens()->delete();
+        return Response()->json([
+            'success' => true,
+            'message' => 'Logout is successfully.',
+        ], 200);
+    }
 }
