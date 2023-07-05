@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Part\File;
 
 
 class VideoController extends Controller
@@ -16,20 +14,22 @@ class VideoController extends Controller
     public function playVideo($id)
     {
         $video = Video::find($id);
-        $path = $video->path;;
+        $path = storage_path(). '/app/public/videos/' . $video->path;
+
         $headers = [
             'Content-Type' => 'video/mp4',
         ];
-        return response()->download($path, $video->file_name, $headers);
+        return response()->download($path, $video->path, $headers);
     }
     
-    public function index()
+        public function index()
     {
         //
         $videos = Video::all()->take(20);
         if($videos->count() > 0) {
             foreach ($videos as $video) {
-                $video->videoType = mime_content_type($video->path);
+                $path = storage_path(). '/app/public/videos/' . $video->path;
+                $video->videoType = mime_content_type($path);
                 $video->src = route('video.play', ['id' => $video->id]);
             }
             return response()->json([
