@@ -16,7 +16,12 @@ class Video extends Model
         'thumbnail',
         'date_time',
         'viewer',
-        'user_id',
+        'path',
+        'updated_at',
+    ];
+    protected $hidden = [
+        'created_at',
+        'remember_token',
     ];
     public function user():BelongsTo{
         return $this->belongsTo(User::class);
