@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->dateTime('date_time');
             $table->integer('viewer');
-            $table->timestamps();
+            $table->string('path');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
