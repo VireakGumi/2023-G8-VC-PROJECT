@@ -66,4 +66,23 @@ class UserController extends Controller
             'user' => $user
         ], 200);
     }
+    public function login(StoreLoginRequest $request)
+    {
+        $credentails = $request->only('email', 'password');
+        if (Auth::attempt($credentails)) {
+            $user = Auth::user();
+            $token = $user->createToken('API Token', ['select', 'create', 'delete', 'update'])->plainTextToken;
+            return response()->json([
+                'success' => true,
+                'message' => 'Login account is successfully.',
+                'token' => $token,
+                'user' => $user
+            ], 200);
+        }
+        return Response()->json([
+            'success' => false,
+            'message' => 'login credentails are invalid.',
+        ], 404);
+    }
+
 }
