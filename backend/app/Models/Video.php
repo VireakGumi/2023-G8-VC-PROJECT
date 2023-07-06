@@ -17,7 +17,7 @@ class Video extends Model
         'date_time',
         'viewer',
         'path',
-        'updated_at',
+        'user_id',
     ];
     protected $hidden = [
         'created_at',
