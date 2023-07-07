@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::fallback(function () {
     return 'Page Not Found';
 });
+
+Route::get('/videos', [VideoController::class, 'index']);
+Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
