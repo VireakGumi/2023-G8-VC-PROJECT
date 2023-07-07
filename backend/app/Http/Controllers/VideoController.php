@@ -13,6 +13,7 @@ class VideoController extends Controller
     public function index()
     {
         //
+        return Video::all();
     }
 
     /**
@@ -45,5 +46,14 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         //
+    }
+
+    ///search
+    public function searchVideo($video)
+    {
+        $videos = Video::where('title', 'like', '%' . $video . '%')
+                         ->orWhere('user_id', 'like', '%' . $video . '%')
+                         ->get();
+        return $videos;
     }
 }
