@@ -7,14 +7,37 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function playVideo($id)
+    {
+        $video = Video::find($id);
+        $path = storage_path(). '/app/public/videos/' . $video->path;
+
+        $headers = [
+            'Content-Type' => 'video/mp4',
+        ];
+        return response()->download($path, $video->path, $headers);
+    }
+    
+        public function index()
     {
         //
+        $videos = Video::paginate(9);
+        @$videos->links();
+        if($videos->count() > 0) {
+            foreach ($videos as $video) {
+                $path = storage_path(). '/app/public/videos/' . $video->path;
+                $video->videoType = mime_content_type($path);
+                $video->src = route('video.play', ['id' => $video->id]);
+            }
+            return response()->json([
+                'message' => 'Successful',
+                'data' => $videos,
+            ],200);
+        }
+        return response()->json([
+            'message' => 'No data '
+        ],404);
     }
-
     /**
      * Store a newly created resource in storage.
      */
