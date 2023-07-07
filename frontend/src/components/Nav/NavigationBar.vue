@@ -24,7 +24,7 @@
           hide-details
         ></v-text-field>
       </v-container>
-      <v-btn class="my-btn mr-6 ml-8 mr-2" prepend-icon="mdi-account" rounded="pill"> Sign in </v-btn>
+      <v-btn class="my-btn mr-6 ml-8 mr-2" prepend-icon="account" rounded="pill"> Sign in </v-btn>
     </v-app-bar>
     <v-app>
       <v-navigation-drawer
