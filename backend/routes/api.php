@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('videos',[VideoController::class,'index']);
-Route::get('searchVideo/{video}',[VideoController::class,'searchVideo']);
+Route::get('videos/{video}',[VideoController::class,'searchVideo']);
