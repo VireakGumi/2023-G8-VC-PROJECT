@@ -27,7 +27,6 @@ class VideoController extends Controller
     {
         //
         $videos = Video::paginate(9);
-        @$videos->links();
         if($videos->count() > 0) {
             foreach ($videos as $video) {
                 $path = storage_path(). '/app/public/videos/' . $video->path;
@@ -103,5 +102,13 @@ class VideoController extends Controller
            return response()->json(['success' => true, 'message' => 'Uploaded video successfully','video' => $video]);
         }
         return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful']);
+
+    ///search
+    public function searchVideo($video)
+    {
+        $videos = Video::where('title', 'like', '%' . $video . '%')
+                         ->orWhere('user_id', 'like', '%' . $video . '%')
+                         ->get();
+        return $videos;
     }
 }

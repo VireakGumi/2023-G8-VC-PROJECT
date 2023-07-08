@@ -21,7 +21,6 @@ const vuetify = createVuetify({
 // components domain ==============================================
 
 const app = createApp(App);
-
 import NavBar from "./components/Nav/NavigationBar.vue";
 import SideBar from "./components/Nav/SideBar.vue";
 app.component("navigation-bar", NavBar);
