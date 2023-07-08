@@ -6,7 +6,7 @@ import router from "./router";
 import "@mdi/font/css/materialdesignicons.css";
 // vue-plyr
 // import VuePlyr from "vue-plyr";
-import "vue-plyr/dist/vue-plyr.css";
+// import "vue-plyr/dist/vue-plyr.css";
 
 // Vuetify
 import "vuetify/styles";
@@ -21,10 +21,8 @@ const vuetify = createVuetify({
 // components domain ==============================================
 
 const app = createApp(App);
-
 import NavBar from "./components/Nav/NavigationBar.vue";
 import SideBar from "./components/Nav/SideBar.vue";
 app.component("navigation-bar", NavBar);
 app.component("side-bar", SideBar);
-
-createApp(App).use(VuePlyr).use(vuetify).use(router).mount("#app");
+app.use(vuetify).use(router).mount("#app");
