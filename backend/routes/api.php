@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
+Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
 // Route::get('/videos/play/{id}', 'VideoController')->name('playVideo');

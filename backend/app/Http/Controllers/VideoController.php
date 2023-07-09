@@ -7,6 +7,8 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+
 class VideoController extends Controller
 {
     /**
@@ -77,21 +79,15 @@ class VideoController extends Controller
         //
     }
     
-    public function getVideoUploadForm()
-    {
-        return view('video-upload');
-    }
- 
     public function uploadVideo(StoreVideoRequest $request)
    {
-        $video = $request->only('title','description','thumbnail','date_time');
+        $video = $request->only('title','description','thumbnail','date_time','privacy','category','user_id');
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video,'viewer',0);
         $video['thumbnail'] = $thumbNail;
         $video = Arr::add($video,'path',$fileName);
-        $video = Arr::add($video,'user_id',1);
-
+        $video = Arr::add($video,'user_id',Auth::user()->id);
         $isFileUploaded = Storage::disk('public')->put( 'videos/' . $fileName, file_get_contents($request->video));
         $isThumbnailUploaded = Storage::disk('public')->put( 'thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
@@ -99,8 +95,8 @@ class VideoController extends Controller
  
         if ($isFileUploaded && $isThumbnailUploaded) {
            $video = Video::create($video);
-           return response()->json(['success' => true, 'message' => 'Uploaded video successfully','video' => $video]);
+           return response()->json(['success' => true, 'message' => 'Uploaded video successfully','video' => $video],200);
         }
-        return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful']);
+        return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful'],404);
     }
 }

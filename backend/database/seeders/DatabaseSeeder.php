@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Categories;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(roles::class);
         $this->call(user::class);
         $this->call(Video::class);
-
+        $this->call(Categories::class);
     }
 }
