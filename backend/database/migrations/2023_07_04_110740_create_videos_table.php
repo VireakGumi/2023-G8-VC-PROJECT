@@ -19,6 +19,12 @@ return new class extends Migration
             $table->dateTime('date_time');
             $table->integer('viewer');
             $table->string('path');
+            $table->string('privacy');
+            $table->unsignedBigInteger('categories_id');
+            $table->foreign('categories_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
