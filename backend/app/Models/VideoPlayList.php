@@ -13,6 +13,11 @@ class VideoPlayList extends Model
         'video_id',                 
         'playlist_id',
     ];
+    
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
     public function video():BelongsTo{
         return $this->belongsTo(Video::class);
     }
