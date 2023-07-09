@@ -33,8 +33,8 @@ class StoreVideoRequest extends FormRequest
             'description' => 'required|string|max:255',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'video' => 'required|file|mimetypes:video/mp4',
-            'privacy' => 'required',
-            'category' => 'required',
+            'privacy' => 'required|string',
+            'categories_id' => 'required|integer',
         ];
     }
 }
