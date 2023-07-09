@@ -14,15 +14,21 @@
         <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
       </v-app-bar-logo>
       <v-container>
-        <v-text-field
+        <v-autocomplete
+          v-model="select"
+          v-model:search="search"
+          :loading="loading"
+          :items="listVideos"
           rounded="pill"
           density="compact"
           variant="solo"
+          @keydown.enter="navigateToPage"
           label="Search Videos"
           append-inner-icon="mdi-magnify"
           single-line
+          hide-no-data
           hide-details
-        ></v-text-field>
+        ></v-autocomplete>
       </v-container>
       <v-btn
         class="my-btn mr-6 ml-8 mr-2"
@@ -78,10 +84,17 @@
   </v-layout>
 </template>
 <script>
+import axios from "axios";
+import router from '@/router';
 export default {
   data() {
     return {
       drawer: false,
+      loading: false,
+      listVideos: [],
+      search: null,
+      select: null,
+      link: "",
       items: [
         { title: "Home", icon: "mdi-home" },
         { title: "Upload", icon: "mdi-video-plus" },
@@ -92,6 +105,32 @@ export default {
         { title: "More", icon: "mdi-dots-horizontal-circle-outline" },
       ],
     };
+  },
+  watch: {
+    search(val) {
+      val && val !== this.select && this.querySelections(val);
+    },
+  },
+  methods: {
+    navigateToPage() {
+      router.push("/search");
+    },
+    querySelections() {
+      axios
+        .get(`http://127.0.0.1:8000/api/videos/${this.search}`)
+        .then((response) => {
+          this.loading = true;
+          // set this.videos to the response data
+          this.videos = response.data;
+          this.listVideos = this.videos.filter((e) => {
+            return e.title.toLowerCase().includes(this.search.toLowerCase());
+          });
+          this.loading = false;
+        }, 500)
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
   },
 };
 </script>
