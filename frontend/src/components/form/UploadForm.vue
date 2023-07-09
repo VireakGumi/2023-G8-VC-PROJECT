@@ -160,7 +160,7 @@
               title: this.title,
               description: this.description,
               thumbnail: this.thumbnail[0],
-              video: this.video,
+              path: this.video,
               privacy: this.privacy,
               category: this.category
             }
