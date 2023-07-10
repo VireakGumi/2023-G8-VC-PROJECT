@@ -1,0 +1,164 @@
+<template>
+  <v-layout class="w-100">
+    <v-app-bar app color="#15202B">
+      <template v-slot:prepend>
+        <img
+          src="../../assets/menu.png"
+          @click.stop="drawer = !drawer"
+          class="ml-4 mr-6"
+          width="35"
+          alt=""
+          id="menu"
+        />
+      </template>
+      <v-app-bar-logo>
+        <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
+      </v-app-bar-logo>
+      <v-container>
+        <v-autocomplete
+          v-model="select"
+          v-model:search="search"
+          :loading="loading"
+          :items="listVideos"
+          rounded="pill"
+          density="compact"
+          variant="solo"
+          @keydown.enter="navigateToPage"
+          label="Search Videos"
+          append-inner-icon="mdi-magnify"
+          single-line
+          hide-no-data
+          hide-details
+        ></v-autocomplete>
+      </v-container>
+      <v-btn
+        class="my-btn mr-6 ml-8 mr-2"
+        prepend-icon="account"
+        rounded="pill"
+      ></v-btn>
+
+      <v-btn
+        class="mr-6 ml-8 mr-2 bg-white"
+        rounded="pill"
+        prepend-icon="mdi-account"
+        @click.stop="registerForm = true"
+      >
+        Sign in
+      </v-btn>
+    </v-app-bar>
+    <RegisterForm v-model="registerForm" />
+    <v-navigation-drawer
+      v-model="drawer"
+      :width="200"
+      temporary
+      dark
+      color="#15202B"
+      class="sidebar-drawer"
+    >
+      <v-list>
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+          <v-list-item-icon class="d-flex">
+            <v-list-item-icon>
+              <v-icon class="ms-2" color="white" x-large>{{
+                item.icon
+              }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-white ml-9">{{
+                item.title
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-navigation-drawer
+      color="#15202B"
+      app
+      class="d-flex flex-column"
+      width="75px"
+    >
+      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+        <v-list-item-icon class="d-flex">
+          <v-list-item-icon>
+            <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-navigation-drawer>
+
+
+    <!-- <v-row class="bg-purple-lighten-2">
+      <side-bar />
+    </v-row> -->
+  </v-layout>
+</template>
+<script>
+import axios from "axios";
+import router from "@/router";
+
+import RegisterForm from "../../views/Register.vue";
+export default {
+  components: {
+    RegisterForm,
+  },
+  data() {
+    return {
+      drawer: false,
+      loading: false,
+      listVideos: [],
+      search: null,
+      select: null,
+      link: "",
+      registerForm: false,
+      items: [
+        { title: "Home", icon: "mdi-home", to: "/" },
+        { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
+        { title: "History", icon: "mdi-history", to: "/history" },
+        { title: "Message", icon: "mdi-email-outline", to: "/messages" },
+        { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
+        { title: "Playlist", icon: "mdi-playlist-play", to: "playlist" },
+        {
+          title: "More",
+          icon: "mdi-dots-horizontal-circle-outline",
+          to: "/about",
+        },
+      ],
+    };
+  },
+  watch: {
+    search(val) {
+      val && val !== this.select && this.querySelections(val);
+    },
+  },
+  methods: {
+    navigateToPage() {
+      router.push("/search");
+    },
+    querySelections() {
+      axios
+        .get(`http://172.16.1.106:8000/api/videos/${this.search}`)
+        .then((response) => {
+          this.loading = true;
+          // set this.videos to the response data
+          this.videos = response.data.data;
+          this.listVideos = this.videos.filter((e) => {
+            return e.title.toLowerCase().includes(this.search.toLowerCase());
+          });
+          this.loading = false;
+        }, 500)
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+  },
+};
+</script>
+<style scoped>
+.my-btn {
+  background: #ffffff;
+}
+#menu {
+  cursor: pointer;
+}
+</style>

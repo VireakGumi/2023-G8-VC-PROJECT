@@ -12,11 +12,14 @@ class Categories extends Model
 
     protected $fillable = [
         'category_name',
-        'description',
     ];
-    public function videos():HasMany
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+    public function videos(): HasMany
     {
-        return $this->hasMany(Video::class);
-    } 
+        return $this->HasMany(Video::class);
+    }
 
 }

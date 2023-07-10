@@ -16,7 +16,15 @@ class Video extends Model
         'thumbnail',
         'date_time',
         'viewer',
+        'path',
+        'privacy',
+        'categories_id',
         'user_id',
+    ];
+    protected $hidden = [
+        'created_at',
+        'remember_token',
+        'updated_at'
     ];
     public function user():BelongsTo{
         return $this->belongsTo(User::class);
@@ -29,8 +37,9 @@ class Video extends Model
     public function history():HasMany{
         return $this->hasMany(history::class);
     }
-    public function videoCategories():HasMany{
-        return $this->hasMany(VideoCategories::class);
+    public function categories(): belongsTo
+    {
+        return $this->belongsTo(Categories::class);
     }
     public function videoPlayLists():HasMany{
         return $this->hasMany(VideoPlayList::class);
