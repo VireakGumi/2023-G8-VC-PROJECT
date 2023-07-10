@@ -1,27 +1,37 @@
 <template>
-  <v-container class="w-auto mt-16 bg-lime-accent-3">
-    <v-row
-      class="justify-center bg-green-accent-4 mt-16"
-      v-for="(_, n) in 100"
-      :key="n"
-    >
-      <v-col v-for="(_, n) in 3" :key="n" cols="auto">
-        <v-card
-          height="100px"
-          width="370px"
-          :class="['d-flex justify-center align-center bg-secondary']"
-        >
-          <div>{{ n }}</div>
-        </v-card>
-      </v-col>
+  <v-card color="#1b242e">
+    <v-row  class="d-flex justify-center w-100 mt-16 ma-5 pa-2">
+      <video-card color="#1b242e"
+        v-for="(video, index) of videos"
+        :key="index"
+        :video="video"
+        class="ma-1"
+      />
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 <script>
-export default {};
+import VideoCard from "../card/VideoCard.vue";
+import axios from "axios";
+export default {
+  components: {
+    VideoCard,
+  },
+  data() {
+    return {
+      videos: [],
+    };
+  },
+  mounted() {
+    axios
+      .get("http://172.16.1.106:8000/api/videos")
+      .then((response) => {
+        this.videos = response.data.data;
+
+        console.log(this.videos);
+      })
+      .catch((error) => (this.error = error));
+  },
+};
 </script>
-<style scoped>
-.my-container {
-  width: 100%;
-}
-</style>
+<style scoped></style>

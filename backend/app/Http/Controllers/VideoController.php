@@ -97,7 +97,16 @@ class VideoController extends Controller
     {
         //
     }
-    
+
+    public function getVideoUploadForm()
+    {
+        return view('video-upload');
+    }
+
+    public function uploadVideo(StoreVideoRequest $request)
+    {
+        $video = $request->only('title', 'description', 'thumbnail', 'date_time');
+    }
     public function uploadVideo(StoreVideoRequest $request)
    {
         $video = $request->only('title','description','thumbnail','date_time','privacy','categories_id');

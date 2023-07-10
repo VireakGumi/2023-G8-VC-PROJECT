@@ -13,6 +13,8 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import "vuetify/dist/vuetify.min.css";
+
 const vuetify = createVuetify({
   iconfont: "mdi",
   components,
@@ -25,5 +27,4 @@ import NavBar from "./components/Nav/NavigationBar.vue";
 import SideBar from "./components/Nav/SideBar.vue";
 app.component("navigation-bar", NavBar);
 app.component("side-bar", SideBar);
-app.use(vuetify);
-app.use(router).mount("#app");
+app.use(vuetify).use(router).mount("#app");

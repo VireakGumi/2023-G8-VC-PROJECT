@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout class="w-100">
     <v-app-bar app color="#15202B">
       <template v-slot:prepend>
         <img
@@ -35,13 +35,21 @@
         class="my-btn mr-6 ml-8 mr-2"
         prepend-icon="account"
         rounded="pill"
+      ></v-btn>
+
+      <v-btn
+        class="mr-6 ml-8 mr-2 bg-white"
+        rounded="pill"
+        prepend-icon="mdi-account"
+        @click.stop="registerForm = true"
       >
         Sign in
       </v-btn>
     </v-app-bar>
+    <RegisterForm v-model="registerForm" />
     <v-navigation-drawer
       v-model="drawer"
-      :width="190"
+      :width="200"
       temporary
       dark
       color="#15202B"
@@ -79,6 +87,7 @@
       </v-list-item>
     </v-navigation-drawer>
 
+
     <!-- <v-row class="bg-purple-lighten-2">
       <side-bar />
     </v-row> -->
@@ -86,8 +95,13 @@
 </template>
 <script>
 import axios from "axios";
-import router from '@/router';
+import router from "@/router";
+
+import RegisterForm from "../../views/Register.vue";
 export default {
+  components: {
+    RegisterForm,
+  },
   data() {
     return {
       drawer: false,
@@ -96,14 +110,19 @@ export default {
       search: null,
       select: null,
       link: "",
+      registerForm: false,
       items: [
-        { title: "Home", icon: "mdi-home", to: '/' },
-        { title: "Upload", icon: "mdi-video-plus", to: "/upload"},
-        { title: "History", icon: "mdi-history", to: "/history"},
-        { title: "Message", icon: "mdi-email-outline" , to:"/messages"},
+        { title: "Home", icon: "mdi-home", to: "/" },
+        { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
+        { title: "History", icon: "mdi-history", to: "/history" },
+        { title: "Message", icon: "mdi-email-outline", to: "/messages" },
         { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
-        { title: "Playlist", icon: "mdi-playlist-play", to: "playlist"},
-        { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: '/about' },
+        { title: "Playlist", icon: "mdi-playlist-play", to: "playlist" },
+        {
+          title: "More",
+          icon: "mdi-dots-horizontal-circle-outline",
+          to: "/about",
+        },
       ],
     };
   },
@@ -139,7 +158,7 @@ export default {
 .my-btn {
   background: #ffffff;
 }
-#menu{
+#menu {
   cursor: pointer;
 }
 </style>
