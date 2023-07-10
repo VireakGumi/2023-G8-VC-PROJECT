@@ -57,14 +57,20 @@ class UserController extends Controller
         $credentails["password"] = bcrypt($credentails["password"]);
 
         $user = User::create($credentails);
-        $token = $user->createToken('API Token', ['select', 'create', 'update'])->plainTextToken;
+        if($user){
+            $token = $user->createToken('API Token', ['select', 'create', 'update'])->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Register account is successfully.',
-            'token' => $token,
-            'user' => $user
-        ], 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Register account is successfully.',
+                'token' => $token,
+                'user' => $user
+            ], 200);
+        }
+        return Response()->json([
+            'success' => false,
+            'message' => 'Login credentails are invalid.',
+        ], 404);
     }
     public function login(StoreLoginRequest $request)
     {

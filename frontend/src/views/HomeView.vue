@@ -1,3 +1,5 @@
 <template>
-<h1>hello</h1>
+  <v-layout class="w-100">
+    <side-bar />
+  </v-layout>
 </template>

@@ -25,37 +25,15 @@
       ></v-text-field>
 
       <v-btn
-        class="my-btn mr-6 ml-8 mr-2"
-        prepend-icon="account"
+        class="mr-6 ml-8 mr-2 bg-white"
         rounded="pill"
-        to="/register"
+        prepend-icon="mdi-account"
+        @click.stop="registerForm = true"
       >
         Sign in
       </v-btn>
     </v-app-bar>
-
-    <!-- <v-toolbar  class="mt-16 " density="compact" color="#15202B">
-      <v-sheet class="w-100 ml-16"  >
-        <v-slide-group show-arrows>
-          <v-slide-group-item
-            v-for="n in 3"
-            :key="n"
-            v-slot="{ isSelected, toggle }"
-          >
-            <v-btn
-              density="compact"
-              class="ma-2"
-              rounded
-              :color="isSelected ? 'primary' : undefined"
-              @click="toggle"
-            >
-              Options {{ n }}
-            </v-btn>
-          </v-slide-group-item>
-        </v-slide-group>
-      </v-sheet>
-    </v-toolbar> -->
-
+    <RegisterForm v-model="registerForm" />
     <v-navigation-drawer
       v-model="drawer"
       :width="200"
@@ -95,16 +73,18 @@
         </v-list-item-icon>
       </v-list-item>
     </v-navigation-drawer>
-    <v-layout class="w-100">
-      <side-bar />
-    </v-layout>
   </v-layout>
 </template>
 <script>
+import RegisterForm from "../../views/Register.vue";
 export default {
+  components: {
+    RegisterForm,
+  },
   data() {
     return {
       drawer: false,
+      registerForm: false,
       items: [
         { title: "Home", icon: "mdi-home" },
         { title: "Upload", icon: "mdi-video-plus" },

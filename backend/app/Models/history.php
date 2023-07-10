@@ -15,6 +15,10 @@ class history extends Model
         'user_id',
         'date_time',
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
     public function videos():BelongsTo{
         return $this->belongsTo(Video::class);
     }

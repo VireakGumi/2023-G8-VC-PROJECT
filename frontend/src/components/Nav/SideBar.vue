@@ -1,7 +1,7 @@
 <template>
-  <v-card>
-    <v-row class="d-flex justify-center w-100 mt-16 ma-5 pa-2 ">
-      <video-card
+  <v-card color="#1b242e">
+    <v-row  class="d-flex justify-center w-100 mt-16 ma-5 pa-2">
+      <video-card color="#1b242e"
         v-for="(video, index) of videos"
         :key="index"
         :video="video"
