@@ -27,7 +27,7 @@ const routes = [
     name: "register",
     component: () =>
     import("../views/Register.vue"),
-  },
+  }
 ];
 
 const router = createRouter({
