@@ -4,16 +4,20 @@
         <v-card height="400" class="pa-5">
           <h1 class="text-center">Upload Video</h1>
           <v-icon icon="mdi-upload"></v-icon>
-          <input
+          <div class="group">
+              <input
             type="file"
             name="file"
             id="file"
             ref="video"
-            @change="filesChange()"
-            class="inputfile"
-            accept="video/*"
-          />
-          <label for="file">Choose a file</label>
+              @change="filesChange()"
+              class="inputfile"
+              accept="video/*"
+              />
+            <label for="file">Choose a file</label>
+            <button @click=" upload = false">Cancel</button>
+          </div>
+         
         </v-card>
       </v-dialog>
       <v-dialog v-model="postInfo" width="1024">
@@ -63,31 +67,23 @@
                 <v-col >
                   <label for="">Privacy</label>
                   <v-select
-                    placeholder="Select privacy"
                     :items="[
                       'Public',
                       'Private',
                     ]"
+                    selected="Select Privacy"
                     :rules="privacyRule"
                     v-model="privacy"
-                  ></v-select>
-                </v-col>
-                <v-col >
+                    ></v-select>
+                  </v-col>
+                  <v-col >
                   <label for="">Category</label>
                   <v-select
-                  placeholder="Select category"
-                  :items="[
-                    'Music',
-                    'Movie',
-                    'Funny',
-                    'Action',
-                    'Animation',
-                    'Horron',
-                  ]"
-                  :rules="categoryRule"
-                  v-model="category"
-                  
-                ></v-select>
+                    placeholder="Select category"
+                    :items="category_name"
+                    :rules="categoryRule"
+                    v-model="category"
+                  ></v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -115,6 +111,8 @@
   export default {
     data() {
       return {
+        listCategories:[],
+        category_name:[],
         video:null,
         showVideo: false,
         upload: true,
@@ -142,6 +140,13 @@
       };
     },
     methods: {
+      getCategoryID(name){
+        this.listCategories.forEach(category => {
+          if (category.category_name == name){
+            return category.category_id
+          }
+        });
+      },
       filesChange() {
         this.postInfo = true;
         this.upload = false;
@@ -162,9 +167,9 @@
               thumbnail: this.thumbnail[0],
               path: this.video,
               privacy: this.privacy,
-              category: this.category
+              categories_id: this.getCategoryID(this.category)
             }
-            axios.post('http://127.0.0.1:8000/api/videos', video).then(response => {
+            axios.post('http://172.16.1.106:8000/api/videos', video).then(response => {
               console.log(response)
             }).catch(error => {
               console.log(error);
@@ -172,6 +177,12 @@
           }
         }
     },
+    created(){
+      axios.get('http://172.16.1.106:8000/api/categories').then((response) => {
+        this.listCategories = response.data.data
+        this.category_name = this.listCategories.map(category => category.category_name);
+      }).catch(error => { console.log(error);})
+    }
   };
   </script>
   
@@ -210,7 +221,7 @@
     position: absolute;
     z-index: -1;
   }
-  .inputfile + label {
+  .inputfile + label , .group button{
     font-size: 1.25em;
     font-weight: 700;
     color: white;
@@ -221,7 +232,7 @@
   }
   
   .inputfile:focus + label,
-  .inputfile + label:hover {
+  .inputfile + label:hover, .group button:hover {
     background-color: white;
     color: black;
   }
@@ -234,6 +245,15 @@
   }
   video {
     width: 100%;
+  }
+  .group{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .group button{
+    width: 40%;
+ 
   }
   </style>
   
