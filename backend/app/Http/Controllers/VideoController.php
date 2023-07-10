@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVideoRequest;
 use App\Models\Categories;
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -65,7 +66,29 @@ class VideoController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Video is not found'], 404);
     }
+    // get videos of user
+    public function getVideosOfUser() {
+        $videos = Auth::user()->videos;
+        if($videos->count()) {
+            return response()->json([
+                'message' => 'Successful',
+                'data' => $videos
+            ], 200);
+        }
+        return response()->json(['success' => false, 'message' => 'You do not have any video yet'], 404);
+    }
+    // get videos content creator
 
+    public function getVideosOfUserID($id) {
+        $videos = User::find($id)->videos;
+        if($videos->count()) {
+            return response()->json([
+                'message' => 'Successful',
+                'data' => $videos
+            ], 200);
+        }
+        return response()->json(['success' => false, 'message' => 'This user dose not have any videos yet'], 404);
+    }
     /**
      * Store a newly created resource in storage.
      */
