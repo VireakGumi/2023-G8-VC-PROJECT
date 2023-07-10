@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout class="w-100">
     <v-app-bar app color="#15202B">
       <template v-slot:prepend>
         <img
@@ -13,28 +13,52 @@
       <v-app-bar-logo>
         <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
       </v-app-bar-logo>
-      <v-container>
-        <v-text-field
-          rounded="pill"
-          density="compact"
-          variant="solo"
-          label="Search Videos"
-          append-inner-icon="mdi-magnify"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-container>
+
+      <v-text-field
+        density="compact"
+        variant="solo"
+        label="Search Videos"
+        append-inner-icon="mdi-magnify"
+        single-line
+        hide-details
+        rounded="pill"
+      ></v-text-field>
+
       <v-btn
         class="my-btn mr-6 ml-8 mr-2"
         prepend-icon="account"
         rounded="pill"
+        to="/register"
       >
         Sign in
       </v-btn>
     </v-app-bar>
+
+    <!-- <v-toolbar  class="mt-16 " density="compact" color="#15202B">
+      <v-sheet class="w-100 ml-16"  >
+        <v-slide-group show-arrows>
+          <v-slide-group-item
+            v-for="n in 3"
+            :key="n"
+            v-slot="{ isSelected, toggle }"
+          >
+            <v-btn
+              density="compact"
+              class="ma-2"
+              rounded
+              :color="isSelected ? 'primary' : undefined"
+              @click="toggle"
+            >
+              Options {{ n }}
+            </v-btn>
+          </v-slide-group-item>
+        </v-slide-group>
+      </v-sheet>
+    </v-toolbar> -->
+
     <v-navigation-drawer
       v-model="drawer"
-      :width="190"
+      :width="200"
       temporary
       dark
       color="#15202B"
@@ -71,10 +95,9 @@
         </v-list-item-icon>
       </v-list-item>
     </v-navigation-drawer>
-
-    <v-row class="bg-purple-lighten-2">
+    <v-layout class="w-100">
       <side-bar />
-    </v-row>
+    </v-layout>
   </v-layout>
 </template>
 <script>

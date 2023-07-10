@@ -7,6 +7,7 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+
 class VideoController extends Controller
 {
     /**
@@ -15,32 +16,32 @@ class VideoController extends Controller
     public function playVideo($id)
     {
         $video = Video::find($id);
-        $path = storage_path(). '/app/public/videos/' . $video->path;
+        $path = storage_path() . '/app/public/videos/' . $video->path;
 
         $headers = [
             'Content-Type' => 'video/mp4',
         ];
         return response()->download($path, $video->path, $headers);
     }
-    
-        public function index()
+
+    public function index()
     {
         //
         $videos = Video::paginate(9);
-        if($videos->count() > 0) {
+        if ($videos->count() > 0) {
             foreach ($videos as $video) {
-                $path = storage_path(). '/app/public/videos/' . $video->path;
+                $path = storage_path() . '/app/public/videos/' . $video->path;
                 $video->videoType = mime_content_type($path);
                 $video->src = route('video.play', ['id' => $video->id]);
             }
             return response()->json([
                 'message' => 'Successful',
                 'data' => $videos,
-            ],200);
+            ], 200);
         }
         return response()->json([
             'message' => 'No data '
-        ],404);
+        ], 404);
     }
 
 
@@ -76,39 +77,40 @@ class VideoController extends Controller
     {
         //
     }
-    
+
     public function getVideoUploadForm()
     {
         return view('video-upload');
     }
- 
+
     public function uploadVideo(StoreVideoRequest $request)
-   {
-        $video = $request->only('title','description','thumbnail','date_time');
+    {
+        $video = $request->only('title', 'description', 'thumbnail', 'date_time');
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
-        $video = Arr::add($video,'viewer',0);
+        $video = Arr::add($video, 'viewer', 0);
         $video['thumbnail'] = $thumbNail;
-        $video = Arr::add($video,'path',$fileName);
-        $video = Arr::add($video,'user_id',1);
+        $video = Arr::add($video, 'path', $fileName);
+        $video = Arr::add($video, 'user_id', 1);
 
-        $isFileUploaded = Storage::disk('public')->put( 'videos/' . $fileName, file_get_contents($request->video));
-        $isThumbnailUploaded = Storage::disk('public')->put( 'thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
+        $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->video));
+        $isThumbnailUploaded = Storage::disk('public')->put('thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
-        $url = Storage::disk('public')->url( 'videos/' . $fileName);
- 
+        $url = Storage::disk('public')->url('videos/' . $fileName);
+
         if ($isFileUploaded && $isThumbnailUploaded) {
-           $video = Video::create($video);
-           return response()->json(['success' => true, 'message' => 'Uploaded video successfully','video' => $video]);
+            $video = Video::create($video);
+            return response()->json(['success' => true, 'message' => 'Uploaded video successfully', 'video' => $video]);
         }
         return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful']);
+    }
 
     ///search
     public function searchVideo($video)
     {
         $videos = Video::where('title', 'like', '%' . $video . '%')
-                         ->orWhere('user_id', 'like', '%' . $video . '%')
-                         ->get();
+            ->orWhere('user_id', 'like', '%' . $video . '%')
+            ->get();
         return $videos;
     }
 }
