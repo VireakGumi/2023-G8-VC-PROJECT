@@ -39,8 +39,12 @@
 </template>
 
 <script>
+// import Navbar from "../components/Nav/NavigationBar.vue";
 import axios from "axios";
 export default {
+  // components: {
+  //   Navbar,
+  // },
   data() {
     return {
       url: "http://172.16.1.106:8000/api/videos",
