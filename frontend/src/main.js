@@ -6,7 +6,7 @@ import router from "./router";
 import "@mdi/font/css/materialdesignicons.css";
 // vue-plyr
 // import VuePlyr from "vue-plyr";
-import "vue-plyr/dist/vue-plyr.css";
+// import "vue-plyr/dist/vue-plyr.css";
 
 // Vuetify
 import "vuetify/styles";
