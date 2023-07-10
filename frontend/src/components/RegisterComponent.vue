@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="auto">
+  <v-dialog v-model="dialog" width="100%">
     <div>
       <v-card
         class="mx-auto pa-12 pb-8"
@@ -137,7 +137,7 @@
             </v-row>
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p>Have an accounts? <a href="">Login</a></p>
+                <p @click.stop="loginForm = true">Have an accounts? Login</p>
               </a>
             </v-card-text>
           </v-col>
@@ -150,9 +150,12 @@
 <script>
 import axios from "axios";
 export default {
+  props: {
+    value: Boolean,
+  },
   data: () => ({
-    dialog: true,
     visible: false,
+    loginForm: false,
     full_name: "",
     email: "",
     password: "",
@@ -172,6 +175,16 @@ export default {
     ],
     confirmPasswordRules: [(value) => !!value || "type confirm password"],
   }),
+  computed: {
+    dialog: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
+  },
   methods: {
     Register() {
       let value = {

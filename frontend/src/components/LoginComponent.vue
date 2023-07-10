@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="auto">
+  <v-dialog v-model="dialog" width="100%">
     <div class="cards">
       <v-card
         class="mx-auto pa-12 pb-8"
@@ -120,20 +120,28 @@
             </v-row>
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p>Don't have an accounts? <a href="">Register</a></p>
+                <p @click.stop="registerForm = true">Don't have an accounts? Register</p>
               </a>
             </v-card-text>
           </v-col>
         </v-row>
       </v-card>
     </div>
+    <RegisterForm v-model="registerForm"/>
   </v-dialog>
 </template>
 <script>
 import axios from "axios";
+import RegisterForm from "./RegisterComponent.vue"
 export default {
+  components:{
+    RegisterForm
+  },
+  props: {
+    value: Boolean,
+  },
   data: () => ({
-    dialog: true,
+    registerForm: false,
     wrong: false,
     visible: false,
     password: "",
@@ -145,6 +153,16 @@ export default {
         "E-mail must be valid",
     ],
   }),
+  computed: {
+    dialog: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
+  },
   methods: {
     login() {
       let value = { email: this.email, password: this.password };

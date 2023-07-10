@@ -41,17 +41,16 @@
         class="mr-6 ml-8 mr-2 bg-white"
         rounded="pill"
         prepend-icon="mdi-account"
-        @click.stop="registerForm = true"
+        @click.stop="loginForm = true"
       >
         Sign in
       </v-btn>
     </v-app-bar>
-    <RegisterForm v-model="registerForm" />
+    <LoginForm v-model="loginForm" temporary/>
     <v-navigation-drawer
       v-model="drawer"
       :width="200"
       temporary
-      dark
       color="#15202B"
       class="sidebar-drawer"
     >
@@ -86,21 +85,15 @@
         </v-list-item-icon>
       </v-list-item>
     </v-navigation-drawer>
-
-
-    <!-- <v-row class="bg-purple-lighten-2">
-      <side-bar />
-    </v-row> -->
   </v-layout>
 </template>
 <script>
 import axios from "axios";
 import router from "@/router";
-
-import RegisterForm from "../../views/RegisterView.vue";
+import LoginForm from "../LoginComponent.vue";
 export default {
   components: {
-    RegisterForm,
+    LoginForm,
   },
   data() {
     return {
@@ -110,7 +103,7 @@ export default {
       search: null,
       select: null,
       link: "",
-      registerForm: false,
+      loginForm: false,
       items: [
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
