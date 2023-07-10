@@ -11,7 +11,7 @@
   </v-card>
 </template>
 <script>
-import VideoCard from "../card/VideoCard.vue";
+import VideoCard from "../Cards/VideoCard.vue";
 import axios from "axios";
 export default {
   components: {

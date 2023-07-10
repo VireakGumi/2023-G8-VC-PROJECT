@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SearchPage from "../views/SearchPage.vue";
-
 const routes = [
   {
     path: "/",
@@ -28,6 +27,7 @@ const routes = [
     component: () =>
     import("../views/Register.vue"),
   }
+
 ];
 
 const router = createRouter({
