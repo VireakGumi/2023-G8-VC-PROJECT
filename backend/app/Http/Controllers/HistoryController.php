@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\HistoryResource;
 use App\Models\history;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
@@ -12,7 +14,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        $history = Auth::user()->histories;
+        $histories = HistoryResource::collection($history);
+        return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories],200);
     }
 
     /**
