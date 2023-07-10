@@ -1,91 +1,88 @@
 <template>
-  <v-layout class="w-100">
-    <v-app-bar app color="#15202B">
-      <template v-slot:prepend>
-        <img
-          src="../../assets/menu.png"
-          @click.stop="drawer = !drawer"
-          class="ml-4 mr-6"
-          width="35"
-          alt=""
-          id="menu"
-        />
-      </template>
-      <v-app-bar-logo>
-        <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
-      </v-app-bar-logo>
-      <v-container>
-        <v-autocomplete
-          v-model="select"
-          v-model:search="search"
-          :loading="loading"
-          :items="listVideos"
-          rounded="pill"
-          density="compact"
-          variant="solo"
-          @keydown.enter="navigateToPage"
-          label="Search Videos"
-          append-inner-icon="mdi-magnify"
-          single-line
-          hide-no-data
-          hide-details
-        ></v-autocomplete>
-      </v-container>
-      <v-btn
-        class="my-btn mr-6 ml-8 mr-2"
-        prepend-icon="account"
+  <v-app-bar app color="#15202B">
+    <template v-slot:prepend>
+      <img
+        src="../../assets/menu.png"
+        @click.stop="drawer = !drawer"
+        class="ml-4 mr-6"
+        width="35"
+        alt=""
+        id="menu"
+      />
+    </template>
+    <v-app-bar-logo>
+      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
+    </v-app-bar-logo>
+    <v-container>
+      <v-autocomplete
+        v-model="select"
+        v-model:search="search"
+        :loading="loading"
+        :items="listVideos"
         rounded="pill"
-      ></v-btn>
+        density="compact"
+        variant="solo"
+        @keydown.enter="navigateToPage"
+        label="Search Videos"
+        append-inner-icon="mdi-magnify"
+        single-line
+        hide-no-data
+        hide-details
+      ></v-autocomplete>
+    </v-container>
+    <v-btn
+      class="my-btn mr-6 ml-8 mr-2"
+      prepend-icon="account"
+      rounded="pill"
+    ></v-btn>
 
-      <v-btn
-        class="mr-6 ml-8 mr-2 bg-white"
-        rounded="pill"
-        prepend-icon="mdi-account"
-        @click.stop="loginForm = true"
-      >
-        Sign in
-      </v-btn>
-    </v-app-bar>
-    <LoginForm v-model="loginForm" temporary/>
-    <v-navigation-drawer
-      v-model="drawer"
-      :width="200"
-      temporary
-      color="#15202B"
-      class="sidebar-drawer"
+    <v-btn
+      class="mr-6 ml-8 mr-2 bg-white"
+      rounded="pill"
+      prepend-icon="mdi-account"
+      @click.stop="loginForm = true"
     >
-      <v-list>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-          <v-list-item-icon class="d-flex">
-            <v-list-item-icon>
-              <v-icon class="ms-2" color="white" x-large>{{
-                item.icon
-              }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-white ml-9">{{
-                item.title
-              }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item-icon>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-navigation-drawer
-      color="#15202B"
-      app
-      class="d-flex flex-column"
-      width="75px"
-    >
+      Sign in
+    </v-btn>
+  </v-app-bar>
+  <LoginForm v-model="loginForm" />
+  <v-navigation-drawer
+    v-model="drawer"
+    :width="200"
+    fill-height
+    temporary
+    color="#15202B"
+    class="sidebar-drawer"
+  >
+    <v-list>
       <v-list-item v-for="item in items" :key="item.title" :to="item.to">
         <v-list-item-icon class="d-flex">
           <v-list-item-icon>
-            <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
+            <v-icon class="ms-2" color="white" x-large>{{ item.icon }}</v-icon>
           </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="text-white ml-9">{{
+              item.title
+            }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item-icon>
       </v-list-item>
-    </v-navigation-drawer>
-  </v-layout>
+    </v-list>
+  </v-navigation-drawer>
+  <v-navigation-drawer
+    color="#15202B"
+    app
+    class="d-flex flex-column"
+    width="75px"
+  >
+    <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+      <v-list-item-icon class="d-flex">
+        <v-list-item-icon>
+          <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+      </v-list-item-icon>
+    </v-list-item>
+  </v-navigation-drawer>
 </template>
 <script>
 import axios from "axios";
