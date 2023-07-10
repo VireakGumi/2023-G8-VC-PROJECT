@@ -106,7 +106,7 @@ export default {
     return {
       drawer: false,
       loading: false,
-      listVideos: [],
+      listVideos: "",
       search: null,
       select: null,
       link: "",
@@ -133,11 +133,11 @@ export default {
   },
   methods: {
     navigateToPage() {
-      router.push("/search");
+      router.push(`/search/${this.search}`);
     },
     querySelections() {
       axios
-        .get(`http://172.16.1.106:8000/api/videos/${this.search}`)
+        .get(`http://172.16.1.106:8000/api/videos/${this.select}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
@@ -145,12 +145,16 @@ export default {
           this.listVideos = this.videos.filter((e) => {
             return e.title.toLowerCase().includes(this.search.toLowerCase());
           });
+          console.log(1);
           this.loading = false;
         }, 500)
         .catch((error) => {
           console.log(error.message);
         });
     },
+    mounted(){
+      this.querySelections();
+    }
   },
 };
 </script>

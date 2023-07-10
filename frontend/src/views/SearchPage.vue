@@ -4,9 +4,16 @@
     <div cols="12">
       <div
         class="d-flex flex-no-wrap mt-5 ml-12"
-        v-for="(video, index) in linkVideos"
+        v-for="(video, index) in getVideo()"
         :key="index"
       >
+      <p> {{testFunction()}} </p>
+        <video
+          style="width: 30%; height: 30%"
+          :src="video.src"
+          :type="video.videoType"
+          controls
+        ></video>
         <my-card-vue :data="video" />
       </div>
     </div>
@@ -14,7 +21,6 @@
 </template>
 
 <script>
-// import Navbar from "../components/Nav/NavigationBar.vue";
 import axios from "axios";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
@@ -23,19 +29,25 @@ export default {
   },
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/videos",
-      linkVideos: "",
+      // url: ,
+      linkVideos: [],
     };
   },
   methods: {
-    fetchVideo() {
-      axios.get(this.url).then((response) => {
-        this.linkVideos = response.data.data;
-      });
+    getVideo() {
+      axios
+        .get(`http://172.16.1.106:8000/api/videos/${this.$route.params.title}`)
+        .then((response) => {
+          this.linkVideos = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      return this.linkVideos;
     },
-  },
-  mounted() {
-    this.fetchVideo();
+    testFunction (){
+      console.log(this.getVideo());
+    }
   },
 };
 </script>
