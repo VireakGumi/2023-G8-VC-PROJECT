@@ -14,13 +14,16 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { mdi } from 'vuetify/iconsets/mdi'
 import { aliases, fa } from 'vuetify/iconsets/fa'
 
-import Register from './views/Register.vue'
+// import Register from './views/Register.vue'
+import RegisterComponent from './components/RegisterComponent.vue'
+import LoginComponent from './components/LoginComponent.vue'
 
 // Create the router instance
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/register', component: Register},
+    { path: '/register', component: RegisterComponent},
+    { path: '/login', component: LoginComponent}
   ]
 })
 
