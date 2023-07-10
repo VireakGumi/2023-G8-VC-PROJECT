@@ -1,6 +1,7 @@
 <template>
+  <SlideShow/>
   <v-card color="#1b242e">
-    <v-row class="d-flex justify-center w-100 mt-16 ma-5 pa-2">
+    <v-row class="d-flex justify-center w-100 pt-5">
       <video-card
         color="#1b242e"
         v-for="(video, index) of videos"
@@ -12,11 +13,13 @@
   </v-card>
 </template>
 <script>
-import VideoCard from "..//components/Cards/VideoCard.vue";
+import VideoCard from "../components/Cards/VideoCard.vue";
+import SlideShow from "../components/SlideShow/SlideShowComponent.vue";
 import axios from "axios";
 export default {
   components: {
     VideoCard,
+    SlideShow
   },
   data() {
     return {
