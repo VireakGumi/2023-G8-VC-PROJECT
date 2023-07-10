@@ -8,6 +8,7 @@
           class="ml-4 mr-6"
           width="35"
           alt=""
+          id="menu"
         />
       </template>
       <v-app-bar-logo>
@@ -47,7 +48,7 @@
       class="sidebar-drawer"
     >
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
           <v-list-item-icon class="d-flex">
             <v-list-item-icon>
               <v-icon class="ms-2" color="white" x-large>{{
@@ -69,7 +70,7 @@
       class="d-flex flex-column"
       width="75px"
     >
-      <v-list-item v-for="item in items" :key="item.title" link>
+      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
         <v-list-item-icon class="d-flex">
           <v-list-item-icon>
             <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
@@ -78,9 +79,9 @@
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-row class="bg-purple-lighten-2">
+    <!-- <v-row class="bg-purple-lighten-2">
       <side-bar />
-    </v-row>
+    </v-row> -->
   </v-layout>
 </template>
 <script>
@@ -96,13 +97,13 @@ export default {
       select: null,
       link: "",
       items: [
-        { title: "Home", icon: "mdi-home" },
-        { title: "Upload", icon: "mdi-video-plus" },
-        { title: "History", icon: "mdi-history" },
-        { title: "Message", icon: "mdi-email-outline" },
-        { title: "Bookmark", icon: "mdi-bookmark-outline" },
-        { title: "Playlist", icon: "mdi-playlist-play" },
-        { title: "More", icon: "mdi-dots-horizontal-circle-outline" },
+        { title: "Home", icon: "mdi-home", to: '/' },
+        { title: "Upload", icon: "mdi-video-plus", to: "/upload"},
+        { title: "History", icon: "mdi-history", to: "/history"},
+        { title: "Message", icon: "mdi-email-outline" , to:"/messages"},
+        { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
+        { title: "Playlist", icon: "mdi-playlist-play", to: "playlist"},
+        { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: '/about' },
       ],
     };
   },
@@ -117,11 +118,11 @@ export default {
     },
     querySelections() {
       axios
-        .get(`http://127.0.0.1:8000/api/videos/${this.search}`)
+        .get(`http://172.16.1.106:8000/api/videos/${this.search}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
-          this.videos = response.data;
+          this.videos = response.data.data;
           this.listVideos = this.videos.filter((e) => {
             return e.title.toLowerCase().includes(this.search.toLowerCase());
           });
@@ -137,5 +138,8 @@ export default {
 <style scoped>
 .my-btn {
   background: #ffffff;
+}
+#menu{
+  cursor: pointer;
 }
 </style>
