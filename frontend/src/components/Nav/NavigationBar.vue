@@ -97,7 +97,7 @@
 import axios from "axios";
 import router from "@/router";
 
-import RegisterForm from "../../views/Register.vue";
+import RegisterForm from "../../views/RegisterView.vue";
 export default {
   components: {
     RegisterForm,
