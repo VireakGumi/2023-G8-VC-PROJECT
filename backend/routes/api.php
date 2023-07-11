@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('history', HistoryController::class);
     Route::post('/playlist', [PlayListController::class, 'store']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
+    Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
 });
 Route::fallback(function () {
     return 'Page Not Found';

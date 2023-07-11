@@ -155,9 +155,15 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Video $video)
+    public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $video = $user->videos->find($id);
+        if (isset($video)) {
+            $video->delete();
+            return response()->json(['success' => true, 'message' => 'You have delete the successfully ',],200);
+        }
+        return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
     
     public function uploadVideo(StoreVideoRequest $request)
