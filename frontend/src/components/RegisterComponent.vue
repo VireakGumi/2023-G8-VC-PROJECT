@@ -216,7 +216,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-card {
   background-color: #15202b;
 }

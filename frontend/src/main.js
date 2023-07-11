@@ -24,7 +24,5 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 import NavBar from "./components/Nav/NavigationBar.vue";
-import SideBar from "./components/Nav/SideBar.vue";
 app.component("navigation-bar", NavBar);
-app.component("side-bar", SideBar);
 app.use(vuetify).use(router).mount("#app");

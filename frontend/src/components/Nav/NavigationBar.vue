@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="w-100">
+  <v-layout>
     <v-app-bar app color="#15202B">
       <template v-slot:prepend>
         <img
@@ -8,54 +8,40 @@
           class="ml-4 mr-6"
           width="35"
           alt=""
-          id="menu"
         />
       </template>
       <v-app-bar-logo>
         <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
       </v-app-bar-logo>
       <v-container>
-        <v-autocomplete
-          v-model="select"
-          v-model:search="search"
-          :loading="loading"
-          :items="listVideos"
+        <v-text-field
           rounded="pill"
           density="compact"
           variant="solo"
-          @keydown.enter="navigateToPage"
           label="Search Videos"
           append-inner-icon="mdi-magnify"
           single-line
-          hide-no-data
           hide-details
-        ></v-autocomplete>
+        ></v-text-field>
       </v-container>
       <v-btn
         class="my-btn mr-6 ml-8 mr-2"
         prepend-icon="account"
         rounded="pill"
-      ></v-btn>
-
-      <v-btn
-        class="mr-6 ml-8 mr-2 bg-white"
-        rounded="pill"
-        prepend-icon="mdi-account"
-        @click.stop="loginForm = true"
       >
         Sign in
       </v-btn>
     </v-app-bar>
-    <LoginForm v-model="loginForm" temporary/>
     <v-navigation-drawer
       v-model="drawer"
-      :width="200"
+      :width="190"
       temporary
+      dark
       color="#15202B"
       class="sidebar-drawer"
     >
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+        <v-list-item v-for="item in items" :key="item.title" link>
           <v-list-item-icon class="d-flex">
             <v-list-item-icon>
               <v-icon class="ms-2" color="white" x-large>{{
@@ -77,7 +63,7 @@
       class="d-flex flex-column"
       width="75px"
     >
-      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+      <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon class="d-flex">
           <v-list-item-icon>
             <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
@@ -85,6 +71,10 @@
         </v-list-item-icon>
       </v-list-item>
     </v-navigation-drawer>
+
+    <v-row class="bg-purple-lighten-2">
+      <side-bar />
+    </v-row>
   </v-layout>
 </template>
 <script>
@@ -98,12 +88,6 @@ export default {
   data() {
     return {
       drawer: false,
-      loading: false,
-      listVideos: [],
-      search: null,
-      select: null,
-      link: "",
-      loginForm: false,
       items: [
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
@@ -118,32 +102,6 @@ export default {
         },
       ],
     };
-  },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    },
-  },
-  methods: {
-    navigateToPage() {
-      router.push("/search");
-    },
-    querySelections() {
-      axios
-        .get(`http://172.16.1.106:8000/api/videos/${this.search}`)
-        .then((response) => {
-          this.loading = true;
-          // set this.videos to the response data
-          this.videos = response.data.data;
-          this.listVideos = this.videos.filter((e) => {
-            return e.title.toLowerCase().includes(this.search.toLowerCase());
-          });
-          this.loading = false;
-        }, 500)
-        .catch((error) => {
-          console.log(error.message);
-        });
-    },
   },
 };
 </script>

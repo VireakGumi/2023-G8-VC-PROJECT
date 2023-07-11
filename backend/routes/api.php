@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::fallback(function () {
     return 'Page Not Found';
 });
-Route::get('videos/{title}',[VideoController::class,'searchVideo']);
+Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');

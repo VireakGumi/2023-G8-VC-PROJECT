@@ -159,8 +159,7 @@ class VideoController extends Controller
     {
         //
     }
-
-
+    
     public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
@@ -191,7 +190,7 @@ class VideoController extends Controller
             $this->getSrc($videos);
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
-        return response()->json(['success' => true, 'message' => 'There are some data', 'data' => $this->getVideos()], 200);
+        return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
 
 
     }
