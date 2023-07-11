@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <v-dialog class="w-75" v-model="show">
     <v-card
-      class="mx-auto pa-12 pb-8"
-      elevation="8"
-      max-width="900"
-      rounded="lg"
+      class="w-100"
+      style="z-index: 1000; position: relative"
     >
       <v-row>
-        <v-col cols="12" sm="6">
+        <v-col class="py-16">
           <v-img
-            class="mx-auto my-6 mt-16"
+            class="mx-auto py-16"
             max-width="700"
             src="https://www.miraeassetmf.co.in/images/default-source/maq/registration.png?sfvrsn=aa71ff68_0"
           ></v-img>
@@ -28,16 +26,18 @@
           <v-text-field
             density="compact"
             placeholder="UserName"
-            variant="outlined"
-            id="round"
+            single-line
+            hide-details
+            rounded="pill"
           ></v-text-field>
           <div class="text-subtitle-1 text-medium-emphasis"><p>Email</p></div>
 
           <v-text-field
             density="compact"
             placeholder="Email"
-            variant="outlined"
-            id="round"
+            single-line
+            hide-details
+            rounded="pill"
           ></v-text-field>
 
           <div
@@ -51,7 +51,6 @@
             :type="visible ? 'text' : 'password'"
             density="compact"
             placeholder="password"
-            variant="outlined"
             @click:append-inner="visible = !visible"
           ></v-text-field>
 
@@ -66,7 +65,6 @@
             :type="visible ? 'text' : 'password'"
             density="compact"
             placeholder="comfirmpassword"
-            variant="outlined"
             @click:append-inner="visible = !visible"
           ></v-text-field>
 
@@ -113,17 +111,30 @@
         </v-col>
       </v-row>
     </v-card>
-  </div>
+  </v-dialog>
 </template>
 
 <script>
 export default {
+  props: {
+    value: Boolean,
+  },
   data: () => ({
     visible: false,
   }),
+  computed: {
+    show: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
+  },
 };
 </script>
-<style>
+<style scoped>
 .v-card {
   background-color: #15202b;
 }

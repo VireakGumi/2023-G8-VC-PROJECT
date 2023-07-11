@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
@@ -29,16 +27,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlist', [PlayListController::class, 'getPlayListOfUser']);
     Route::get('/user/videos', [VideoController::class, 'getVideosOfUser']);
     Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/history', [HistoryController::class, 'index']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
 });
 Route::get('videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
+Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
+Route::get('/videos/image/{imagePath}', [VideoController::class, 'getImage'])->name('video.image');
 Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
 Route::get('/videos/category/{id}', [VideoController::class, 'getVideoByCategory']);
-Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);

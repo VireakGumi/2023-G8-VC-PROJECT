@@ -1,46 +1,26 @@
 <template>
-  <div max-width="600" class="mt-16">
+  <div max-width="600" class="ml-16" style="margin-top: 100px">
+    <h3 class="ml-12">Search Reasult</h3>
     <div cols="12">
-      <!-- /// -->
       <div
-        class="d-flex flex-no-wrap mt-4 ml-10"
+        class="d-flex flex-no-wrap mt-5 ml-12"
         v-for="(video, index) in linkVideos"
         :key="index"
       >
-        <video
-          style="width: 30%; height: 30%"
-          :src="video.src"
-          :type="video.type"
-          controls
-        ></video>
-        <div>
-          <v-card-title class="mr-16">Title: {{ video.title }} </v-card-title>
-          <div class="d-flex">
-            <img
-              width="40"
-              height="40"
-              style="border-radius: 50%; margin-left: 15px"
-              src="../assets/logo.png"
-            />
-            <div>
-              <p class="ml-3">User_id: {{ video.user_id }}</p>
-            </div>
-          </div>
-          <v-card-subtitle
-            >Description: {{ video.description }}
-          </v-card-subtitle>
-          <v-card-subtitle style="margin-right: 90px"
-            >Viewer: {{ video.viewer }}
-          </v-card-subtitle>
-        </div>
+        <my-card-vue :data="video" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import Navbar from "../components/Nav/NavigationBar.vue";
 import axios from "axios";
+import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
+  components: {
+    MyCardVue,
+  },
   data() {
     return {
       url: "http://172.16.1.106:8000/api/videos",
