@@ -2,44 +2,20 @@
   <v-layout>
     <v-app-bar app color="#15202B">
       <template v-slot:prepend>
-        <img
-          src="../../assets/menu.png"
-          @click.stop="drawer = !drawer"
-          class="ml-4 mr-6"
-          width="35"
-          alt=""
-        />
+        <img src="../../assets/menu.png" @click.stop="drawer = !drawer" class="ml-4 mr-6" width="35" alt="" />
       </template>
       <v-app-bar-logo>
         <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
       </v-app-bar-logo>
       <v-container>
-        <v-text-field
-          rounded="pill"
-          density="compact"
-          variant="solo"
-          label="Search Videos"
-          append-inner-icon="mdi-magnify"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field rounded="pill" density="compact" variant="solo" label="Search Videos"
+          append-inner-icon="mdi-magnify" single-line hide-details></v-text-field>
       </v-container>
-      <v-btn
-        class="my-btn mr-6 ml-8 mr-2"
-        prepend-icon="account"
-        rounded="pill"
-      >
+      <v-btn class="my-btn mr-6 ml-8 mr-2" prepend-icon="account" rounded="pill">
         Sign in
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      :width="190"
-      temporary
-      dark
-      color="#15202B"
-      class="sidebar-drawer"
-    >
+    <v-navigation-drawer v-model="drawer" :width="190" temporary dark color="#15202B" class="sidebar-drawer">
       <v-list>
         <v-list-item v-for="item in items" :key="item.title" link>
           <v-list-item-icon class="d-flex">
@@ -57,12 +33,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-navigation-drawer
-      color="#15202B"
-      app
-      class="d-flex flex-column"
-      width="75px"
-    >
+    <v-navigation-drawer color="#15202B" app class="d-flex flex-column" width="75px">
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon class="d-flex">
           <v-list-item-icon>
@@ -95,11 +66,7 @@ export default {
         { title: "Message", icon: "mdi-email-outline", to: "/messages" },
         { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
         { title: "Playlist", icon: "mdi-playlist-play", to: "playlist" },
-        {
-          title: "More",
-          icon: "mdi-dots-horizontal-circle-outline",
-          to: "/about",
-        },
+        { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/about" },
       ],
     };
   },
@@ -109,6 +76,7 @@ export default {
 .my-btn {
   background: #ffffff;
 }
+
 #menu {
   cursor: pointer;
 }
