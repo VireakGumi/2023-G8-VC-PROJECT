@@ -32,7 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/videos', [VideoController::class, 'getVideosOfUser']);
     Route::post('/logout', [UserController::class, 'logout']);
     // Route::get('/history', [HistoryController::class, 'index']);
-    Route::resource('history', HistoryController::class);
     Route::post('/playlist', [PlayListController::class, 'store']);
     Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
@@ -41,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::fallback(function () {
     return 'Page Not Found';
 }); 
+Route::resource('history', HistoryController::class);
 Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
