@@ -21,6 +21,13 @@ const routes = [
     name: "search",
     component: SearchPage,
   },
+  {
+    path: "/history",
+    name: "history",
+    component: () =>
+    import("../views/HistoryView.vue"),
+  }
+
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

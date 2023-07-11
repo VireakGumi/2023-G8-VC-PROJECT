@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreVideoPlayListRequest;
 use App\Models\VideoPlayList;
+use Auth;
 use Illuminate\Http\Request;
 
 class VideoPlayListController extends Controller
@@ -18,9 +20,22 @@ class VideoPlayListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreVideoPlayListRequest $request)
     {
         //
+        $user = Auth::user();
+        $playlist = $user->playlists->find($request->play_list_id);
+        if(isset($playlist)) {
+            $videoStore= VideoPlayList::create([
+                'video_id' => $request->video_id,
+                'play_list_id' => $request->play_list_id
+            ]);
+            if (isset($videoStore)) {
+                return response()->json(['success' => true, 'message' => 'Create playlist is successfully.', 'data' => $videoStore],200);
+            }
+            return response()->json(['success' => false, 'message' => "Fail to add video to playlist."], 404);
+        }
+        return response()->json(['success' => false, 'message' => "You need to create playlist first."], 404);
     }
 
     /**

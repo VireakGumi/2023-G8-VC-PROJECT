@@ -13,6 +13,11 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+        $categories = Categories::get();
+        return response()->json([
+            'message' => 'Successful',
+            'data' => $categories
+        ], 200);
     }
 
     /**
@@ -26,9 +31,22 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categories $categories)
+    public function show($id)
     {
         //
+        $category = Categories::find($id);
+        if (isset($category)) {
+            $videos = $category->videos;
+            if($videos->count() > 0) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successful',
+                    'data' => $videos 
+                ], 200);
+            }
+            return response()->json(['success' => false, 'message' => $category->category_name . "is doesn't have any videos yet."], 404);
+        }
+        return response()->json(['success' => false, 'message' => "Category not found"], 404);
     }
 
     /**
