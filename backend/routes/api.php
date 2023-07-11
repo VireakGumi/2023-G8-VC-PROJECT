@@ -26,8 +26,9 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
-    Route::get('/history', [HistoryController::class, 'index']);
+    
 });
+Route::resource('history', HistoryController::class);
 Route::fallback(function () {
     return 'Page Not Found';
 });

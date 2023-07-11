@@ -15,14 +15,14 @@ class VideoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $request->id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'thumbnail' => $request->thumbnail,
-            'date_time' => $request->date,
-            'path' => $request->path,
-            'privacy' => $request->privacy,
-            'categories_id' => new CategoriesResource($request->categories_id),
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'thumbnail' => $this->thumbnail,
+            'date_time' => $this->date,
+            'path' => $this->path,
+            'privacy' => $this->privacy,
+            'categories_id' => new CategoriesResource($this->categories_id),
         ];
     }
 }

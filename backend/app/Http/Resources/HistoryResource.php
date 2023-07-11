@@ -15,7 +15,7 @@ class HistoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $request->id,
+            'id' => $this->id,
             'video_id' => new VideoResource($this->video_id),
         ];
     }
