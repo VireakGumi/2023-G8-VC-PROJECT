@@ -22,12 +22,6 @@ const routes = [
     component: SearchPage,
   },
   {
-    path: "/register",
-    name: "register",
-    component: () =>
-    import("../views/Register.vue"),
-  },
-  {
     path: "/history",
     name: "history",
     component: () =>

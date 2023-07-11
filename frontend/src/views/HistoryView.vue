@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ maxWidth: '800px'}" class="container">
+  <div class="container">
     <h1 class="ml-12">History</h1>
     <div class="row">
       <div
@@ -10,8 +10,8 @@
         <my-card-vue :data="video" />
       </div>
     </div>
-    <div v-if="!linkVideos" class="history-container ml-12">
-      <v-icon style="width: 100%; height: 100%; font-size: 200px"
+    <div v-if="!linkVideos" class="history-container">
+      <v-icon style="width: 100%; height: 100%; font-size: 200px; "
         >mdi-history</v-icon
       >
       <h2>Keep track of what you watch</h2>
@@ -28,7 +28,7 @@ import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
   components: { MyCardVue },
   data() {
-    return { url: "http://172.16.1.106:8000/api/histories", linkVideos: null };
+    return { url: "http://172.16.1.106:8000/api/history", linkVideos: null };
   },
   methods: {
     fetchVideo() {
@@ -48,11 +48,19 @@ export default {
 };
 </script>
 <style scoped>
+.container{
+  margin-top: 2%;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  color: black;
+}
 .history-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 .v-btn {
   margin-top: 5px;

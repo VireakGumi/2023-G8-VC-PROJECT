@@ -1,9 +1,11 @@
+<!-- navigation-bar.vue -->
 <template>
   <v-app-bar app color="#15202B">
     <template v-slot:prepend>
       <img
         src="../../assets/menu.png"
-        @click.stop="drawer = !drawer"
+        @click.stop="drawer"
+        @click="rail = !rail"
         class="ml-4 mr-6"
         width="35"
         alt=""
@@ -11,7 +13,7 @@
       />
     </template>
     <v-app-bar-logo>
-      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" />
+      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/"/>
     </v-app-bar-logo>
     <v-container>
       <v-autocomplete
@@ -47,42 +49,25 @@
   </v-app-bar>
   <LoginForm v-model="loginForm" />
   <v-navigation-drawer
-    v-model="drawer"
-    :width="200"
-    fill-height
-    temporary
-    color="#15202B"
-    class="sidebar-drawer"
-  >
-    <v-list>
-      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-        <v-list-item-icon class="d-flex">
-          <v-list-item-icon>
-            <v-icon class="ms-2" color="white" x-large>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="text-white ml-9">{{
-              item.title
-            }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item-icon>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
-  <v-navigation-drawer
+
     color="#15202B"
     app
     class="d-flex flex-column"
     width="75px"
+    :rail="rail"
   >
-    <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-      <v-list-item-icon class="d-flex">
-        <v-list-item-icon>
-          <v-icon class="ma-2" color="white" x-large>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-      </v-list-item-icon>
-    </v-list-item>
+    <v-list density="compact" nav width="180px">
+      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+        <v-list-item
+          style="color: white"
+          :prepend-icon="item.icon"
+          :title="item.title"
+          :value="item.title"
+        ></v-list-item>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
+  <div class="temporary" v-if="!rail" @click="rail=!rail"></div>
 </template>
 <script>
 import axios from "axios";
@@ -95,6 +80,7 @@ export default {
   data() {
     return {
       drawer: false,
+      rail: true,
       loading: false,
       listVideos: "",
       search: null,
@@ -142,9 +128,6 @@ export default {
           console.log(error.message);
         });
     },
-    mounted(){
-      this.querySelections();
-    }
   },
 };
 </script>
@@ -154,5 +137,18 @@ export default {
 }
 #menu {
   cursor: pointer;
+}
+.temporary {
+  background-color: rgba(0, 0, 0, 0.815);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  position: fixed;
+  overflow-y: auto;
+}
+.v-navigation-drawer {
+  overflow-y: hidden;
 }
 </style>
