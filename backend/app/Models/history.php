@@ -19,7 +19,7 @@ class history extends Model
         'created_at',
         'updated_at'
     ];
-    public function videos():BelongsTo{
+    public function video():BelongsTo{
         return $this->belongsTo(Video::class);
     }
     public function user():BelongsTo{

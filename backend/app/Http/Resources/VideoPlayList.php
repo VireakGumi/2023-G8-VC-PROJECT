@@ -15,8 +15,8 @@ class VideoPlayList extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $request->id,
-            'video' => new VideoResource($request->video_id),
+            'id' => $this->id,
+            'video' => new VideoResource($this->video_id),
         ];
 
 

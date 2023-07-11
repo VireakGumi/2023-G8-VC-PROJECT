@@ -31,9 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlist', [PlayListController::class, 'getPlayListOfUser']);
     Route::get('/user/videos', [VideoController::class, 'getVideosOfUser']);
     Route::post('/logout', [UserController::class, 'logout']);
-    Route::get('/history', [HistoryController::class, 'index']);
+    // Route::get('/history', [HistoryController::class, 'index']);
     Route::resource('history', HistoryController::class);
     Route::post('/playlist', [PlayListController::class, 'store']);
+    Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
 });

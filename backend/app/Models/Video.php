@@ -34,10 +34,10 @@ class Video extends Model
     }public function likes():HasMany{
         return $this->hasMany(Like::class);
     }
-    public function history():HasMany{
+    public function histories():HasMany{
         return $this->hasMany(history::class);
     }
-    public function categories(): belongsTo
+    public function categories(): BelongsTo
     {
         return $this->belongsTo(Categories::class);
     }

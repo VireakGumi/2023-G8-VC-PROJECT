@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class PlayListController extends Controller
 {
 
-    
+
     public function getPlayListOfUser()
     {
         $playlists = Auth::user()->playlists;
@@ -65,23 +65,36 @@ class PlayListController extends Controller
     public function store(StorePlayListRequest $request)
     {
         //
-        $playlist= PlayList::create([
+        $playlist = PlayList::create([
             'title' => $request->title,
             'user_id' => Auth::user()->id
         ]);
         if (isset($playlist)) {
-            return response()->json(['success' => true, 'message' => 'Create playlist is successfully ', 'data' => $playlist],200);
+            return response()->json(['success' => true, 'message' => 'Create playlist is successfully ', 'data' => $playlist], 200);
         }
         return response()->json(['success' => false, 'message' => "Create playlist fail"], 404);
-        
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(PlayList $playList)
+    public function show($id)
     {
         //
+        $playlist = Auth::user()->playlists->find($id);
+        if (isset($playlist)) {
+            $lists = $playlist->videoPlayLists;
+            $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
+            foreach ($lists as $item) {
+                $video = $item->video;
+                $video->src = route('video.play', ['id' => $video->id]);
+                $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+            }
+            return response()->json(['success' => true, 'message' => "There are your playlist", 'data' => $playlist], 200);
+        }
+
+        return response()->json(['success' => false, 'message' => "Playlist not found"], 404);
     }
 
     /**
