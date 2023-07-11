@@ -137,7 +137,5 @@ class VideoController extends Controller
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
         return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
-
-
     }
 }

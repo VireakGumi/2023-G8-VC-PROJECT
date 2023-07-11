@@ -17,12 +17,11 @@ const routes = [
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
   {
-    path: "/search",
+    path: "/search/:title",
     name: "search",
     component: SearchPage,
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,

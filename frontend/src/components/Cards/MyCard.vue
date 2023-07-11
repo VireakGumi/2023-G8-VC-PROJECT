@@ -1,10 +1,4 @@
 <template>
-  <video
-    style="width: 30%; height: 30%"
-    :src="data.src"
-    :type="data.type"
-    controls
-  ></video>
   <div>
     <v-card-title class="mr-16">Title: {{ data.title }} </v-card-title>
     <div class="d-flex">

@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::fallback(function () {
     return 'Page Not Found';
 });
-Route::get('videos/{title}',[VideoController::class,'searchVideo']);
+Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
 Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
