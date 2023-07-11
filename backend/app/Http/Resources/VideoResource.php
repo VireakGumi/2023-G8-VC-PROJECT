@@ -18,9 +18,9 @@ class VideoResource extends JsonResource
             'id' => $request->id,
             'title' => $request->title,
             'description' => $request->description,
-            'thumbnail' => $request->thumbnail,
+            'thumbnail' => $request->thumbnail ,
             'date_time' => $request->date,
-            'path' => $request->path,
+            'path' => $request->path ,
             'privacy' => $request->privacy,
             'categories_id' => new CategoriesResource($request->categories_id),
         ];

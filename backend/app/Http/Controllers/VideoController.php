@@ -79,12 +79,13 @@ class VideoController extends Controller
             $category_id = $video->categories_id;
             $videos = Categories::find($category_id)->videos->where('id', "!=", $video->id);
             if ($videos->count()) {
+                $videos = $this->getSrc($videos);
                 return response()->json([
                     'message' => 'Successful',
                     'data' => $videos
                 ], 200);
             }
-            return response()->json(['success' => false, 'message' => "In this theme just hvae this " . $video->title . ' only',], 404);
+            return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data'=> $this->getVideos()], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video is not found'], 404);
     }
@@ -129,7 +130,6 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        //
         $video = Video::find($id);
         if (isset($video)) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
