@@ -2,9 +2,10 @@
   <v-card rounded="50" width="400px">
     <v-img
       :width="400"
+      :height="200"
       aspect-ratio="16/9"
       cover
-      src="https://images.alphacoders.com/131/1314427.jpeg"
+      :src="video.thumbnail"
     ></v-img>
     <v-container class="d-flex mt-5 pa-0">
       <v-avatar rounded="50">
