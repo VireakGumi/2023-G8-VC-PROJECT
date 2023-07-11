@@ -27,7 +27,7 @@ class VideoController extends Controller
     }
     public function getVideos()
     {
-        $videos = Video::limit(12)->get();
+        $videos = Video::get();
         if ($videos->count() > 0) {
             $videos = $this->getSrc($videos);
         }
@@ -82,7 +82,7 @@ class VideoController extends Controller
                 $videos = $this->getSrc($videos);
                 return response()->json([
                     'message' => 'Successful',
-                    'data' => $videos
+                    'data' => $videos   
                 ], 200);
             }
             return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data'=> $this->getVideos()], 200);

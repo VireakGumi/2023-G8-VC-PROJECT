@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
@@ -49,3 +50,4 @@ Route::get('/videos/category/{id}', [VideoController::class, 'getVideoByCategory
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
+Route::get('/category/{id}', [CategoriesController::class, 'show']);
