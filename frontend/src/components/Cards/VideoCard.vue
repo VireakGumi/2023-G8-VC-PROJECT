@@ -1,12 +1,13 @@
 <template>
   <v-card rounded="50" width="400px">
-    <v-img
+    <video
       :width="400"
-      :height="200"
+      :height="250"
       aspect-ratio="16/9"
-      cover
-      :src="video.thumbnail"
-    ></v-img>
+      :src="video.src"
+      :type="video.type"
+    ></video>
+
     <v-container class="d-flex mt-5 pa-0">
       <v-avatar rounded="50">
         <v-img
@@ -15,16 +16,16 @@
         ></v-img>
       </v-avatar>
       <v-container class="pt-0 ma-0 text-white" rounded="50">
-        <v-list-item-title> {{video.title}} </v-list-item-title>
-        <v-list-item-subtitle> {{video.description}} </v-list-item-subtitle>
-        <v-list-item-subtitle> {{video.viewer}} </v-list-item-subtitle>
+        <v-list-item-title> {{ video.title }} </v-list-item-title>
+        <v-list-item-subtitle> {{ video.description }} </v-list-item-subtitle>
+        <v-list-item-subtitle> {{ video.viewer }} </v-list-item-subtitle>
       </v-container>
     </v-container>
   </v-card>
 </template>
 <script>
 export default {
-  props:["video"]
+  props: ["video"],
 };
 </script>
 <style scoped>

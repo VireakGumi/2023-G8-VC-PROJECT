@@ -49,10 +49,9 @@
   <v-navigation-drawer
     v-model="drawer"
     :width="200"
-    fill-height
     temporary
     color="#15202B"
-    class="sidebar-drawer"
+    class="sidebar-drawer fill-height"
   >
     <v-list>
       <v-list-item v-for="item in items" :key="item.title" :to="item.to">
