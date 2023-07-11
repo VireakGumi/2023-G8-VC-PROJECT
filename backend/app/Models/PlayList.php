@@ -12,10 +12,6 @@ class PlayList extends Model
     use HasFactory;
     protected $fillable = [
         'title',                 
-        'description',
-        'number_of_videos',
-        'total_duration',
-        'date_time',
         'user_id',
     ];
     protected $hidden = [

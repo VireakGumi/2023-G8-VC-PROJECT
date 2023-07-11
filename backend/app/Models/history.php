@@ -20,8 +20,13 @@ class history extends Model
         'created_at',
         'updated_at'
     ];
+<<<<<<< HEAD
     public function videos():BelongsToMany{
         return $this->belongsToMany(Video::class);
+=======
+    public function video():BelongsTo{
+        return $this->belongsTo(Video::class);
+>>>>>>> 1ee7bd2a612998ab807eab98b7169bfad5ba98d9
     }
     public function user():BelongsTo{
         return $this->belongsTo(User::class);

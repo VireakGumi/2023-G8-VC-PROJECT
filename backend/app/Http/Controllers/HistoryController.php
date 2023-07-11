@@ -14,9 +14,14 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history = Auth::user()->history;
+        $history = Auth::user()->history()->get();
+        // return $history;
         $histories = HistoryResource::collection($history);
-        return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories],200);
+        if($histories->count() > 0) {	
+            return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories],200);
+        }
+        return response()->json(['success' => false, 'message' => "You don't have your history yet."], 404);
+
     }
 
     /**

@@ -18,8 +18,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('videos')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('playlist_id');
-            $table->foreign('playlist_id')
+            $table->unsignedBigInteger('play_list_id');
+            $table->foreign('play_list_id')
                 ->references('id')
                 ->on('play_lists')
                 ->onDelete('cascade');
