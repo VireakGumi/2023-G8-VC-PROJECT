@@ -48,9 +48,6 @@ export default {
 };
 </script>
 <style scoped>
-* {
-  background-color: aqua;
-}
 .history-container {
   display: flex;
   flex-direction: column;
