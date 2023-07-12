@@ -16,5 +16,5 @@
 // import SideBar from './components/Nav/SideBar.vue';
 export default {};
 </script>
-<style>
+<style scoped>
 </style>
