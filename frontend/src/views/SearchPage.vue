@@ -6,33 +6,47 @@
         class="d-flex flex-no-wrap mt-5 ml-12"
         v-for="(video, index) in getVideo()"
         :key="index"
-        @click="searchView"
       >
         <p>{{ testFunction() }}</p>
         <video
+          @click="searchView(video.id)"
           style="width: 30%; height: 30%"
           :src="video.src"
           :key="id"
+          v-show="video.id"
           :type="video.videoType"
           controls
         ></video>
-        <my-card-vue :data="video" />
+        <div>
+          <v-card-title class="mr-16">Title: {{ video.title }} </v-card-title>
+          <div class="d-flex">
+            <img
+              width="40"
+              height="40"
+              style="border-radius: 50%; margin-left: 15px"
+              :src="video.thumbnail"
+            />
+          </div>
+          <v-card-title class="ml-3">User_id: {{ video.user_id }}</v-card-title>
+          <v-card-subtitle
+            >Description: {{ video.description }}
+          </v-card-subtitle>
+          <v-card-subtitle style="margin-right: 90px"
+            >Viewer: {{ video.viewer }}
+          </v-card-subtitle>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import Navbar from "../components/Nav/NavigationBar.vue";
 import axios from "axios";
 import router from "@/router";
-import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
-  components: {
-    MyCardVue,
-  },
   data() {
     return {
+      id: "",
       linkVideos: [],
     };
   },
@@ -51,9 +65,8 @@ export default {
     testFunction() {
       this.getVideo();
     },
-    searchView() {
-      // this.$router.push({ name: 'videodetail/', params: { id: id }});
-      router.push("/videodetail/2");
+    searchView(id) {
+      router.push({ name: "videodetail", params: { id: id } });
     },
   },
 };

@@ -121,7 +121,6 @@ export default {
           this.listVideos = this.videos.filter((e) => {
             return e.title.toLowerCase().includes(this.search.toLowerCase());
           });
-          console.log(1);
           this.loading = false;
         }, 500)
         .catch((error) => {
