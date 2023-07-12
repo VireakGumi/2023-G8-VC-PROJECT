@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
+    Route::post('/videos/update/{id}', [VideoController::class, 'update']);
 });
 Route::resource('history', HistoryController::class);
 Route::fallback(function () {

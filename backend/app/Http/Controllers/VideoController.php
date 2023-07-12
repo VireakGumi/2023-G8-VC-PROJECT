@@ -147,9 +147,16 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update( $id, StoreVideoRequest $video)
     {
         //
+        $videos = Auth::user()->videos->find($id);
+        if ($video){
+            $videos->update($video);
+            return response()->json(['success' => true, 'message'=> 'Update video is successfully ','videos' => $video],200);
+        }
+        return response()->json(['success' => false, 'message' => 'Error updating video'],404);
+
     }
 
     /**
