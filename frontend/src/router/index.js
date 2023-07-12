@@ -22,25 +22,21 @@ const routes = [
     component: SearchPage,
   },
   {
-    path: "/register",
-    name: "register",
-    component: () =>
-    import("../views/Register.vue"),
+    path: "/history",
+    name: "history",
+    component: () => import("../views/HistoryView.vue"),
   },
+
   {
     path: "/playlist",
     name: "playlist",
-    component: () =>
-    import("../views/PlayList.vue"),
+    component: () => import("../views/PlayList.vue"),
   },
   {
     path: "/videodetail/:id",
     name: "videodetail",
-    component: () =>
-    import("../views/VideoDetail.vue"),
+    component: () => import("../views/VideoDetail.vue"),
   },
-
-
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

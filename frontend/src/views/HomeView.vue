@@ -1,6 +1,6 @@
 <template>
-  <SlideShow/>
-  <v-card color="#1b242e">
+  <SlideShow />
+  <v-card color="#1b242e" class="card-container">
     <v-row class="d-flex justify-center w-100 pt-5">
       <video-card
         color="#1b242e"
@@ -19,7 +19,7 @@ import axios from "axios";
 export default {
   components: {
     VideoCard,
-    SlideShow
+    SlideShow,
   },
   data() {
     return {
@@ -38,5 +38,10 @@ export default {
   },
 };
 </script>
-  <style scoped></style>
-  
+<style scoped>
+.card-container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+</style>

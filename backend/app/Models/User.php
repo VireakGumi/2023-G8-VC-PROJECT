@@ -66,4 +66,7 @@ class User extends Authenticatable
     public function videos():HasMany{
         return $this->hasMany(Video::class);
     }
+    public function playlists():HasMany{
+        return $this->hasMany(PlayList::class);
+    }
 }

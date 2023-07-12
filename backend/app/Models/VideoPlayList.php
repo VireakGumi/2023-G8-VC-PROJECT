@@ -11,7 +11,7 @@ class VideoPlayList extends Model
     use HasFactory;
     protected $fillable = [
         'video_id',                 
-        'playlist_id',
+        'play_list_id',
     ];
     
     protected $hidden = [
