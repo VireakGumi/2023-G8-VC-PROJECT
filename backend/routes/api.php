@@ -31,21 +31,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlist', [PlayListController::class, 'getPlayListOfUser']);
     Route::get('/user/videos', [VideoController::class, 'getVideosOfUser']);
     Route::post('/logout', [UserController::class, 'logout']);
-<<<<<<< HEAD
     
-=======
+    Route::resource('history', HistoryController::class);
     // Route::get('/history', [HistoryController::class, 'index']);
     Route::post('/playlist', [PlayListController::class, 'store']);
-    Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
+    // Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
->>>>>>> 1ee7bd2a612998ab807eab98b7169bfad5ba98d9
 });
-Route::resource('history', HistoryController::class);
 Route::fallback(function () {
     return 'Page Not Found';
 }); 
-Route::resource('history', HistoryController::class);
+Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
+
 Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
