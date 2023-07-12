@@ -16,7 +16,7 @@
         >mdi-history</v-icon
       >
       <h2>Keep track of what you watch</h2>
-      <p color="black">Watch history isn't viewable when signed out.</p>
+      <p style="color:white;">Watch history isn't viewable when signed out.</p>
       <v-btn class="mr-6 ml-8 mr-2" rounded="pill" prepend-icon="mdi-account" @click.stop="loginForm = true">
         Sign in
       </v-btn>
@@ -70,10 +70,6 @@ export default {
 };
 </script>
 <style scoped>
-.container {
-  background-color: white;
-  color: black;
-}
 .history-container {
   display: flex;
   flex-direction: column;
