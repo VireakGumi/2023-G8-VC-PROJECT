@@ -26,7 +26,20 @@ const routes = [
     name: "register",
     component: () =>
     import("../views/Register.vue"),
-  }
+  },
+  {
+    path: "/playlist",
+    name: "playlist",
+    component: () =>
+    import("../views/PlayList.vue"),
+  },
+  {
+    path: "/videodetail/:id",
+    name: "videodetail",
+    component: () =>
+    import("../views/VideoDetail.vue"),
+  },
+
 
 ];
 const router = createRouter({

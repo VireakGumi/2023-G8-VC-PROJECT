@@ -142,9 +142,9 @@ export default {
           console.log(error.message);
         });
     },
-    mounted(){
+    mounted() {
       this.querySelections();
-    }
+    },
   },
 };
 </script>

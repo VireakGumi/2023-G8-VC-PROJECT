@@ -8,10 +8,8 @@
         style="border-radius: 50%; margin-left: 15px"
         src="../../assets/logo.png"
       />
-      <div>
-        <p class="ml-3">User_id: {{ data.user_id }}</p>
-      </div>
     </div>
+    <v-card-title class="ml-3">User_id: {{ data.user_id }}</v-card-title>
     <v-card-subtitle>Description: {{ data.description }} </v-card-subtitle>
     <v-card-subtitle style="margin-right: 90px"
       >Viewer: {{ data.viewer }}

@@ -6,11 +6,13 @@
         class="d-flex flex-no-wrap mt-5 ml-12"
         v-for="(video, index) in getVideo()"
         :key="index"
+        @click="searchView"
       >
-      <p> {{testFunction()}} </p>
+        <p>{{ testFunction() }}</p>
         <video
           style="width: 30%; height: 30%"
           :src="video.src"
+          :key="id"
           :type="video.videoType"
           controls
         ></video>
@@ -22,6 +24,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
   components: {
@@ -29,7 +32,6 @@ export default {
   },
   data() {
     return {
-      // url: ,
       linkVideos: [],
     };
   },
@@ -45,12 +47,16 @@ export default {
         });
       return this.linkVideos;
     },
-    testFunction (){
-      console.log(this.getVideo());
-    }
+    testFunction() {
+      this.getVideo();
+    },
+    searchView() {
+      // this.$router.push({ name: 'videodetail/', params: { id: id }});
+      router.push("/videodetail/2");
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>
