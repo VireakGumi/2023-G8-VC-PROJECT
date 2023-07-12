@@ -18,30 +18,58 @@
               <p>UserName</p>
             </div>
 
-            <v-text-field density="compact" :rules="rules" placeholder="full_name" variant="outlined" id="round"
-              v-model="full_name"></v-text-field>
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            <v-text-field
+              density="compact"
+              :rules="rules"
+              placeholder="full_name"
+              variant="outlined"
+              id="round"
+              v-model="full_name"
+            ></v-text-field>
+            <div
+              class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+            >
               <p>Email</p>
             </div>
 
-            <v-text-field density="compact" :rules="emailRules" placeholder="email" variant="outlined" id="round"
-              v-model="email"></v-text-field>
+            <v-text-field
+              density="compact"
+              :rules="emailRules"
+              placeholder="email"
+              variant="outlined"
+              id="round"
+              v-model="email"
+            ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
               <p>Password</p>
             </div>
 
-            <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
-              :rules="passwordRules" density="compact" placeholder="password" variant="outlined" v-model="password"
-              @click:append-inner="visible = !visible"></v-text-field>
+            <v-text-field
+              :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="visible ? 'text' : 'password'"
+              :rules="passwordRules"
+              density="compact"
+              placeholder="password"
+              variant="outlined"
+              v-model="password"
+              @click:append-inner="visible = !visible"
+            ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
               <p>ComfirmPassword</p>
             </div>
 
-            <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
-              :rules="[confirmPasswordRules, passwordConfirmationRule()]" density="compact" placeholder="confirmPassword"
-              variant="outlined" v-model="confirmPassword" @click:append-inner="visible = !visible"></v-text-field>
+            <v-text-field
+              :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="visible ? 'text' : 'password'"
+              :rules="[confirmPasswordRules, passwordConfirmationRule()]"
+              density="compact"
+              placeholder="confirmPassword"
+              variant="outlined"
+              v-model="confirmPassword"
+              @click:append-inner="visible = !visible"
+            ></v-text-field>
 
             <v-btn block class="mb-2 bg-blue" color="white" size="large" variant="tonal" @click="Register">
               Register

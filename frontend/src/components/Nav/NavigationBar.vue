@@ -130,13 +130,24 @@ export default {
     },
     logout(isLog) {
       if (isLog) {
-        this.deleteCookie()
-        this.user = {};
+        axios
+          .post(`http://172.16.1.106:8000/api/logout`, null , {headers: {'Authorization': `Bearer ${this.user.token}`}})
+          .then((response) => {
+            this.deleteCookie()
+            this.user = {};
+            console.log(response.data);
+            console.log(this.user);
+          }, 200)
+          .catch((error) => {
+            console.log(error.message);
+          });
+
       }
     }
   },
   mounted() {
     this.getDataFromCookies();
+    this.querySelections();
   }
 };
 </script>

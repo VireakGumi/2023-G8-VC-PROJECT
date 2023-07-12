@@ -24,10 +24,18 @@ const routes = [
   {
     path: "/history",
     name: "history",
-    component: () =>
-    import("../views/HistoryView.vue"),
-  }
-
+    component: () => import("../views/HistoryView.vue"),
+  },
+  {
+    path: "/playlist",
+    name: "playlist",
+    component: () => import("../views/PlayList.vue"),
+  },
+  {
+    path: "/videodetail/:id",
+    name: "videodetail",
+    component: () => import("../views/VideoDetail.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
