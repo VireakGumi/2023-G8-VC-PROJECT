@@ -1,5 +1,7 @@
 <template>
+<v-app>
   <p class="community">This channel hasn't posted yet</p>
+</v-app>
 </template>
 
 <script>

@@ -9,7 +9,7 @@
 <style>
 
 .profile-details {
-  margin-left: -56%;
+  margin-left: -5%;
   margin-bottom: 30px;
 }
 </style>

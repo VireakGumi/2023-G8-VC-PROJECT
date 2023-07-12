@@ -1,21 +1,52 @@
 <template>
   <v-app>
     <p class="text playlist">created playlists</p>
-    <div class="video-card">
-      <div class="video-wrapper">
-        <iframe :src="video.img" frameborder="0" allowfullscreen></iframe>
-      </div>
-        <p class="video-count"><img src="../../assets/menu.png" width="20" height="20" alt=""> 4videos</p>
-    </div>
-    <div class="video-info">
-      <p>{{ video.title }}</p>
-      <p>{{ video.texttitle }}</p>
-      <p class="view">{{ video.viewer }}</p>
-    </div>
-    <router-link class="btn" color="primary" to="/full" dark>View full videos</router-link>
-    <router-view></router-view>
+    <v-container class="card-container" fluid>
+      <v-row class="my-card">
+        <v-col v-for="video in linkVideos" :key="video.id">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <img               
+                width="330"
+                height="230"
+                :src="video.image"
+                frameborder="0"
+                allowfullscreen alt="">
+              <div class="video-count">{{ video.video_play_lists.length }} videos</div>
+            </div>
+              <p class="title">{{ video.title }}</p>
+              <router-link class="my-btn" style="font-weight: bold;" color="primary" to="/full" dark>View full videos</router-link>
+          </div>
+          <router-view></router-view>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      url: "http://172.16.1.106:8000/api/playlist/1",
+      linkVideos: [],
+    };
+  },
+  methods: {
+    fetchVideo() {
+      axios.get(this.url).then((response) => {
+        this.linkVideos = response.data.data;
+      });
+    },
+  },
+  mounted() {
+    this.fetchVideo();
+  },
+};
+</script>
+
+
 
 <style scoped>
 .video-card {
@@ -23,32 +54,34 @@
   flex-direction: column;
   align-items: center;
   margin: 20px;
+  margin-left: 3%;
   border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   max-width: 400px;
 }
 
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+.card-container {
+  margin-right: -3%;
 }
 
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.text {
+  margin-left: -18px;
+  font-size: 15px;
+}
+
+.v-col{
+  padding: 0;
+  width: 80%;
+  flex-grow: 0;
 }
 
 .video-count {
   color: white;
-  width: 98%;
-  margin-top: -6%;
+  width: 100%;
+  margin-top: -9%;
   background-size: cover;
   backdrop-filter: blur(5px);
   padding: 4px;
+  text-align: end;
 }
 
 img {
@@ -57,44 +90,34 @@ img {
 
 .video-info {
   padding: 10px;
-  margin-left: 10px;
+  margin-left: 3%;
   text-align: start;
-}
-
-p {
-  margin: 5px;
 }
 
 .view {
   font-size: small;
 }
 
-.btn {
+.my-btn {
   text-decoration: none;
   color: black;
-  margin-left: 1.7%;
+  margin-right: 67%;
+  margin-top: 1%;
   font-size: small;
+  
 }
 
-.text {
-  margin-left: 20px;
+.text{
+  margin-left: 4%;
+  margin-top: 15px;
   margin-bottom: 10px;
+}
+
+.title {
+  margin-top: 15px;
+  margin-left: -85%;
+  text-align: start;
 }
 </style>
 
-<script>
 
-export default {
-  data() {
-    return {
-      video: {
-        id: 1,
-        img: "https://www.youtube.com/embed/_bUTaGSLQsM",
-        title: "ប្រយុទ្ធទៅកាន់មេឃា ភាគទី 51 រដូវកាលទី៥",
-        texttitle: " | សម្រាយរឿង Anime Recap",
-        viewer: "135K views  3 days ago",
-      },
-    };
-  },
-};
-</script>

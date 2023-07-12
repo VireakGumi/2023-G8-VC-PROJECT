@@ -17,6 +17,10 @@ class Role extends Model
     protected $fillable = [
         'role_title'
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
     public function users():HasMany{
         return $this->hasMany(User::class);
     }

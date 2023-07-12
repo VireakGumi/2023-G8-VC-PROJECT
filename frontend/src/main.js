@@ -1,28 +1,30 @@
 import { createApp } from "vue";
-import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
+import router from "./router";
 
-import MyHome from "./components/creator/MyHome.vue";
-import MyVideo from "./components/creator/MyVideos.vue";
-import MyPlaylist from "./components/creator/MyPlaylist.vue";
-import MyCommunity from "./components/creator/MyCommunity.vue";
-import MyChannel from "./components/creator/MyChannel.vue";
-import MyAbout from "./components/creator/MyAbout.vue";
-import FullVideos from "./components/creator/fullVideos/FullVideos.vue";
+// Vuetify domain =================================================
+import "@mdi/font/css/materialdesignicons.css";
+// vue-plyr
+// import VuePlyr from "vue-plyr";
+// import "vue-plyr/dist/vue-plyr.css";
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { path: "/", component: MyHome },
-    { path: "/videos", component: MyVideo },
-    { path: "/playlist", component: MyPlaylist },
-    { path: "/community", component: MyCommunity},
-    { path: "/channel", component: MyChannel},
-    { path: "/about", component: MyAbout},
-    { path: "/full", component: FullVideos},
-  ],
+// Vuetify
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import "vuetify/dist/vuetify.min.css";
+
+const vuetify = createVuetify({
+  iconfont: "mdi",
+  components,
+  directives,
 });
+// components domain ==============================================
 
 const app = createApp(App);
-app.use(router);
-app.mount("#app");
+import NavBar from "./components/Nav/NavigationBar.vue";
+import SideBar from "./components/Nav/SideBar.vue";
+app.component("navigation-bar", NavBar);
+app.component("side-bar", SideBar);
+app.use(vuetify).use(router).mount("#app");

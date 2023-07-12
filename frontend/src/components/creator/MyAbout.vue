@@ -35,9 +35,9 @@
       <div class="title">Contact</div>
       <div class="text">
         Contact me via the above telegram or send an email to
-        narinchheav8888.kh@gmail.com. Please don't give a copyright strike to my
-        channel. Instead please ask me to remove your movie clips, I will remove
-        them immediately or you can raise a copyright claim to get the
+        narinchheav8888.kh@gmail.com. Please don't give a copyright <br> 
+        strike to my channel. Instead please ask me to remove your movie clips, 
+        I will remove them immediately or you can raise <br> a copyright claim to get the
         advertisement revenue. I am satisfied to give the revenue to you.
       </div>
     </div>
@@ -45,18 +45,18 @@
       <div class="title">Welcome</div>
       <div class="text">
         សូមស្វាគមន៍អ្នកទាំងអស់គ្នា មកកាន់ឆានែល Q-Bii Animations
-        សូមអ្នកទាំងអស់គ្នាជួយចុច Subscribe និងរូប កន្តិង ដើម្បីទទួលបាននូវ
-        វីដេអូដម្រាយលម្អិតរឿងថ្មីៗ និងល្អៗមើលជាច្រើនផងដែរ។ Welcome to the Q-Bii
-        Channel, please click Subscribe and the bell to get more detailed
-        videos, new stories and good to watch.
+        សូមអ្នកទាំងអស់គ្នាជួយចុច Subscribe និងរូប កន្តិង ដើម្បី <br>
+        ទទួលបាននូវវីដេអូដម្រាយលម្អិតរឿងថ្មីៗ និងល្អៗមើលជាច្រើនផងដែរ។ Welcome to the Q-Bii
+        Channel, please click Subscribe <br> 
+        and the bell to get more detailed videos, new stories and good to watch.
       </div>
     </div>
     <div class="disclaimer">
       <div class="title">Disclaimer</div>
       <div class="text">
         I do not own any videos and images in this video, nor intend to steal
-        the owner's copyrighted materials. I or this channel does not claim any
-        right over them. I just edited and published it to the audience for
+        the owner's copyrighted materials. I or this channel <br> 
+        does not claim any right over them. I just edited and published it to the audience for
         entertainment purposes only.
       </div>
     </div>
@@ -64,11 +64,12 @@
       <div class="title">Details</div>
       <div class="info">
         <div class="item">Location: United States</div>
-        <div class="links">
+        </div>
+      <div class="links">
+        <div class="title">Link</div>
           <div class="item"><a href="https://www.youtube.com/channel/...">YouTube</a></div>
           <div class="item"><a href="https://www.facebook.com/...">Facebook</a></div>
           <div class="item"><a href="https://www.instagram.com/...">Instagram</a></div>
-        </div>
       </div>
     </div>
   </div>
@@ -82,26 +83,25 @@ export default {
 
 <style>
 .layout {
+  width: 200%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
   padding: 20px;
+  margin-right: -5%;
 }
 
-.describe,
-.stats,
-.disclaimer,
-.contact,
-.welcome,
-.details {
-  width: 100%;
-  margin-bottom: 20px;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.describe {
+  width: 200%;
+  display: flex;
+  flex: row;
+  justify-content: space-around;
+}
+
+.stats {
+  flex: end;
+  text-align: end;
 }
 
 .describe .title,
@@ -112,17 +112,6 @@ export default {
 .details .title {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.describe .info,
-.stats .info,
-.disclaimer .text,
-.contact .text,
-.welcome .text,
-.details .info {
-  font-size: 16px;
-  line-height: 1.5;
 }
 
 .describe .item,
@@ -131,45 +120,18 @@ export default {
   margin-bottom: 5px;
 }
 
-.describe .item::before,
-.stats .item::before,
-.details .item::before {
-  content: "•";
-  margin-right: 5px;
+
+.contact, .welcome, .disclaimer, .details {
+  margin-left: 4%;
 }
 
-.describe .item:first-child,
-.stats .item:first-child,
-.details .item:first-child {
-  margin-top: 10px;
-}
-
-.stats .links a {
-  display: inline-block;
-  margin-right: 10px;
-  color: #555;
-  transition: color 0.3s ease-in-out;
-}
-
-.stats .links a:hover {
-  color: #007bff;
-}
-
-.stats .links a i {
-  font-size: 24px;
-}
-
-.contact .text a {
-  color: #007bff;
-}
-
-.contact .text a:hover {
-  text-decoration: underline;
+.text {
+  margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
   .layout {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
   }
 

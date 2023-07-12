@@ -7,100 +7,101 @@
   </v-button>
     <v-container class="card-container" fluid>
       <v-row class="my-card">
-        <v-col v-for="video in videos" :key="video.id" cols="12" md="4">
-          <v-card class="card mb-60" @click="selectedVideoId = video.id">
-            <v-card-media>
-              <v-responsive aspect-ratio="16/9">
-                <iframe
-                  width="332"
-                  height="250"
-                  :src="video.img"
-                  frameborder="0"
-                  allowfullscreen
-                ></iframe>
-              </v-responsive>
-            </v-card-media>
+        <v-col v-for="video in linkVideos" :key="video.id">
+            <img
+              width="330"
+              height="230"
+              :src="video.thumbnail"
+              frameborder="0"
+              allowfullscreen
+            >
             <v-card-title>
-              <p class="text title"> {{ video.title }} </p>
-              <p class="text title"> {{ video.texytitle }} </p>
-              <p class="text viewer">{{ video.viewer }}</p>
+              <p class="title">{{ video.title }}</p>
+              <p class="text description">{{ video.description }}</p>
+              <div class="viewer date">
+                <p class="text view-viewer">{{ video.viewer }}</p>
+                <p class="text view-date">{{ video.date_time }}</p>
+              </div>
             </v-card-title>
-          </v-card>
-          <br>
+          <br />
         </v-col>
       </v-row>
     </v-container>
-</v-app>
-    
+  </v-app>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
   data() {
     return {
-      videos: [
-        {id: 1, img: "https://www.youtube.com/embed/_bUTaGSLQsM", title: "ប្រយុទ្ធទៅកាន់មេឃា ភាគទី 51 រដូវកាលទី៥", texttitle:" | សម្រាយរឿង Anime Recap", viewer: "135K views  3 days ago"},
-        {id: 2, img: "https://www.youtube.com/embed/3Nl3XUAUc3k", title: "ប្រយុទ្ធទៅកាន់មេឃា ភាគទី 50 រដូវកាលទី័៥", texttitle:" | សម្រាយរឿង Anime Recap", viewer: "146K views  1 week ago"},
-        {id: 3, img: "https://www.youtube.com/embed/_bUTaGSLQsM", title: "ប្រយុទ្ធទៅកាន់មេឃា ភាគទី 51 រដូវកាលទី៥", texttitle:" | សម្រាយរឿង Anime Recap", viewer: "135K views  3 days ago"},
-        {id: 4, img: "https://www.youtube.com/embed/3Nl3XUAUc3k", title: "ប្រយុទ្ធទៅកាន់មេឃា ភាគទី 50 រដូវកាលទី័៥", texttitle:" | សម្រាយរឿង Anime Recap", viewer: "146K views  1 week ago"},
-      ]
-    }
-  }
+      url: "http://172.16.1.106:8000/api/user/videos/1",
+      linkVideos: [],
+    };
+  },
+  methods: {
+    fetchVideo() {
+      axios.get(this.url).then((response) => {
+        this.linkVideos = response.data.data;
+      });
+    },
+  },
+  mounted() {
+    this.fetchVideo();
+  },
 };
-
 </script>
 
 <style scoped>
-
 .population {
-  margin-left: 30px;
+  margin-left: 3.5%;
 }
 
 .btn {
-  width: 10%;
-  padding: 10px;
+  width: 6%;
+  padding: 6px;
+  margin: 10px;
   border-radius: 10px;
   background: #15202b;
   color: white;
 }
 
-
-.video {
-  margin-left: 3%;
-  margin-top: -1.5%;
-}
-
-.play {
-  margin-left: 10%;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-img {
-  margin-right: 10px;
-}
-
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin: 20px;
+  margin-right: -3%;
 }
 
-.my-card {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.text {
+  margin-left: -15px;
+  font-size: 15px;
 }
 
-.card {
-  margin-left: 20px;
-  margin-bottom: 10%;
-  margin: 20px;
+.title {
+  margin-left: -15px;
+}
+
+.date {
+  display: flex;
+}
+
+.view-date {
+  margin-left: 10px;
+}
+
+.v-col{
+  padding: 0;
+  margin: 10px;
+  width: 80%;
+  flex-grow: 0;
+}
+
+iframe {
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+iframe:hover {
+  transform: scale(1.05);
 }
 
 </style>
