@@ -32,6 +32,7 @@
               density="compact"
               :rules="rules"
               placeholder="full_name"
+              background-color="white"
               variant="outlined"
               id="round"
               v-model="full_name"
@@ -47,6 +48,7 @@
               :rules="emailRules"
               placeholder="email"
               variant="outlined"
+              background-color="white"
               id="round"
               v-model="email"
             ></v-text-field>
@@ -63,6 +65,7 @@
               :rules="passwordRules"
               density="compact"
               placeholder="password"
+              background-color="white"
               variant="outlined"
               v-model="password"
               @click:append-inner="visible = !visible"
@@ -82,6 +85,7 @@
               placeholder="confirmPassword"
               variant="outlined"
               v-model="confirmPassword"
+              background-color="white"
               @click:append-inner="visible = !visible"
             ></v-text-field>
 
