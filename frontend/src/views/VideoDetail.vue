@@ -1,7 +1,7 @@
 
 <template>
   <v-layout class="" width="100%">
-    <v-row class="mt-5">
+    <v-row class="ml-5 mt-5">
       <v-col>
         <v-row>
           <video
