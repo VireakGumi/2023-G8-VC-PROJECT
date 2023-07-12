@@ -128,6 +128,9 @@ export default {
           console.log(error.message);
         });
     },
+    mounted() {
+      this.querySelections();
+    },
   },
 };
 </script>
