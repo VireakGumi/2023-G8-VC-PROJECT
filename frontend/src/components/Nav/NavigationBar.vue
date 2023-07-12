@@ -49,7 +49,6 @@
   </v-app-bar>
   <LoginForm v-model="loginForm" />
   <v-navigation-drawer
-
     color="#15202B"
     app
     class="d-flex flex-column"

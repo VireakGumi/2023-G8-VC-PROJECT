@@ -16,12 +16,13 @@ class VideoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getSrc($videos){
+    public function getSrc($videos)
+    {
         foreach ($videos as $video) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
-            $video->src = route('video.play', ['id' => $video->id]); 
+            $video->src = route('video.play', ['id' => $video->id]);
         }
         return $videos;
     }
@@ -41,7 +42,6 @@ class VideoController extends Controller
             'Content-Type' => 'image/jpg',
         ];
         return response()->download($imageData, $imagePath, $headers);
-
     }
     public function playVideo($id)
     {
@@ -82,10 +82,10 @@ class VideoController extends Controller
                 $videos = $this->getSrc($videos);
                 return response()->json([
                     'message' => 'Successful',
-                    'data' => $videos   
+                    'data' => $videos
                 ], 200);
             }
-            return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data'=> $this->getVideos()], 200);
+            return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data' => $this->getVideos()], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video is not found'], 404);
     }
@@ -122,7 +122,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         //
-        
+
     }
 
     /**
@@ -147,9 +147,16 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update( $id, StoreVideoRequest $video)
     {
         //
+        $videos = Auth::user()->videos->find($id);
+        if ($video){
+            $videos->update($video);
+            return response()->json(['success' => true, 'message'=> 'Update video is successfully ','videos' => $video],200);
+        }
+        return response()->json(['success' => false, 'message' => 'Error updating video'],404);
+
     }
 
     /**
@@ -161,19 +168,14 @@ class VideoController extends Controller
         $video = $user->videos->find($id);
         if (isset($video)) {
             $video->delete();
-            return response()->json(['success' => true, 'message' => 'You have delete the successfully ',],200);
+            return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
         }
         return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
-    
+
     public function uploadVideo(StoreVideoRequest $request)
-<<<<<<< HEAD
-   {
-        $video = $request->only('title','description','thumbnail','date_time','privacy','categories_id');
-=======
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
->>>>>>> 1ee7bd2a612998ab807eab98b7169bfad5ba98d9
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video, 'viewer', 0);
@@ -202,7 +204,5 @@ class VideoController extends Controller
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
         return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
-
-
     }
 }
