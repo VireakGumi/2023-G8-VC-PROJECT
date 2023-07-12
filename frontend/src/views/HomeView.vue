@@ -3,7 +3,6 @@
   <v-card color="#1b242e" class="card-container">
     <v-row class="d-flex justify-center w-100 pt-5">
       <video-card
-        :onLoad="load"
         color="#1b242e"
         v-for="(video, index) in videoList"
         :key="index"
@@ -24,31 +23,55 @@ export default {
   },
   data() {
     return {
-      videos: [],
       videoList: [],
+      nextPage: 1,
+      totalPages: 0,
+      isLoading: false,
     };
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+    this.loadMore();
+  },
+
   methods: {
-    getVideoFromAPI() {
-      axios
-        .get("http://172.16.1.106:8000/api/videos")
-        .then((response) => {
-          // append new items to this.items
-          this.videos.push(...response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    handleScroll() {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150
+      ) {
+        this.loadMore();
+      }
     },
-    showVideo() {},
-    mounted() {
-      this.videoList = this.getVideoFromAPI();
+    async loadMore() {
+      if (this.isLoading) {
+        return;
+      }
+      this.isLoading = true;
+      try {
+        const response = await axios.get(
+          "http://172.16.1.106:8000/api/videos",
+          {
+            params: {
+              page: this.nextPage,
+              limit: 3,
+            },
+          }
+        );
+
+        this.videoList = [...this.videoList, ...response.data.data];
+        this.nextPage++;
+      } catch (error) {
+        console.error(error);
+      }
+
+      this.isLoading = false;
     },
   },
 };
 </script>
 <style scoped>
-.card-container{
+.card-container {
   display: flex;
   justify-content: center;
   align-content: center;

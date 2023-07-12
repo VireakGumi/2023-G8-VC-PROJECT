@@ -1,12 +1,12 @@
 <template>
   <v-card rounded="50" width="400px">
-    <video
+    <v-img
       :width="400"
       :height="250"
       aspect-ratio="16/9"
-      :src="video.src"
-      :type="video.type"
-    ></video>
+      :src="video.thumbnail"
+
+    ></v-img>
 
     <v-container class="d-flex mt-5 pa-0">
       <v-avatar rounded="50">
