@@ -3,11 +3,16 @@ import HomeView from "../views/HomeView.vue";
 import SearchPage from "../views/SearchPage.vue";
 import CoverPage from "../views/ProfilePage/CoverPage.vue";
 import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
+import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
 
 const routes = [
   { path: "/cover-user", 
   name: "cover-user",
   component: CoverPage
+ },
+  { path: "/creator", 
+  name: "content-creator",
+  component: ContentCreatorPage
  },
 
   {
