@@ -29,15 +29,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/playlist/1",
+      url: "http://172.16.1.106:8000/api/playlist",
       linkVideos: [],
     };
   },
   methods: {
     fetchVideo() {
-      axios.get(this.url).then((response) => {
-        this.linkVideos = response.data.data;
-      });
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      console.log(token);
+      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
+        this.linkVideos = response.data;
+        console.log(this.linkVideos);
+      }).catch((error) => {console.log(error.response);});
     },
   },
   mounted() {

@@ -90,12 +90,12 @@ export default {
 
 .play {
   margin-top: 1.5%;
-  margin-left: 12%;
+  margin-left: 10%;
   color: black;
 }
 
 .video {
-  margin-left: 6%;
+  margin-left: 4%;
   margin-top: -1.5%;
 }
 
