@@ -19,13 +19,33 @@
         <v-list-item-subtitle> {{video.viewer}} </v-list-item-subtitle>
       </v-container>
     </v-container>
+    <v-btn
+      class="mr-6 ml-8 mr-2 bg-white"
+      rounded="pill"
+      @click.stop="UploadDialog = true"
+    >
+      Edit
+    </v-btn>
+    <UploadDialog v-model="UploadDialog" />
   </v-card>
 </template>
+
 <script>
+import UploadDialog from "../Dialog/UploadDialog.vue";
+
 export default {
-  props:["video"]
+  props:["video"],
+  components: {
+    UploadDialog,
+  },
+  data() {
+    return {
+      UploadDialog: false,
+    };
+  },
 };
 </script>
+
 <style scoped>
 .group-pf {
   display: flex;
