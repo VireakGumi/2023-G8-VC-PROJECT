@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .layout {
   width: 200%;
   display: flex;
