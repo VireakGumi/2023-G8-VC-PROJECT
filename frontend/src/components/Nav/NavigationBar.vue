@@ -101,49 +101,9 @@ export default {
           console.log(error.message);
         });
     },
-    handOverIsShowLogin(item) {
-      this.getDataFromCookies()
-      this.loginForm = item
+    mounted() {
+      this.querySelections();
     },
-    handOverIsShowRegister(item) {
-      this.getDataFromCookies()
-      this.registerForm = item
-    },
-    handOver(item) {
-      this.loginForm = item.login;
-      this.registerForm = item.register;
-    },
-    handOverToken(user) {
-      this.user = user;
-    },
-    getDataFromCookies() {
-      this.user.user_id = (this.$cookies.get('user_id') !== 'undefined' && this.$cookies.get('user_id') !== null) ? this.$cookies.get('user_id') : '';
-      this.user.full_name = (this.$cookies.get('full_name') !== 'full_name' && this.$cookies.get('full_name') !== null) ? this.$cookies.get('full_name') : '';
-      this.user.email = (this.$cookies.get('email') !== 'email' && this.$cookies.get('email') !== null) ? this.$cookies.get('email') : '';
-      this.user.token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-    },
-    deleteCookie() {
-      this.$cookies.remove('user_id')
-      this.$cookies.remove('full_name')
-      this.$cookies.remove('email')
-      this.$cookies.remove('token')
-    },
-    logout(isLog) {
-      if (isLog) {
-        axios
-          .post(`http://172.16.1.106:8000/api/logout`, null , {headers: {'Authorization': `Bearer ${this.user.token}`}})
-          .then((response) => {
-            this.deleteCookie()
-            this.user = {};
-            console.log(response.data);
-            console.log(this.user);
-          }, 200)
-          .catch((error) => {
-            console.log(error.message);
-          });
-
-      }
-    }
   },
   mounted() {
     this.getDataFromCookies();

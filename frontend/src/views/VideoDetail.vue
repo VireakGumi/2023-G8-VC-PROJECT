@@ -31,8 +31,9 @@
                     width="50"
                     height="50"
                   />
+                  <v-title> {{ video.user }} </v-title>
                 </div>
-                <div style="margin-left: 550px; margin-top:-90px">
+                <div style="margin-left: 550px; margin-top: -90px">
                   <v-btn block rounded="xl" style="margin-left: 1px">
                     <v-btn
                       class="ma-1"
@@ -53,23 +54,28 @@
                       class="ma-1"
                       variant="text"
                       icon="mdi-download"
+                      @click="download"
                     ></v-btn>
                   </v-btn>
                   <v-dialog v-model="dialog" max-width="500">
                     <v-card>
-                      <v-card-title>Share</v-card-title>
+                      <v-btn
+                        icon="mdi-close"
+                        class="ma-1"
+                        variant="text"
+                        @click="dialog = false"
+                      ></v-btn>
                       <v-card-text>
-                        <v-text-field
-                          :value="video.src"
-                          required
-                          append-icon="mdi-content-copy"
-                        ></v-text-field>
+                        <div class="d-flex flex">
+                          <v-text-field :value="url" required></v-text-field>
+                          <v-btn
+                            class="ma-1"
+                            variant="text"
+                            @click="clickShare"
+                            icon="mdi-content-copy"
+                          ></v-btn>
+                        </div>
                       </v-card-text>
-                      <v-card-actions>
-                        <v-btn color="primary" text @click="dialog = false"
-                          >Close</v-btn
-                        >
-                      </v-card-actions>
                     </v-card>
                   </v-dialog>
                 </div>
@@ -160,7 +166,7 @@ import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
   data: () => ({
     id: "",
-    component: { MyCardVue },
+    components: { MyCardVue },
     videos: "",
     video: {
       id: "",
@@ -171,12 +177,45 @@ export default {
       videoType: "",
       viewer: "",
       date_time: "",
+      user: "",
     },
+    url: "",
     isClicked: false,
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
+    srcvideo: "",
   }),
   methods: {
+    download() {
+      axios
+        .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
+        .then((response) => {
+          this.srcvideo = response.data.data.src;
+          const link = document.createElement("a");
+          link.href = this.srcvideo;
+          link.download = "video.mp4";
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    clickShare() {
+      axios
+        .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
+        .then(() => {
+          const url = window.location.href;
+          navigator.clipboard.writeText(url);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    copylink() {
+      this.url = window.location.href;
+      return this.url;
+    },
     getVideos() {
       axios
         .get(`http://172.16.1.106:8000/api/videos`)
@@ -201,6 +240,7 @@ export default {
             videoType: data.videoType,
             viewer: data.viewer,
             date_time: data.date_time,
+            user: data.user.full_name,
           };
         })
         .catch((error) => {
@@ -215,6 +255,7 @@ export default {
     $route: {
       handler: function () {
         this.getVideosById(); // call the getVideosById method to update the component data
+        this.copylink();
       },
       deep: true,
     },
@@ -222,6 +263,7 @@ export default {
   mounted() {
     this.getVideosById();
     this.getVideos();
+    this.copylink();
   },
 };
 </script>
