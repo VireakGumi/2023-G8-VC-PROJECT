@@ -3,9 +3,8 @@
     <v-img
       :width="400"
       :height="250"
-      aspect-ratio="16/9"
-      :src="video.thumbnail"
-
+      aspect-ratio="1"
+      src="https://images.alphacoders.com/131/1314427.jpeg"
     ></v-img>
 
     <v-container class="d-flex mt-5 pa-0">

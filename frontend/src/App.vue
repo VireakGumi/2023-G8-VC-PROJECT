@@ -5,7 +5,7 @@
         <navigation-bar />
       </v-col>
     </v-row>
-    <v-row no-gutters class="ml-10 mt-16 w-100">
+    <v-row no-gutters style="overflow-y: hidden;" class="ml-10 mt-16 w-100">
       <v-col>
         <router-view/>
       </v-col>
@@ -13,7 +13,6 @@
   </v-layout>
 </template>
 <script>
-// import SideBar from './components/Nav/SideBar.vue';
 export default {};
 </script>
 <style scoped>
