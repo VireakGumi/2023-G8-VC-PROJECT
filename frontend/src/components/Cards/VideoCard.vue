@@ -1,12 +1,8 @@
 <template>
   <v-card rounded="50" width="400px">
-    <v-img
-      :width="400"
-      :height="250"
-      aspect-ratio="1"
-      src="https://images.alphacoders.com/131/1314427.jpeg"
-    ></v-img>
-
+    <div style="width: 400px; height: 255px;">
+      <img :src="video.thumbnail" alt="" style="width: 100%;height: 100%;">
+    </div>
     <v-container class="d-flex mt-5 pa-0">
       <v-avatar rounded="50">
         <v-img

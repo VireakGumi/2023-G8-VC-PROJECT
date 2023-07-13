@@ -2,82 +2,51 @@
 <template>
   <v-app-bar app color="#15202B">
     <template v-slot:prepend>
-      <img
-        src="../../assets/menu.png"
-        @click.stop="drawer"
-        @click="rail = !rail"
-        class="ml-4 mr-6"
-        width="35"
-        alt=""
-        id="menu"
-      />
+      <img src="../../assets/menu.png" @click.stop="drawer" @click="rail = !rail" class="ml-4 mr-6" width="35" alt=""
+        id="menu" />
     </template>
     <v-app-bar-logo>
-      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/"/>
+      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/" />
     </v-app-bar-logo>
     <v-container>
-      <v-autocomplete
-        v-model="select"
-        v-model:search="search"
-        :loading="loading"
-        :items="listVideos"
-        rounded="pill"
-        density="compact"
-        variant="solo"
-        @keydown.enter="navigateToPage"
-        label="Search Videos"
-        append-inner-icon="mdi-magnify"
-        single-line
-        hide-no-data
-        hide-details
-      ></v-autocomplete>
+      <v-autocomplete v-model="select" v-model:search="search" :loading="loading" :items="listVideos" rounded="pill"
+        density="compact" variant="solo" @keydown.enter="navigateToPage" label="Search Videos"
+        append-inner-icon="mdi-magnify" single-line hide-no-data hide-details></v-autocomplete>
     </v-container>
-    <v-btn
-      class="my-btn mr-6 ml-8 mr-2"
-      prepend-icon="account"
-      rounded="pill"
-    ></v-btn>
 
-    <v-btn
-      class="mr-6 ml-8 mr-2 bg-white"
-      rounded="pill"
-      prepend-icon="mdi-account"
-      @click.stop="loginForm = true"
-    >
+    <DropDown v-if="getReady" :user="user" @logout="logout"></DropDown>
+
+    <v-btn v-else class="mr-6 ml-8 mr-2 bg-white" rounded="pill" prepend-icon="mdi-account"
+      @click.stop="loginForm = true">
       Sign in
     </v-btn>
   </v-app-bar>
-  <LoginForm v-model="loginForm" />
-  <v-navigation-drawer
-    color="#15202B"
-    app
-    class="d-flex flex-column"
-    width="75px"
-    :rail="rail"
-  >
+  <LoginForm v-model="loginForm" @show="handOver" @isShow="handOverIsShowLogin" />
+  <RegisterForm v-model="registerForm" @show="handOver" @isShow="handOverIsShowRegister" />
+  <v-navigation-drawer color="#15202B" app class="d-flex flex-column" width="75px" :rail="rail">
     <v-list density="compact" nav width="180px">
       <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-        <v-list-item
-          style="color: white"
-          :prepend-icon="item.icon"
-          :title="item.title"
-          :value="item.title"
-        ></v-list-item>
+        <v-list-item style="color: white" :prepend-icon="item.icon" :title="item.title" :value="item.title"></v-list-item>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <div class="temporary" v-if="!rail" @click="rail=!rail"></div>
+  <div class="temporary" v-if="!rail" @click="rail = !rail"></div>
 </template>
 <script>
 import axios from "axios";
 import router from "@/router";
 import LoginForm from "../LoginComponent.vue";
+import RegisterForm from "../RegisterComponent.vue";
+import DropDown from "./DropDown.vue";
 export default {
   components: {
     LoginForm,
+    RegisterForm,
+    DropDown
   },
   data() {
     return {
+      user: {},
       drawer: false,
       rail: true,
       loading: false,
@@ -86,6 +55,7 @@ export default {
       select: null,
       link: "",
       loginForm: false,
+      registerForm: false,
       items: [
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
@@ -93,11 +63,7 @@ export default {
         { title: "Message", icon: "mdi-email-outline", to: "/messages" },
         { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
         { title: "Playlist", icon: "mdi-playlist-play", to: "playlist" },
-        {
-          title: "More",
-          icon: "mdi-dots-horizontal-circle-outline",
-          to: "/about",
-        },
+        { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/about" },
       ],
     };
   },
@@ -105,6 +71,15 @@ export default {
     search(val) {
       val && val !== this.select && this.querySelections(val);
     },
+  },
+  computed: {
+    getReady() {
+      if (Object.keys(this.user).length > 0) {
+        return true;
+      }
+      return false;
+
+    }
   },
   methods: {
     navigateToPage() {
@@ -120,7 +95,6 @@ export default {
           this.listVideos = this.videos.filter((e) => {
             return e.title.toLowerCase().includes(this.search.toLowerCase());
           });
-          console.log(1);
           this.loading = false;
         }, 500)
         .catch((error) => {
@@ -131,15 +105,21 @@ export default {
       this.querySelections();
     },
   },
+  mounted() {
+    this.getDataFromCookies();
+    this.querySelections();
+  }
 };
 </script>
 <style scoped>
 .my-btn {
   background: #ffffff;
 }
+
 #menu {
   cursor: pointer;
 }
+
 .temporary {
   background-color: rgba(0, 0, 0, 0.815);
   margin: 0;
@@ -150,6 +130,7 @@ export default {
   position: fixed;
   overflow-y: auto;
 }
+
 .v-navigation-drawer {
   overflow-y: hidden;
 }

@@ -14,7 +14,8 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history = Auth::user()->history()->get();
+        // $history = Auth::user()->history()->get();
+        $history = history::get();
         // return $history;
         $histories = HistoryResource::collection($history);
         if($histories->count() > 0) {	
