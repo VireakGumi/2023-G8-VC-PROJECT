@@ -38,11 +38,13 @@ class Video extends Model
     {
         return $this->hasMany(Like::class);
     }
+
     public function histories(): HasMany
     {
         return $this->hasMany(history::class);
     }
-    public function category(): belongsTo
+    public function categories(): BelongsTo
+
     {
         return $this->belongsTo(Categories::class);
     }
