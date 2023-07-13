@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style scoped>
+
 .profile-section {
   background-image: url("../../assets/10years.jpg");
   background-size: cover;
@@ -43,7 +44,7 @@ export default {
 
 .profile-image {
   margin-top: -4%;
-  margin-left: 8%;
+  margin-left: 4%;
   position: relative;
 }
 
@@ -57,12 +58,6 @@ export default {
 
 .profile-image input[type="file"] {
   display: none;
-}
-
-.profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .btn a {
@@ -95,10 +90,10 @@ export default {
 
 .view {
   margin-top: -12%;
-  margin-left: 8%;
+  margin-left: 4%;
 }
 
 .content {
-  margin-left: 8%;
+  margin-left: 4%;
 }
 </style>

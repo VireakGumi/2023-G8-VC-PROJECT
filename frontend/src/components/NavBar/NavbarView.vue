@@ -79,8 +79,6 @@ export default {
 }
 
 .card {
-  margin-top: -20%;
-  margin-left: 3.5%;
   background: white;
 }
 

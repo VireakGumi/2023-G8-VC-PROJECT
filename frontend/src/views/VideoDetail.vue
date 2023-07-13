@@ -4,14 +4,9 @@
     <v-row class="ml-5 mt-5">
       <v-col>
         <v-row>
-          <video
-            style="margin-left: 10px"
-            width="760"
-            height="415"
-            :src="video.src"
-            :type="video.videoType"
-            controls
-          ></video>
+          <vue-plyr :options="options">
+            <video controls  size="1080" :src="video.src" :type="video.videoType" autoplay></video>
+          </vue-plyr>
         </v-row>
         <v-row class="mt-5">
           <div>
@@ -20,7 +15,7 @@
                 <v-title style="margin-left: 10px"
                   >Title: {{ video.title }}
                 </v-title>
-                <div>
+                <div class="d-flex flex">
                   <img
                     :src="video.thumbnail"
                     style="
@@ -28,10 +23,10 @@
                       margin-left: 10px;
                       border-radius: 50%;
                     "
-                    width="50"
-                    height="50"
+                    width="40"
+                    height="40"
                   />
-                  <v-title> {{ video.user }} </v-title>
+                  <v-title class="mt-3 ml-2"> {{ video.user }} </v-title>
                 </div>
                 <div style="margin-left: 550px; margin-top: -90px">
                   <v-btn block rounded="xl" style="margin-left: 1px">
@@ -149,7 +144,7 @@
                   <v-card-subtitle style="margin-top: -12px">{{
                     item
                   }}</v-card-subtitle>
-                  <v-card-subtitle>ldfoiriui8yu</v-card-subtitle>
+                  <v-card-subtitle> {{video.description}} </v-card-subtitle>
                 </div>
               </div>
             </v-card>
@@ -164,7 +159,9 @@ import axios from "axios";
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
+  name: "VuePlyrVideo",
   data: () => ({
+    options: { quality: { default: "1080p" } },
     id: "",
     components: { MyCardVue },
     videos: "",
@@ -231,6 +228,7 @@ export default {
         .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
+          console.log(data);
           this.video = {
             id: data.id,
             title: data.title,
@@ -272,17 +270,6 @@ export default {
 .blue--text {
   color: rgba(0, 136, 255, 0.776);
 }
-
-/* .video-card {
-  background-color: rgba(0, 0, 0, 0.009);
-  color: rgba(255, 255, 255, 0.952);
-} */
-
-/* #video:hover {
-  background: #ccc9c98f;
-  padding: 5px;
-  border-radius: 5px;
-} */
 .my-text-field {
   border-radius: 4px;
   padding: 2px;

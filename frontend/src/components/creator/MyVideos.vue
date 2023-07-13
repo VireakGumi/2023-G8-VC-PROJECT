@@ -42,7 +42,8 @@ export default {
   },
   methods: {
     fetchVideo() {
-      axios.get(this.url).then((response) => {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
       });
     },
