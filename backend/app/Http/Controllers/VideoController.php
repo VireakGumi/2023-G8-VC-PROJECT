@@ -165,6 +165,7 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
+<<<<<<< HEAD
         $user = Auth::user();
         $video = $user->videos->find($id);
         if (isset($video)) {
@@ -177,6 +178,17 @@ class VideoController extends Controller
     public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
+=======
+        //
+    }
+
+
+
+
+    public function uploadVideo(StoreVideoRequest $request)
+   {
+        $video = $request->only('title','description','thumbnail','date_time','privacy','categories_id');
+>>>>>>> pageContentCreator
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video, 'viewer', 0);
