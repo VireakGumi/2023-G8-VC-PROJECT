@@ -33,6 +33,7 @@
       </v-container>
       <v-btn
         class="my-btn mr-6 ml-8 mr-2"
+        to="/cover-user"
         prepend-icon="account"
         rounded="pill"
       ></v-btn>

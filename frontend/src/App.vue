@@ -1,8 +1,8 @@
 <template>
   <nav>
     <navigation-bar />
-  </nav>
   <router-view></router-view>
+  </nav>
 </template>
 <script>
 // import SideBar from './components/Nav/SideBar.vue';

@@ -1,4 +1,4 @@
-# frontend
+# myslot
 
 ## Project setup
 ```
