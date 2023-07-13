@@ -14,8 +14,8 @@
                 <hr />
                 <v-list>
                     <div class="d-flex align-center" >
-                        <img src="../../assets/youtube.png" alt="" class="user-img"  />
-                        <label >Your Channel</label>
+                        <img src="../../assets/youtube.png" alt="" class="user-img"  to="/cover-user" />
+                        <label to="/cover-user">Your Channel</label>
                     </div>
                     <div class="d-flex align-center" >
                         <img src="../../assets/logout(1).png" alt="" class="user-img" id="logout" @click="logout" >
