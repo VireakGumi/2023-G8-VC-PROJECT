@@ -9,10 +9,9 @@
       >
         <p>{{ testFunction() }}</p>
         <video
-          @click="searchView(video.id)"
+        @click="searchView(video.id)"
           style="width: 30%; height: 30%"
           :src="video.src"
-          :key="id"
           v-show="video.id"
           :type="video.videoType"
           controls
