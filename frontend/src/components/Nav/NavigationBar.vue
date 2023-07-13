@@ -101,13 +101,13 @@ export default {
           console.log(error.message);
         });
     },
-    mounted() {
-      this.querySelections();
-    },
+    // mounted() {
+    //   this.querySelections();
+    // },
   },
   mounted() {
-    this.getDataFromCookies();
-    this.querySelections();
+    // this.getDataFromCookies();
+    // this.querySelections();
   }
 };
 </script>

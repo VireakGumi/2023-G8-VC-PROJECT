@@ -26,7 +26,7 @@
       :value="category.id"
       class="ml-4"
     >
-      <v-card color="#1b242e" class="card-container">
+      <v-card v-if="videos != '' " color="#1b242e" class="card-container">
         <v-row class="d-flex justify-center w-100 pt-5">
           <VideoCard
             color="#1b242e"
@@ -39,7 +39,7 @@
           ></VideoCard>
         </v-row>
       </v-card>
-      <v-container class="ma-16">{{ message }}</v-container>
+      <v-container v-else class="ma-16 pa-6 d-flex justify-center"><h1>{{ message }}</h1></v-container>
     </v-window-item>
   </v-window>
 </template>
@@ -92,7 +92,6 @@ export default {
         }
       } catch (error) {
         this.videos = [];
-        console.log("heoo");
       }
       // console.log(categoryId);
     },
