@@ -36,13 +36,14 @@ export default {
   name: "App",
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/user/videos/1",
+      url: "http://172.16.1.106:8000/api/user/videos",
       linkVideos: [],
     };
   },
   methods: {
     fetchVideo() {
-      axios.get(this.url).then((response) => {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
       });
     },

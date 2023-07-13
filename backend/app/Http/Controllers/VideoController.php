@@ -137,6 +137,7 @@ class VideoController extends Controller
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
+            $video->user;
             return response()->json([
                 'message' => 'Successful',
                 'data' => $video
@@ -165,10 +166,9 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         $user = Auth::user();
         $video = $user->videos->find($id);
-        if (isset($video)) {
+        if ($video != null) {
             $video->delete();
             return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
         }
@@ -178,17 +178,6 @@ class VideoController extends Controller
     public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
-=======
-        //
-    }
-
-
-
-
-    public function uploadVideo(StoreVideoRequest $request)
-   {
-        $video = $request->only('title','description','thumbnail','date_time','privacy','categories_id');
->>>>>>> pageContentCreator
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video, 'viewer', 0);

@@ -28,8 +28,8 @@
               <div class="my-action">
                 <p class="title">{{ videos.title }}</p>
                 <div class="btn-creator mt-16">
-                  <v-btn @click="editVideo(video.id)" class="ml-2 mr-4 mb-5">Edit</v-btn>
-                  <v-btn @click="deleteVideo(video.id)" class="mb-5" color="error">
+                  <v-btn @click="editVideo(videos.id)" class="ml-2 mr-4 mb-5">Edit</v-btn>
+                  <v-btn @click="deleteVideo(videos.id)" class="mb-5" color="error">
                     Delete
                   </v-btn>
                 </div>
@@ -51,23 +51,28 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/user/videos/1",
+      url: "http://172.16.1.106:8000/api/user/videos",
       linkVideos: [],
     };
   },
   methods: {
-    fetchVideo() {
-      axios.get(this.url).then((response) => {
+     fetchVideo() {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
       });
     },
     deleteVideo(id) {
-      axios
-        .delete(`http://172.16.1.106:8000/api/videos/${id}`)
-        .then(() => {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      if (token) {
+        axios
+        .delete(`http://172.16.1.106:8000/api/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
+        .then((response) => {
           // Remove the deleted video from the local data array
+          console.log(response.data);
           this.linkVideos = this.linkVideos.filter((video) => video.id !== id);
-        });
+        }).catch ((e) => console.log(e.message));
+      }
     },
   },
   mounted() {

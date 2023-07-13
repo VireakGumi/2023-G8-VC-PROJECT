@@ -62,7 +62,7 @@ export default {
         { title: "History", icon: "mdi-history", to: "/history" },
         { title: "Message", icon: "mdi-email-outline", to: "/messages" },
         { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
-        { title: "Playlist", icon: "mdi-playlist-play", to: "playlist" },
+        { title: "Playlist", icon: "mdi-playlist-play", to: "/uerPlaylist" },
         { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/about" },
       ],
     };
@@ -141,7 +141,6 @@ export default {
           .catch((error) => {
             console.log(error.message);
           });
-
       }
     }
   },

@@ -45,14 +45,19 @@ const routes = [
     component: () => import("../views/HistoryView.vue"),
   },
   {
-    path: "/playlist",
-    name: "playlist",
+    path: "/viewPlaylist",
+    name: "viewPlaylist",
     component: () => import("../views/PlayList.vue"),
   },
   {
     path: "/videodetail/:id",
     name: "videodetail",
     component: () => import("../views/VideoDetail.vue"),
+  },
+  {
+    path: "/uerPlaylist",
+    name: "uerPlaylist",
+    component: () => import("../views/UserPlaylists.vue"),
   },
 ];
 const router = createRouter({
