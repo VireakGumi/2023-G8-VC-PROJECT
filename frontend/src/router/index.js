@@ -54,6 +54,11 @@ const routes = [
     name: "videodetail",
     component: () => import("../views/VideoDetail.vue"),
   },
+  {
+    path: "/upload",
+    name: "upload",
+    component: () => import("../views/UploadVideoView.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
