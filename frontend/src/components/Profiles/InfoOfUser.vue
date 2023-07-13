@@ -6,7 +6,7 @@
     </v-col>
 </template>
 
-<style>
+<style scoped>
 
 .profile-details {
   margin-left: -5%;

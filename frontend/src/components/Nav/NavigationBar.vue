@@ -211,6 +211,14 @@ export default {
     this.getDataFromCookies();
     this.querySelections();
   },
+    // mounted() {
+    //   this.querySelections();
+    // },
+  },
+  mounted() {
+    // this.getDataFromCookies();
+    // this.querySelections();
+  }
 };
 </script>
 <style scoped>
