@@ -28,7 +28,7 @@
               <div class="my-action">
                 <p class="title">{{ videos.title }}</p>
                 <div class="btn-creator mt-16">
-                  <v-btn @click="editVideo(videos.id)" class="ml-2 mr-4 mb-5">Edit</v-btn>
+                  <v-btn @click="editVideo(videos.id)" class="ml-2 mr-4 mb-5" color="error">Edit</v-btn>
                   <v-btn @click="deleteVideo(videos.id)" class="mb-5" color="error">
                     Delete
                   </v-btn>
@@ -56,7 +56,8 @@ export default {
     };
   },
   methods: {
-     fetchVideo() {
+    
+    fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
       axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
@@ -111,6 +112,19 @@ export default {
 }
 .title {
   margin-top: 5%;
+}
+
+.btn{
+  display: flex;
+}
+
+button {
+  width: 10%;
+  background: rgb(100, 37, 37);
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .btn-creator {

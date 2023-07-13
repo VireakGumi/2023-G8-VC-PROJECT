@@ -4,14 +4,9 @@
     <v-row class="ml-5 mt-5">
       <v-col>
         <v-row>
-          <video
-            style="margin-left: 10px"
-            width="760"
-            height="415"
-            :src="video.src"
-            :type="video.videoType"
-            controls
-          ></video>
+          <vue-plyr :options="options">
+            <video controls  size="1080" :src="video.src" :type="video.videoType" autoplay></video>
+          </vue-plyr>
         </v-row>
         <v-row class="mt-5">
           <div>
@@ -20,7 +15,7 @@
                 <v-title style="margin-left: 10px"
                   >Title: {{ video.title }}
                 </v-title>
-                <div>
+                <div class="d-flex flex">
                   <img
                     :src="video.thumbnail"
                     style="
@@ -28,11 +23,12 @@
                       margin-left: 10px;
                       border-radius: 50%;
                     "
-                    width="50"
-                    height="50"
+                    width="40"
+                    height="40"
                   />
+                  <v-title class="mt-3 ml-2"> {{ video.user }} </v-title>
                 </div>
-                <div style="margin-left: 550px; margin-top:-90px">
+                <div style="margin-left: 550px; margin-top: -90px">
                   <v-btn block rounded="xl" style="margin-left: 1px">
                     <v-btn
                       class="ma-1"
@@ -53,23 +49,28 @@
                       class="ma-1"
                       variant="text"
                       icon="mdi-download"
+                      @click="download"
                     ></v-btn>
                   </v-btn>
                   <v-dialog v-model="dialog" max-width="500">
                     <v-card>
-                      <v-card-title>Share</v-card-title>
+                      <v-btn
+                        icon="mdi-close"
+                        class="ma-1"
+                        variant="text"
+                        @click="dialog = false"
+                      ></v-btn>
                       <v-card-text>
-                        <v-text-field
-                          :value="video.src"
-                          required
-                          append-icon="mdi-content-copy"
-                        ></v-text-field>
+                        <div class="d-flex flex">
+                          <v-text-field :value="url" required></v-text-field>
+                          <v-btn
+                            class="ma-1"
+                            variant="text"
+                            @click="clickShare"
+                            icon="mdi-content-copy"
+                          ></v-btn>
+                        </div>
                       </v-card-text>
-                      <v-card-actions>
-                        <v-btn color="primary" text @click="dialog = false"
-                          >Close</v-btn
-                        >
-                      </v-card-actions>
                     </v-card>
                   </v-dialog>
                 </div>
@@ -143,7 +144,7 @@
                   <v-card-subtitle style="margin-top: -12px">{{
                     item
                   }}</v-card-subtitle>
-                  <v-card-subtitle>ldfoiriui8yu</v-card-subtitle>
+                  <v-card-subtitle> {{video.description}} </v-card-subtitle>
                 </div>
               </div>
             </v-card>
@@ -158,9 +159,11 @@ import axios from "axios";
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
+  name: "VuePlyrVideo",
   data: () => ({
+    options: { quality: { default: "1080p" } },
     id: "",
-    component: { MyCardVue },
+    components: { MyCardVue },
     videos: "",
     video: {
       id: "",
@@ -171,12 +174,45 @@ export default {
       videoType: "",
       viewer: "",
       date_time: "",
+      user: "",
     },
+    url: "",
     isClicked: false,
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
+    srcvideo: "",
   }),
   methods: {
+    download() {
+      axios
+        .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
+        .then((response) => {
+          this.srcvideo = response.data.data.src;
+          const link = document.createElement("a");
+          link.href = this.srcvideo;
+          link.download = "video.mp4";
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    clickShare() {
+      axios
+        .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
+        .then(() => {
+          const url = window.location.href;
+          navigator.clipboard.writeText(url);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    copylink() {
+      this.url = window.location.href;
+      return this.url;
+    },
     getVideos() {
       axios
         .get(`http://172.16.1.106:8000/api/videos`)
@@ -192,6 +228,7 @@ export default {
         .get(`http://172.16.1.106:8000/api/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
+          console.log(data);
           this.video = {
             id: data.id,
             title: data.title,
@@ -201,6 +238,7 @@ export default {
             videoType: data.videoType,
             viewer: data.viewer,
             date_time: data.date_time,
+            user: data.user.full_name,
           };
         })
         .catch((error) => {
@@ -215,6 +253,7 @@ export default {
     $route: {
       handler: function () {
         this.getVideosById(); // call the getVideosById method to update the component data
+        this.copylink();
       },
       deep: true,
     },
@@ -222,6 +261,7 @@ export default {
   mounted() {
     this.getVideosById();
     this.getVideos();
+    this.copylink();
   },
 };
 </script>
@@ -230,17 +270,6 @@ export default {
 .blue--text {
   color: rgba(0, 136, 255, 0.776);
 }
-
-/* .video-card {
-  background-color: rgba(0, 0, 0, 0.009);
-  color: rgba(255, 255, 255, 0.952);
-} */
-
-/* #video:hover {
-  background: #ccc9c98f;
-  padding: 5px;
-  border-radius: 5px;
-} */
 .my-text-field {
   border-radius: 4px;
   padding: 2px;

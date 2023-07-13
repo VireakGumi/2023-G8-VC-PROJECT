@@ -1,6 +1,8 @@
 <template>
   <video
     style="width: 30%; height: 30%"
+    :key="id"
+    v-show="data.id"
     :src="data.src"
     :type="data.type"
     controls

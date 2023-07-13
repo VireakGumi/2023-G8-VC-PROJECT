@@ -149,16 +149,15 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $id, StoreVideoRequest $video)
+    public function update($id, StoreVideoRequest $video)
     {
         //
         $videos = Auth::user()->videos->find($id);
-        if ($video){
+        if ($video) {
             $videos->update($video);
-            return response()->json(['success' => true, 'message'=> 'Update video is successfully ','videos' => $video],200);
+            return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $video], 200);
         }
-        return response()->json(['success' => false, 'message' => 'Error updating video'],404);
-
+        return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
     }
 
     /**
@@ -207,5 +206,19 @@ class VideoController extends Controller
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
         return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
+    }
+    
+    public function videoRecommendation($category)
+    {
+        $video = Video::where('categories_id', $category)
+            ->orderByDesc('viewer')
+            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
+            ->get();
+        $videos = Video::whereNotIn('id', $video->pluck('id'))
+            ->orderByDesc('viewer')
+            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
+            ->get();
+        $video = $video->merge($videos);
+        return $video;
     }
 }
