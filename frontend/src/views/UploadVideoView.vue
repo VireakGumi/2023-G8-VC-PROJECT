@@ -60,7 +60,7 @@ export default {
       upload: false,
     };
   },
-  computed: {
+  methods: {
     isAuthenticated() {
       const token = this.$cookies.get("token");
       if (token) {
