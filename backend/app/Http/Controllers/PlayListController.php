@@ -82,8 +82,8 @@ class PlayListController extends Controller
     public function show($id)
     {
         //
-        // $playlist = Auth::user()->playlists->find($id);
-        $playlist = PlayList::find($id);
+        $playlist = Auth::user()->playlists->find($id);
+        // $playlist = PlayList::find($id);
         if (isset($playlist)) {
             $lists = $playlist->videoPlayLists;
             $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
