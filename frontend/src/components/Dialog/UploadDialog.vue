@@ -3,7 +3,7 @@
       <v-dialog v-model="upload" width="400">
         <v-card height="400" class="pa-5">
           <h1 class="text-center">Upload Video</h1>
-          <v-icon icon="mdi-upload"></v-icon>
+          <v-icon icon="mdi-upload" style="width: 100%; font-size: 200px; margin: 0; padding: 0"></v-icon>
           <div class="group">
               <input
             type="file"
