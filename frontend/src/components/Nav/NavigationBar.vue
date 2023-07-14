@@ -177,6 +177,7 @@ export default {
     this.querySelections();
   },
 };
+
 </script>
 <style scoped>
 .my-btn {

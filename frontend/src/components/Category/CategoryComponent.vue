@@ -19,12 +19,12 @@
       </v-tab>
     </v-tabs>
   </v-sheet>
-  <v-window v-if="clicked" v-model="tab">
+  <v-window v-if="clicked" class="ml-4" v-model="tab">
     <v-window-item
       v-for="category in categories"
       :key="category"
       :value="category.id"
-      class="ml-4"
+      
     >
       <v-card v-if="videos != '' " color="#1b242e" class="card-container">
         <v-row class="d-flex justify-center w-100 pt-5">

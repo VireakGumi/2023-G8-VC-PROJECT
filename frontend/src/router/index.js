@@ -6,14 +6,16 @@ import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
 import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
 
 const routes = [
-  { path: "/cover-user", 
-  name: "cover-user",
-  component: CoverPage
- },
-  { path: "/creator", 
-  name: "content-creator",
-  component: ContentCreatorPage
- },
+  {
+    path: "/cover-user",
+    name: "cover-user",
+    component: CoverPage
+  },
+  {
+    path: "/creator",
+    name: "content-creator",
+    component: ContentCreatorPage
+  },
 
   {
     path: "/",
@@ -58,6 +60,11 @@ const routes = [
     path: "/uerPlaylist",
     name: "uerPlaylist",
     component: () => import("../views/UserPlaylists.vue"),
+  },
+  {
+    path: "/upload",
+    name: "upload",
+    component: () => import("../views/UploadVideoView.vue"),
   },
 ];
 const router = createRouter({
