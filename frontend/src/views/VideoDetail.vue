@@ -185,7 +185,7 @@ export default {
   methods: {
     download() {
       axios
-        .get(`http://localhost:8000/api/video/id/${this.$route.params.id}`)
+        .get(`http://127.0.0.1:8000/api/video/id/${this.$route.params.id}`)
         .then((response) => {
           this.srcvideo = response.data.data.src;
           const link = document.createElement("a");
@@ -200,7 +200,7 @@ export default {
     },
     clickShare() {
       axios
-        .get(`http://localhost:8000/api/video/id/${this.$route.params.id}`)
+        .get(`http://127.0.0.1:8000/api/video/id/${this.$route.params.id}`)
         .then(() => {
           const url = window.location.href;
           navigator.clipboard.writeText(url);
@@ -215,7 +215,7 @@ export default {
     },
     getVideos() {
       axios
-        .get(`http://localhost:8000/api/videos`)
+        .get(`http://127.0.0.1:8000/api/videos`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -225,7 +225,7 @@ export default {
     },
     getVideosById: function () {
       axios
-        .get(`http://localhost:8000/api/video/id/${this.$route.params.id}`)
+        .get(`http://127.0.0.1:8000/api/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
           console.log(data);

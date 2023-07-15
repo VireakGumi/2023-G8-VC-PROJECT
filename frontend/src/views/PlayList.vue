@@ -248,7 +248,7 @@ export default {
   methods: {
     getVideos() {
       axios
-        .get(`http://localhost:8000/api/videos`)
+        .get(`http://127.0.0.1:8000/api/videos`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -258,7 +258,7 @@ export default {
     },
     getVideosById: function () {
       axios
-        .get(`http://localhost:8000/api/video/id/${this.$route.params.id}`)
+        .get(`http://127.0.0.1:8000/api/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
           this.video = {

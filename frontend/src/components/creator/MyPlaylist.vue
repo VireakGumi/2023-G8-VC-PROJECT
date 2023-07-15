@@ -29,7 +29,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url: "http://localhost:8000/api/playlist",
+      url: "http://127.0.0.1:8000/api/playlist",
       linkVideos: [],
     };
   },

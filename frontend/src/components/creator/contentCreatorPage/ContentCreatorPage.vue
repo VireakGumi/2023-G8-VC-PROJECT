@@ -51,7 +51,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url: "http://localhost:8000/api/user/videos",
+      url: "http://127.0.0.1:8000/api/user/videos",
       linkVideos: [],
     };
   },
@@ -67,7 +67,7 @@ export default {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
       if (token) {
         axios
-        .delete(`http://localhost:8000:8000/api/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
+        .delete(`http://127.0.0.1:8000:8000/api/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
         .then((response) => {
           // Remove the deleted video from the local data array
           console.log(response.data);

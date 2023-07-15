@@ -169,13 +169,14 @@ export default {
           title: this.title,
           description: this.description,
           thumbnail: this.thumbnail[0],
-          date_time: new Date(),
+          date_time: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
           path: this.video,
           privacy: this.privacy,
           categories_id: this.getCategoryID(this.category),
         };
+        console.log(this.video);
         axios
-          .post("http://localhost:8000/api/videos", video, {
+          .post("http://127.0.0.1:8000/api/videos", video, {
             headers: {
               Authorization: "Bearer " + this.authToken,
               Accept: "application/json",
@@ -189,23 +190,22 @@ export default {
           });
       }
     },
-    mounted() {
-      this.authToken = this.$cookies.get("token");
-      axios
-        .get("http://localhost:8000/api/categories")
-        .then((response) => {
-          this.listCategories = response.data.data;
-          console.log(this.listCategories);
-          this.category_name = []; // set to an empty array before assigning values
-          this.category_name = this.listCategories.map(
-            (category) => category.category_name
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-     
+  },
+  mounted() {
+    this.authToken = this.$cookies.get("token");
+    axios
+      .get("http://127.0.0.1:8000/api/categories")
+      .then((response) => {
+        this.listCategories = response.data.data;
+        console.log(this.listCategories);
+        this.category_name = []; // set to an empty array before assigning values
+        this.category_name = this.listCategories.map(
+          (category) => category.category_name
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>

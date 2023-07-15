@@ -120,7 +120,7 @@ export default {
   },
   computed: {
     getReady() {
-      if (Object.keys(this.user).length > 0) {
+      if (this.$cookies.get("token")) {
         return true;
       }
       return false;
@@ -132,7 +132,7 @@ export default {
     },
     querySelections() {
       axios
-        .get(`http://localhost:8000/api/videos/${this.select}`)
+        .get(`http://127.0.0.1:8000/api/videos/${this.select}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
@@ -192,7 +192,7 @@ export default {
     logout(isLog) {
       if (isLog) {
         axios
-          .post(`http://localhost:8000/api/logout`, null, {
+          .post(`http://127.0.0.1:8000/api/logout`, null, {
             headers: { Authorization: `Bearer ${this.user.token}` },
           })
           .then((response) => {
