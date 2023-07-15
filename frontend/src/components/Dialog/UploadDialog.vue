@@ -107,7 +107,6 @@
     </div>
   </template>
   <script>
-  import axios from "axios";
   export default {
     data() {
       return {
@@ -169,7 +168,7 @@
               privacy: this.privacy,
               categories_id: this.getCategoryID(this.category)
             }
-            axios.post('http://localhost:8000/api/videos', video).then(response => {
+            this.$http.post('/videos', video).then(response => {
               console.log(response)
             }).catch(error => {
               console.log(error);
@@ -178,7 +177,7 @@
         }
     },
     created(){
-      axios.get('http://localhost:8000/api/categories').then((response) => {
+      this.$http.get('/categories').then((response) => {
         this.listCategories = response.data.data
         this.category_name = this.listCategories.map(category => category.category_name);
       }).catch(error => { console.log(error);})

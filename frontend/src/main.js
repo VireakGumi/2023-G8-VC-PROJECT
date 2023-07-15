@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import VueCookies from 'vue-cookies'
-
+import http from './axios-http.js';
 // Vuetify domain =================================================
 import "@mdi/font/css/materialdesignicons.css";
 // vue-plyr
@@ -24,6 +24,7 @@ const vuetify = createVuetify({
 // components domain ==============================================
 
 const app = createApp(App);
+app.config.globalProperties.$http = http;
 import NavBar from "./components/Nav/NavigationBar.vue";
 app.component("navigation-bar", NavBar);
 app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).mount("#app");

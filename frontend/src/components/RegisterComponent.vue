@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
   props: {
     value: Boolean,
@@ -160,8 +160,8 @@ export default {
         password: this.password,
         comfirm_password: this.confirmPassword,
       };
-      axios
-        .post("http://localhost:8000/api/register", value)
+      this.$http
+        .post("/register", value)
         .then((response) => {
           document.cookie = "token=" + response.data.token;
           document.cookie = "user_id=" + response.data.user.id;

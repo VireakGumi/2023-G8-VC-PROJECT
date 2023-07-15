@@ -33,7 +33,6 @@
   <div class="temporary" v-if="!rail" @click="rail = !rail"></div>
 </template>
 <script>
-import axios from "axios";
 import router from "@/router";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
@@ -91,8 +90,7 @@ export default {
       router.push(`/search/${this.search}`);
     },
     querySelections() {
-      axios
-        .get(`http://localhost:8000/api/videos/${this.select}`)
+      this.$http.get(`/videos/${this.select}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
@@ -151,8 +149,7 @@ export default {
     },
     logout(isLog) {
       if (isLog) {
-        axios
-          .post(`http://localhost:8000/api/logout`, null, {
+        this.$http.get(`/logout`, null, {
             headers: { Authorization: `Bearer ${this.user.token}` },
           })
           .then((response) => {

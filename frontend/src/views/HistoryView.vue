@@ -25,14 +25,14 @@
   <login-component v-model="loginForm"></login-component>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
 import LoginComponent from "@/components/LoginComponent.vue";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
   components: { MyCardVue,LoginComponent },
   data() {
     return { 
-      url: "http://localhost:8000/api/history", 
+      url: "/history", 
       linkVideos: null,
       loginForm: false,
     };
@@ -55,8 +55,7 @@ export default {
   methods: {
     fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      axios
-        .get(this.url, {headers: {'Authorization': `Bearer ${token}`}})
+      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}})
         .then((response) => {
           this.linkVideos = response.data.data;
         })

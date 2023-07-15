@@ -47,11 +47,11 @@
   </v-app>
 </template>
 <script>
-import axios from "axios";
+
 export default {
   data() {
     return {
-      url: "http://localhost:8000/api/user/videos",
+      url: "/user/videos",
       linkVideos: [],
     };
   },
@@ -59,15 +59,15 @@ export default {
     
     fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
+      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
       });
     },
     deleteVideo(id) {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
       if (token) {
-        axios
-        .delete(`http://localhost:8000/api/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
+        this.$http
+        .delete(`/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
         .then((response) => {
           // Remove the deleted video from the local data array
           console.log(response.data);

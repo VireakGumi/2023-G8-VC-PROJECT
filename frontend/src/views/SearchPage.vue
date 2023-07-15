@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import router from "@/router";
 export default {
   data() {
@@ -51,8 +50,7 @@ export default {
   },
   methods: {
     getVideo() {
-      axios
-        .get(`http://localhost:8000/api/videos/${this.$route.params.title}`)
+      this.$http.get(`/videos/${this.$route.params.title}`)
         .then((response) => {
           this.linkVideos = response.data.data;
         })

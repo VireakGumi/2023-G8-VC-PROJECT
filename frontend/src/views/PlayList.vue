@@ -221,7 +221,6 @@
   </v-layout>
 </template>
 <script>
-import axios from "axios";
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
@@ -247,8 +246,7 @@ export default {
   }),
   methods: {
     getVideos() {
-      axios
-        .get(`http://localhost:8000/api/videos`)
+      this.$http.get(`/videos`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -257,8 +255,7 @@ export default {
         });
     },
     getVideosById: function () {
-      axios
-        .get(`http://localhost:8000/api/video/id/${this.$route.params.id}`)
+      this.$http.get(`/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
           this.video = {
