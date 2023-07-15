@@ -132,7 +132,7 @@ export default {
     },
     querySelections() {
       axios
-        .get(`http://172.16.1.106:8000/api/videos/${this.select}`)
+        .get(`http://localhost:8000/api/videos/${this.select}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
@@ -192,7 +192,7 @@ export default {
     logout(isLog) {
       if (isLog) {
         axios
-          .post(`http://172.16.1.106:8000/api/logout`, null, {
+          .post(`http://localhost:8000/api/logout`, null, {
             headers: { Authorization: `Bearer ${this.user.token}` },
           })
           .then((response) => {

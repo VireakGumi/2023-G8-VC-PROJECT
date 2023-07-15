@@ -161,7 +161,7 @@ export default {
         comfirm_password: this.confirmPassword,
       };
       axios
-        .post("http://172.16.1.106:8000/api/register", value)
+        .post("http://localhost:8000/api/register", value)
         .then((response) => {
           document.cookie = "token=" + response.data.token;
           document.cookie = "user_id=" + response.data.user.id;
