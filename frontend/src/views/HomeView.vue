@@ -59,7 +59,7 @@ export default {
       this.isLoading = true;
       try {
         const response = await axios.get(
-          "http://172.16.1.106:8000/api/videos",
+          "http://localhost:8000/api/videos",
           {
             params: {
               page: this.nextPage,

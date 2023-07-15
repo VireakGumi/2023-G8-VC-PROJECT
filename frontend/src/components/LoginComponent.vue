@@ -117,7 +117,7 @@ export default {
   methods: {
     login() {
       let value = { email: this.email, password: this.password };
-      axios.post("http://172.16.1.106:8000/api/login", value).then((response) => {
+      axios.post("http://localhost:8000/api/login", value).then((response) => {
         document.cookie = "token=" + response.data.token;
         document.cookie = "user_id=" + response.data.user.id;
         document.cookie = "full_name=" + response.data.user.full_name;

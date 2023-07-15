@@ -36,7 +36,7 @@ export default {
   name: "App",
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/user/videos",
+      url: "http://localhost:8000/api/user/videos",
       linkVideos: [],
     };
   },

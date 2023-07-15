@@ -169,7 +169,7 @@
               privacy: this.privacy,
               categories_id: this.getCategoryID(this.category)
             }
-            axios.post('http://172.16.1.106:8000/api/videos', video).then(response => {
+            axios.post('http://localhost:8000/api/videos', video).then(response => {
               console.log(response)
             }).catch(error => {
               console.log(error);
@@ -178,7 +178,7 @@
         }
     },
     created(){
-      axios.get('http://172.16.1.106:8000/api/categories').then((response) => {
+      axios.get('http://localhost:8000/api/categories').then((response) => {
         this.listCategories = response.data.data
         this.category_name = this.listCategories.map(category => category.category_name);
       }).catch(error => { console.log(error);})

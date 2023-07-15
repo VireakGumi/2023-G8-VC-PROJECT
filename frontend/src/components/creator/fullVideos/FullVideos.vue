@@ -130,7 +130,7 @@ export default {
   name: "App",
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/playlistByID/1",
+      url: "http://localhost:8000/api/playlistByID/1",
       linkVideos: [],
     };
   },
