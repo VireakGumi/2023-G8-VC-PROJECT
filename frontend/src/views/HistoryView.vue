@@ -38,7 +38,6 @@
     <RegisterForm v-model="registerForm" @show="handOver" />
 </template>
 <script>
-import axios from "axios";
 import LoginForm from "@/components/LoginComponent.vue";
 import RegisterForm from "@/components/RegisterComponent.vue";
 import MyCardVue from "../components/Cards/MyCard.vue";

@@ -152,7 +152,6 @@ export default {
             return e.title.toLowerCase().includes(this.search.toLowerCase());
           });
           this.loading = false;
-          this.$emit("reloadPage");
         }, 500)
         .catch((error) => {
           console.log(error.message);
