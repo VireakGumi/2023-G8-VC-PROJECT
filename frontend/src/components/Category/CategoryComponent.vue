@@ -44,7 +44,7 @@
   </v-window>
 </template>
 <script>
-import axios from "axios";
+import { axios } from "../../axios-http";
 import VideoCard from "../Cards/VideoCard.vue";
 import router from "@/router";
 export default {
@@ -63,7 +63,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        "http://172.16.1.106:8000/api/categories"
+        "categories"
       );
       this.categories = response.data.data;
     } catch (error) {
@@ -81,7 +81,7 @@ export default {
     async getVideos(categoryId) {
       try {
         const response = await axios.get(
-          "http://172.16.1.106:8000/api/category/" + categoryId
+          "category/" + categoryId
         );
         if (response.data.data != null) {
           this.videos = response.data.data;
