@@ -6,14 +6,16 @@ import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
 import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
 
 const routes = [
-  { path: "/cover-user", 
-  name: "cover-user",
-  component: CoverPage
- },
-  { path: "/creator", 
-  name: "content-creator",
-  component: ContentCreatorPage
- },
+  {
+    path: "/cover-user",
+    name: "cover-user",
+    component: CoverPage
+  },
+  {
+    path: "/creator",
+    name: "content-creator",
+    component: ContentCreatorPage
+  },
 
   {
     path: "/",
@@ -35,18 +37,36 @@ const routes = [
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
   {
-    path: "/search",
+    path: "/search/:title",
     name: "search",
     component: SearchPage,
   },
   {
-    path: "/register",
-    name: "register",
-    component: () =>
-    import("../views/Register.vue"),
+    path: "/history",
+    name: "history",
+    component: () => import("../views/HistoryView.vue"),
+  },
+  {
+    path: "/viewPlaylist",
+    name: "viewPlaylist",
+    component: () => import("../views/PlayList.vue"),
+  },
+  {
+    path: "/videodetail/:id",
+    name: "videodetail",
+    component: () => import("../views/VideoDetail.vue"),
+  },
+  {
+    path: "/uerPlaylist",
+    name: "uerPlaylist",
+    component: () => import("../views/UserPlaylists.vue"),
+  },
+  {
+    path: "/upload",
+    name: "upload",
+    component: () => import("../views/UploadVideoView.vue"),
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,

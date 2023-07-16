@@ -26,23 +26,30 @@ class Video extends Model
         'remember_token',
         'updated_at'
     ];
-    public function user():BelongsTo{
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function comments():HasMany{
+    public function comments(): HasMany
+    {
         return $this->hasMany(Comment::class);
-    }public function likes():HasMany{
+    }
+    public function likes(): HasMany
+    {
         return $this->hasMany(Like::class);
     }
-    public function history():HasMany{
+
+    public function histories(): HasMany
+    {
         return $this->hasMany(history::class);
     }
-    public function categories(): belongsTo
+    public function categories(): BelongsTo
+
     {
         return $this->belongsTo(Categories::class);
     }
-    public function videoPlayLists():HasMany{
+    public function videoPlayLists(): HasMany
+    {
         return $this->hasMany(VideoPlayList::class);
     }
-
 }

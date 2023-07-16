@@ -19,7 +19,7 @@ class Categories extends Model
     ];
     public function videos(): HasMany
     {
-        return $this->HasMany(Video::class);
+        return $this->hasMany(Video::class);
     }
 
 }

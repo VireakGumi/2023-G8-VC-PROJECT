@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-card color="#1b242e">
     <v-row  class="d-flex justify-center w-100 mt-16 ma-5 pa-2">
       <video-card color="#1b242e"
@@ -11,7 +11,7 @@
   </v-card>
 </template>
 <script>
-import VideoCard from "../card/VideoCard.vue";
+import VideoCard from "../Cards/VideoCard.vue";
 import axios from "axios";
 export default {
   components: {
@@ -34,4 +34,4 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped></style> -->

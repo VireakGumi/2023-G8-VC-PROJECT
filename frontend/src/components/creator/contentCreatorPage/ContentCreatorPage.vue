@@ -28,8 +28,8 @@
               <div class="my-action">
                 <p class="title">{{ videos.title }}</p>
                 <div class="btn-creator mt-16">
-                  <v-btn @click="editVideo(video.id)" class="ml-2 mr-4 mb-5">Edit</v-btn>
-                  <v-btn @click="deleteVideo(video.id)" class="mb-5" color="error">
+                  <v-btn @click="editVideo(videos.id)" class="ml-2 mr-4 mb-5" color="error">Edit</v-btn>
+                  <v-btn @click="deleteVideo(videos.id)" class="mb-5" color="error">
                     Delete
                   </v-btn>
                 </div>
@@ -47,27 +47,33 @@
   </v-app>
 </template>
 <script>
-import axios from "axios";
+
 export default {
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/user/videos/1",
+      url: "/user/videos",
       linkVideos: [],
     };
   },
   methods: {
+    
     fetchVideo() {
-      axios.get(this.url).then((response) => {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data.data;
       });
     },
     deleteVideo(id) {
-      axios
-        .delete(`http://172.16.1.106:8000/api/videos/${id}`)
-        .then(() => {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      if (token) {
+        this.$http
+        .delete(`/videos/${id}`, {headers: {'Authorization': `Bearer ${token}`}})
+        .then((response) => {
           // Remove the deleted video from the local data array
+          console.log(response.data);
           this.linkVideos = this.linkVideos.filter((video) => video.id !== id);
-        });
+        }).catch ((e) => console.log(e.message));
+      }
     },
   },
   mounted() {
@@ -106,6 +112,19 @@ export default {
 }
 .title {
   margin-top: 5%;
+}
+
+.btn{
+  display: flex;
+}
+
+button {
+  width: 10%;
+  background: rgb(100, 37, 37);
+  color: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .btn-creator {

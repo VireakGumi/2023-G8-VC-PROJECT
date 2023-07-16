@@ -1,16 +1,19 @@
 <template>
-  <div max-width="600" class="mt-16">
+  <div max-width="600" class="ml-16" style="margin-top: 100px">
+    <h3 class="ml-12">Search Reasult</h3>
     <div cols="12">
-      <!-- /// -->
       <div
-        class="d-flex flex-no-wrap mt-4 ml-10"
-        v-for="(video, index) in linkVideos"
+        class="d-flex flex-no-wrap mt-5 ml-12"
+        v-for="(video, index) in getVideo()"
         :key="index"
       >
+        <p>{{ testFunction() }}</p>
         <video
+          @click="searchView(video.id)"
           style="width: 30%; height: 30%"
           :src="video.src"
-          :type="video.type"
+          v-show="video.id"
+          :type="video.videoType"
           controls
         ></video>
         <div>
@@ -20,12 +23,10 @@
               width="40"
               height="40"
               style="border-radius: 50%; margin-left: 15px"
-              src="../assets/logo.png"
+              :src="video.thumbnail"
             />
-            <div>
-              <p class="ml-3">User_id: {{ video.user_id }}</p>
-            </div>
           </div>
+          <v-card-title class="ml-3">User_id: {{ video.user_id }}</v-card-title>
           <v-card-subtitle
             >Description: {{ video.description }}
           </v-card-subtitle>
@@ -39,27 +40,31 @@
 </template>
 
 <script>
-// import Navbar from "../components/Nav/NavigationBar.vue";
-import axios from "axios";
+import router from "@/router";
 export default {
-  // components: {
-  //   Navbar,
-  // },
   data() {
     return {
-      url: "http://172.16.1.106:8000/api/videos",
-      linkVideos: "",
+      id: "",
+      linkVideos: [],
     };
   },
   methods: {
-    fetchVideo() {
-      axios.get(this.url).then((response) => {
-        this.linkVideos = response.data.data;
-      });
+    getVideo() {
+      this.$http.get(`/videos/${this.$route.params.title}`)
+        .then((response) => {
+          this.linkVideos = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      return this.linkVideos;
     },
-  },
-  mounted() {
-    this.fetchVideo();
+    testFunction() {
+      this.getVideo();
+    },
+    searchView(id) {
+      router.push({ name: "videodetail", params: { id: id } });
+    },
   },
 };
 </script>

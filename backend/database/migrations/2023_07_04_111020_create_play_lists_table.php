@@ -14,10 +14,6 @@ return new class extends Migration
         Schema::create('play_lists', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('number_of_videos');
-            $table->integer('total_duration');
-            $table->dateTime('date_time');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
