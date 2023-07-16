@@ -184,7 +184,7 @@ class VideoController extends Controller
         $video = Arr::add($video, 'path', $fileName);
         $video = Arr::add($video, 'user_id', Auth::user()->id);
         $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->path));
-        $isThumbnailUploaded = Storage::disk('public')->put('thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
+        $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
         $url = Storage::disk('public')->url('videos/' . $fileName);
 
