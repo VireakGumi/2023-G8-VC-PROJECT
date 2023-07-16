@@ -63,11 +63,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-<<<<<<< HEAD
         "http://127.0.0.1:8000/api/categories"
-=======
-        "categories"
->>>>>>> 12e8b4f93ce637d28cbbc34c930dffb5fee00a7b
       );
       this.categories = response.data.data;
     } catch (error) {
@@ -85,11 +81,7 @@ export default {
     async getVideos(categoryId) {
       try {
         const response = await axios.get(
-<<<<<<< HEAD
           "http://127.0.0.1:8000/api/category/" + categoryId
-=======
-          "category/" + categoryId
->>>>>>> 12e8b4f93ce637d28cbbc34c930dffb5fee00a7b
         );
         if (response.data.data != null) {
           this.videos = response.data.data;

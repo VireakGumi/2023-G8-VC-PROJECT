@@ -97,21 +97,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog width="400" v-model="uploading">
+    <v-dialog width="500" v-model="uploading">
       <v-card height="200" class="d-flex justify-center pa-5 align-center">
         <div v-if="uploadProgress < 100" >
-          <div class="d-flex column justify-center align-center" justify="space-evenly">
-            <h1 class="text-center">Uploading</h1>
+          <div class="d-flex justify-space-between align-center">
+            <h1>Uploading</h1>
             <v-progress-circular
               v-if="uploadProgress !== null"
               :value="uploadProgress"
-              size="80"
+              size="100"
               color="primary"
               indeterminate
+              class="ml-5"
             >{{ uploadProgress }} %</v-progress-circular>
           </div>
         </div>
-        <div v-if="uploadProgress == 100">
+        <div v-if="uploadProgress == 100" class="d-flex justify-space-between align-center">
+          <v-icon size="100" style="color:green">mdi-check-circle-outline</v-icon>
           <h1>Upload successful!</h1>
         </div>
       </v-card>

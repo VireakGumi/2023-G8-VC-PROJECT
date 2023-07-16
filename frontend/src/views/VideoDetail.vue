@@ -1,21 +1,25 @@
-
 <template>
   <v-layout class="" width="100%">
-    <v-row class="ml-5 mt-5">
-      <v-col>
+    <v-row class="ml-10 mt-6" cols="12">
+      <v-col cols="8">
         <v-row>
-          <vue-plyr :options="options">
-            <video controls  size="1080" :src="video.src" :type="video.videoType" autoplay></video>
+          <vue-plyr :options="options" width="100%">
+            <video
+              controls
+              :src="video.src"
+              :type="video.videoType"
+              autoplay
+            ></video>
           </vue-plyr>
         </v-row>
         <v-row class="mt-5">
-          <div>
+          <div style="width: 100%">
             <div class="ml-2">
-              <div width="760">
+              <div>
                 <v-title style="margin-left: 10px"
                   >Title: {{ video.title }}
                 </v-title>
-                <div class="d-flex flex">
+                <div class="d-flex flex" width="100%">
                   <img
                     :src="video.thumbnail"
                     style="
@@ -28,30 +32,29 @@
                   />
                   <v-title class="mt-3 ml-2"> {{ video.user }} </v-title>
                 </div>
-                <div style="margin-left: 550px; margin-top: -90px">
-                  <v-btn block rounded="xl" style="margin-left: 1px">
+                <div class="like-container">
+                  <div style="width: 165px; display: flex">
                     <v-btn
                       class="ma-1"
                       :class="{ 'blue--text': isClicked }"
                       variant="text"
                       @click="isClicked = !isClicked"
                       icon="mdi-thumb-up"
-                    ></v-btn
-                    >|
+                    ></v-btn>
+
                     <v-btn
                       class="ma-1"
                       variant="text"
                       @click="dialog = true"
                       icon="mdi-share"
-                    ></v-btn
-                    >|
+                    ></v-btn>
                     <v-btn
                       class="ma-1"
                       variant="text"
                       icon="mdi-download"
                       @click="download"
                     ></v-btn>
-                  </v-btn>
+                  </div>
                   <v-dialog v-model="dialog" max-width="500">
                     <v-card>
                       <v-btn
@@ -79,11 +82,7 @@
             <div
               class="mt-15 bg-info ml-2 rounded-lg"
               width="740"
-              style="
-                padding: 7px;
-                backgroundcolor: rgb(235, 235, 226);
-                color: black;
-              "
+              style="padding: 7px; color: black"
             >
               <v-col>
                 <v-row rows="4" sm="4" md="4">
@@ -121,7 +120,7 @@
           </div>
         </v-row>
       </v-col>
-      <v-col>
+      <v-col cols="4">
         <v-row>
           <div>
             <v-card
@@ -133,10 +132,14 @@
             >
               <div
                 @click="clickvideo(video.id)"
-                class="d-flex flex ml-2 mt-1 mb-1 p-2"
+                class="container-card d-flex flex ml-2 mt-1 mb-1 p-2"
               >
-                <img :src="video.thumbnail" style="padding: 5px" width="190" />
-
+                <img
+                  :src="video.thumbnail"
+                  style="padding: 5px"
+                  width="200"
+                  height="140"
+                />
                 <div style="margin-left: -10px">
                   <v-card-text style="margin-top: -18px">
                     {{ video.title }}
@@ -144,7 +147,7 @@
                   <v-card-subtitle style="margin-top: -12px">{{
                     item
                   }}</v-card-subtitle>
-                  <v-card-subtitle> {{video.description}} </v-card-subtitle>
+                  <v-card-subtitle> {{ video.description }} </v-card-subtitle>
                 </div>
               </div>
             </v-card>
@@ -273,5 +276,33 @@ export default {
 .my-text-field {
   border-radius: 4px;
   padding: 2px;
+}
+.like-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: -80px;
+  width: 100%;
+}
+.like-container .v-btn {
+  background-color: rgb(37, 37, 37);
+}
+.v-card {
+  background-color: #1f262e00;
+  color: white;
+}
+.v-card:hover {
+  background-color: #1f262e49;
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+.v-card:active {
+  transition: all 250ms ease-in-out;
+  color: #1b242e;
 }
 </style>

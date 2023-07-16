@@ -11,7 +11,7 @@
         <my-card-vue :data="video" />
       </div>
     </div>
-    <div v-if="!linkVideos" class="history-container ml-12 ">
+    <div v-if="token == ''" class="history-container ml-12 ">
       <v-icon style="width: 100%;  font-size: 200px; margin: 0; padding: 0;"
         >mdi-history</v-icon
       >
@@ -21,21 +21,42 @@
         Sign in
       </v-btn>
     </div>
+    <div v-if="!linkVideos" class="history-container ml-12 ">
+      <v-icon style="width: 100%;  font-size: 200px; margin: 0; padding: 0;"
+        >mdi-history</v-icon
+      >
+      <h2>No history</h2>
+      <p style="color:white;">Keep track of what you watch</p>
+    </div>
   </div>
-  <login-component v-model="loginForm"></login-component>
+  <LoginForm
+      v-model="loginForm"
+      @show="handOver"
+      @isShow="handOverIsShowLogin"
+      :setForm="setForm"
+    />
+    <RegisterForm v-model="registerForm" @show="handOver" />
 </template>
 <script>
 import axios from "axios";
-import LoginComponent from "@/components/LoginComponent.vue";
+import LoginForm from "@/components/LoginComponent.vue";
+import RegisterForm from "@/components/RegisterComponent.vue";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
-  components: { MyCardVue,LoginComponent },
+  components: { MyCardVue,LoginForm,RegisterForm },
   data() {
     return { 
       url: "http://127.0.0.1:8000/api/history", 
       linkVideos: null,
       loginForm: false,
-    };
+      user: {
+        token: "",
+        full_name: "",
+        email: "",
+        user_id: "",
+      },
+      token: "",
+    }
   },
   computed: {
     videosByDay() {
@@ -64,9 +85,57 @@ export default {
           console.log(error);
         });
     },
+    setUpload() {
+      this.$emit("show", { register: true, login: false });
+    },
+    handOverIsShowLogin(item) {
+      this.getDataFromCookies();
+      this.loginForm = item;
+    },
+    handOverIsShowRegister(item) {
+      this.getDataFromCookies();
+      this.registerForm = item;
+    },
+    handOver(item) {
+      this.loginForm = item.login;
+      this.registerForm = item.register;
+    },
+    handOverToken(user) {
+      this.user = user;
+    },
+    getDataFromCookies() {
+      this.user.user_id =
+        this.$cookies.get("user_id") !== "undefined" &&
+        this.$cookies.get("user_id") !== null
+          ? this.$cookies.get("user_id")
+          : "";
+      this.user.full_name =
+        this.$cookies.get("full_name") !== "full_name" &&
+        this.$cookies.get("full_name") !== null
+          ? this.$cookies.get("full_name")
+          : "";
+      this.user.email =
+        this.$cookies.get("email") !== "email" &&
+        this.$cookies.get("email") !== null
+          ? this.$cookies.get("email")
+          : "";
+      this.user.token =
+        this.$cookies.get("token") !== "undefined" &&
+        this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+    },
+    mouthed() {
+      if (this.$cookies.get("token")) {
+        this.token = this.$cookies.get("token");
+      }
+    },
   },
   mounted() {
     this.fetchVideo();
+  },
+  created(){
+    this.mouthed();
   },
 };
 </script>
