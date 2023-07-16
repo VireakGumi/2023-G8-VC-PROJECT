@@ -25,7 +25,6 @@
   <login-component v-model="loginForm"></login-component>
 </template>
 <script>
-// import axios from "axios";
 import LoginComponent from "@/components/LoginComponent.vue";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {

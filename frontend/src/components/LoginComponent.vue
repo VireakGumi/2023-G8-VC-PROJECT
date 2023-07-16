@@ -125,7 +125,7 @@ export default {
         this.email = "";
         this.dialog = false;
         this.$emit("isShow", false);
-
+        this.$emit('reloadPage')
       }).catch((error) => {
         console.log(error.response);
         this.wrong = false;

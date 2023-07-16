@@ -9,7 +9,6 @@
   </v-card>
 </template>
 <script>
-// import axios from "axios";
 import router from "@/router";
 import VideoCard from "../components/Cards/VideoCard.vue";
 import Category from "../components/Category/CategoryComponent.vue";

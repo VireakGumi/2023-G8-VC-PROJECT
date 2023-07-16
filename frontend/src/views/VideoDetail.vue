@@ -155,7 +155,6 @@
   </v-layout>
 </template>
 <script>
-import axios from "axios";
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
@@ -184,7 +183,7 @@ export default {
   }),
   methods: {
     download() {
-      axios
+      this.$http
         .get(`/video/id/${this.$route.params.id}`)
         .then((response) => {
           this.srcvideo = response.data.data.src;
