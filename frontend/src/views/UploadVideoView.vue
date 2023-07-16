@@ -2,18 +2,19 @@
   <div class="container">
     <h1 class="ml-12 pt-5">Upload video</h1>
     <div class="upload-container">
-      <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0">{{
-        icon
-      }}</v-icon>
-      <h2 v-if="!isAuthenticated">Can not upload video</h2>
-      <p style="color: white" v-if="!isAuthenticated" >
+      <v-icon
+        style="width: 100%; font-size: 200px; margin: 0; padding: 0"
+        :icon="this.$cookies.get('token') ? 'mdi-upload' : 'mdi-upload-off'"
+      ></v-icon>
+      <h2 v-if="!$cookies.get('token')">Can not upload video</h2>
+      <p style="color: white" v-if="!$cookies.get('token')">
         Upload video isn't available when signed out.
       </p>
       <v-btn
         class="mr-6 ml-8 mr-2"
         rounded="pill"
         prepend-icon="mdi-upload"
-        v-if="isAuthenticated"
+        v-if="$cookies.get('token')"
         @click="upload = true"
       >
         Upload video
@@ -34,11 +35,8 @@
       @isShow="handOverIsShowLogin"
       :setForm="setForm"
     />
-    <RegisterForm
-      v-model="registerForm"
-      @show="handOver"
-    />
-    <upload-dialog v-if="upload" ></upload-dialog>
+    <RegisterForm v-model="registerForm" @show="handOver" />
+    <upload-dialog v-if="upload"></upload-dialog>
   </div>
 </template>
 
@@ -50,30 +48,14 @@ export default {
   components: {
     LoginForm,
     RegisterForm,
-    UploadDialog
+    UploadDialog,
   },
   data() {
     return {
-      sign: false,
       loginForm: false,
       registerForm: false,
       upload: false,
     };
-  },
-  methods: {
-    isAuthenticated() {
-      const token = this.$cookies.get("token");
-      if (token) {
-        this.sign = true;
-        return true;
-      } else {
-        this.sign = false;
-        return false;
-      }
-    },
-    icon() {
-      return this.sign ? "mdi-upload" : "mdi-upload-off";
-    },
   },
 };
 </script>

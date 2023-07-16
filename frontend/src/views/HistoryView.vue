@@ -32,7 +32,7 @@ export default {
   components: { MyCardVue,LoginComponent },
   data() {
     return { 
-      url: "http://172.16.1.106:8000/api/history", 
+      url: "http://127.0.0.1:8000/api/history", 
       linkVideos: null,
       loginForm: false,
     };

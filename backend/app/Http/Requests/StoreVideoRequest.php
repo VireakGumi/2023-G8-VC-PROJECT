@@ -32,6 +32,7 @@ class StoreVideoRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'date_time' => 'required|date_format:Y/m/d H:i:s',
             'path' => 'required|file|mimetypes:video/mp4',
             'privacy' => 'required|string',
             'categories_id' => 'required|integer',

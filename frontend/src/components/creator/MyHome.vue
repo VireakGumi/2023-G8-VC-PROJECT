@@ -12,19 +12,22 @@
     <v-container class="card-container" fluid>
       <v-row class="my-card">
         <v-col v-for="video in linkVideos" :key="video.id">
-            <img               width="330"
-              height="230"
-              :src="video.thumbnail"
-              frameborder="0"
-              allowfullscreen alt="">
-            <v-card-title>
-              <p class="title">{{ video.title }}</p>
-              <p class="text description">{{ video.description }}</p>
-              <div class="viewer date">
-                <p class="text view-viewer">{{ video.viewer }}</p>
-                <p class="text view-date">{{ video.date_time }}</p>
-              </div>
-            </v-card-title>
+          <img
+            width="330"
+            height="230"
+            :src="video.thumbnail"
+            frameborder="0"
+            allowfullscreen
+            alt=""
+          />
+          <v-card-title>
+            <p class="title">{{ video.title }}</p>
+            <p class="text description">{{ video.description }}</p>
+            <div class="viewer date">
+              <p class="text view-viewer">{{ video.viewer }}</p>
+              <p class="text view-date">{{ video.date_time }}</p>
+            </div>
+          </v-card-title>
           <br />
         </v-col>
       </v-row>
@@ -38,7 +41,11 @@ export default {
   name: "App",
   data() {
     return {
+<<<<<<< HEAD
       url: "http://172.16.1.106:8000/api/user/videos",
+=======
+      url: "http://127.0.0.1:8000/api/user/videos/1",
+>>>>>>> homepage
       linkVideos: [],
     };
   },
@@ -83,7 +90,6 @@ export default {
   display: flex;
 }
 
-
 .view-date {
   margin-left: 10px;
   margin-bottom: 3%;
@@ -104,7 +110,7 @@ export default {
   margin-left: -5%;
 }
 
-.v-col{
+.v-col {
   padding: 0;
   margin: 10px;
   width: 80%;
@@ -119,5 +125,4 @@ iframe {
 iframe:hover {
   transform: scale(1.05);
 }
-
 </style>

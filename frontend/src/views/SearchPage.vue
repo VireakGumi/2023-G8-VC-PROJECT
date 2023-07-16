@@ -52,7 +52,7 @@ export default {
   methods: {
     getVideo() {
       axios
-        .get(`http://172.16.1.106:8000/api/videos/${this.$route.params.title}`)
+        .get(`http://127.0.0.1:8000/api/videos/${this.$route.params.title}`)
         .then((response) => {
           this.linkVideos = response.data.data;
         })
