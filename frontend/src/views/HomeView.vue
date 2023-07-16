@@ -1,21 +1,14 @@
 <template>
   <SlideShow />
-  <Category :clicked="isClick" @isShow="handOver"/>
-  <v-card v-if="isClick == false"  color="#1b242e" class="card-container">
+  <Category :clicked="isClick" @isShow="handOver" />
+  <v-card v-if="isClick == false" color="#1b242e" class="card-container">
     <v-row class="d-flex justify-center w-100 pt-5">
-      <video-card
-        color="#1b242e"
-        v-for="(video, index) in videoList"
-        :key="index"
-        :video="video"
-        class="ma-3"
-        @click="playVideo(video.id)"
-      />
+      <video-card color="#1b242e" v-for="(video, index) in videoList" :key="index" :video="video" class="ma-3"
+        @click="playVideo(video.id)" />
     </v-row>
   </v-card>
 </template>
 <script>
-import axios from "axios";
 import router from "@/router";
 import VideoCard from "../components/Cards/VideoCard.vue";
 import Category from "../components/Category/CategoryComponent.vue";
@@ -32,7 +25,7 @@ export default {
       nextPage: 1,
       totalPages: 0,
       isLoading: false,
-      isClick : false,
+      isClick: false,
     };
   },
   mounted() {
@@ -42,7 +35,7 @@ export default {
 
   methods: {
     playVideo(id) {
-      router.push("/videodetail/"+id);
+      router.push("/videodetail/" + id);
     },
     handleScroll() {
       if (
@@ -58,16 +51,7 @@ export default {
       }
       this.isLoading = true;
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/videos",
-          {
-            params: {
-              page: this.nextPage,
-              limit: 3,
-            },
-          }
-        );
-
+        const response = await this.$http.get("/videos",{params: {page: this.nextPage,limit: 3,},});
         this.videoList = [...this.videoList, ...response.data.data];
         this.nextPage++;
       } catch (error) {
@@ -76,7 +60,7 @@ export default {
 
       this.isLoading = false;
     },
-    handOver(item){
+    handOver(item) {
       this.isClick = item
     }
   },

@@ -46,7 +46,7 @@ export default {
   components: { MyCardVue,LoginForm,RegisterForm },
   data() {
     return { 
-      url: "http://127.0.0.1:8000/api/history", 
+      url: "/history", 
       linkVideos: null,
       loginForm: false,
       user: {
@@ -76,8 +76,7 @@ export default {
   methods: {
     fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      axios
-        .get(this.url, {headers: {'Authorization': `Bearer ${token}`}})
+      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}})
         .then((response) => {
           this.linkVideos = response.data.data;
         })

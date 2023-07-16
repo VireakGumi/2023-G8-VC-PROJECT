@@ -82,7 +82,6 @@
   </v-dialog>
 </template>
 <script>
-import axios from "axios";
 import RegisterForm from "./RegisterComponent.vue"
 export default {
   components: {
@@ -117,7 +116,7 @@ export default {
   methods: {
     login() {
       let value = { email: this.email, password: this.password };
-      axios.post("http://127.0.0.1:8000/api/login", value).then((response) => {
+      this.$http.post("/login", value).then((response) => {
         document.cookie = "token=" + response.data.token;
         document.cookie = "user_id=" + response.data.user.id;
         document.cookie = "full_name=" + response.data.user.full_name;

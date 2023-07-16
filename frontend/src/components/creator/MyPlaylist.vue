@@ -25,19 +25,18 @@
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
   data() {
     return {
-      url: "http://127.0.0.1:8000/api/playlist",
+      url: "/playlist",
       linkVideos: [],
     };
   },
   methods: {
     fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      console.log(token);
-      axios.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
+      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
         this.linkVideos = response.data;
         console.log(this.linkVideos);
       }).catch((error) => {console.log(error.response);});

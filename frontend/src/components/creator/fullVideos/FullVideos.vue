@@ -125,18 +125,17 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "App",
   data() {
     return {
-      url: "http://127.0.0.1:8000/api/playlistByID/1",
+      url: "/playlistByID/1",
       linkVideos: [],
     };
   },
   methods: {
     fetchVideo() {
-      axios.get(this.url).then((response) => {
+      this.$http.get(this.url).then((response) => {
         this.linkVideos = response.data.data;
       });
     },
