@@ -97,6 +97,25 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog width="400" v-model="uploading">
+      <v-card height="200" class="d-flex justify-center pa-5 align-center">
+        <div v-if="uploadProgress < 100" >
+          <div class="d-flex column justify-center align-center" justify="space-evenly">
+            <h1 class="text-center">Uploading</h1>
+            <v-progress-circular
+              v-if="uploadProgress !== null"
+              :value="uploadProgress"
+              size="80"
+              color="primary"
+              indeterminate
+            >{{ uploadProgress }} %</v-progress-circular>
+          </div>
+        </div>
+        <div v-if="uploadProgress == 100">
+          <h1>Upload successful!</h1>
+        </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -104,6 +123,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+      uploading: false,
+      uploadProgress: null,
       authToken: "",
       listCategories: [],
       category_name: [],
@@ -116,7 +137,7 @@ export default {
       description: "",
       thumbnail: [],
       privacy: "",
-      category: "",
+      category: null,
       titleRule: [
         (v) => !!v || "Title is required",
         (v) =>
@@ -139,11 +160,16 @@ export default {
   },
   methods: {
     getCategoryID(name) {
+      let id = null;
       this.listCategories.forEach((category) => {
         if (category.category_name == name) {
-          return category.category_id;
+          id = category.id;
         }
       });
+      return id;
+    },
+    setUpload() {
+      this.$emit("show", { register: true, login: false });
     },
     filesChange() {
       this.postInfo = true;
@@ -162,31 +188,48 @@ export default {
         this.description &&
         this.thumbnail &&
         this.privacy &&
-        this.category
+        this.category &&
+        this.video
       ) {
         this.postInfo = false;
-        let video = {
-          title: this.title,
-          description: this.description,
-          thumbnail: this.thumbnail[0],
-          date_time: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
-          path: this.video,
-          privacy: this.privacy,
-          categories_id: this.getCategoryID(this.category),
-        };
-        console.log(this.video);
+        this.uploading = true;
+        let formData = new FormData();
+        formData.append("title", this.title);
+        formData.append("description", this.description);
+        formData.append("thumbnail", this.thumbnail[0]);
+        formData.append(
+          "date_time",
+          new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")
+        );
+        formData.append("path", this.video);
+        formData.append("privacy", this.privacy);
+        formData.append("categories_id", this.getCategoryID(this.category));
         axios
-          .post("http://127.0.0.1:8000/api/videos", video, {
+          .post("http://127.0.0.1:8000/api/videos", formData, {
             headers: {
               Authorization: "Bearer " + this.authToken,
               Accept: "application/json",
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              let progress = Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              );
+              console.log(`Upload progress: ${progress}`);
+              this.uploadProgress = progress;
             },
           })
           .then((response) => {
-            console.log(response);
+            if (response.status >= 200 && response.status < 300) {
+              console.log("Upload successful!");
+              console.log(response.data);
+            } else {
+              console.log("Upload failed!");
+              console.log(response.data);
+            }
           })
           .catch((error) => {
-            console.log(error);
+            console.log("Error uploading video:", error.message);
           });
       }
     },
@@ -197,7 +240,6 @@ export default {
       .get("http://127.0.0.1:8000/api/categories")
       .then((response) => {
         this.listCategories = response.data.data;
-        console.log(this.listCategories);
         this.category_name = []; // set to an empty array before assigning values
         this.category_name = this.listCategories.map(
           (category) => category.category_name

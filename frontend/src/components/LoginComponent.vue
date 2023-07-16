@@ -117,7 +117,6 @@ export default {
   methods: {
     login() {
       let value = { email: this.email, password: this.password };
-      console.log(value);
       axios.post("http://127.0.0.1:8000/api/login", value).then((response) => {
         document.cookie = "token=" + response.data.token;
         document.cookie = "user_id=" + response.data.user.id;
@@ -127,7 +126,7 @@ export default {
         this.email = "";
         this.dialog = false;
         this.$emit("isShow", false);
-
+        this.$emit('reloadPage')
       }).catch((error) => {
         console.log(error.response);
         this.wrong = false;
