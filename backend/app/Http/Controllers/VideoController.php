@@ -16,12 +16,14 @@ class VideoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getSrc($videos){
+    public function getSrc($videos)
+    {
         foreach ($videos as $video) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
-            $video->src = route('video.play', ['id' => $video->id]); 
+            $video->src = route('video.play', ['id' => $video->id]);
+            $video->user;
         }
         return $videos;
     }
@@ -41,7 +43,6 @@ class VideoController extends Controller
             'Content-Type' => 'image/jpg',
         ];
         return response()->download($imageData, $imagePath, $headers);
-
     }
     public function playVideo($id)
     {
@@ -82,10 +83,10 @@ class VideoController extends Controller
                 $videos = $this->getSrc($videos);
                 return response()->json([
                     'message' => 'Successful',
-                    'data' => $videos   
+                    'data' => $videos
                 ], 200);
             }
-            return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data'=> $this->getVideos()], 200);
+            return response()->json(['success' => true, 'message' => "In this theme just hvae this " . $video->title . ' only', 'data' => $this->getVideos()], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video is not found'], 404);
     }
@@ -122,7 +123,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         //
-        
+
     }
 
     /**
@@ -147,7 +148,7 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update($id, StoreVideoRequest $video)
     {
         //
     }
@@ -161,13 +162,12 @@ class VideoController extends Controller
         $video = $user->videos->find($id);
         if (isset($video)) {
             $video->delete();
-            return response()->json(['success' => true, 'message' => 'You have delete the successfully ',],200);
+            return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
         }
         return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
-    
-    public function uploadVideo(StoreVideoRequest $request)
 
+    public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
         $fileName = $request->video->getClientOriginalName();
@@ -176,7 +176,7 @@ class VideoController extends Controller
         $video['thumbnail'] = $thumbNail;
         $video = Arr::add($video, 'path', $fileName);
         $video = Arr::add($video, 'user_id', Auth::user()->id);
-        $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->video));
+        $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->path));
         $isThumbnailUploaded = Storage::disk('public')->put('thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
         $url = Storage::disk('public')->url('videos/' . $fileName);
@@ -195,10 +195,23 @@ class VideoController extends Controller
             ->get();
         if ($videos->count()) {
             $this->getSrc($videos);
+
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
         return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
+    }
 
-
+    public function videoRecommendation($category)
+    {
+        $video = Video::where('categories_id', $category)
+            ->orderByDesc('viewer')
+            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
+            ->get();
+        $videos = Video::whereNotIn('id', $video->pluck('id'))
+            ->orderByDesc('viewer')
+            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
+            ->get();
+        $video = $video->merge($videos);
+        return $video;
     }
 }

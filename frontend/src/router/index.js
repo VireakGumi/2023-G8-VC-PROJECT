@@ -1,11 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SearchPage from "../views/SearchPage.vue";
+import CoverPage from "../views/ProfilePage/CoverPage.vue";
+import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
+import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
+
 const routes = [
+  { path: "/cover-user", 
+  name: "cover-user",
+  component: CoverPage
+ },
+  { path: "/creator", 
+  name: "content-creator",
+  component: ContentCreatorPage
+ },
+
   {
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/full",
+    name: "full-videos",
+    component: FullVideos,
   },
   // {
   //   path: "/about",
@@ -24,10 +42,23 @@ const routes = [
   {
     path: "/history",
     name: "history",
-    component: () =>
-    import("../views/HistoryView.vue"),
-  }
-
+    component: () => import("../views/HistoryView.vue"),
+  },
+  {
+    path: "/playlist",
+    name: "playlist",
+    component: () => import("../views/PlayList.vue"),
+  },
+  {
+    path: "/videodetail/:id",
+    name: "videodetail",
+    component: () => import("../views/VideoDetail.vue"),
+  },
+  {
+    path: "/upload",
+    name: "upload",
+    component: () => import("../views/UploadVideoView.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

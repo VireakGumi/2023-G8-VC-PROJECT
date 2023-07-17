@@ -1,12 +1,13 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import VueCookies from 'vue-cookies'
 
 // Vuetify domain =================================================
 import "@mdi/font/css/materialdesignicons.css";
 // vue-plyr
-// import VuePlyr from "vue-plyr";
-// import "vue-plyr/dist/vue-plyr.css";
+import VuePlyr from 'vue-plyr';
+import 'vue-plyr/dist/vue-plyr.css';
 
 // Vuetify
 import "vuetify/styles";
@@ -25,4 +26,4 @@ const vuetify = createVuetify({
 const app = createApp(App);
 import NavBar from "./components/Nav/NavigationBar.vue";
 app.component("navigation-bar", NavBar);
-app.use(vuetify).use(router).mount("#app");
+app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).mount("#app");
