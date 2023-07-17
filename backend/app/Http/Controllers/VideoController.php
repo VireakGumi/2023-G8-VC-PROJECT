@@ -167,13 +167,9 @@ class VideoController extends Controller
     }
     
     public function uploadVideo(StoreVideoRequest $request)
-<<<<<<< HEAD
-   {
-        $video = $request->only('title','description','thumbnail','date_time','privacy','categories_id');
-=======
+
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
->>>>>>> 1ee7bd2a612998ab807eab98b7169bfad5ba98d9
         $fileName = $request->video->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video, 'viewer', 0);

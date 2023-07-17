@@ -120,7 +120,7 @@
             </v-row>
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p @click.stop="registerForm = true">Don't have an accounts? Register</p>
+                <p>Don't have an accounts? <span @click.stop="registerForm = true" >Register</span></p>
               </a>
             </v-card-text>
           </v-col>

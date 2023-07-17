@@ -13,7 +13,13 @@
       />
     </template>
     <v-app-bar-logo>
-      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/"/>
+      <router-link to="/"
+        ><img
+          src="../../assets/logo.png"
+          width="35"
+          class="mr-16 mt-2"
+          id="logo"
+      /></router-link>
     </v-app-bar-logo>
     <v-container>
       <v-autocomplete
@@ -32,24 +38,26 @@
         hide-details
       ></v-autocomplete>
     </v-container>
-    <v-btn
-      class="my-btn mr-6 ml-8 mr-2"
-      prepend-icon="account"
-      rounded="pill"
-    ></v-btn>
+      <!-- <v-btn
+        class="my-btn mr-6 ml-8 mr-2"
+        prepend-icon="account"
+        rounded="pill"
+      ></v-btn> -->
 
-    <v-btn
-      class="mr-6 ml-8 mr-2 bg-white"
-      rounded="pill"
-      prepend-icon="mdi-account"
-      @click.stop="loginForm = true"
-    >
-      Sign in
-    </v-btn>
+    <div class="d-flex w-10">
+      <v-btn
+        class="mr-6 ml-8 mr-2 bg-white"
+        rounded="pill"
+        prepend-icon="mdi-account"
+        @click.stop="loginForm = true"
+      >
+        Sign In
+      </v-btn>
+    </div>
   </v-app-bar>
   <LoginForm v-model="loginForm" />
+  <RegisterForm v-model="registerForm" />
   <v-navigation-drawer
-
     color="#15202B"
     app
     class="d-flex flex-column"
@@ -67,7 +75,7 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <div class="temporary" v-if="!rail" @click="rail=!rail"></div>
+  <div class="temporary" v-if="!rail" @click="rail = !rail"></div>
 </template>
 <script>
 import axios from "axios";
@@ -87,6 +95,7 @@ export default {
       select: null,
       link: "",
       loginForm: false,
+      registerForm: false,
       items: [
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
@@ -135,7 +144,8 @@ export default {
 .my-btn {
   background: #ffffff;
 }
-#menu {
+#menu,
+#logo {
   cursor: pointer;
 }
 .temporary {
@@ -150,5 +160,8 @@ export default {
 }
 .v-navigation-drawer {
   overflow-y: hidden;
+}
+#sign-up{
+  
 }
 </style>
