@@ -18,11 +18,15 @@
     </v-container>
   </v-card>
 </template>
+
 <script>
+
 export default {
-  props: ["video"],
+  props:["video"],
+
 };
 </script>
+
 <style scoped>
 .group-pf {
   display: flex;
