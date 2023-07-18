@@ -22,11 +22,13 @@ class PlayListController extends Controller
         if ($playlists->count()) {
             foreach ($playlists as $playlist) {
                 $lists = $playlist->videoPlayLists;
-                $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
-                foreach ($lists as $item) {
-                    $video = $item->video;
-                    $video->src = route('video.play', ['id' => $video->id]);
-                    $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+                if($lists->count()) {
+                    $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
+                    foreach ($lists as $item) {
+                        $video = $item->video;
+                        $video->src = route('video.play', ['id' => $video->id]);
+                        $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+                    }
                 }
             }
             return response()->json(['success' => true, 'message' => "There are your playlist", 'data' => $playlists], 200);
@@ -39,11 +41,13 @@ class PlayListController extends Controller
         if ($playlists->count()) {
             foreach ($playlists as $playlist) {
                 $lists = $playlist->videoPlayLists;
-                $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
-                foreach ($lists as $item) {
-                    $video = $item->video;
-                    $video->src = route('video.play', ['id' => $video->id]);
-                    $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+                if($lists->count()) {
+                    $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
+                    foreach ($lists as $item) {
+                        $video = $item->video;
+                        $video->src = route('video.play', ['id' => $video->id]);
+                        $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+                    }
                 }
             }
             return response()->json(['success' => true, 'message' => "There are your playlist", 'data' => $playlists], 200);

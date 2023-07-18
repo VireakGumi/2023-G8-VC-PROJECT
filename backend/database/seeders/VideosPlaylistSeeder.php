@@ -20,7 +20,7 @@ class VideosPlaylistSeeder extends Seeder
             ['video_id' => 3, 'play_list_id' => 1],
             ['video_id' => 3, 'play_list_id' => 2],
             ['video_id' => 4, 'play_list_id' => 2],
-            ['video_id' => 1, 'play_list_id' => 3],
+            ['video_id' => 1, 'play_list_id' => 4],
             ['video_id' => 6, 'play_list_id' => 4],
 
 
