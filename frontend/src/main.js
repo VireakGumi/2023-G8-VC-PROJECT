@@ -19,6 +19,7 @@ import "vuetify/dist/vuetify.min.css";
 import VueApexCharts from "vue3-apexcharts";
 // import VueApexCharts from 'vue-apexcharts'
 const vuetify = createVuetify({
+  
   iconfont: "mdi",
   components,
   directives,
