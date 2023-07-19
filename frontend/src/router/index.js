@@ -47,7 +47,7 @@ const routes = [
     component: () => import("../views/HistoryView.vue"),
   },
   {
-    path: "/viewPlaylist",
+    path: "/viewPlaylist/:id",
     name: "viewPlaylist",
     component: () => import("../views/PlayList.vue"),
   },

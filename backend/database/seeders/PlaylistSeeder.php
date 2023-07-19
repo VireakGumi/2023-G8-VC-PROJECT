@@ -17,6 +17,7 @@ class PlaylistSeeder extends Seeder
         $playlsits = [
             ['title' => 'funny', 'user_id' => 1],
             ['title' => 'cartoon', 'user_id' => 1],
+            ['title' => 'anime', 'user_id' => 1],
             ['title' => 'funny', 'user_id' => 2],
             ['title' => 'cartoon', 'user_id' => 2],
         ];
