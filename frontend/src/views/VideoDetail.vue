@@ -1,12 +1,68 @@
-
 <template>
   <v-layout class="" width="100%">
     <v-row class="ml-5 mt-5">
       <v-col>
         <v-row>
           <vue-plyr :options="options">
-            <video controls  size="1080" :src="video.src" :type="video.videoType" autoplay></video>
+            <video
+              ref="videoPlayer"
+              controls
+              size="1080"
+              :src="video.src"
+              :type="video.videoType"
+              autoplay
+              @ended="playNextVideo"
+            ></video>
           </vue-plyr>
+          <v-col class="next-video">
+            <p class="countdown" style="margin-top: 5%; margin-left: -20%">
+              Up next in {{ counter }}
+            </p>
+            <img
+              :src="this.video.thumbnail"
+              style="padding: 5px; border-radius: 10px"
+              width="250"
+            />
+            <div>
+              <v-card-text style="margin-top: -18px; margin-left: -26%">
+                {{ video.title }}
+              </v-card-text>
+              <v-card-subtitle style="margin-top: -12px">{{
+                item
+              }}</v-card-subtitle>
+              <v-card-subtitle style="margin-left: -22%; margin-bottom: 2%">
+                {{ video.description }}
+              </v-card-subtitle>
+            </div>
+            <div class="btn d-flex:flex; margin-top: -10%; width: 100%;">
+              <button
+                @click="cancelNext"
+                style="
+                  padding: 5px;
+                  margin: 2%;
+                  margin-left: -1%;
+                  margin-top: -4%;
+                  background: gray;
+                  border-radius: 15px;
+                  width: 15%;
+                "
+              >
+                cancel
+              </button>
+              <button
+                @click="playNow"
+                style="
+                  padding: 5px;
+                  margin-top: -4%;
+                  background: green;
+                  border-radius: 15px;
+                  width: 15%;
+                "
+              >
+                play Now
+              </button>
+            </div>
+          </v-col>
         </v-row>
         <v-row class="mt-5">
           <div>
@@ -144,7 +200,7 @@
                   <v-card-subtitle style="margin-top: -12px">{{
                     item
                   }}</v-card-subtitle>
-                  <v-card-subtitle> {{video.description}} </v-card-subtitle>
+                  <v-card-subtitle> {{ video.description }} </v-card-subtitle>
                 </div>
               </div>
             </v-card>
@@ -165,6 +221,8 @@ export default {
     id: "",
     components: { MyCardVue },
     videos: "",
+    counter: 7,
+    interval: null,
     video: {
       id: "",
       title: "",
@@ -181,7 +239,9 @@ export default {
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
     srcvideo: "",
+    nextVideoTimeout: null,
   }),
+
   methods: {
     download() {
       axios
@@ -198,8 +258,104 @@ export default {
           console.log(e.message);
         });
     },
+
+    playNextVideo() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "block";
+      this.nextVideoTimeout = setTimeout(() => {
+        // const videoPlayer = this.$refs.videoPlayer;
+        // videoPlayer.currentTime = 0;
+        // console.log(videoPlayer.currentTime);
+        // videoPlayer.pause();
+        countdown.style.display = "none";
+        // Get the index of the current video
+        const currentIndex = this.videos.findIndex(
+          (video) => video.id === this.video.id
+        );
+
+        // Check if there is a next video
+        if (currentIndex < this.videos.length - 1) {
+          const nextVideo = this.videos[currentIndex + 1];
+          this.video = {
+            id: nextVideo.id,
+            title: nextVideo.title,
+            description: nextVideo.description,
+            thumbnail: nextVideo.thumbnail,
+            src: nextVideo.src,
+            videoType: nextVideo.videoType,
+            viewer: nextVideo.viewer,
+            date_time: nextVideo.date_time,
+            user: nextVideo.user.full_name,
+          };
+          // videoPlayer.play();
+          // videoPlayer.load();
+          // video.play();
+        } else {
+          // There is no next video, do something else
+          console.log("No more videos to play");
+        }
+      }, 7000);
+      this.startCountdown();
+    },
+
+    startCountdown() {
+      // clearInterval(this.interval);
+      this.interval = setInterval(() => {
+        if (this.counter > 0) {
+          this.counter--;
+          if (this.counter == 0) {
+            this.counter = 7;
+            clearInterval(this.interval);
+          }
+        } else {
+          clearInterval(this.interval);
+        }
+      }, 1000);
+    },
+
+    cancelNext() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "none";
+      this.counter = 7;
+      clearInterval(this.interval);
+      clearTimeout(this.nextVideoTimeout);
+    },
+
+    playNow() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "none";
+      const videoPlayer = this.$refs.videoPlayer;
+      videoPlayer.pause();
+      const currentIndex = this.videos.findIndex(
+        (video) => video.id === this.video.id
+      );
+
+      // Check if there is a next video
+      if (currentIndex < this.videos.length - 1) {
+        const nextVideo = this.videos[currentIndex + 1];
+        this.video = {
+          id: nextVideo.id,
+          title: nextVideo.title,
+          description: nextVideo.description,
+          thumbnail: nextVideo.thumbnail,
+          src: nextVideo.src,
+          videoType: nextVideo.videoType,
+          viewer: nextVideo.viewer,
+          date_time: nextVideo.date_time,
+          user: nextVideo.user.full_name,
+        };
+      } else {
+        // There is no next video, do something else
+        console.log("No more videos to play");
+      }
+      this.counter = 7;
+      clearInterval(this.interval);
+      clearTimeout(this.nextVideoTimeout);
+    },
+
     clickShare() {
-      this.$http.get(`/video/id/${this.$route.params.id}`)
+      this.$http
+        .get(`/video/id/${this.$route.params.id}`)
         .then(() => {
           const url = window.location.href;
           navigator.clipboard.writeText(url);
@@ -208,12 +364,15 @@ export default {
           console.log(e.message);
         });
     },
+
     copylink() {
       this.url = window.location.href;
       return this.url;
     },
+
     getVideos() {
-      this.$http.get(`/videos`)
+      this.$http
+        .get(`/videos`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -221,8 +380,10 @@ export default {
           console.log(error.message);
         });
     },
+
     getVideosById: function () {
-      this.$http.get(`/video/id/${this.$route.params.id}`)
+      this.$http
+        .get(`/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
           console.log(data);
@@ -242,10 +403,12 @@ export default {
           console.log(error.message);
         });
     },
+
     clickvideo(id) {
       router.push({ name: "videodetail", params: { id: id } });
     },
   },
+
   watch: {
     $route: {
       handler: function () {
@@ -259,6 +422,8 @@ export default {
     this.getVideosById();
     this.getVideos();
     this.copylink();
+
+    // this.$refs.videoPlayer.addEventListener("ended", this.playNextVideo);
   },
 };
 </script>
@@ -270,5 +435,13 @@ export default {
 .my-text-field {
   border-radius: 4px;
   padding: 2px;
+}
+.next-video {
+  display: none;
+  width: 10%;
+  text-align: center;
+  margin-top: -60%;
+  position: relative;
+  background: black;
 }
 </style>
