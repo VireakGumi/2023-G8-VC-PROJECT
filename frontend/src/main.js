@@ -17,6 +17,7 @@ import * as directives from "vuetify/directives";
 import "vuetify/dist/vuetify.min.css";
 
 const vuetify = createVuetify({
+  
   iconfont: "mdi",
   components,
   directives,
