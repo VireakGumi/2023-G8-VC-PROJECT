@@ -1,90 +1,52 @@
 
 <template>
-  <v-layout class="mt-5" width="100%">
-    <v-row class="ml-5 mt-5">
-      <v-col>
+  <div class="ml-5 mt-5">
+    <v-layout class="ml-5 mt-5" width="100%">
+      <v-col class="ml-5 mx-5" style="width: 70%">
         <v-row>
-          <video
-            style="margin-left: 10px"
-            width="760"
-            height="415"
-            :src="video.src"
-            :type="video.videoType"
-            controls
-          ></video>
+          <vue-plyr :options="options">
+            <video controls size="1080" :src="video.src" :type="video.videoType" autoplay></video>
+          </vue-plyr>
         </v-row>
         <v-row class="mt-5">
           <div>
             <div class="ml-2">
               <div width="760">
-                <v-title style="margin-left: 10px"
-                  >Title: {{ video.title }}
+                <v-title style="margin-left: 10px">Title: {{ video.title }}
                 </v-title>
                 <div>
-                  <img
-                    :src="video.thumbnail"
-                    style="
+                  <img :src="video.thumbnail" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       border-radius: 50%;
-                    "
-                    width="50"
-                    height="50"
-                  />
+                    " width="50" height="50" />
                 </div>
                 <div style="margin-left: 550px; margin-top: -90px">
                   <v-btn block rounded="xl" style="margin-left: 1px">
-                    <v-btn
-                      class="ma-1"
-                      :class="{ 'blue--text': isClicked }"
-                      variant="text"
-                      @click="isClicked = !isClicked"
-                      icon="mdi-thumb-up"
-                    ></v-btn
-                    >|
-                    <v-btn
-                      class="ma-1"
-                      variant="text"
-                      @click="dialog = true"
-                      icon="mdi-share"
-                    ></v-btn
-                    >|
-                    <v-btn
-                      class="ma-1"
-                      variant="text"
-                      icon="mdi-download"
-                    ></v-btn>
+                    <v-btn class="ma-1" :class="{ 'blue--text': isClicked }" variant="text"
+                      @click="isClicked = !isClicked" icon="mdi-thumb-up"></v-btn>|
+                    <v-btn class="ma-1" variant="text" @click="dialog = true" icon="mdi-share"></v-btn>|
+                    <v-btn class="ma-1" variant="text" icon="mdi-download"></v-btn>
                   </v-btn>
                   <v-dialog v-model="dialog" max-width="500">
                     <v-card>
                       <v-card-title>Share</v-card-title>
                       <v-card-text>
-                        <v-text-field
-                          :value="video.src"
-                          required
-                          append-icon="mdi-content-copy"
-                        ></v-text-field>
+                        <v-text-field :value="video.src" required append-icon="mdi-content-copy"></v-text-field>
                       </v-card-text>
                       <v-card-actions>
-                        <v-btn color="primary" text @click="dialog = false"
-                          >Close</v-btn
-                        >
+                        <v-btn color="primary" text @click="dialog = false">Close</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
                 </div>
               </div>
             </div>
-            <div
-              class="mt-15 bg-info ml-2 rounded-lg"
-              width="740"
-              @click="clickvideo(video.id)"
-              style="
+            <div class="mt-15 bg-info ml-2 rounded-lg" width="740" @click="clickvideo(video.id)" style="
                 padding: 7px;
                 backgroundcolor: rgb(235, 235, 226);
                 color: black;
-              "
-            >
+              ">
               <v-col>
                 <v-row rows="4" sm="4" md="4">
                   <v-title>Viewer: {{ video.viewer }}</v-title>
@@ -100,87 +62,48 @@
             <div class="ml-2 mt-2" width="720">
               <div>
                 <div class="d-flex flex">
-                  <img
-                    :src="video.thumbnail"
-                    style="
+                  <img :src="video.thumbnail" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
                       border-radius: 50%;
-                    "
-                    width="45"
-                    height="45"
-                  />
-                  <v-text-field
-                    label="comment..."
-                    class="my-text-field"
-                  ></v-text-field>
+                    " width="45" height="45" />
+                  <v-text-field label="comment..." class="my-text-field"></v-text-field>
                 </div>
               </div>
             </div>
           </div>
         </v-row>
       </v-col>
-      <v-col>
+      <v-col class="ml=5" style="width: 30%">
         <v-row>
-          <v-card id="video-card" class="ml-1" width="350px">
+          <v-card id="video-card" class="ml-2" width="400px">
             <div class="d-flex flex">
-              <v-card-title class="d-flex flex-wrap"
-                >Mix - Girl In My Dream - 1NE</v-card-title
-              >
-              <v-icon
-                width="350px"
-                v-if="showCloseIcon"
-                style="margin-left: 7px"
-                @click="
-                  showCloseIcon = false;
-                  showMenuIcon = true;
-                "
-              >
+              <v-card-title class="d-flex flex-wrap">Mix: {{ playlist.title }}</v-card-title>
+              <v-icon width="350px" v-if="showCloseIcon" style="margin: 12px"
+                @click="showCloseIcon = false; showMenuIcon = true;">
                 mdi-close
               </v-icon>
-              <v-icon
-                width="350px"
-                v-if="showMenuIcon"
-                style="margin-left: 7px"
-                @click="
-                  showMenuIcon = false;
-                  showCloseIcon = true;
-                "
-              >
+              <v-icon width="350px" v-if="showMenuIcon" style="margin: 12px"
+                @click="showMenuIcon = false; showCloseIcon = true;">
                 mdi-menu-down
               </v-icon>
             </div>
-            <v-card-subtitle class="pt-4" style="margin-top: -30px"
-              >Mixes are playlists Youtube makes for you</v-card-subtitle
-            >
+            <v-card-subtitle class="pt-4" style="margin-top: -30px">Mixes are playlists ChildRealm for you
+              you</v-card-subtitle>
           </v-card>
-          <v-card
-            width="350px"
-            id="main-card"
-            v-if="!showMenuIcon && showCloseIcon"
-            class="ml-1"
-            style="margin-top: -3px"
-          >
-            <v-container
-              id="video-list"
-              style="max-height: 362px; overflow-y: auto"
-            >
+          <v-card width="400px" id="main-card" v-if="!showMenuIcon && showCloseIcon" class="ml-2"
+            style="margin-top: -3px">
+            <v-container id="video-list" style="max-height: 362px; overflow-y: auto; ">
               <v-scroll-x>
-                <div
-                  v-for="(video, i) in videos"
-                  :key="i"
-                  style="margin-left: -10px"
-                  class="d-flex flex mt-1"
-                  @click="clickvideo(video.id)"
-                >
-                  <img :src="video.thumbnail" controls width="100" />
+                <div v-for="(video, i) in videos" :key="i" style="margin-left: -10px" class="d-flex flex mt-1"
+                  @click="clickvideo(video.id)">
+                  <img :src="video.video.thumbnail" width="180" />
                   <div>
                     <v-card-text style="margin-top: -18px">
-                      {{ video.title }}
+                      {{ video.video.title }}
                     </v-card-text>
-                    <v-card-subtitle style="margin-top: -15px"
-                      >Viewer: {{ video.viewer }}
+                    <v-card-subtitle style="margin-top: -15px">Viewer: {{ video.video.viewer }}
                     </v-card-subtitle>
                   </div>
                 </div>
@@ -190,17 +113,8 @@
         </v-row>
         <v-row>
           <div>
-            <v-card
-              id="video"
-              v-for="(video, index) in videos"
-              :key="index"
-              width="380"
-              class="ml-2 mt-2 mb-2"
-            >
-              <div
-                @click="clickvideo(video.id)"
-                class="d-flex flex ml-2 mt-1 mb-1 p-2"
-              >
+            <v-card id="video" v-for="(video, index) in allVideos" :key="index" width="400" class="ml-2 mt-2 mb-2">
+              <div @click="clickvideo(video.id)" class="d-flex flex ml-2 mt-1 mb-1 p-2">
                 <img :src="video.thumbnail" style="padding: 5px" width="190" />
 
                 <div style="margin-left: -10px">
@@ -217,8 +131,8 @@
           </div>
         </v-row>
       </v-col>
-    </v-row>
-  </v-layout>
+    </v-layout>
+  </div>
 </template>
 <script>
 import router from "@/router";
@@ -227,9 +141,11 @@ export default {
   data: () => ({
     id: "",
     component: { MyCardVue },
-    videos: "",
+    videos: [],
+    playlist: [],
     showCloseIcon: true,
     showMenuIcon: false,
+    allVideos: [],
     video: {
       id: "",
       title: "",
@@ -246,29 +162,49 @@ export default {
   }),
   methods: {
     getVideos() {
-      this.$http.get(`/videos`)
-        .then((response) => {
-          this.videos = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      if (token) {
+        this.$http.get(`/playlistByID/${this.$route.params.id}`, { headers: { 'Authorization': `Bearer ${token}` } })
+          .then((response) => {
+            this.playlist = response.data.data;
+            this.getTheFirstVideo();
+            this.getOtherVideos();
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      }
     },
-    getVideosById: function () {
-      this.$http.get(`/video/id/${this.$route.params.id}`)
-        .then((response) => {
-          const data = response.data.data;
-          this.video = {
-            id: data.id,
-            title: data.title,
-            description: data.description,
-            thumbnail: data.thumbnail,
-            src: data.src,
-            videoType: data.videoType,
-            viewer: data.viewer,
-            date_time: data.date_time,
-          };
-        })
+    getTheFirstVideo() {
+      this.videos = this.playlist.video_play_lists
+      if (this.videos.length) {
+        let data = this.videos[0].video
+        this.video = {
+          id: data.id,
+          title: data.title,
+          description: data.description,
+          thumbnail: data.thumbnail,
+          src: data.src,
+          videoType: data.videoType,
+          viewer: data.viewer,
+          date_time: data.date_time,
+        };
+      }
+    },
+    getOtherVideos: function () {
+      this.$http.get(`/categoryOfVideo/${this.video.id}`).then((response) => {
+        this.allVideos = response.data.data;
+        this.getAllVideos();
+      }).catch((error) => {
+        console.log(error.message);
+      });
+
+    },
+    getAllVideos() {
+      this.$http.get(`/videos`).then((response) => {
+        let videos = response.data.data;
+        this.allVideos = [...this.allVideos, ...videos];
+      })
         .catch((error) => {
           console.log(error.message);
         });
@@ -280,13 +216,12 @@ export default {
   watch: {
     $route: {
       handler: function () {
-        this.getVideosById(); // call the getVideosById method to update the component data
+        this.getOtherVideos(); // call the getVideosById method to update the component data
       },
       deep: true,
     },
   },
   mounted() {
-    this.getVideosById();
     this.getVideos();
   },
 };
@@ -296,18 +231,21 @@ export default {
 .blue--text {
   color: rgba(0, 136, 255, 0.776);
 }
+
 #video-card {
   background: white;
   color: black;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
 #main-card {
   background: white;
   color: black;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
 /* #video:hover {
   background: #ccc9c98f;
   padding: 5px;
@@ -317,9 +255,11 @@ export default {
   border-radius: 4px;
   padding: 2px;
 }
+
 #body {
   margin-bottom: 100px;
 }
+
 /* Hide the default scrollbar */
 #video-list::-webkit-scrollbar {
   /* display: none; */

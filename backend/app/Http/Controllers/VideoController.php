@@ -75,6 +75,7 @@ class VideoController extends Controller
 
     public function getVideoByCategory($id)
     {
+        // return $id;
         $video = Video::find($id);
         if (isset($video)) {
             $category_id = $video->categories_id;

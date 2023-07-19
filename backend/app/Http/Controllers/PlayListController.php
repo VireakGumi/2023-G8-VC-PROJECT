@@ -87,16 +87,17 @@ class PlayListController extends Controller
     {
         //
         $playlist = Auth::user()->playlists->find($id);
-        // $playlist = PlayList::find($id);
         if (isset($playlist)) {
             $lists = $playlist->videoPlayLists;
-            $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
-            foreach ($lists as $item) {
-                $video = $item->video;
-                $video->src = route('video.play', ['id' => $video->id]);
-                $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+            if($lists->count()) { 
+                $playlist->image = route('video.image', ['imagePath' => $lists[0]->video->thumbnail]);
+                foreach ($lists as $item) {
+                    $video = $item->video;
+                    $video->src = route('video.play', ['id' => $video->id]);
+                    $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+                }
+                return response()->json(['success' => true, 'message' => "There are your playlist", 'data' => $playlist], 200);
             }
-            return response()->json(['success' => true, 'message' => "There are your playlist", 'data' => $playlist], 200);
         }
 
         return response()->json(['success' => false, 'message' => "Playlist not found"], 404);
