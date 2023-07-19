@@ -16,6 +16,8 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/dist/vuetify.min.css";
 
+import VueApexCharts from "vue3-apexcharts";
+// import VueApexCharts from 'vue-apexcharts'
 const vuetify = createVuetify({
   iconfont: "mdi",
   components,
@@ -27,4 +29,5 @@ const app = createApp(App);
 app.config.globalProperties.$http = http;
 import NavBar from "./components/Nav/NavigationBar.vue";
 app.component("navigation-bar", NavBar);
-app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).mount("#app");
+app.component('apexchart', VueApexCharts);
+app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).use(VueApexCharts).mount("#app");

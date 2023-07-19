@@ -66,6 +66,11 @@ const routes = [
     name: "upload",
     component: () => import("../views/UploadVideoView.vue"),
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/AdminView.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
