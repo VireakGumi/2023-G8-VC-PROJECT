@@ -4,7 +4,7 @@ import SearchPage from "../views/SearchPage.vue";
 import CoverPage from "../views/ProfilePage/CoverPage.vue";
 import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
 import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
-import DashBoard from "../views/DashBoard.vue";
+// import DashBoard from "../views/DashBoard.vu/e";
 import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
 import NotificationView from "../views/NotificationView.vue";
@@ -25,11 +25,11 @@ const routes = [
     name: "user",
     component: AdminUser
   },
-  {
-    path: "/dashboard",
-    name: "DashBoard",
-    component: DashBoard
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "DashBoard",
+  //   component: DashBoard
+  // },
   {
     path: "/cover-user",
     name: "cover-user",
@@ -91,8 +91,8 @@ const routes = [
     component: () => import("../views/UploadVideoView.vue"),
   },
   {
-    path: "/admin",
-    name: "admin",
+    path: "/dashboard",
+    name: "dashboard",
     component: () => import("../views/AdminView.vue"),
   },
 ];
