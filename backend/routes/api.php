@@ -40,13 +40,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
+    // Route::delete('/report/{id}', [ReportController::class, 'destroy']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
-}); 
+});
 Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
 
-Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
+Route::get('/videos/{title}', [VideoController::class, 'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
@@ -56,5 +57,7 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
-Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
-Route::get('/report', [ReportController::class, 'getVideos'] );
+Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation']);
+Route::get('/report', [ReportController::class, 'getVideos']);
+Route::delete('/report/{id}', [ReportController::class, 'destroy']);
+Route::delete('/videosById/{id}', [VideoController::class, 'deleteVideo']);

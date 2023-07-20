@@ -2,7 +2,9 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent width="auto">
       <template v-slot:activator="{ props }">
-        <v-btn class="rounded-xl text-body-2" color="red" v-bind="props">Delete</v-btn>
+        <v-btn class="rounded-xl text-body-2" color="red" v-bind="props"
+          >Delete</v-btn
+        >
       </template>
       <v-card>
         <v-card-text> Do you want to delete?🤔 </v-card-text>

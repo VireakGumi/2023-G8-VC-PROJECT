@@ -90,7 +90,7 @@ export default {
         { title: "Board", icon: "mdi-view-dashboard", to: "/dashboard" },
         { title: "User", icon: "mdi-account", to: "/user" },
         { title: "Video", icon: "mdi-video", to: "/video" },
-        { title: "Video Report", icon: "mdi-video-off", to: "/video-report" },
+        { title: "Video Report", icon: "mdi-video-off", to: "/report" },
       ],
     };
   },

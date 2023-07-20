@@ -13,7 +13,7 @@
             <th class="text-left">Type's report</th>
             <th class="text-left">Comment</th>
             <th class="text-left">View Detail</th>
-            <th class="text-left">Action</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -36,18 +36,19 @@
               </router-link>
             </td>
             <td>
-              <delete-dialog @delete="deleteUser(user.id)"></delete-dialog>
+              <delete-dialog
+                @delete="deleteUser(user.id, user.video.id)"
+              ></delete-dialog>
             </td>
           </tr>
         </tbody>
       </v-table>
     </div>
-    <p>{{ getData() }}</p>
   </div>
 </template>
 
 <script>
-import DeleteDialog from "../components/admin/DeleteDialog.vue";
+import DeleteDialog from "../components/Dialog/DeleteDialog.vue";
 export default {
   components: {
     DeleteDialog,
@@ -64,17 +65,37 @@ export default {
         .get(`/report`)
         .then((response) => {
           this.users = response.data.data;
-          console.log(this.users);
         })
         .catch((error) => {
           console.log(error.message);
         });
+      return this.users;
     },
-    deleteUser: function (id) {
-      this.$http.delete().then();
-      let i = this.users.map((item) => item.id).indexOf(id); // find index of object
-      this.users.splice(i, 1); // remove it from array
+    deleteUser: function (id, videoId) {
+      // First, delete the report with the given ID
+      this.$http
+        .delete(`/report/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          // If the report was deleted successfully, delete the video with the same ID
+          this.$http
+            .delete(`/videosById/${videoId}`)
+            .then((response) => {
+              // handle success
+              console.log(response.data, `/videosById/${videoId}`);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+  },
+  mounted() {
+    this.getData();
   },
 };
 </script>
