@@ -22,7 +22,6 @@ class HistoryController extends Controller
             return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories],200);
         }
         return response()->json(['success' => false, 'message' => "You don't have your history yet."], 404);
-
     }
 
     /**

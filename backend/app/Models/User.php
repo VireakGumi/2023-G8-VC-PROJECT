@@ -69,4 +69,7 @@ class User extends Authenticatable
     public function playlists():HasMany{
         return $this->hasMany(PlayList::class);
     }
+    public function reports():HasMany{
+        return $this->hasMany(Report::class);
+    }
 }
