@@ -15,9 +15,11 @@
         rounded="pill"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn to="/notifications" icon>
-        <v-icon size="large">mdi-bell</v-icon>
-      </v-btn>
+      <v-btn class="text-none" to="/notifications" icon>
+      <v-badge content="2" color="error">
+        <v-icon>mdi-bell-outline</v-icon>
+      </v-badge>
+    </v-btn>
 
       <v-menu transition="slide-x-transition" bottom right :open-on-click="true">
         <template v-slot:activator="{ props }">
@@ -33,7 +35,7 @@
               image="https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4"
               size="40"
             ></v-avatar>
-            <v-text> Hirito </v-text>
+            <v-item-title> Hirito </v-item-title>
           </v-list-item>
           <v-divider :thickness="3"></v-divider>
           <v-list-item v-for="(profile, i) in profiles" :key="i">
