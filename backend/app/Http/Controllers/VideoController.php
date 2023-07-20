@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVideoRequest;
+use App\Http\Requests\EditVideoRequest;
 use App\Models\Categories;
 use App\Models\User;
 use App\Models\Video;
@@ -20,6 +21,7 @@ class VideoController extends Controller
     {
         foreach ($videos as $video) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image =  $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
@@ -134,6 +136,7 @@ class VideoController extends Controller
         $video = Video::find($id);
         if (isset($video)) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image = $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
@@ -149,7 +152,7 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id, StoreVideoRequest $video)
+    public function update($id, EditVideoRequest $video)
     {
         //
         $videos = Auth::user()->videos->find($id);

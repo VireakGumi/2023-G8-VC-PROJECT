@@ -1,31 +1,9 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="upload" width="400">
-      <v-card height="400" class="pa-5">
-        <h1 class="text-center">Upload Video</h1>
-        <v-icon
-          icon="mdi-upload"
-          style="width: 100%; font-size: 200px; margin: 0; padding: 0"
-        ></v-icon>
-        <div class="group">
-          <input
-            type="file"
-            name="file"
-            id="file"
-            ref="video"
-            @change="filesChange()"
-            class="inputfile"
-            accept="video/*"
-          />
-          <label for="file">Choose a file</label>
-          <button @click="upload = false">Cancel</button>
-        </div>
-      </v-card>
-    </v-dialog>
     <v-dialog v-model="postInfo" width="1024">
       <v-card>
         <v-card-title>
-          <h1>Post Video</h1>
+          <h1>Edit Video</h1>
         </v-card-title>
         <v-container>
           <v-row>
@@ -58,12 +36,17 @@
                   :rules="thumbnailRule"
                   v-model="thumbnail"
                 ></v-file-input>
+                <img :src="videoData.thumbnail" alt="" />
               </div>
             </v-col>
-            <v-col v-if="showVideo">
+            <v-col>
               <label for="">Video</label>
               <video ref="video" controls>
-                <source ref="videoSource" :src="videoSource" />
+                <source
+                  ref="videoSource"
+                  :src="videoData.src"
+                  type="video/mp4"
+                />
               </video>
             </v-col>
           </v-row>
@@ -89,38 +72,21 @@
           </v-row>
         </v-container>
         <v-card-actions>
-          <v-btn variant="text" @click="(postInfo = false), (upload = true)">
-            Back
-          </v-btn>
-          <v-btn variant="text" @click="postInfo = false"> Cancel </v-btn>
-          <v-btn variant="text" @click="postVideo()"> Post </v-btn>
+          <v-btn variant="text" @click="isShow"> Cancel </v-btn>
+          <v-btn variant="text" @click="editVideo"> Edit </v-btn>
         </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog width="400" v-model="uploading">
-      <v-card height="200" class="d-flex justify-center pa-5 align-center">
-        <div v-if="uploadProgress < 100" >
-          <div class="d-flex column justify-center align-center" justify="space-evenly">
-            <h1 class="text-center">Uploading</h1>
-            <v-progress-circular
-              v-if="uploadProgress !== null"
-              :value="uploadProgress"
-              size="80"
-              color="primary"
-              indeterminate
-            >{{ uploadProgress }} %</v-progress-circular>
-          </div>
-        </div>
-        <div v-if="uploadProgress == 100">
-          <h1>Upload successful!</h1>
-        </div>
       </v-card>
     </v-dialog>
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
+  props: {
+    videoData: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       uploading: false,
@@ -128,16 +94,16 @@ export default {
       authToken: "",
       listCategories: [],
       category_name: [],
-      video: null,
+      video: {},
       showVideo: false,
       upload: true,
-      postInfo: false,
+      postInfo: true,
       videoSource: null,
       title: "",
       description: "",
       thumbnail: [],
       privacy: "",
-      category: null,
+      category: "",
       titleRule: [
         (v) => !!v || "Title is required",
         (v) =>
@@ -168,9 +134,7 @@ export default {
       });
       return id;
     },
-    setUpload() {
-      this.$emit("show", { register: true, login: false });
-    },
+
     filesChange() {
       this.postInfo = true;
       this.upload = false;
@@ -182,72 +146,90 @@ export default {
         this.$refs.videoSource.parentElement.load();
       });
     },
-    postVideo() {
-      if (
-        this.title &&
-        this.description &&
-        this.thumbnail &&
-        this.privacy &&
-        this.category &&
-        this.video
-      ) {
-        this.postInfo = false;
-        this.uploading = true;
-        let formData = new FormData();
-        formData.append("title", this.title);
-        formData.append("description", this.description);
-        formData.append("thumbnail", this.thumbnail[0]);
-        formData.append(
-          "date_time",
-          new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")
-        );
-        formData.append("path", this.video);
-        formData.append("privacy", this.privacy);
-        formData.append("categories_id", this.getCategoryID(this.category));
-        axios
-          .post("http://127.0.0.1:8000/api/videos", formData, {
-            headers: {
-              Authorization: "Bearer " + this.authToken,
-              Accept: "application/json",
-              "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress: (progressEvent) => {
-              let progress = Math.round(
-                (progressEvent.loaded / progressEvent.total) * 100
-              );
-              console.log(`Upload progress: ${progress}`);
-              this.uploadProgress = progress;
-            },
-          })
-          .then((response) => {
-            if (response.status >= 200 && response.status < 300) {
-              console.log("Upload successful!");
-              console.log(response.data);
-            } else {
-              console.log("Upload failed!");
-              console.log(response.data);
-            }
-          })
-          .catch((error) => {
-            console.log("Error uploading video:", error.message);
-          });
+
+    isShow() {
+      this.$emit("isShow", false);
+    },
+
+    editVideo() {
+      if (this.$refs.video && this.$refs.videoSource) {
+        this.$refs.video.pause();
+        this.$refs.videoSource.setAttribute("src", "");
       }
+
+      // let data = {
+      //   date_time: new Date()
+      //     .toISOString()
+      //     .replace(/T/, " ")
+      //     .replace(/\..+/, ""),
+      //   title: this.title,
+      //   path: this.videoData.path,
+      //   description: this.description,
+      //   privacy: this.privacy,
+      //   category_id: this.getCategoryID(this.category),
+      //   thumbnail: this.thumbnail[0],
+      // };
+      this.$http
+        .get(`/videos/image/${this.videoData.image}`)
+        .then((response) => {
+          // if(data.thumbnail){
+          //   data.thumbnail = v
+          // }
+          console.log(response);
+        }).catch((error) => {
+          console.log(error.response);
+        });
+      this.uploading = false;
+      // console.log(data);
+      // this.$http
+      //   .put(`/videos/${this.videoData.id}`, data, {
+      //     headers: {
+      //       Authorization: `Bearer ${this.authToken}`,
+      //       Accept: "application/json",
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //     onUploadProgress: (progressEvent) => {
+      //       this.uploadProgress = Math.round(
+      //         (progressEvent.loaded / progressEvent.total) * 100
+      //       );
+      //     },
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //     // this.uploading = false;
+      //     // this.$emit("close");
+      //     // this.$emit("video-updated");
+      //     // this.postInfo = false;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response);
+      //   });
     },
   },
   mounted() {
     this.authToken = this.$cookies.get("token");
-    axios
-      .get("http://127.0.0.1:8000/api/categories")
+    this.$http
+      .get("/categories")
       .then((response) => {
         this.listCategories = response.data.data;
-        this.category_name = []; // set to an empty array before assigning values
+        this.category_name = [];
         this.category_name = this.listCategories.map(
           (category) => category.category_name
         );
+        this.title = this.videoData.title;
+        this.description = this.videoData.description;
+        this.privacy = this.videoData.privacy;
+        for (let item of this.listCategories) {
+          if (item.id == this.videoData.categories_id) {
+            this.category = item.category_name;
+          }
+        }
+        console.log(this.category);
       })
       .catch((error) => {
         console.log(error);
       });
+    console.log(this.videoData);
   },
 };
 </script>

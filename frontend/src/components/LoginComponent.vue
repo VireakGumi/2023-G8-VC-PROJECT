@@ -19,7 +19,7 @@
             </div>
 
             <v-text-field density="compact" :rules="emailRules" placeholder="email" variant="outlined" id="round"
-              v-model="email"></v-text-field>
+              v-model="email" class="my-input"></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
               <p>Password</p>
