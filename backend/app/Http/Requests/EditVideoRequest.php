@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVideoRequest extends FormRequest
+class EditVideoRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
@@ -31,11 +31,11 @@ class StoreVideoRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'thumbnail' => 'required',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'date_time' => 'required|string',
-            'path' => 'required|file|mimetypes:video/mp4',
             'privacy' => 'required|string',
             'categories_id' => 'required|integer',
         ];
+        }
     }
-}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVideoRequest;
+use App\Http\Requests\EditVideoRequest;
 use App\Models\Categories;
 use App\Models\User;
 use App\Models\Video;
@@ -20,6 +21,7 @@ class VideoController extends Controller
     {
         foreach ($videos as $video) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image =  $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
@@ -134,6 +136,7 @@ class VideoController extends Controller
         $video = Video::find($id);
         if (isset($video)) {
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image = $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
@@ -149,13 +152,29 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id, StoreVideoRequest $video)
+    public function update($id, EditVideoRequest $request)
     {
         //
+        $video =  $request->only( 'title',
+        'description',
+        'thumbnail' ,
+        'date_time' ,
+        'privacy' ,
+        'categories_id');
         $videos = Auth::user()->videos->find($id);
-        if ($video) {
+        if ($videos) {
+            if($request->file){
+                $thumbNail = $request->file->getClientOriginalName();
+                $video['thumbnail'] = $thumbNail;
+                $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->file));
+                if($isThumbnailUploaded) {
+                    $videos->update($video);
+                    return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $videos], 200);    
+                }
+                return response()->json(['success' => false, 'message' => 'Image uploaded is unsuccessful'], 404);
+            }
             $videos->update($video);
-            return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $video], 200);
+            return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $videos], 200);    
         }
         return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
     }
