@@ -55,7 +55,7 @@
 export default {
   data() {
     return {
-      userBlock: 10,
+      userBlock: 0,
       totalUsers: 0,
       newUsers: 0,
       selectAll: false,
@@ -84,14 +84,45 @@ export default {
   },
   mounted() {
     this.getUser();
+    this.getUserBlocked();
+    this.getNewUser();
   },
   methods: {
+    getNewUser() {
+      this.$http
+        .get("/users")
+        .then((response) => {
+          const today = new Date();
+          const users = response.data.user;
+          const newUsers = [];
+          for (let i = 0; i < users.length; i++) {
+            const createdAt = new Date(users[i].created_at);
+            if (createdAt.toDateString() === today.toDateString()) {
+              newUsers.push(users[i]);
+            }
+          }
+          this.newUsers = newUsers.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getUser() {
       this.$http
         .get("/users")
         .then((response) => {
           this.items = response.data.user;
           this.totalUsers = response.data.user.length;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+    getUserBlocked() {
+      this.$http
+        .get("/userblocked")
+        .then((response) => {
+          this.userBlock = response.data.data.length;
         })
         .catch((error) => {
           console.log(error.message);
