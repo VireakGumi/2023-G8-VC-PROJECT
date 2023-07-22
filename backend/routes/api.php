@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
@@ -38,6 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
+    Route::post('/likes', [LikeController::class, 'store']);
+    Route::post('/comments', [CommentController::class, 'store']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
@@ -56,3 +60,5 @@ Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
 Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
+Route::get('/likes/{id}', [LikeController::class, 'index']);
+Route::get('/comments/{id}', [CommentController::class, 'index']);
