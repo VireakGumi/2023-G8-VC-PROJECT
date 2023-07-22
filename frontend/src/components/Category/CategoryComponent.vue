@@ -24,9 +24,8 @@
       v-for="category in categories"
       :key="category"
       :value="category.id"
-      
     >
-      <v-card v-if="videos != '' " color="#1b242e" class="card-container">
+      <v-card v-if="videos != ''" color="#1b242e" class="card-container">
         <v-row class="d-flex justify-center w-100 pt-5">
           <VideoCard
             color="#1b242e"
@@ -39,7 +38,9 @@
           ></VideoCard>
         </v-row>
       </v-card>
-      <v-container v-else class="ma-16 pa-6 d-flex justify-center"><h1>{{ message }}</h1></v-container>
+      <v-container v-else class="ma-16 pa-6 d-flex justify-center"
+        ><h1>{{ message }}</h1></v-container
+      >
     </v-window-item>
   </v-window>
 </template>
@@ -68,8 +69,8 @@ export default {
     }
   },
   methods: {
-    playVideo(id){
-      router.push("/videodetail/"+ id);
+    playVideo(id) {
+      router.push("/videodetail/" + id);
     },
     isClicked() {
       this.isClick = true;
@@ -90,6 +91,8 @@ export default {
       }
     },
   },
+  emits: ["isShow"], // <-- add this line
 };
 </script>
+
 <style></style>

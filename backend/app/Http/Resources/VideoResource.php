@@ -23,6 +23,7 @@ class VideoResource extends JsonResource
             'src' => route('video.play', ['id' => $this->id]),
             'path' => $this->path,
             'privacy' => $this->privacy,
+            'viewer' => $this->viewer,
             'category' => new CategoriesResource($this->categories),
         ];
     }

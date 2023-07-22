@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\HistoryResource;
 use App\Models\history;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,17 +13,19 @@ class HistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = Auth::user()->history()->get();
-        $history = history::get();
-        // return $history;
+        $page = $request->input('page') ?? 1; // Get the current page number from the request, or default to 1
+        $perPage = 6; // Change the number 10 to the desired number of videos per page
+        $history = Auth::user()->history()
+            ->orderByDesc('date_time')
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)->get();
         $histories = HistoryResource::collection($history);
-        if($histories->count() > 0) {	
-            return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories],200);
+        if ($histories->count() > 0) {
+            return response()->json(['success' => true, 'message' => 'Get all histories are successfully.', 'data' => $histories], 200);
         }
         return response()->json(['success' => false, 'message' => "You don't have your history yet."], 404);
-
     }
 
     /**
@@ -30,11 +33,16 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        $history= history::create([
+        $video = Auth::user()->history()->where('video_id', $request->video_id)->first();
+        if ($video) {
+            $video->delete();
+        }
+        $history = history::create([
             'video_id' => $request->video_id,
+            'date_time' => $request->date_time,
             'user_id' => Auth::user()->id
         ]);
-        return response()->json(['success' => true, 'message' => 'Store history is successfully ', 'data' => $history],200);
+        return response()->json(['success' => true, 'message' => 'Store history is successfully '], 200);
     }
 
     /**
@@ -58,12 +66,11 @@ class HistoryController extends Controller
      */
     public function destroy(Request $id)
     {
-        $history=Auth::user()->history->find($id);
-        if ($history){
+        $history = Auth::user()->history->find($id);
+        if ($history) {
             $history->delete();
             return response()->json(['success' => true, 'message' => 'Delete history successfully ']);
         }
         return response()->json(['success' => false, 'message' => 'Delete history is unsuccessful ']);
-
     }
 }

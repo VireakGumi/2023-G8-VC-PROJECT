@@ -18,7 +18,7 @@
             accept="video/*"
           />
           <label for="file">Choose a file</label>
-          <button @click="upload = false">Cancel</button>
+          <button @click="upload = false" @click.stop="cancel">Cancel</button>
         </div>
       </v-card>
     </v-dialog>
@@ -92,28 +92,34 @@
           <v-btn variant="text" @click="(postInfo = false), (upload = true)">
             Back
           </v-btn>
-          <v-btn variant="text" @click="postInfo = false"> Cancel </v-btn>
+          <v-btn variant="text" @click="postInfo = false"  @click.stop="cancel"> Cancel </v-btn>
           <v-btn variant="text" @click="postVideo()"> Post </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog width="500" v-model="uploading">
       <v-card height="200" class="d-flex justify-center pa-5 align-center">
-        <div v-if="uploadProgress < 100" >
+        <div v-if="uploadProgress < 100">
           <div class="d-flex justify-space-between align-center">
             <h1>Uploading</h1>
             <v-progress-circular
               v-if="uploadProgress !== null"
               :value="uploadProgress"
               size="100"
-              color="primary"
+              color="white"
               indeterminate
               class="ml-5"
-            >{{ uploadProgress }} %</v-progress-circular>
+              >{{ uploadProgress }} %</v-progress-circular
+            >
           </div>
         </div>
-        <div v-if="uploadProgress == 100" class="d-flex justify-space-between align-center">
-          <v-icon size="100" style="color:green">mdi-check-circle-outline</v-icon>
+        <div
+          v-if="uploadProgress == 100"
+          class="d-flex justify-space-between align-center"
+        >
+          <v-icon size="100" style="color: green"
+            >mdi-check-circle-outline</v-icon
+          >
           <h1>Upload successful!</h1>
         </div>
       </v-card>
@@ -121,7 +127,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -161,6 +166,9 @@ export default {
     };
   },
   methods: {
+    cancel(){
+      this.$emit('upload', false);
+    },
     getCategoryID(name) {
       let id = null;
       this.listCategories.forEach((category) => {
@@ -206,8 +214,8 @@ export default {
         formData.append("path", this.video);
         formData.append("privacy", this.privacy);
         formData.append("categories_id", this.getCategoryID(this.category));
-        axios
-          .post("http://127.0.0.1:8000/api/videos", formData, {
+        this.$http
+          .post("/videos", formData, {
             headers: {
               Authorization: "Bearer " + this.authToken,
               Accept: "application/json",
@@ -217,6 +225,9 @@ export default {
               let progress = Math.round(
                 (progressEvent.loaded / progressEvent.total) * 100
               );
+              if (progress){
+                progress=100
+              }
               console.log(`Upload progress: ${progress}`);
               this.uploadProgress = progress;
             },
@@ -224,11 +235,13 @@ export default {
           .then((response) => {
             if (response.status >= 200 && response.status < 300) {
               console.log("Upload successful!");
+              
               console.log(response.data);
             } else {
               console.log("Upload failed!");
               console.log(response.data);
             }
+            this.$emit("upload", false);
           })
           .catch((error) => {
             console.log("Error uploading video:", error.message);
@@ -238,8 +251,8 @@ export default {
   },
   mounted() {
     this.authToken = this.$cookies.get("token");
-    axios
-      .get("http://127.0.0.1:8000/api/categories")
+    this.$http
+      .get("/categories")
       .then((response) => {
         this.listCategories = response.data.data;
         this.category_name = []; // set to an empty array before assigning values

@@ -55,4 +55,7 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
-Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
+Route::get('/videos/recommendation/{id}/{categories_id}', [VideoController::class, 'videoRecommendation'] );
+Route::get('/videos/recommendationHomePage/{categories_id}', [VideoController::class, 'videoRecommendationHomePage'] );
+Route::get('/videos/viewer/{id}', [VideoController::class, 'storeViewer'] );
+

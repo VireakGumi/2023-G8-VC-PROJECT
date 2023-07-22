@@ -1,53 +1,63 @@
 <template>
-  <div class="container">
+  <div style="backgroundcolor: #1b242e">
     <h1 class="ml-12 pt-5">History</h1>
-    <div class="row" v-for="(videos, date) in videosByDay" :key="date">
-      <h2 class="ml-12">{{ date }}</h2>
-      <div
-        class="d-flex flex-no-wrap mt-5 ml-12"
-        v-for="(video, index) in videos"
-        :key="index"
-      >
-        <my-card-vue :data="video" />
-      </div>
-    </div>
-    <div v-if="token == ''" class="history-container ml-12 ">
-      <v-icon style="width: 100%;  font-size: 200px; margin: 0; padding: 0;"
+    <div v-if="token == ''" class="history-container ml-12">
+      <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0"
         >mdi-history</v-icon
       >
       <h2>Keep track of what you watch</h2>
-      <p style="color:white;">Watch history isn't viewable when signed out.</p>
-      <v-btn class="mr-6 ml-8 mr-2" rounded="pill" prepend-icon="mdi-account" @click.stop="loginForm = true">
+      <p style="color: white">Watch history isn't viewable when signed out.</p>
+      <v-btn
+        class="mr-6 ml-8 mr-2"
+        rounded="pill"
+        prepend-icon="mdi-account"
+        @click.stop="loginForm = true"
+      >
         Sign in
       </v-btn>
     </div>
-    <div v-if="!linkVideos" class="history-container ml-12 ">
-      <v-icon style="width: 100%;  font-size: 200px; margin: 0; padding: 0;"
+    <div>
+      <HistoryCard
+        color="#1b242e"
+        v-for="(video, index) in videos"
+        :key="index"
+        :video="video"
+        class="ma-3"
+        @click="playVideo(video.id, video.categories_id)"
+      />
+    </div>
+    <div v-if="videos == null && token" class="history-container ml-12">
+      <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0"
         >mdi-history</v-icon
       >
       <h2>No history</h2>
-      <p style="color:white;">Keep track of what you watch</p>
+      <p style="color: white">Keep track of what you watch</p>
     </div>
   </div>
   <LoginForm
-      v-model="loginForm"
-      @show="handOver"
-      @isShow="handOverIsShowLogin"
-      :setForm="setForm"
-    />
-    <RegisterForm v-model="registerForm" @show="handOver" />
+    v-model="loginForm"
+    @show="handOver"
+    @isShow="handOverIsShowLogin"
+  />
+  <RegisterForm
+    v-model="registerForm"
+    @show="handOver"
+    @isShow="handOverIsShowRegister"
+  />
 </template>
 <script>
+import HistoryCard from "@/components/Cards/HistoryCard.vue";
+import router from "@/router";
 import LoginForm from "@/components/LoginComponent.vue";
 import RegisterForm from "@/components/RegisterComponent.vue";
-import MyCardVue from "../components/Cards/MyCard.vue";
 export default {
-  components: { MyCardVue,LoginForm,RegisterForm },
+  components: { LoginForm, RegisterForm, HistoryCard },
   data() {
-    return { 
-      url: "/history", 
-      linkVideos: null,
+    return {
+      videos: null,
       loginForm: false,
+      registerForm: false,
+      Pages: 2,
       user: {
         token: "",
         full_name: "",
@@ -55,29 +65,15 @@ export default {
         user_id: "",
       },
       token: "",
-    }
-  },
-  computed: {
-    videosByDay() {
-      const byDay = {};
-      if (this.linkVideos) {
-        for (const video of this.linkVideos) {
-          const date = new Date(video.watched_at).toDateString();
-          if (!byDay[date]) {
-            byDay[date] = [];
-          }
-          byDay[date].push(video);
-        }
-      }
-      return byDay;
-    },
+      loading: false,
+    };
   },
   methods: {
     fetchVideo() {
-      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}})
+      this.$http
+        .get("/history", { headers: { Authorization: `Bearer ${this.token}` } })
         .then((response) => {
-          this.linkVideos = response.data.data;
+          this.videos = response.data.data;
         })
         .catch((error) => {
           console.log(error);
@@ -123,17 +119,49 @@ export default {
           ? this.$cookies.get("token")
           : "";
     },
-    mouthed() {
-      if (this.$cookies.get("token")) {
-        this.token = this.$cookies.get("token");
+    searchView(id, categories_id) {
+      document.cookie = "favorites=" + categories_id;
+      router.push({ name: "videodetail", params: { id: id } });
+    },
+    handleScroll() {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150
+      ) {
+        this.loadMore();
+      }
+    },
+    async loadMore() {
+      if (this.isLoading) {
+        return;
+      }
+      this.isLoading = true;
+      try {
+        const response = await this.$http.get(`/history?page=${this.Pages}`, {
+          headers: { Authorization: `Bearer ${this.token}` },
+        });
+        const data = response.data.data;
+        for (const key in data) {
+          this.videos.push(data[key]);
+        }
+        this.Pages++;
+      } catch (error) {
+        console.log(error.message);
+        this.isLoading = false;
+      } finally {
+        this.isLoading = false;
       }
     },
   },
   mounted() {
-    this.fetchVideo();
+    window.addEventListener("scroll", this.handleScroll);
+    this.loadMore();
   },
-  created(){
-    this.mouthed();
+  created() {
+    if (this.$cookies.get("token")) {
+      this.token = this.$cookies.get("token");
+    }
+    this.fetchVideo();
   },
 };
 </script>
@@ -143,7 +171,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 78.8vh
+  height: 78.8vh;
 }
 .v-btn {
   margin-top: 5px;

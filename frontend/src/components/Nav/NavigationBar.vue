@@ -2,19 +2,17 @@
 <template>
   <v-app-bar app color="#15202B">
     <template v-slot:prepend>
-      <img
-        src="../../assets/menu.png"
-        @click.stop="drawer"
-        @click="rail = !rail"
-        class="ml-4 mr-6"
-        width="35"
-        alt=""
-        id="menu"
-      />
+      <v-icon
+        @click.stop="drawer = !drawer"
+        @click.prevent="rail = !rail"
+        class="ml-1 mr-6"
+      >
+        mdi-menu
+      </v-icon>
     </template>
-    <v-app-bar-logo>
-      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/" />
-    </v-app-bar-logo>
+
+    <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/" />
+
     <v-container>
       <v-autocomplete
         v-model="select"
@@ -45,13 +43,12 @@
     </v-btn>
   </v-app-bar>
   <LoginForm
-    @reloadPage="reloadPage"
     v-model="loginForm"
     @show="handOver"
     @isShow="handOverIsShowLogin"
+    
   />
   <RegisterForm
-    @reloadPage="reloadPage"
     v-model="registerForm"
     @show="handOver"
     @isShow="handOverIsShowRegister"
@@ -63,14 +60,16 @@
     width="75px"
     :rail="rail"
   >
-    <v-list density="compact" nav width="180px">
-      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-        <v-list-item
-          style="color: white"
-          :prepend-icon="item.icon"
-          :title="item.title"
-          :value="item.title"
-        ></v-list-item>
+    <v-list nav width="200px">
+      <v-list-item
+        class="mt-3 mb-3"
+        v-for="item in items"
+        :key="item.title"
+        :to="item.to"
+        :prepend-icon="item.icon"
+        :title="item.title"
+        :value="item.title"
+      >
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -98,7 +97,7 @@ export default {
       drawer: false,
       rail: true,
       loading: false,
-      listVideos: "",
+      listVideos: [],
       search: null,
       select: null,
       link: "",
@@ -160,6 +159,7 @@ export default {
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
       this.loginForm = item;
+      console.log(this.loginForm)
     },
     handOverIsShowRegister(item) {
       this.getDataFromCookies();
@@ -216,16 +216,12 @@ export default {
             };
             console.log(response.data);
             console.log(this.user);
-            this.$emit("reloadPage");
             location.loading;
           }, 200)
           .catch((error) => {
             console.log(error.message);
           });
       }
-    },
-    reloadPage() {
-      window.location.reload();
     },
   },
   mounted() {
@@ -256,5 +252,14 @@ export default {
 
 .v-navigation-drawer {
   overflow-y: hidden;
+}
+.v-list-item {
+  font-size: 22px;
+  color: white;
+  background-color: none;
+}
+.v-icon {
+  font-size: xx-large;
+  color: white;
 }
 </style>

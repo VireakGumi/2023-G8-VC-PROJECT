@@ -34,10 +34,13 @@
       v-model="loginForm"
       @show="handOver"
       @isShow="handOverIsShowLogin"
-      :setForm="setForm"
     />
-    <RegisterForm v-model="registerForm" @show="handOver" />
-    <upload-dialog v-if="upload"></upload-dialog>
+    <RegisterForm
+      v-model="registerForm"
+      @show="handOver"
+      @isShow="handOverIsShowRegister"
+    />
+    <upload-dialog v-if="upload" @upload="uploadFile"></upload-dialog>
   </div>
 </template>
 
@@ -65,7 +68,11 @@ export default {
       token: "",
     };
   },
+ 
   methods: {
+    uploadFile(){
+      this.upload = false;
+    },
     setUpload() {
       this.$emit("show", { register: true, login: false });
     },
@@ -112,9 +119,9 @@ export default {
       }
     },
   },
-  created(){
+  created() {
     this.mouthed();
-  }
+  },
 };
 </script>
 
