@@ -33,7 +33,12 @@
       <v-container class="pt-0 ma-0 text-white" rounded="50">
         <v-list-item-title> {{ truncatedDescription(video.title) }} </v-list-item-title>
         <v-list-item-subtitle class="mb-1"> {{ truncatedDescription(video.description) }} </v-list-item-subtitle>
-        <v-list-item-subtitle>{{video.viewer}} {{ video.viewer > 0 && video.viewer !== 1 ? "views" : "view" }} </v-list-item-subtitle>
+        <v-list-item-subtitle>{{video.viewer }}
+        {{
+          video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
+        }}
+        .
+        {{durations(video.date_time)}} </v-list-item-subtitle>
       </v-container>
     </v-container>
   </v-card>
@@ -96,6 +101,33 @@ export default {
       } else {
         return character;
       }
+    },
+    durations(time) {
+      const today = new Date();
+      console.log(time)
+      const diffInMilliseconds =
+        today.getTime() - new Date(time).getTime();
+
+      let duration;
+      if (diffInMilliseconds < 24 * 3600 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (3600 * 1000)) + " hour";
+      } else if (diffInMilliseconds < 7 * 24 * 3600 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (24 * 3600 * 1000)) + " day";
+      } else if (diffInMilliseconds < 4 * 7 * 24 * 3600 * 1000) {
+        duration =
+          Math.floor(diffInMilliseconds / (7 * 24 * 3600 * 1000)) + " week";
+      } else if (diffInMilliseconds < 12 * 4 * 7 * 24 * 3600 * 1000) {
+        duration =
+          Math.floor(diffInMilliseconds / (4 * 7 * 24 * 3600 * 1000)) +
+          " month";
+      } else {
+        duration =
+          Math.floor(diffInMilliseconds / (12 * 4 * 7 * 24 * 3600 * 1000)) +
+          " year";
+      }
+
+      duration += duration === "1" ? "" : "s ago";
+      return duration;
     },
   },
 };
