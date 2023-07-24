@@ -32,10 +32,9 @@ class EditVideoRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'thumbnail' => 'required',
-            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'date_time' => 'required|string',
             'privacy' => 'required|string',
             'categories_id' => 'required|integer',
         ];
-        }
     }
+}

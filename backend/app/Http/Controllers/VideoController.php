@@ -24,6 +24,25 @@ class VideoController extends Controller
             $video->image =  $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
+            $extension = pathinfo($video->thumbnail, PATHINFO_EXTENSION);
+            switch ($extension) {
+                case 'jpg':
+                case 'jpeg':
+                    $video->imageType = 'image/jpeg';
+                    break;
+                case 'png':
+                    $video->imageType = 'image/png';
+                    break;
+                case 'gif':
+                    $video->imageType = 'image/gif';
+                    break;
+                case 'svg':
+                    $video->imageType = 'image/svg+xml';
+                    break;
+                default:
+                    $video->imageType = '';
+                    break;
+            }
             $video->src = route('video.play', ['id' => $video->id]);
             $video->user;
         }
@@ -154,29 +173,33 @@ class VideoController extends Controller
      */
     public function update($id, EditVideoRequest $request)
     {
-        //
-        $video =  $request->only( 'title',
-        'description',
-        'thumbnail' ,
-        'date_time' ,
-        'privacy' ,
-        'categories_id');
-        $videos = Auth::user()->videos->find($id);
-        if ($videos) {
-            if($request->file){
-                $thumbNail = $request->file->getClientOriginalName();
-                $video['thumbnail'] = $thumbNail;
-                $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->file));
-                if($isThumbnailUploaded) {
-                    $videos->update($video);
-                    return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $videos], 200);    
-                }
-                return response()->json(['success' => false, 'message' => 'Image uploaded is unsuccessful'], 404);
-            }
-            $videos->update($video);
-            return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $videos], 200);    
+        $video = $request->only([
+            'title',
+            'description',
+            'date_time',
+            'privacy',
+            'categories_id'
+        ]);
+        $videos = Auth::user()->videos()->find($id);
+        if (!$videos) {
+            return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
         }
-        return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
+        if ($request->hasFile('thumbnail')) {
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail');
+                $thumbnailName = $thumbnail->getClientOriginalName();
+                $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbnailName, file_get_contents($thumbnail));
+                if (!$isThumbnailUploaded) {
+                    return response()->json(['success' => false, 'message' => 'Image upload failed'], 404);
+                }
+                if ($videos->thumbnail != $thumbnailName) {
+                    // Only update the video thumbnail if the new thumbnail file is different from the existing one
+                    $video['thumbnail'] = $thumbnailName;
+                }
+            }
+        }
+        $videos->update($video);
+        return response()->json(['success' => true, 'message' => 'Video updated successfully', 'videos' => $videos], 200);
     }
 
     /**

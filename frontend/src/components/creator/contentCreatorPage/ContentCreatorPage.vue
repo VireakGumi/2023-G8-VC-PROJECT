@@ -1,9 +1,8 @@
 <template>
   <v-app>
     <div v-if="editDialog">
-      <EditDialog @isShow="handOver" :videoData="selectedVideo"/>
+      <EditDialog @isShow="handOver" :videoData="selectedVideo" />
     </div>
-
     <div class="container">
       <h1>CHANNEL CONTENT</h1>
       <div class="btn">
@@ -28,7 +27,9 @@
           <td>
             <div class="my-video">
               <v-checkbox></v-checkbox>
-              <img class="video-thumbnail" :src="video.thumbnail" alt="" />
+              <div style="width: 50%; padding: 0;">
+                <img class="video-thumbnail" :src="video.thumbnail" alt="" />
+              </div>
               <div class="my-action">
                 <p class="title">{{ video.title }}</p>
                 <div class="btn-creator mt-16">
@@ -57,6 +58,25 @@
         </tr>
       </tbody>
     </v-table>
+    <v-dialog width="400" >
+      <v-card height="200" class="d-flex justify-center pa-5 align-center">
+        <div v-if="uploadProgress < 100" >
+          <div class="d-flex column justify-center align-center" justify="space-evenly">
+            <h1 class="text-center">Uploading</h1>
+            <v-progress-circular
+              v-if="uploadProgress !== null"
+              :value="uploadProgress"
+              size="80"
+              color="primary"
+              indeterminate
+            >{{ uploadProgress }} %</v-progress-circular>
+          </div>
+        </div>
+        <div v-if="uploadProgress == 100">
+          <h1>Upload successful!</h1>
+        </div>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -75,9 +95,9 @@ export default {
     };
   },
   methods: {
-    handOver(bool) {
-      console.log(bool);
-      this.editDialog = bool;
+    handOver() {
+      this.editDialog = false;
+      this.fetchVideo();
     },
     fetchVideo() {
       let token =
@@ -118,7 +138,6 @@ export default {
       }
     },
     editVideo(video) {
-      console.log(video);
       this.editDialog = true;
       this.selectedVideo = video;
     },
@@ -129,13 +148,19 @@ export default {
 };
 </script>
 <style scoped>
+.v-dialog--active {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
 .container {
-  margin-top: 7%;
-  margin-left: 8%;
+  margin-top: 3%;
+  margin-left: 3%;
 }
 
 .v-table {
-  margin-left: 8%;
+  margin-left: 3%;
   margin-top: 3%;
 }
 .my-video {
@@ -179,4 +204,5 @@ button {
   margin-top: 18%;
   margin-left: -2%;
 }
+
 </style>
