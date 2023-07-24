@@ -92,7 +92,9 @@
           <v-btn variant="text" @click="(postInfo = false), (upload = true)">
             Back
           </v-btn>
-          <v-btn variant="text" @click="postInfo = false"  @click.stop="cancel"> Cancel </v-btn>
+          <v-btn variant="text" @click="postInfo = false" @click.stop="cancel">
+            Cancel
+          </v-btn>
           <v-btn variant="text" @click="postVideo()"> Post </v-btn>
         </v-card-actions>
       </v-card>
@@ -166,8 +168,8 @@ export default {
     };
   },
   methods: {
-    cancel(){
-      this.$emit('upload', false);
+    cancel() {
+      this.$emit("upload", false);
     },
     getCategoryID(name) {
       let id = null;
@@ -203,14 +205,15 @@ export default {
       ) {
         this.postInfo = false;
         this.uploading = true;
+        const now = new Date();
+        const date = now.toISOString().slice(0, 10);
+        const time = now.toLocaleTimeString("en-US", { hour12: false });
+        const dateTime = `${date} ${time}`;
         let formData = new FormData();
         formData.append("title", this.title);
         formData.append("description", this.description);
         formData.append("thumbnail", this.thumbnail[0]);
-        formData.append(
-          "date_time",
-          new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")
-        );
+        formData.append("date_time",dateTime);
         formData.append("path", this.video);
         formData.append("privacy", this.privacy);
         formData.append("categories_id", this.getCategoryID(this.category));
@@ -225,8 +228,8 @@ export default {
               let progress = Math.round(
                 (progressEvent.loaded / progressEvent.total) * 100
               );
-              if (progress){
-                progress=100
+              if (progress == 0) {
+                progress = 100;
               }
               console.log(`Upload progress: ${progress}`);
               this.uploadProgress = progress;
@@ -235,7 +238,7 @@ export default {
           .then((response) => {
             if (response.status >= 200 && response.status < 300) {
               console.log("Upload successful!");
-              
+
               console.log(response.data);
             } else {
               console.log("Upload failed!");
