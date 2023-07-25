@@ -33,7 +33,7 @@
                   <v-title class="mt-3 ml-2"> {{ video.user }} </v-title>
                 </div>
                 <div class="like-container">
-                  <div style="width: 165px; display: flex">
+                  <div style="width: 30%; display: flex">
                     <v-btn
                       class="ma-1"
                       :class="{ 'blue--text': isClicked }"
@@ -54,6 +54,13 @@
                       icon="mdi-download"
                       @click="download"
                     ></v-btn>
+                    <v-btn
+                      class="ma-1"
+                      variant="text"
+                      icon="mdi-flag"
+                      @click="showDialog = true"
+                    ></v-btn>
+                    <report-dialog v-if="showDialog"></report-dialog>
                   </div>
                   <v-dialog v-model="dialog" max-width="500">
                     <v-card>
@@ -154,13 +161,20 @@
           </div>
         </v-row>
       </v-col>
+      
     </v-row>
   </v-layout>
 </template>
 <script>
+
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
+import ReportDialog from '../components/Dialog/ReportDialog.vue';
 export default {
+  components: {
+    
+    ReportDialog
+  },
   name: "VuePlyrVideo",
   data: () => ({
     options: { quality: { default: "1080p" } },
@@ -180,6 +194,7 @@ export default {
     },
     url: "",
     isClicked: false,
+    showDialog: false,
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
     srcvideo: "",
