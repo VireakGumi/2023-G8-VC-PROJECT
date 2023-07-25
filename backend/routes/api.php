@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
     Route::post('/likes', [LikeController::class, 'store']);
     Route::post('/comments', [CommentController::class, 'store']);
+    Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
 });
 Route::fallback(function () {
     return 'Page Not Found';
@@ -53,12 +54,15 @@ Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');
 Route::get('/videos/image/{imagePath}', [VideoController::class, 'getImage'])->name('video.image');
-Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
-Route::get('/categoryOfVideo/{id}', [VideoController::class, 'getVideoByCategory']);
+Route::get('/videos/category/{id}', [VideoController::class, 'getVideoByCategory']);
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
-Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
+// Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
 Route::get('/likes/{id}', [LikeController::class, 'index']);
 Route::get('/comments/{id}', [CommentController::class, 'index']);
+Route::get('/videos/recommendation/{id}/{categories_id}', [VideoController::class, 'videoRecommendation'] );
+Route::get('/videos/recommendationHomePage/{categories_id}', [VideoController::class, 'videoRecommendationHomePage'] );
+Route::get('/videos/viewer/{id}', [VideoController::class, 'storeViewer'] );
+

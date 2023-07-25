@@ -1,11 +1,20 @@
 <template>
   <v-dialog v-model="dialog" width="100%">
-    <div>
-      <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="900" rounded="lg">
+    <div class="cards">
+      <v-card
+        class="mx-auto pb-8"
+        elevation="8"
+        max-width="900"
+        rounded="lg"
+        style="max-height: 550px; overflow-y: auto"
+      >
         <v-row>
-          <v-col cols="12" sm="6">
-            <v-img class="mx-auto my-6 mt-16" max-width="700"
-              src="https://www.miraeassetmf.co.in/images/default-source/maq/registration.png?sfvrsn=aa71ff68_0"></v-img>
+          <v-col cols="12" sm="6" class="d-flex ma-0 pa-0">
+            <v-img
+              class="mx-auto"
+              max-width="700"
+              :src="require('@/assets/registration.png')"
+            ></v-img>
           </v-col>
 
           <v-col cols="12" sm="6">
@@ -14,7 +23,9 @@
                 <h1>Register</h1>
               </a>
             </v-card-text>
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            <div
+              class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+            >
               <p>UserName</p>
             </div>
 
@@ -41,7 +52,9 @@
               v-model="email"
             ></v-text-field>
 
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            <div
+              class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+            >
               <p>Password</p>
             </div>
 
@@ -56,14 +69,16 @@
               @click:append-inner="visible = !visible"
             ></v-text-field>
 
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            <div
+              class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+            >
               <p>ComfirmPassword</p>
             </div>
 
             <v-text-field
               :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
               :type="visible ? 'text' : 'password'"
-              :rules="[confirmPasswordRules, passwordConfirmationRule()]"
+              :rules="[...confirmPasswordRules, passwordConfirmationRule()]"
               density="compact"
               placeholder="confirmPassword"
               variant="outlined"
@@ -71,7 +86,14 @@
               @click:append-inner="visible = !visible"
             ></v-text-field>
 
-            <v-btn block class="mb-2 bg-blue" color="white" size="large" variant="tonal" @click="Register">
+            <v-btn
+              block
+              class="mb-2 bg-blue"
+              color="white"
+              size="large"
+              variant="tonal"
+              @click="Register"
+            >
               Register
             </v-btn>
 
@@ -81,30 +103,34 @@
               </a>
             </v-card-text>
 
-            <v-row class="ms-16">
-              <div class="me-12">
-                <v-img class="my-2" max-width="20"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"></v-img>
-              </div>
-
-              <div class="me-14">
-                <v-img class="my-2" max-width="20"
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/1200px-Facebook_f_logo_%282021%29.svg.png"></v-img>
-              </div>
-
-              <div class="me-12">
-                <v-img class="my-2" max-width="20"
-                  src="https://png.pngtree.com/png-clipart/20221019/original/pngtree-twitter-social-media-round-icon-png-image_8704823.png"></v-img>
-              </div>
-
-              <div class="me-4">
-                <v-img class="my-2" max-width="20"
-                  src="https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_instagram-512.png"></v-img>
-              </div>
-            </v-row>
+            <div class="d-flex justify-center justify-space-evenly">
+              <v-img
+                class="my-2"
+                max-width="25"
+                :src="require('@/assets/google.png')"
+              ></v-img>
+              <v-img
+                class="my-2"
+                max-width="25"
+                :src="require('@/assets/facebook.png')"
+              ></v-img>
+              <v-img
+                class="my-2"
+                max-width="32"
+                :src="require('@/assets/twitter.png')"
+              ></v-img>
+              <v-img
+                class="my-2"
+                max-width="25"
+                :src="require('@/assets/instagrame.png')"
+              ></v-img>
+            </div>
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p>Have an accounts? <span class="login" @click="setForm">Login</span></p>
+                <p>
+                  Have an accounts?
+                  <span class="login" @click="setForm">Login</span>
+                </p>
               </a>
             </v-card-text>
           </v-col>
@@ -115,7 +141,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     value: Boolean,
@@ -140,7 +165,7 @@ export default {
           value
         ) || "password required number, charaters, sign, and last 8",
     ],
-    confirmPasswordRules: [(value) => !!value || "type confirm password"],
+    confirmPasswordRules: [(v) => !!v || "Confirm Password is required"],
   }),
   computed: {
     dialog: {
@@ -158,7 +183,7 @@ export default {
         full_name: this.full_name,
         email: this.email,
         password: this.password,
-        comfirm_password: this.confirmPassword,
+        confirm_password: this.confirmPassword,
       };
       this.$http
         .post("/register", value)
@@ -173,11 +198,11 @@ export default {
           this.confirmPassword = "";
           this.dialog = false;
           this.$emit("isShow", false);
+          // Replace this line with a valid statement
         })
         .catch((error) => {
           console.log(error.response);
         });
-
     },
     passwordConfirmationRule() {
       return () =>
@@ -185,7 +210,7 @@ export default {
     },
     setForm() {
       this.$emit("show", { register: false, login: true });
-    }
+    },
   },
 };
 </script>
@@ -210,12 +235,6 @@ p {
   padding-right: 0px;
 }
 
-.v-text-field .v-field__field {
-  background: white !important;
-  color: black;
-  border-radius: 5px;
-}
-
 .v-field {
   background-color: white;
 }
@@ -235,5 +254,11 @@ a {
 .login {
   color: rgb(0, 149, 255);
   cursor: pointer;
+}
+.v-text-field {
+  background: white !important;
+  border-radius: 5px;
+  height: 44px;
+  margin-bottom: 25px;
 }
 </style>

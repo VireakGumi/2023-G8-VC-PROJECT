@@ -2,31 +2,74 @@
 <template>
   <v-app-bar app color="#15202B">
     <template v-slot:prepend>
-      <img src="../../assets/menu.png" @click.stop="drawer" @click="rail = !rail" class="ml-4 mr-6" width="35" alt=""
-        id="menu" />
+      <v-icon
+        @click.stop="drawer = !drawer"
+        @click.prevent="rail = !rail"
+        class="ml-1 mr-6"
+      >
+        mdi-menu
+      </v-icon>
     </template>
-    <v-app-bar-logo>
-      <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/" />
-    </v-app-bar-logo>
+
+    <img src="../../assets/logo.png" width="35" class="mr-16 mt-2" to="/" />
+
     <v-container>
-      <v-autocomplete v-model="select" v-model:search="search" :items="listVideos" rounded="pill" density="compact"
-        variant="solo" @keydown.enter="navigateToPage" label="Search Videos" append-inner-icon="mdi-magnify" single-line
-        hide-no-data hide-details></v-autocomplete>
+      <v-autocomplete
+        v-model="select"
+        v-model:search="search"
+        :items="listVideos"
+        rounded="pill"
+        density="compact"
+        variant="solo"
+        @keydown.enter="navigateToPage"
+        label="Search Videos"
+        append-inner-icon="mdi-magnify"
+        single-line
+        hide-no-data
+        hide-details
+      ></v-autocomplete>
     </v-container>
 
     <DropDown v-if="getReady" :user="user" @logout="logout"></DropDown>
 
-    <v-btn v-else class="mr-6 ml-8 mr-2 bg-white" rounded="pill" prepend-icon="mdi-account"
-      @click.stop="loginForm = true">
+    <v-btn
+      v-else
+      class="mr-6 ml-8 mr-2 bg-white"
+      rounded="pill"
+      prepend-icon="mdi-account"
+      @click.stop="loginForm = true"
+    >
       Sign in
     </v-btn>
   </v-app-bar>
-  <LoginForm v-model="loginForm" @show="handOver" @isShow="handOverIsShowLogin" />
-  <RegisterForm v-model="registerForm" @show="handOver" @isShow="handOverIsShowRegister" />
-  <v-navigation-drawer color="#15202B" app class="d-flex flex-column" width="75px" :rail="rail">
-    <v-list density="compact" nav width="180px">
-      <v-list-item v-for="item in items" :key="item.title" :to="item.to">
-        <v-list-item style="color: white" :prepend-icon="item.icon" :title="item.title" :value="item.title"></v-list-item>
+  <LoginForm
+    v-model="loginForm"
+    @show="handOver"
+    @isShow="handOverIsShowLogin"
+    
+  />
+  <RegisterForm
+    v-model="registerForm"
+    @show="handOver"
+    @isShow="handOverIsShowRegister"
+  />
+  <v-navigation-drawer
+    color="#15202B"
+    app
+    class="d-flex flex-column"
+    width="75px"
+    :rail="rail"
+  >
+    <v-list nav width="200px">
+      <v-list-item
+        class="mt-3 mb-3"
+        v-for="item in items"
+        :key="item.title"
+        :to="item.to"
+        :prepend-icon="item.icon"
+        :title="item.title"
+        :value="item.title"
+      >
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -54,7 +97,7 @@ export default {
       drawer: false,
       rail: true,
       loading: false,
-      listVideos: "",
+      listVideos: [],
       search: null,
       select: null,
       link: "",
@@ -67,7 +110,11 @@ export default {
         { title: "Message", icon: "mdi-email-outline", to: "/messages" },
         { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
         { title: "Playlist", icon: "mdi-playlist-play", to: "/uerPlaylist" },
-        { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/about" },
+        {
+          title: "More",
+          icon: "mdi-dots-horizontal-circle-outline",
+          to: "/about",
+        },
       ],
     };
   },
@@ -78,8 +125,12 @@ export default {
   },
   computed: {
     getReady() {
-      console.log(this.user);
-      if (this.user.token != "" && this.user.full_name != "" && this.user.user_id != "" && this.user.email) {
+      if (
+        this.user.token != "" &&
+        this.user.full_name != "" &&
+        this.user.user_id != "" &&
+        this.user.email
+      ) {
         return true;
       }
       return false;
@@ -90,7 +141,8 @@ export default {
       router.push(`/search/${this.search}`);
     },
     querySelections() {
-      this.$http.get(`/videos/${this.select}`)
+      this.$http
+        .get(`/videos/${this.select}`)
         .then((response) => {
           this.loading = true;
           // set this.videos to the response data
@@ -107,6 +159,7 @@ export default {
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
       this.loginForm = item;
+      console.log(this.loginForm)
     },
     handOverIsShowRegister(item) {
       this.getDataFromCookies();
@@ -122,22 +175,22 @@ export default {
     getDataFromCookies() {
       this.user.user_id =
         this.$cookies.get("user_id") !== "undefined" &&
-          this.$cookies.get("user_id") !== null
+        this.$cookies.get("user_id") !== null
           ? this.$cookies.get("user_id")
           : "";
       this.user.full_name =
         this.$cookies.get("full_name") !== "full_name" &&
-          this.$cookies.get("full_name") !== null
+        this.$cookies.get("full_name") !== null
           ? this.$cookies.get("full_name")
           : "";
       this.user.email =
         this.$cookies.get("email") !== "email" &&
-          this.$cookies.get("email") !== null
+        this.$cookies.get("email") !== null
           ? this.$cookies.get("email")
           : "";
       this.user.token =
         this.$cookies.get("token") !== "undefined" &&
-          this.$cookies.get("token") !== null
+        this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
     },
@@ -149,7 +202,8 @@ export default {
     },
     logout(isLog) {
       if (isLog) {
-        this.$http.get(`/logout`, null, {
+        this.$http
+          .post(`/logout`, null, {
             headers: { Authorization: `Bearer ${this.user.token}` },
           })
           .then((response) => {
@@ -159,9 +213,10 @@ export default {
               full_name: "",
               email: "",
               user_id: "",
-            }
+            };
             console.log(response.data);
             console.log(this.user);
+            location.loading;
           }, 200)
           .catch((error) => {
             console.log(error.message);
@@ -174,7 +229,6 @@ export default {
     this.querySelections();
   },
 };
-
 </script>
 <style scoped>
 .my-btn {
@@ -198,5 +252,14 @@ export default {
 
 .v-navigation-drawer {
   overflow-y: hidden;
+}
+.v-list-item {
+  font-size: 22px;
+  color: white;
+  background-color: none;
+}
+.v-icon {
+  font-size: xx-large;
+  color: white;
 }
 </style>

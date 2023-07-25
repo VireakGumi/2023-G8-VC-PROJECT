@@ -29,7 +29,9 @@ class VideoController extends Controller
     }
     public function getVideos()
     {
-        $videos = Video::get();
+        $videos = Video::orderByDesc('date_time')
+            ->orderByDesc('viewer')
+            ->get();
         if ($videos->count() > 0) {
             $videos = $this->getSrc($videos);
         }
@@ -58,19 +60,21 @@ class VideoController extends Controller
         return response()->json(['success' => false, 'message' => 'Video is not found'], 404);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $videos = $this->getVideos();
-        if (isset($videos)) {
+        $page = $request->input('page') ?? 1; // Get the current page number from the request, or default to 1
+        $perPage = 6; // Change the number 10 to the desired number of videos per page
+        $videos = $this->getVideos()
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage);
+
+        if ($videos->count()) {
             return response()->json([
                 'message' => 'Successful',
-                'data' => $videos,
+                'data' => $videos
             ], 200);
         }
-        return response()->json([
-            'message' => 'No data'
-        ], 404);
+        return response()->json(['success' => false, 'message' => 'This user dose not have any videos yet'], 404);
     }
 
     public function getVideoByCategory($id)
@@ -178,14 +182,14 @@ class VideoController extends Controller
     public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
-        $fileName = $request->video->getClientOriginalName();
+        $fileName = $request->path->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
         $video = Arr::add($video, 'viewer', 0);
         $video['thumbnail'] = $thumbNail;
         $video = Arr::add($video, 'path', $fileName);
         $video = Arr::add($video, 'user_id', Auth::user()->id);
-        $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->video));
-        $isThumbnailUploaded = Storage::disk('public')->put('thumbnails/' . $thumbNail, file_get_contents($request->thumbnail));
+        $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->path));
+        $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
         $url = Storage::disk('public')->url('videos/' . $fileName);
 
@@ -203,23 +207,60 @@ class VideoController extends Controller
             ->get();
         if ($videos->count()) {
             $this->getSrc($videos);
-
             return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $videos], 200);
         }
         return response()->json(['success' => true, 'message' => 'There are some data', 'data' => Video::limit(12)->get()], 200);
     }
-    
-    public function videoRecommendation($category)
+    public function videoRecommendation($id, $category_id, Request $request)
     {
+        $page = $request->input('page', 1);
+        $perPage = 6;
+        $select = Video::find($id);
+        $videoList = Video::whereNotIn('id', [$id])
+        ->orderByDesc('title', 'like', '%' . $select->title . '%')
+        ->orderBy('title', 'desc')
+        ->orderBy('date_time', 'desc')
+        ->orderBy('viewer', 'desc')
+        ->get();
+        $recommendedVideos = $videoList->where('categories_id', $category_id);
+        $otherVideos = $videoList->whereNotIn('id', $recommendedVideos->pluck('id'));
+        $videos = $recommendedVideos->merge($otherVideos)
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage);
+        if ($videos->count()) {
+            $videos = $this->getSrc($videos);
+            return response()->json(['success' => true, 'message' => 'Here are the results', 'data' => $videos], 200);
+        }
+        return response()->json(['success' => false, 'message' => 'There is no data'], 404);
+    }
+    public function videoRecommendationHomePage($category, Request $request)
+    {
+        $page = $request->input('page') ?? 1; // Get the current page number from the request, or default to 1
+        $perPage = 6; // Ch
         $video = Video::where('categories_id', $category)
+            ->orderByDesc('date_time')
             ->orderByDesc('viewer')
-            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
             ->get();
         $videos = Video::whereNotIn('id', $video->pluck('id'))
+            ->orderByDesc('date_time')
             ->orderByDesc('viewer')
-            ->orderByRaw('ABS(DATEDIFF(date_time, NOW()))')
             ->get();
-        $video = $video->merge($videos);
-        return $video;
+        $video =$video->merge($videos)
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage);
+        if ($video->count()) {
+            $video = $this->getSrc($video);
+            return response()->json(['success' => true, 'message' => 'There are the result', 'data' => $video], 200);
+        }
+        return response()->json(['success' => false, 'message' => 'There is no data'],404);
+    }
+    public function storeViewer($id)
+    {
+        $video = Video::find($id);
+        if ($video) {
+            $video->update(['viewer' => $video->viewer + 1]);
+            return response()->json(['success' => true, 'message' => 'Viewer has been stored'], 200);
+        }
+        return response()->json(['success' => false, 'message' => 'Store viewer failed'], 404);
     }
 }
