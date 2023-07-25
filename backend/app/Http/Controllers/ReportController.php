@@ -23,6 +23,14 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         //
+        $reports = Report::create([
+            'user_id' => $request->user_id,
+            'video_id' => $request->video_id,
+            'comment' => $request->comment,
+            'type_of_report' => $request->type_of_report,
+            'content_video' => $request->content_video
+        ]);
+        return $reports;
     }
 
     /**
@@ -48,15 +56,6 @@ class ReportController extends Controller
     {
         $report = Report::find($id)->delete();
         return $report;
-        // 
-
-        // $user = Auth::user();
-        // $report = $user->$reports->find($id);
-        // if ($report != null) {
-        //     $report->delete();
-        //     return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
-        // }
-        // return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
     public function getVideos()
     {

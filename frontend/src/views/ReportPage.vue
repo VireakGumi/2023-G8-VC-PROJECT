@@ -9,8 +9,8 @@
         <thead>
           <tr>
             <th class="text-left">User Name</th>
-            <th class="text-left">Content video</th>
-            <th class="text-left">Type's report</th>
+            <th class="text-left">Content Video</th>
+            <th class="text-left">Type's Report</th>
             <th class="text-left">Comment</th>
             <th class="text-left">View Detail</th>
             <th class="text-center">Action</th>
@@ -71,6 +71,7 @@ export default {
         });
       return this.users;
     },
+
     deleteUser: function (id, videoId) {
       // First, delete the report with the given ID
       this.$http
@@ -109,5 +110,8 @@ img {
 #report {
   color: black;
   background-color: white;
+}
+tr,th{
+  border-collapse: none;
 }
 </style>
