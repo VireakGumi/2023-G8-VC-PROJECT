@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
+
 class UserController extends Controller
 {
     /**
@@ -17,6 +18,12 @@ class UserController extends Controller
     public function index()
     {
         //
+        $user = user::all();
+        return response()->json([
+            'success' => true,
+            'message' => 'Request is successfully.',
+            'user' => $user
+        ], 200);
     }
 
     /**
@@ -53,11 +60,11 @@ class UserController extends Controller
     public function register(StoreRegisterRequest $request)
     {
         $credentails = $request->only('full_name', 'email', 'password');
-        $credentails= Arr::add($credentails,'role_id',1);
+        $credentails = Arr::add($credentails, 'role_id', 1);
         $credentails["password"] = bcrypt($credentails["password"]);
 
         $user = User::create($credentails);
-        if($user){
+        if ($user) {
             $token = $user->createToken('API Token', ['select', 'create', 'update'])->plainTextToken;
 
             return response()->json([

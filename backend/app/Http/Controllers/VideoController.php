@@ -174,6 +174,10 @@ class VideoController extends Controller
         return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
 
+    public function deleteVideo($id){
+        $videos = Video::find($id)->delete();
+        return $videos;
+    }
     public function uploadVideo(StoreVideoRequest $request)
     {
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');

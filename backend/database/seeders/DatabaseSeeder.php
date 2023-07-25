@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Categories;
+use App\Models\Report;
+use App\Models\VideoPlayList;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Video::class);
         $this->call(PlaylistSeeder::class);
         $this->call(HistorySeeder::class);
+        $this->call(VideosPlaylistSeeder::class);
+        $this->call(ReportSeeder::class);
     }
 }

@@ -52,4 +52,7 @@ class Video extends Model
     {
         return $this->hasMany(VideoPlayList::class);
     }
+    public function report ():HasMany{
+        return $this->hasMany(Report::class);
+    }
 }

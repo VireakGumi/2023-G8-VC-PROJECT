@@ -13,6 +13,18 @@ class UserBlockedController extends Controller
     public function index()
     {
         //
+        $userBlocke = UserBlocked::all();
+        if ($userBlocke != null) {
+            return Response()->json([
+                'success' => true,
+                'message' => 'successfully.',
+                'data' => $userBlocke,
+            ], 200);
+        }
+        return Response()->json([
+            'success' => false,
+            'message' => 'User blocked is empty.',
+        ], 200);
     }
 
     /**

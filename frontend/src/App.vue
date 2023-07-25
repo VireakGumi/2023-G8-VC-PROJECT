@@ -1,5 +1,6 @@
 <template>
-  <v-layout class="bg-surface-variant ma-0 pa-0 bg-red-accent-4" width="100%">
+  <AdminNavTop />
+  <!-- <v-layout class="bg-surface-variant ma-0 pa-0 bg-red-accent-4" width="100%">
     <v-row no-gutters>
       <v-col>
         <navigation-bar @reloadPage="reloadPage" />
@@ -10,10 +11,12 @@
         <router-view />
       </v-col>
     </v-row>
-  </v-layout>
+  </v-layout> -->
 </template>
 <script>
+import AdminNavTop from "./components/Nav/AdminNavTop.vue";
 export default {
+  components: { AdminNavTop },
   methods: {
     reloadPage() {
       window.location.reload();
