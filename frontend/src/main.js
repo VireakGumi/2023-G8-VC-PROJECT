@@ -9,6 +9,10 @@ import "@mdi/font/css/materialdesignicons.css";
 import VuePlyr from 'vue-plyr';
 import 'vue-plyr/dist/vue-plyr.css';
 
+// icon
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiCog } from '@mdi/js'
+
 // Vuetify
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
@@ -28,4 +32,4 @@ const app = createApp(App);
 app.config.globalProperties.$http = http;
 import NavBar from "./components/Nav/NavigationBar.vue";
 app.component("navigation-bar", NavBar);
-app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).mount("#app");
+app.use(vuetify).use(router).use(VuePlyr).use(VueCookies).use(SvgIcon).use(mdiCog).mount("#app");

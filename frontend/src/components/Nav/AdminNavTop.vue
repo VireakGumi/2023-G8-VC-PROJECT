@@ -15,10 +15,11 @@
         rounded="pill"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn class="text-none" to="/notifications" icon>
+      <v-btn class="text-none" @click="dialog = !dialog" icon>
       <v-badge content="2" color="error">
         <v-icon>mdi-bell-outline</v-icon>
       </v-badge>
+      <notification-dialog v-if="dialog"></notification-dialog>
     </v-btn>
 
       <v-menu transition="slide-x-transition" bottom right :open-on-click="true">
@@ -72,10 +73,16 @@
   </v-app>
 </template>
 <script>
+
+import NotificationDialog from "../Dialog/NotificationDialog.vue"
 export default {
+  components: {
+    NotificationDialog
+  },
   data() {
     return {
       drawer: true,
+      dialog: false,
       profiles: [
         { title: "Your Channel", icon: "mdi-laptop-account", to: "" },
         {

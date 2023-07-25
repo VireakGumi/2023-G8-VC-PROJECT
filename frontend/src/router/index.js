@@ -7,13 +7,14 @@ import ContentCreatorPage from "../components/creator/contentCreatorPage/Content
 import DashBoard from "../views/DashBoard.vue";
 import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
-import NotificationView from "../views/NotificationView.vue";
+import VideoDetail from "../views/VideoDetail.vue";
+// import NotificationView from "../views/NotificationView.vue";
 
 const routes = [
   {
-    path: "/notifications",
-    name: "notifications",
-    component: NotificationView
+    path: "/video-details",
+    name: "video-details",
+    component: VideoDetail
   },
   {
     path: "/Video",
