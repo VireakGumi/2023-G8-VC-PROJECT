@@ -82,7 +82,6 @@ export default {
     },
     truncatedDescription(character) {
       const maxChars = 40;
-      console.log(this.video);
       if (character.length > maxChars) {
         return character.substring(0, maxChars) + "...";
       } else {
@@ -91,7 +90,6 @@ export default {
     },
     durations(time) {
       const today = new Date();
-      console.log(time)
       const diffInMilliseconds =
         today.getTime() - new Date(time).getTime();
 

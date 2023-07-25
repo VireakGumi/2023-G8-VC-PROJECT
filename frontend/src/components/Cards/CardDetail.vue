@@ -74,7 +74,6 @@ export default {
     },
     durations(time) {
       const today = new Date();
-      console.log(time)
       const diffInMilliseconds =
         today.getTime() - new Date(time).getTime();
 
