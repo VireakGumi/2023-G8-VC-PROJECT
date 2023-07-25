@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="upload" width="400">
+  <div class="text-center" >
+    <v-dialog v-model="upload" width="400" @click="cancel">
       <v-card height="400" class="pa-5">
         <h1 class="text-center">Upload Video</h1>
         <v-icon
@@ -283,7 +283,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #15202b;
+  background-color: #252525;
   color: white;
 }
 

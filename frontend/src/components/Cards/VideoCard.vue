@@ -1,5 +1,5 @@
 <template>
-  <v-card rounded="50" width="400px">
+  <v-card rounded="50" max-width="400px">
     <div
       style="width: 400px; height: 255px"
       @mouseenter="startTimer"
@@ -9,10 +9,10 @@
       <img
         :src="video.thumbnail"
         alt=""
-        style="width: 100%; height: 100%; border-radius: 5px"
+        style="width: 100%; height: 100%; border-radius: 5px; background-size: cover;"
         v-show="!showVideo"
       />
-      <div style="width: 400px; height: 255px" v-show="showVideo">
+      <div style="width: 400px; height: 255px" v-if="showVideo">
         <vue-plyr :options="plyrOptions" width="100%" height="100%">
           <video
             controls

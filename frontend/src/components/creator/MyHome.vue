@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #252525; color: white">
     <a href="#" class="play"
       ><img
         src="../../assets/video-play.png"
@@ -12,45 +12,108 @@
     <v-container class="card-container" fluid>
       <v-row class="my-card">
         <v-col v-for="video in linkVideos" :key="video.id">
-          <img
-            width="330"
-            height="230"
-            :src="video.thumbnail"
-            frameborder="0"
-            allowfullscreen
-            alt=""
-          />
-          <v-card-title>
-            <p class="title">{{ video.title }}</p>
-            <p class="text description">{{ video.description }}</p>
-            <div class="viewer date">
-              <p class="text view-viewer">{{ video.viewer }}</p>
-              <p class="text view-date">{{ video.date_time }}</p>
+          <v-card rounded="50" max-width="400px" style="background-color: #252525;" >
+            <div
+              style="width: 400px; height: 255px"
+              @click="createHistory"
+            >
+              <img
+                :src="video.thumbnail"
+                alt=""
+                style="
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 5px;
+                  background-size: cover;
+                "
+                v-show="!showVideo"
+              />
             </div>
-          </v-card-title>
-          <br />
+            <v-container class="d-flex mt-5 pa-0">
+              <v-container class="pt-0 ma-0 text-white" rounded="50">
+                <v-list-item-title>
+                  {{ truncatedDescription(video.title) }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="mb-1">
+                  {{ truncatedDescription(video.description) }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle
+                  >{{ video.viewer }}
+                  {{
+                    video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
+                  }}
+                  .
+                  {{ durations(video.date_time) }}
+                </v-list-item-subtitle>
+              </v-container>
+            </v-container>
+          </v-card>
         </v-col>
+          
       </v-row>
     </v-container>
   </v-app>
 </template>
 
 <script>
-
 export default {
   name: "App",
   data() {
     return {
       url: "/user/videos",
       linkVideos: [],
+      timer: null,
     };
   },
   methods: {
+    truncatedDescription(character) {
+      const maxChars = 100;
+      if (character.length > maxChars) {
+        return character.substring(0, maxChars) + "...";
+      } else {
+        return character;
+      }
+    },
+    durations(dateTimeString) {
+      const now = new Date();
+      const dateTime = new Date(dateTimeString);
+      const diffInMilliseconds = now.getTime() - dateTime.getTime();
+      console.log(diffInMilliseconds)
+      let duration;
+      if (diffInMilliseconds < 60 * 1000) {
+        duration = Math.floor(diffInMilliseconds / 1000) + " second";
+      } else if (diffInMilliseconds < 60 * 60 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (60 * 1000)) + " minute";
+      } else if (diffInMilliseconds < 24 * 3600 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (3600 * 1000)) + " hour";
+      } else if (diffInMilliseconds < 7 * 24 * 3600 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (24 * 3600 * 1000)) + " day";
+      } else if (diffInMilliseconds < 4 * 7 * 24 * 3600 * 1000) {
+        duration =
+          Math.floor(diffInMilliseconds / (7 * 24 * 3600 * 1000)) + " week";
+      } else if (diffInMilliseconds < 12 * 4 * 7 * 24 * 3600 * 1000) {
+        duration =
+          Math.floor(diffInMilliseconds / (4 * 7 * 24 * 3600 * 1000)) +
+          " month";
+      } else {
+        duration =
+          Math.floor(diffInMilliseconds / (12 * 4 * 7 * 24 * 3600 * 1000)) +
+          " year";
+      }
+      duration += duration === "1 second" ? "" : "s ago";
+      return duration;
+    },
     fetchVideo() {
-      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
-        this.linkVideos = response.data.data;
-      });
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+        this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      this.$http
+        .get(this.url, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+          this.linkVideos = response.data.data;
+        });
     },
   },
   mounted() {

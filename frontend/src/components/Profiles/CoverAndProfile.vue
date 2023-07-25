@@ -1,63 +1,82 @@
 <template>
-  <v-app>
-    <v-container class="profile-section" fluid> </v-container>
-    <v-row class="profile">
+  <v-app style="background-color: #252525; color: white; height: 600px">
+    <v-container class="profile-section" fluid>
+      <!-- Profile header -->
+    </v-container>
+    <v-row class="profile" flex-md="column">
       <v-col class="profile-image">
         <img src="../../assets/pare-m.jpg" alt="Profile image" />
-        <input type="file" id="picture" name="picture" />
+        <div class="ml-4">
+          <h2>{{ user_name }}</h2>
+          <p>@{{ user_name }}</p>
+          <p>200M subscribers</p>
+        </div>
       </v-col>
-      <Info-Of-User />
-      <Btn-Subscribe />
+      <v-col class="d-flex justify-end">
+        <v-btn class="ma-2" @click="$router.push('/creator')"
+          >Manage Video</v-btn
+        >
+      </v-col>
     </v-row>
-    <v-row>
+    <v-row class="number-video">
       <v-col>
         <p class="view">100 videos</p>
-        <p class="content">**step records**sorry for the owner video</p>
+        <p class="content">step records sorry for the owner video</p>
       </v-col>
     </v-row>
-  <router-view></router-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import SubscribeBtn from "./SubscripeBtn.vue";
-import InfoOfUser from "./InfoOfUser.vue";
 export default {
-  components: {
-    "Btn-Subscribe": SubscribeBtn,
-    "Info-Of-User": InfoOfUser,
+  data() {
+    return {
+      user_name: "",
+    };
+  },
+  methods: {
+    getUser() {
+      const fullName = this.$cookies.get("full_name");
+      this.user_name =
+        fullName !== "full_name" && fullName !== null ? fullName : "";
+    },
+  },
+  mounted() {
+    this.getUser();
   },
 };
 </script>
 
 <style scoped>
-
 .profile-section {
   background-image: url("../../assets/10years.jpg");
   background-size: cover;
   background-position: center;
-  padding: 140px;
-  border-radius: 5px;
   display: flex;
   align-items: center;
+  position: relative;
+  height: 400px;
 }
 
 .profile-image {
-  margin-top: -4%;
-  margin-left: 4%;
-  position: relative;
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  top: 55%;
+  left: 3%;
+  width: 50%;
+  z-index: 2;
 }
-
+.profile-image div {
+  width: 200px;
+}
 .profile-image img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-}
-
-.profile-image input[type="file"] {
-  display: none;
 }
 
 .btn a {
@@ -88,12 +107,22 @@ export default {
   margin-left: 40px;
 }
 
-.view {
-  margin-top: -12%;
-  margin-left: 4%;
+.v-row,
+.v-col {
+  margin: 0;
+  padding: 0;
 }
 
-.content {
-  margin-left: 4%;
+.number-video .v-col {
+  height: 20px;
+  margin-left: 3%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -154,7 +154,6 @@ export default {
   },
   methods: {
     login() {
-      
         let value = { email: this.email, password: this.password };
         this.$http
           .post("/login", value)
@@ -181,7 +180,7 @@ export default {
 
 <style scoped>
 .v-card {
-  background-color: #15202b;
+  background-color: #252525;
 }
 
 p {

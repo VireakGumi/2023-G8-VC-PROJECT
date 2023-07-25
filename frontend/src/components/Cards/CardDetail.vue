@@ -1,15 +1,15 @@
 <template>
   <div
-    class="container-card d-flex flex ml-2 mt-1 mb-1 p-2"
+    class="container-card d-flex flex pa-0 ma-0"
     @mouseenter="startTimer"
     @mouseleave="clearTimer"
   >
     <img
       :src="video.thumbnail"
-      style="padding: 2px; width: 220px; height: 140px; border-radius: 5px"
+      style="padding: 2px; width: 220px; height: 140px; border-radius: 5px;background-size: cover;"
       v-show="!showVideo"
     />
-    <div style="width: 220px; height: 140px; padding: 2px" v-show="showVideo">
+    <div style="width: 220px; height: 140px; padding: 2px" v-if="showVideo">
       <vue-plyr :options="plyrOptions" style="width: 220px; height: 140px">
         <video
           controls

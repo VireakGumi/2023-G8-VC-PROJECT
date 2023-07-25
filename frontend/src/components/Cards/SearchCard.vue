@@ -7,10 +7,10 @@
   >
     <img
       :src="video.thumbnail"
-      style="width: 350px; height: 200px; border-radius: 5px"
+      style="width: 350px; height: 200px; border-radius: 5px; background-size: cover;"
       v-show="!showVideo"
     />
-    <div style="width: 350px; height: 200px" v-show="showVideo">
+    <div style="width: 350px; height: 200px" v-if="showVideo">
       <vue-plyr
         :options="plyrOptions"
         style="padding: 2px; width: 350px; height: 200px"
@@ -31,7 +31,7 @@
         <img
           width="40"
           height="40"
-          style="border-radius: 50%; margin-left: 15px"
+          style="border-radius: 50%; margin-left: 15px; background-size: cover;"
           :src="video.thumbnail"
         />
         <v-card-subtitle class="ml-4">{{

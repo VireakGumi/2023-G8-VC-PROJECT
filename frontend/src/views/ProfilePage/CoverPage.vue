@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section >
         <General-Info></General-Info>
         <Navbar-page/>
     </section>
