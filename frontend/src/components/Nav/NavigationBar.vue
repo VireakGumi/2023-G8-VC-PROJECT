@@ -50,7 +50,7 @@
               image="https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4"
               size="40"
             ></v-avatar>
-            <v-item-title> Hirito </v-item-title>
+            <v-item-title> {{ user.full_name }} </v-item-title>
           </v-list-item>
           <v-divider :thickness="3"></v-divider>
 
