@@ -35,5 +35,8 @@ class Channel extends Model
     public function userBlocked():HasMany{
         return $this->hasMany(UserBlocked::class);
     }
+    public function notification():HasMany{
+        return $this->hasMany(Notification::class);
+    }
    
 }

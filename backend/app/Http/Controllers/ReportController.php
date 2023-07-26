@@ -24,7 +24,7 @@ class ReportController extends Controller
     {
         //
         $reports = Report::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user()->id,
             'video_id' => $request->video_id,
             'comment' => $request->comment,
             'type_of_report' => $request->type_of_report,
@@ -54,6 +54,8 @@ class ReportController extends Controller
      */
     public function destroy(string $id)
     {
+        // $report = Auth::user()->report->find($id);
+        // $report ->delete();
         $report = Report::find($id)->delete();
         return $report;
     }
