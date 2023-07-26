@@ -48,7 +48,6 @@
                 style="margin-top: 20px"
                 :counter-value="inputCount"
               ></v-textarea>
-              <p>{{ inputValue }}</p>
             </v-card-text-report>
             <v-card-text>
               <p style="font-size: small">
@@ -96,6 +95,7 @@ export default {
       inputCount: 0,
       showDialog: true,
       showReport: false,
+      showReportData: false,
       items: {
         1: [
           "Choose One",

@@ -54,6 +54,7 @@
                       icon="mdi-download"
                       @click="download"
                     ></v-btn>
+
                     <v-btn
                       class="ma-1"
                       variant="text"
@@ -70,6 +71,50 @@
                         variant="text"
                         @click="dialog = false"
                       ></v-btn>
+                      <div
+                        style="
+                          width: 500px;
+                          display: flex;
+                          justify-content: center;
+                        "
+                      >
+                        <div>
+                          <img
+                            @click="shareFacebook"
+                            class="ma-3"
+                            width="50"
+                            :src="require('@/assets/facebook.png')"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <img
+                            @click="shareTelegram"
+                            class="ma-3"
+                            width="50"
+                            :src="require('@/assets/Telegram.png')"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <img
+                            @click="shareInstagram"
+                            class="ma-3"
+                            width="50"
+                            :src="require('@/assets/instagrame.png')"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <img
+                            @click="shareTwitter"
+                            class="ma-3"
+                            width="50"
+                            :src="require('@/assets/twitter1.png')"
+                            alt=""
+                          />
+                        </div>
+                      </div>
                       <v-card-text>
                         <div class="d-flex flex">
                           <v-text-field :value="url" required></v-text-field>
@@ -161,19 +206,16 @@
           </div>
         </v-row>
       </v-col>
-      
     </v-row>
   </v-layout>
 </template>
 <script>
-
 import router from "@/router";
 import MyCardVue from "../components/Cards/MyCard.vue";
-import ReportDialog from '../components/Dialog/ReportDialog.vue';
+import ReportDialog from "../components/Dialog/ReportDialog.vue";
 export default {
   components: {
-    
-    ReportDialog
+    ReportDialog,
   },
   name: "VuePlyrVideo",
   data: () => ({
@@ -216,7 +258,8 @@ export default {
         });
     },
     clickShare() {
-      this.$http.get(`/video/id/${this.$route.params.id}`)
+      this.$http
+        .get(`/video/id/${this.$route.params.id}`)
         .then(() => {
           const url = window.location.href;
           navigator.clipboard.writeText(url);
@@ -230,7 +273,8 @@ export default {
       return this.url;
     },
     getVideos() {
-      this.$http.get(`/videos`)
+      this.$http
+        .get(`/videos`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -239,7 +283,8 @@ export default {
         });
     },
     getVideosById: function () {
-      this.$http.get(`/video/id/${this.$route.params.id}`)
+      this.$http
+        .get(`/video/id/${this.$route.params.id}`)
         .then((response) => {
           const data = response.data.data;
           console.log(data);
@@ -261,6 +306,24 @@ export default {
     },
     clickvideo(id) {
       router.push({ name: "videodetail", params: { id: id } });
+    },
+    shareFacebook() {
+      const url = "https://www.facebook.com";
+      window.open(url, "Share on Facebook");
+    },
+    shareTelegram() {
+      const url = "https://t.me/share/url?url=" + window.location.href;
+      window.open(url);
+    },
+
+    shareInstagram() {
+      const url = "https://www.instagram.com/";
+      window.open(url, "_blank");
+    },
+
+    shareTwitter() {
+      const url = "https://twitter.com/";
+      window.open(url, "_twitter");
     },
   },
   watch: {
@@ -315,5 +378,8 @@ export default {
 .v-card:active {
   transition: all 250ms ease-in-out;
   color: #1b242e;
+}
+.v-card {
+  background-color: #15202b;
 }
 </style>
