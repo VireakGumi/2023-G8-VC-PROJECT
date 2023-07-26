@@ -181,7 +181,15 @@ export default {
     async getLikes() {
       this.$http.get(`/likes/${this.video.id}`).then((response) => {
         this.likes = response.data.data;
-        console.log(this.likes);
+        let user_id = this.$cookies.get("user_id") !== "undefined" &&
+          this.$cookies.get("user_id") !== null
+          ? this.$cookies.get("user_id")
+          : "";
+        for (let like of this.likes) {
+          if(like.video_id == this.video.id && like.user_id == user_id){
+            this.isLiked = true;
+          }
+        }
       }).catch((e) => { console.log(e.message) });
     },
     addLike() {
@@ -192,7 +200,7 @@ export default {
           ? this.$cookies.get("token")
           : "";
       let data = {
-        video_id: this.video.id, 
+        video_id: this.video.id,
         date_time: new Date()
           .toISOString()
           .replace(/T/, " ")
@@ -400,6 +408,7 @@ export default {
           this.getAllComments();
           this.getLikes();
 
+
         })
         .catch((error) => {
           console.log(error.message);
@@ -475,42 +484,30 @@ export default {
       await router.push({ name: "videodetail", params: { id: id } });
       window.location.reload();
     },
-    checkingIsLiked() {
-      let user_id = this.$cookies.get("user_id") !== "undefined" &&
-        this.$cookies.get("user_id") !== null
-        ? this.$cookies.get("user_id")
-        : "";
-      for (let like of this.likes) {
-        if (like.user_id == user_id && like.video_id == this.video_id) {
-          this.isLiked = true;
-        }
-      }
-    }
-  },
+},
 
-  watch: {
-    $route: {
-      handler: function () {
-        this.getVideosById(); // call the getVideosById method to update the component data
-        this.copylink();
-      },
-      deep: true,
+watch: {
+  $route: {
+    handler: function () {
+      this.getVideosById(); // call the getVideosById method to update the component data
+      this.copylink();
     },
-  },
-  created() {
-    this.clickfollow();
-    this.getVideosById();
-    this.favorites = this.$cookies.get("favorites");
-    this.getVideos();
-    this.copylink();
+    deep: true,
+    },
+},
+created() {
+  this.clickfollow();
+  this.getVideosById();
+  this.favorites = this.$cookies.get("favorites");
+  this.getVideos();
+  this.copylink();
 
-    // this.$refs.videoPlayer.addEventListener("ended", this.playNextVideo);
-  },
-  mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-    this.loadMore();
-    this.checkingIsLiked();
-  },
+  // this.$refs.videoPlayer.addEventListener("ended", this.playNextVideo);
+},
+mounted() {
+  window.addEventListener("scroll", this.handleScroll);
+  this.loadMore();
+},
 };
 </script>
 
