@@ -4,7 +4,7 @@ import SearchPage from "../views/SearchPage.vue";
 import CoverPage from "../views/ProfilePage/CoverPage.vue";
 import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
 import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
-import AdminView from "../views/AdminView.vue";
+// import AdminView from "../views/AdminView.vue";
 import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
 // import NotificationView from "../views/NotificationView.vue";
@@ -58,7 +58,7 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: AdminView,
+    component: () => import("../views/AdminView.vue"),
     beforeEnter: requireAuth,
     meta: {
       permission: 'admin'

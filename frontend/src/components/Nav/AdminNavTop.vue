@@ -29,7 +29,7 @@
           </v-list-item>
           <v-divider :thickness="3"></v-divider>
           <v-list-item v-for="(profile, i) in profiles" :key="i">
-            <v-list-item :prepend-icon="profile.icon" :title="profile.title" :value="profile.title"></v-list-item>
+            <v-list-item :prepend-icon="profile.icon" :title="profile.title" :value="profile.title" ></v-list-item>
             <v-divider :thickness="1"></v-divider>
           </v-list-item>
         </v-list>
