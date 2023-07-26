@@ -80,6 +80,62 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="showReportData"
+      max-width="600"
+      style="border-radius: 15px"
+    >
+      <v-card>
+        <v-card-title>Report Data</v-card-title>
+        <v-card-text>
+          <p>Selected value: {{ reportData.selected }}</p>
+          <p>Selected item: {{ reportData.selectedItem }}</p>
+          <p>Timestamp: {{ reportData.timestamp }}</p>
+          <p>Input value: {{ reportData.inputValue }}</p>
+          <p>Is checkbox checked: {{ reportData.isChecked }}</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="red" text @click="showReportData = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="showDialogin"
+      max-width="600"
+      style="border-radius: 15px"
+    >
+      <v-card>
+        <v-card-text>
+          <h3>Need to report the video?</h3>
+          <p>Sign in to report inappropriate content.</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="red" text @click="showDialogin = false">Back</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <div v-if="showDialog">
+      <label for="reportType">Type of Report:</label>
+      <select id="reportType" v-model="selectedItem">
+        <option value="spam">Spam</option>
+        <option value="inappropriate">Inappropriate</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="reportDetails">Additional Details:</label>
+      <textarea id="reportDetails" v-model="inputValue"></textarea>
+
+      <label for="reportContent">Report Content:</label>
+      <input type="checkbox" id="reportContent" v-model="isChecked" />
+
+      <button @click="reportVideo">Submit</button>
+    </div>
+    <div v-if="showReportData">
+      <p>Report Submitted:</p>
+      <pre>{{ reportData }}</pre>
+    </div>
   </div>
 </template>
 
@@ -96,6 +152,7 @@ export default {
       showDialog: true,
       showReport: false,
       showReportData: false,
+      showDialogin: false,
       items: {
         1: [
           "Choose One",
@@ -191,13 +248,46 @@ export default {
       this.showReport = true;
     },
     reportVideo() {
-      // Add code to submit report
       this.showDialog = false;
-      //   this.selected = null;
-      //   this.isChecked = false;
-      //   this.inputValue = "";
-      //   this.inputCount = 0;
-      //   this.showReport = false;
+      this.showReportData = true;
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+        this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      this.reportData = {
+        selected: this.selected,
+        selectedItem: this.selectedItem,
+        timestamp: this.timestamp,
+        inputValue: this.inputValue,
+        isChecked: this.isChecked,
+      };
+      if (token) {
+        this.$http
+          .post(
+            "/reports",
+            {
+              user_id: 1, // Replace with the actual user ID
+              video_id: 1, // Replace with the actual video ID
+              comment: this.inputValue,
+              type_of_report: this.selectedItem,
+              content_video: this.isChecked,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          )
+          .then((response) => {
+            this.showDialog = false;
+            this.showReportData = true;
+            this.reportData = response.data;
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      } else {
+        // alert('login pg')
+        this.showReportData = false;
+        this.showDialogin = true;
+      }
     },
   },
 };

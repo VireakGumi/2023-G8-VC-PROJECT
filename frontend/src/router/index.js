@@ -7,12 +7,7 @@ import ContentCreatorPage from "../components/creator/contentCreatorPage/Content
 import DashBoard from "../views/DashBoard.vue";
 import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
-<<<<<<< HEAD
-import VideoDetail from "../views/VideoDetail.vue";
 // import NotificationView from "../views/NotificationView.vue";
-
-=======
-import NotificationView from "../views/NotificationView.vue";
 function requireAuth(to, from, next) {
   const userRole = this.$cookie.get('user_role');
   if (userRole) {
@@ -39,13 +34,12 @@ function requireAuth(to, from, next) {
     next('/cafes');
   }
 }
->>>>>>> ce8e6c67fc690c7dc45ea197fcdb72337e517a61
 const routes = [
-  {
-    path: "/video-details",
-    name: "video-details",
-    component: VideoDetail
-  },
+  // {
+  //   path: "/video-details",
+  //   name: "video-details",
+  //   component: VideoDetail
+  // },
   {
     path: "/Video",
     name: "video",
