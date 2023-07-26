@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('channels', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->string('name');
             $table->text('description');
             $table->dateTime('date_time');
@@ -21,6 +21,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->string('profile');
             $table->timestamps();
         });
     }

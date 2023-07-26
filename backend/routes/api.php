@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
@@ -39,6 +40,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
+    Route::post('/channels', [ChannelController::class, 'store']);
+    Route::put('/channels/{id}', [ChannelController::class, 'update']);
+    Route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
+    Route::get('/channels/{id}', [ChannelController::class, 'show']);
+    Route::get('/channels', [ChannelController::class, 'index']);
+
 });
 Route::fallback(function () {
     return 'Page Not Found';
