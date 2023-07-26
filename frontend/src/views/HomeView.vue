@@ -2,10 +2,10 @@
   <div>
     <SlideShow />
     <Category :clicked="isClick" @isShow="handOver" />
-    <v-card v-if="!isClick" color="#1b242e" class="card-container">
+    <v-card v-if="!isClick"  class="card-container">
       <v-row class="d-flex justify-center w-100 pt-5">
         <VideoCard
-          color="#1b242e"
+          color="#252525"
           v-for="(video, index) in videos"
           :key="index"
           :video="video"
@@ -117,5 +117,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0;
+  background-color:#252525;
 }
 </style>

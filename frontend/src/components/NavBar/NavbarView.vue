@@ -70,7 +70,8 @@ export default {
 
 <style scoped>
 .v-toolbar {
-  background: white;
+ background-color: #252525; 
+ color: white;
   border: none;
 }
 

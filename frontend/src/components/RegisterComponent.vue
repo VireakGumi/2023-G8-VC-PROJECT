@@ -217,7 +217,7 @@ export default {
 
 <style scoped>
 .v-card {
-  background-color: #15202b;
+  background-color: #252525;
 }
 
 p {

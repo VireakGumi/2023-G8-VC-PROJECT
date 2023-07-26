@@ -3,7 +3,7 @@
     <v-carousel-item v-for="(slide, i) in slides" :key="i">
       <v-sheet height="100%" width="100%">
         <div class="d-flex fill-height w-100 justify-center align-center">
-          <img class="w-100" cover :src="slide" />
+          <img class="w-100" cover :src="slide" style=" background-size: cover;" />
         </div>
       </v-sheet>
     </v-carousel-item>

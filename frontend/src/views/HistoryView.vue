@@ -1,12 +1,12 @@
 <template>
-  <div style="backgroundcolor: #1b242e">
+  <div>
     <h1 class="ml-12 pt-5">History</h1>
     <div v-if="token == ''" class="history-container ml-12">
       <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0"
         >mdi-history</v-icon
       >
       <h2>Keep track of what you watch</h2>
-      <p style="color: white">Watch history isn't viewable when signed out.</p>
+      <p>Watch history isn't viewable when signed out.</p>
       <v-btn
         class="mr-6 ml-8 mr-2"
         rounded="pill"
@@ -22,7 +22,7 @@
         v-for="(video, index) in videos"
         :key="index"
         :video="video"
-        class="ma-3"
+        class="ma-4 pt-2 pb-2"
         @click="playVideo(video.id, video.categories_id)"
       />
     </div>

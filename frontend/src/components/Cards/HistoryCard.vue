@@ -7,10 +7,10 @@
   >
     <img
       :src="video.video.thumbnail"
-      style="width: 350px; height: 200px; border-radius: 5px"
+      style="width: 350px; height: 200px; border-radius: 5px; background-size: cover;"
       v-show="!showVideo"
     />
-    <div style="width: 350px; height: 200px" v-show="showVideo">
+    <div style="width: 350px; height: 200px" v-if="showVideo">
       <vue-plyr
         :options="plyrOptions"
         style="padding: 2px; width: 350px; height: 200px"
@@ -31,7 +31,7 @@
         <img
           width="40"
           height="40"
-          style="border-radius: 50%; margin-left: 15px"
+          style="border-radius: 50%; margin-left: 15px; background-size: cover;"
           :src="video.video.thumbnail"
         />
         <v-card-subtitle class="ml-4">{{
@@ -47,7 +47,7 @@
           video.video.viewer > 0 && video.video.viewer !== 1 ? "views" : "view"
         }}
         .
-        {{durations(video.video.date_time)}}
+        {{ durations(video.video.date_time) }}
       </v-card-subtitle>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
       currentTime: null,
       plyrOptions: {
         controls: ["play", "progress", "mute"],
-        quality: { default: "1080p" }
+        quality: { default: "1080p" },
       },
     };
   },
@@ -88,13 +88,16 @@ export default {
         return character;
       }
     },
-    durations(time) {
-      const today = new Date();
-      const diffInMilliseconds =
-        today.getTime() - new Date(time).getTime();
-
+    durations(dateTimeString) {
+      const now = new Date();
+      const dateTime = new Date(dateTimeString);
+      const diffInMilliseconds = now.getTime() - dateTime.getTime();
       let duration;
-      if (diffInMilliseconds < 24 * 3600 * 1000) {
+      if (diffInMilliseconds < 60 * 1000) {
+        duration = Math.floor(diffInMilliseconds / 1000) + " second";
+      } else if (diffInMilliseconds < 60 * 60 * 1000) {
+        duration = Math.floor(diffInMilliseconds / (60 * 1000)) + " minute";
+      } else if (diffInMilliseconds < 24 * 3600 * 1000) {
         duration = Math.floor(diffInMilliseconds / (3600 * 1000)) + " hour";
       } else if (diffInMilliseconds < 7 * 24 * 3600 * 1000) {
         duration = Math.floor(diffInMilliseconds / (24 * 3600 * 1000)) + " day";
@@ -110,8 +113,7 @@ export default {
           Math.floor(diffInMilliseconds / (12 * 4 * 7 * 24 * 3600 * 1000)) +
           " year";
       }
-
-      duration += duration === "1" ? "" : "s ago";
+      duration += duration === "1 second" ? "" : "s ago";
       return duration;
     },
   },

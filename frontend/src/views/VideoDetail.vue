@@ -1,167 +1,167 @@
 <template>
   <v-layout class="" width="100%">
-    <v-row class="ml-10 mt-6" cols="12">
-      <v-col cols="8">
-        <v-row>
-          <div style="width: 100%">
-            <vue-plyr :options="options" width="100%">
-              <video
-                width="100%"
-                controls
-                :src="video.src"
-                :type="video.videoType"
-                autoplay
-              ></video>
-            </vue-plyr>
-          </div>
-        </v-row>
-        <v-row class="mt-5">
-          <div style="width: 100%">
-            <div class="ml-2">
-              <div>
-                <h3 style="margin-left: 10px">{{ video.title }}</h3>
-                <v-row
-                  style="
-                    margin: 1px;
-                    display: flex;
-                    justify-content: space-between;
-                  "
+    <v-row class="pa-7" cols="12">
+  <v-col cols="12" md="8">
+    <v-row>
+      <div style="width: 100%">
+        <vue-plyr :options="options" width="100%">
+          <video
+            width="100%"
+            controls
+            :src="video.src"
+            :type="video.videoType"
+            autoplay
+          ></video>
+        </vue-plyr>
+      </div>
+    </v-row>
+    <v-row class="mt-5">
+      <div style="width: 100%">
+        <div class="ml-2">
+          <div>
+            <h3 style="margin-left: 10px">{{ video.title }}</h3>
+            <v-row
+              style="
+                margin: 1px;
+                display: flex;
+                justify-content: space-between;
+              "
+            >
+              <v-col class="d-flex flex align-center pa-0" width="100%">
+                <img
+                  :src="video.thumbnail"
+                  style="border-radius: 50%"
+                  width="40"
+                  height="40"
+                />
+                <div class="ml-2">
+                  <h4>{{ video.user }}</h4>
+                  <p>100K follower</p>
+                </div>
+              </v-col>
+              <v-col class="like-container pa-0">
+                <v-btn
+                  class="ma-1"
+                  height="50px"
+                  rounded
+                  :class="{ 'blue--text': isClicked }"
+                  variant="text"
+                  @click="(isClicked = !isClicked), clickfollow()"
                 >
-                  <v-col class="d-flex flex align-center pa-0" width="100%">
-                    <img
-                      :src="video.thumbnail"
-                      style="border-radius: 50%"
-                      width="40"
-                      height="40"
-                    />
-                    <div class="ml-2">
-                      <h4>{{ video.user }}</h4>
-                      <p>100K follower</p>
-                    </div>
-                  </v-col>
-                  <v-col class="like-container pa-0">
-                    <v-btn
-                      class="ma-1"
-                      height="50px"
-                      rounded
-                      :class="{ 'blue--text': isClicked }"
-                      variant="text"
-                      @click="(isClicked = !isClicked), clickfollow()"
-                    >
-                      {{ Followtext }}
-                    </v-btn>
-                    <v-btn
-                      class="ma-1"
-                      :class="{ 'blue--text': isClicked }"
-                      variant="text"
-                      @click="isClicked = !isClicked"
-                      icon="mdi-thumb-up"
-                    ></v-btn>
+                  {{ Followtext }}
+                </v-btn>
+                <v-btn
+                  class="ma-1"
+                  :class="{ 'blue--text': isClicked }"
+                  variant="text"
+                  @click="isClicked = !isClicked"
+                  icon="mdi-thumb-up"
+                ></v-btn>
 
+                <v-btn
+                  class="ma-1"
+                  variant="text"
+                  @click="dialog = true"
+                  icon="mdi-share"
+                ></v-btn>
+                <v-btn
+                  class="ml-1"
+                  variant="text"
+                  icon="mdi-download"
+                  @click="download"
+                ></v-btn>
+
+                <v-dialog
+                  v-model="dialog"
+                  max-width="500"
+                  style="background-color: #00000094"
+                >
+                  <v-card style="background-color: #1b242e">
                     <v-btn
+                      icon="mdi-close"
                       class="ma-1"
                       variant="text"
-                      @click="dialog = true"
-                      icon="mdi-share"
+                      @click="dialog = false"
                     ></v-btn>
-                    <v-btn
-                      class="ml-1"
-                      variant="text"
-                      icon="mdi-download"
-                      @click="download"
-                    ></v-btn>
-
-                    <v-dialog
-                      v-model="dialog"
-                      max-width="500"
-                      style="background-color: #00000094"
-                    >
-                      <v-card style="background-color: #1b242e">
+                    <v-card-text>
+                      <div class="d-flex flex">
+                        <v-text-field :value="url" required></v-text-field>
                         <v-btn
-                          icon="mdi-close"
                           class="ma-1"
                           variant="text"
-                          @click="dialog = false"
+                          @click="clickShare"
+                          icon="mdi-content-copy"
                         ></v-btn>
-                        <v-card-text>
-                          <div class="d-flex flex">
-                            <v-text-field :value="url" required></v-text-field>
-                            <v-btn
-                              class="ma-1"
-                              variant="text"
-                              @click="clickShare"
-                              icon="mdi-content-copy"
-                            ></v-btn>
-                          </div>
-                        </v-card-text>
-                      </v-card>
-                    </v-dialog>
-                  </v-col>
-                </v-row>
-              </div>
-            </div>
-            <div
-              class="mt-2 ml-2 rounded-lg"
-              style="padding: 7px; background-color: rgb(43, 52, 65)"
-            >
-              <v-col>
-                <v-row rows="4" sm="4" md="4"
-                  ><h4 class="mr-2">
-                    {{ video.viewer }}
-                    {{
-                      video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
-                    }}
-                  </h4>
-                </v-row>
-                <v-row rows="4" sm="4" md="4">
-                  <h4 class="mr-2">Description:</h4>
-                  <span class="d-flex flex-row"> {{ video.description }}</span>
-                </v-row>
-                <v-row rows="4" sm="4" md="4">
-                  <h4 class="mr-2">DateTime:</h4>
-                  <span class="d-flex flex-row"> {{ video.date_time }}</span>
-                </v-row>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-dialog>
               </v-col>
-            </div>
-            <div class="ml-2 mt-2" width="720">
-              <div>
-                <div class="d-flex flex">
-                  <img
-                    :src="video.thumbnail"
-                    style="
-                      margin-top: 10px;
-                      margin-left: 10px;
-                      margin-right: 2px;
-                      border-radius: 50%;
-                    "
-                    width="45"
-                    height="45"
-                  />
-                  <v-text-field
-                    label="comment..."
-                    class="my-text-field"
-                  ></v-text-field>
-                </div>
-              </div>
+            </v-row>
+          </div>
+        </div>
+        <div
+          class="mt-2 ml-2 rounded-lg"
+          style="padding: 7px; background-color: rgb(43, 52, 65)"
+        >
+          <v-col>
+            <v-row rows="4" sm="4" md="4"
+              ><h4 class="mr-2">
+                {{ video.viewer }}
+                {{
+                  video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
+                }}
+              </h4>
+            </v-row>
+            <v-row rows="4" sm="4" md="4">
+              <h4 class="mr-2">Description:</h4>
+              <span class="d-flex flex-row"> {{ video.description }}</span>
+            </v-row>
+            <v-row rows="4" sm="4" md="4">
+              <h4 class="mr-2">DateTime:</h4>
+              <span class="d-flex flex-row"> {{ video.date_time }}</span>
+            </v-row>
+          </v-col>
+        </div>
+        <div class="ml-2 mt-2" width="720">
+          <div>
+            <div class="d-flex flex">
+              <img
+                :src="video.thumbnail"
+                style="
+                  margin-top: 10px;
+                  margin-left: 10px;
+                  margin-right: 2px;
+                  border-radius: 50%;
+                "
+                width="45"
+                height="45"
+              />
+              <v-text-field
+                label="comment..."
+                class="my-text-field"
+              ></v-text-field>
             </div>
           </div>
-        </v-row>
-      </v-col>
-      <v-col cols="4">
-        <v-row>
-          <CardDetail
-            rounded="50"
-            color="#1b242e"
-            v-for="(video, index) in videos"
-            :key="index"
-            :video="video"
-            class="ma-3"
-            @click="createHistory"
-            @click.stop="clickvideo(video.id, video.categories_id)"
-          />
-        </v-row>
-      </v-col>
+        </div>
+      </div>
     </v-row>
+  </v-col>
+  <v-col cols="12" md="4">
+    <v-row >
+      <CardDetail
+        class="mb-3 ml-3"
+        rounded="50"
+        color="#1b242e"
+        v-for="(video, index) in videos"
+        :key="index"
+        :video="video"
+        @click="createHistory"
+        @click.stop="clickvideo(video.id, video.categories_id)"
+      />
+    </v-row>
+  </v-col>
+</v-row>
   </v-layout>
 </template>
 <script>
