@@ -82,7 +82,6 @@ export default {
     },
     truncatedDescription(character) {
       const maxChars = 40;
-      console.log(this.video);
       if (character.length > maxChars) {
         return character.substring(0, maxChars) + "...";
       } else {
@@ -93,7 +92,6 @@ export default {
       const now = new Date();
       const dateTime = new Date(dateTimeString);
       const diffInMilliseconds = now.getTime() - dateTime.getTime();
-      console.log(diffInMilliseconds);
       let duration;
       if (diffInMilliseconds < 60 * 1000) {
         duration = Math.floor(diffInMilliseconds / 1000) + " second";

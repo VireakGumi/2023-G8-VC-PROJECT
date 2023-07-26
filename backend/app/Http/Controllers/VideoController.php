@@ -97,7 +97,7 @@ class VideoController extends Controller
     // get videos of user
     public function getVideosOfUser()
     {
-        $videos = Auth::user()->videos;
+        $videos = Auth::user()->videos; 
         if ($videos->count()) {
             $videos = $this->getSrc($videos);
             return response()->json([
