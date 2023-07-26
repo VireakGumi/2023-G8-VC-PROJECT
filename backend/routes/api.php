@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserBlockedController;
@@ -43,7 +45,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
-    // Route::delete('/report/{id}', [ReportController::class, 'destroy']);
+    Route::get('/report', [ReportController::class, 'getVideos']);
+    Route::delete('/report/{id}', [ReportController::class, 'destroy']);
+    Route::delete('/videosById/{id}', [VideoController::class, 'deleteVideo']);
+    Route::post('/reports', [ReportController::class, 'store']);
+    Route::get('/notification', [NotificationController::class, 'index']);
+    Route::post('/notification', [NotificationController::class, 'store']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
@@ -61,8 +68,6 @@ Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
 Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation']);
+Route::get('/channel', [ChannelController::class, 'index']);
+Route::post('/channel', [ChannelController::class, 'store']);
 
-Route::get('/report', [ReportController::class, 'getVideos']);
-Route::delete('/report/{id}', [ReportController::class, 'destroy']);
-Route::delete('/videosById/{id}', [VideoController::class, 'deleteVideo']);
-Route::post('/reports', [ReportController::class, 'store']);

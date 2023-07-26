@@ -7,13 +7,44 @@ import ContentCreatorPage from "../components/creator/contentCreatorPage/Content
 import DashBoard from "../views/DashBoard.vue";
 import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
-import NotificationView from "../views/NotificationView.vue";
+<<<<<<< HEAD
+import VideoDetail from "../views/VideoDetail.vue";
+// import NotificationView from "../views/NotificationView.vue";
 
+=======
+import NotificationView from "../views/NotificationView.vue";
+function requireAuth(to, from, next) {
+  const userRole = this.$cookie.get('user_role');
+  if (userRole) {
+    const { permission } = to.meta;
+    switch (permission) {
+      case 'user':
+        if (userRole === 'user') {
+          next();
+        } else {
+          next('/cafes');
+        }
+        break;
+      case 'admin':
+        if (userRole === 'admin') {
+          next();
+        } else {
+          next('/cafes');
+        }
+        break;
+      default:
+        next('/cafes');
+    }
+  } else {
+    next('/cafes');
+  }
+}
+>>>>>>> ce8e6c67fc690c7dc45ea197fcdb72337e517a61
 const routes = [
   {
-    path: "/notifications",
-    name: "notifications",
-    component: NotificationView
+    path: "/video-details",
+    name: "video-details",
+    component: VideoDetail
   },
   {
     path: "/Video",
@@ -23,17 +54,26 @@ const routes = [
   {
     path: "/user",
     name: "user",
-    component: AdminUser
+    component: AdminUser,
+    beforeEnter: requireAuth,
+    meta: {
+      permission: 'admin'
+    }
   },
   {
     path: "/dashboard",
     name: "DashBoard",
-    component: DashBoard
+    component: DashBoard,
+    beforeEnter: requireAuth,
+    meta: {
+      permission: 'admin'
+    }
   },
   {
     path: "/cover-user",
     name: "cover-user",
-    component: CoverPage
+    component: CoverPage,
+    
   },
   {
     path: "/creator",
@@ -94,11 +134,17 @@ const routes = [
     path: "/report",
     name: "report",
     component: () => import("../views/ReportPage.vue"),
+    beforeEnter: requireAuth,
+    meta: {
+      permission: 'admin'
+    }
   },
 ];
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
 
 export default router;

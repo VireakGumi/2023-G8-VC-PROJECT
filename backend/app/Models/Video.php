@@ -55,4 +55,8 @@ class Video extends Model
     public function report ():HasMany{
         return $this->hasMany(Report::class);
     }
+    public function notifications ():HasMany{
+        return $this->hasMany(Notification::class);
+    }
+
 }
