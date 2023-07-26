@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
@@ -34,16 +36,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('history', HistoryController::class);
     // Route::get('/history', [HistoryController::class, 'index']);
     Route::post('/playlist', [PlayListController::class, 'store']);
-    // Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
+    Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
     Route::post('/videos/update/{id}', [VideoController::class, 'update']);
+    Route::post('/likes', [LikeController::class, 'store']);
+    Route::post('/comments', [CommentController::class, 'store']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
+    Route::delete('/likes/{id}', [LikeController::class, 'destroy']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
 }); 
-Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
+// Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
 
 Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
@@ -55,6 +60,9 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/user/videos/{id}', [VideoController::class, 'getVideosOfUserID']);
 Route::get('/playlist/{id}', [PlayListController::class, 'getPlayListOfUserID']);
 Route::get('/category/{id}', [CategoriesController::class, 'show']);
+// Route::get('/videos/category/{id}', [VideoController::class, 'videoRecommendation'] );
+Route::get('/likes/{id}', [LikeController::class, 'index']);
+Route::get('/comments/{id}', [CommentController::class, 'index']);
 Route::get('/videos/recommendation/{id}/{categories_id}', [VideoController::class, 'videoRecommendation'] );
 Route::get('/videos/recommendationHomePage/{categories_id}', [VideoController::class, 'videoRecommendationHomePage'] );
 Route::get('/videos/viewer/{id}', [VideoController::class, 'storeViewer'] );

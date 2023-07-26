@@ -47,7 +47,7 @@ const routes = [
     component: () => import("../views/HistoryView.vue"),
   },
   {
-    path: "/viewPlaylist",
+    path: "/viewPlaylist/:id",
     name: "viewPlaylist",
     component: () => import("../views/PlayList.vue"),
   },
@@ -67,6 +67,9 @@ const routes = [
     component: () => import("../views/UploadVideoView.vue"),
   },
 ];
+// const Pagetitle = (title) => {
+document.title = "Child_Realm";
+// }
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
