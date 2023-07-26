@@ -1,8 +1,6 @@
 <template>
   <v-app style="background-color: #252525; color: white; height: 600px">
-    <v-container class="profile-section" fluid>
-      <!-- Profile header -->
-    </v-container>
+    <v-container class="profile-section" fluid></v-container>
     <v-row class="profile" flex-md="column">
       <v-col class="profile-image">
         <img src="../../assets/pare-m.jpg" alt="Profile image" />
