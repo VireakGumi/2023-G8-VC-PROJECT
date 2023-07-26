@@ -1,167 +1,189 @@
 <template>
   <v-layout class="" width="100%">
     <v-row class="pa-7" cols="12">
-  <v-col cols="12" md="8">
-    <v-row>
-      <div style="width: 100%">
-        <vue-plyr :options="options" width="100%">
-          <video
-            width="100%"
-            controls
-            :src="video.src"
-            :type="video.videoType"
-            autoplay
-          ></video>
-        </vue-plyr>
-      </div>
-    </v-row>
-    <v-row class="mt-5">
-      <div style="width: 100%">
-        <div class="ml-2">
-          <div>
-            <h3 style="margin-left: 10px">{{ video.title }}</h3>
-            <v-row
-              style="
-                margin: 1px;
-                display: flex;
-                justify-content: space-between;
-              "
-            >
-              <v-col class="d-flex flex align-center pa-0" width="100%">
-                <img
-                  :src="video.thumbnail"
-                  style="border-radius: 50%"
-                  width="40"
-                  height="40"
-                />
-                <div class="ml-2">
-                  <h4>{{ video.user }}</h4>
-                  <p>100K follower</p>
-                </div>
-              </v-col>
-              <v-col class="like-container pa-0">
-                <v-btn
-                  class="ma-1"
-                  height="50px"
-                  rounded
-                  :class="{ 'blue--text': isClicked }"
-                  variant="text"
-                  @click="(isClicked = !isClicked), clickfollow()"
+      <v-col cols="12" md="8">
+        <v-row>
+          <div style="width: 100%">
+            <vue-plyr :options="options" width="100%">
+              <video
+                width="100%"
+                controls
+                :src="video.src"
+                :type="video.videoType"
+                autoplay
+              ></video>
+            </vue-plyr>
+          </div>
+        </v-row>
+        <v-row class="mt-5">
+          <div style="width: 100%">
+            <div class="ml-2">
+              <div>
+                <h3 style="margin-left: 10px">{{ video.title }}</h3>
+                <v-row
+                  style="
+                    margin: 1px;
+                    display: flex;
+                    justify-content: space-between;
+                  "
                 >
-                  {{ Followtext }}
-                </v-btn>
-                <v-btn
-                  class="ma-1"
-                  :class="{ 'blue--text': isClicked }"
-                  variant="text"
-                  @click="isClicked = !isClicked"
-                  icon="mdi-thumb-up"
-                ></v-btn>
-
-                <v-btn
-                  class="ma-1"
-                  variant="text"
-                  @click="dialog = true"
-                  icon="mdi-share"
-                ></v-btn>
-                <v-btn
-                  class="ml-1"
-                  variant="text"
-                  icon="mdi-download"
-                  @click="download"
-                ></v-btn>
-
-                <v-dialog
-                  v-model="dialog"
-                  max-width="500"
-                  style="background-color: #00000094"
-                >
-                  <v-card style="background-color: #1b242e">
+                  <v-col class="d-flex flex align-center pa-0" width="100%">
+                    <img
+                      :src="video.channel_profile"
+                      style="border-radius: 50%"
+                      width="40"
+                      height="40"
+                    />
+                    <div class="ml-2">
+                      <h4>{{ video.channel_name }}</h4>
+                      <p>
+                        {{ follower
+                        }}{{
+                          follower > 0 && follower !== 1
+                            ? " followers"
+                            : " follower"
+                        }}
+                      </p>
+                    </div>
+                  </v-col>
+                  <v-col class="like-container pa-0">
                     <v-btn
-                      icon="mdi-close"
+                      class="ma-1"
+                      height="50px"
+                      rounded
+                      :class="{ 'blue--text': isFollowed }"
+                      variant="text"
+                      @click.stop="isFollowed = !isFollowed"
+                      @click="clickFollow()"
+                    >
+                      {{ Followtext }}
+                    </v-btn>
+                    <v-btn
+                      class="ma-1"
+                      :class="{ 'blue--text': isClicked }"
+                      variant="text"
+                      @click="isClicked = !isClicked"
+                      icon="mdi-thumb-up"
+                    ></v-btn>
+
+                    <v-btn
                       class="ma-1"
                       variant="text"
-                      @click="dialog = false"
+                      @click="dialog = true"
+                      icon="mdi-share"
                     ></v-btn>
-                    <v-card-text>
-                      <div class="d-flex flex">
-                        <v-text-field :value="url" required></v-text-field>
+                    <v-btn
+                      class="ml-1"
+                      variant="text"
+                      icon="mdi-download"
+                      @click="download"
+                    ></v-btn>
+
+                    <v-dialog
+                      v-model="dialog"
+                      max-width="500"
+                      style="background-color: #00000094"
+                    >
+                      <v-card style="background-color: #1b242e">
                         <v-btn
+                          icon="mdi-close"
                           class="ma-1"
                           variant="text"
-                          @click="clickShare"
-                          icon="mdi-content-copy"
+                          @click="dialog = false"
                         ></v-btn>
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
+                        <v-card-text>
+                          <div class="d-flex flex">
+                            <v-text-field :value="url" required></v-text-field>
+                            <v-btn
+                              class="ma-1"
+                              variant="text"
+                              @click="clickShare"
+                              icon="mdi-content-copy"
+                            ></v-btn>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-dialog>
+                  </v-col>
+                </v-row>
+              </div>
+            </div>
+            <div
+              class="mt-2 ml-2 rounded-lg"
+              style="padding: 7px; background-color: rgb(43, 52, 65)"
+            >
+              <v-col>
+                <v-row rows="4" sm="4" md="4"
+                  ><h4 class="mr-2">
+                    {{ video.viewer }}
+                    {{
+                      video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
+                    }}
+                  </h4>
+                </v-row>
+                <v-row rows="4" sm="4" md="4">
+                  <h4 class="mr-2">Description:</h4>
+                  <span class="d-flex flex-row"> {{ video.description }}</span>
+                </v-row>
+                <v-row rows="4" sm="4" md="4">
+                  <span class="d-flex flex-row"> {{ video.date_time }}</span>
+                </v-row>
               </v-col>
-            </v-row>
-          </div>
-        </div>
-        <div
-          class="mt-2 ml-2 rounded-lg"
-          style="padding: 7px; background-color: rgb(43, 52, 65)"
-        >
-          <v-col>
-            <v-row rows="4" sm="4" md="4"
-              ><h4 class="mr-2">
-                {{ video.viewer }}
-                {{
-                  video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
-                }}
-              </h4>
-            </v-row>
-            <v-row rows="4" sm="4" md="4">
-              <h4 class="mr-2">Description:</h4>
-              <span class="d-flex flex-row"> {{ video.description }}</span>
-            </v-row>
-            <v-row rows="4" sm="4" md="4">
-              <h4 class="mr-2">DateTime:</h4>
-              <span class="d-flex flex-row"> {{ video.date_time }}</span>
-            </v-row>
-          </v-col>
-        </div>
-        <div class="ml-2 mt-2" width="720">
-          <div>
-            <div class="d-flex flex">
-              <img
-                :src="video.thumbnail"
-                style="
-                  margin-top: 10px;
-                  margin-left: 10px;
-                  margin-right: 2px;
-                  border-radius: 50%;
-                "
-                width="45"
-                height="45"
-              />
-              <v-text-field
-                label="comment..."
-                class="my-text-field"
-              ></v-text-field>
+            </div>
+            <div class="ml-2 mt-2" width="720">
+              <div>
+                <div class="d-flex flex">
+                  <img
+                    :src="video.thumbnail"
+                    style="
+                      margin-top: 10px;
+                      margin-left: 10px;
+                      margin-right: 2px;
+                      border-radius: 50%;
+                    "
+                    width="45"
+                    height="45"
+                  />
+                  <v-text-field
+                    label="comment..."
+                    class="my-text-field"
+                  ></v-text-field>
+                </div>
+              </div>
             </div>
           </div>
+        </v-row>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-row>
+          <CardDetail
+            class="mb-3 ml-3"
+            rounded="50"
+            color="#1b242e"
+            v-for="(video, index) in videos"
+            :key="index"
+            :video="video"
+            @click="createHistory"
+            @click.stop="clickvideo(video.id, video.categories_id)"
+          />
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-dialog v-model="dialogFollower" persistent width="400">
+      <v-card
+        class="d-flex justify-center justify-space-evenly align-center flex-column"
+        style="background-color: #252525; color: white; height: 180px"
+      >
+        <div>
+          <p class="mb-0 mt-15">You can't follower your own channel</p>
         </div>
-      </div>
-    </v-row>
-  </v-col>
-  <v-col cols="12" md="4">
-    <v-row >
-      <CardDetail
-        class="mb-3 ml-3"
-        rounded="50"
-        color="#1b242e"
-        v-for="(video, index) in videos"
-        :key="index"
-        :video="video"
-        @click="createHistory"
-        @click.stop="clickvideo(video.id, video.categories_id)"
-      />
-    </v-row>
-  </v-col>
-</v-row>
+        <v-card-actions class="w-100 mt-5">
+          <v-btn class="button" variant="text" @click="dialogFollower = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 <script>
@@ -187,23 +209,114 @@ export default {
       viewer: "",
       date_time: "",
       user: "",
+      channel_id: "",
+      channel_name: "",
+      channel_profile: "",
     },
     Followtext: "Follow",
     day: null,
     url: "",
     isClicked: false,
+    isFollowed: false,
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
     srcvideo: "",
     Pages: 2,
     favorites: "",
+    token: "",
+    follower: 0,
+    dialogFollower: false,
+    dialogFollowerText: "",
   }),
   methods: {
-    clickfollow() {
-      if (this.isClicked == true) {
-        this.Followtext = "Followed";
+    following(){
+      const now = new Date();
+      const date = now.toISOString().slice(0, 10);
+      const time = now.toLocaleTimeString("en-US", { hour12: false });
+      const dateTime = `${date} ${time}`;
+      let user = this.$cookies.get("user_id");
+      let value = {
+        user_id: user,
+        channel_id: this.video.channel_id,
+        date_time: dateTime,
+      };
+      return value;
+    },
+    clickFollow() {
+      if (this.isFollowed) {
+        this.createfollower(this.following());
       } else {
-        this.Followtext = "Follow";
+        this.deleteFollower(this.following());
+      }
+    },
+
+    deleteFollower() {
+      if (this.token) {
+        this.$http
+          .delete("/follower", this.following(), {
+            headers: {
+              Authorization: "Bearer " + this.token,
+              Accept: "application/json",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.Followtext = "Follow";
+            this.isFollowed = false;
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      }
+      this.isFollowed = false;
+    },
+    createfollower() {
+      if (this.token) {
+        if (this.$cookies.get("channel_id") === this.video.channel_id) {
+          this.isFollowed = false;
+          this.dialogFollowerText = "You can't follow your own channel!";
+          this.dialogFollower = true;
+          return;
+        }
+        this.$http
+          .post("/follower", this.following(), {
+            headers: {
+              Authorization: "Bearer " + this.token,
+              Accept: "application/json",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.Followtext = "Followed";
+            this.getFollower();
+          })
+          .catch((error) => {
+            console.error(error.message);
+            this.dialogFollower = true;
+          });
+      }
+    },
+    checkFollower(){
+      if (this.token) {
+        if (this.$cookies.get("channel_id") === this.video.channel_id) {
+          this.isFollowed = false;
+        }
+        this.$http
+          .post("/follower", this.video.channel_id, {
+            headers: {
+              Authorization: "Bearer " + this.token,
+              Accept: "application/json",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.Followtext = "Followed";
+            this.getFollower();
+          })
+          .catch((error) => {
+            console.error(error.message);
+            this.dialogFollower = true;
+          });
       }
     },
     download() {
@@ -249,9 +362,10 @@ export default {
           console.log(error.message);
         });
     },
-    getVideosById: function () {
+    getVideosById() {
+      let id = this.$route.params.id;
       this.$http
-        .get(`/video/id/${this.$route.params.id}`)
+        .get(`/video/id/${id}`)
         .then((response) => {
           const data = response.data.data;
           const today = new Date();
@@ -288,8 +402,21 @@ export default {
             videoType: data.videoType,
             viewer: data.viewer,
             date_time: duration,
-            user: data.user.full_name,
+            channel_id: data.channel_id,
+            channel_name: data.Channel_name,
+            channel_profile: data.Channel_profile,
           };
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      this.getFollower(id);
+    },
+    getFollower(id) {
+      this.$http
+        .get(`/follower/${id}`)
+        .then((response) => {
+          this.follower = response.data.data;
         })
         .catch((error) => {
           console.log(error.message);
@@ -326,13 +453,7 @@ export default {
       }
     },
     createHistory() {
-      let token =
-        this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
-          ? this.$cookies.get("token")
-          : "";
-
-      if (token !== null) {
+      if (this.token !== null) {
         this.$http
           .post(
             "/history",
@@ -343,7 +464,7 @@ export default {
                 .replace(/T/, " ")
                 .replace(/\..+/, ""),
             },
-            { headers: { Authorization: `Bearer ${token}` } }
+            { headers: { Authorization: `Bearer ${this.token}` } }
           )
           .then((response) => {
             console.log(response.data);
@@ -355,11 +476,14 @@ export default {
     },
     async clickvideo(id, categories_id) {
       document.cookie = "favorites=" + categories_id;
-      this.$http.get('videos/viewer/'+id).then((response) => {
-        console.log(response.data);
-      }).catch((error) => {
-        console.log(error.message);
-      });
+      this.$http
+        .get("videos/viewer/" + id)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
       document.cookie = "favorites=" + categories_id;
       await router.push({ name: "videodetail", params: { id: id } });
       window.location.reload();
@@ -375,11 +499,13 @@ export default {
     },
   },
   created() {
-    this.clickfollow();
-    this.getVideosById();
+    this.token = this.$cookies.get("token");
     this.favorites = this.$cookies.get("favorites");
+    this.getVideosById();
+    this.clickFollow(this.video.channel_id);
     this.getVideos();
     this.copylink();
+    this.createfollower(this.following());
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
@@ -420,5 +546,8 @@ export default {
 .v-card:active {
   transition: all 250ms ease-in-out;
   color: #1b242e;
+}
+.button {
+  background-color: #5d5bd0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center" >
-    <v-dialog v-model="upload" width="400" @click="cancel">
+    <v-dialog v-model="upload" width="400">
       <v-card height="400" class="pa-5">
         <h1 class="text-center">Upload Video</h1>
         <v-icon
@@ -18,7 +18,7 @@
             accept="video/*"
           />
           <label for="file">Choose a file</label>
-          <button @click="upload = false" @click.stop="cancel">Cancel</button>
+          <button @click="upload = false">Cancel</button>
         </div>
       </v-card>
     </v-dialog>
@@ -168,9 +168,7 @@ export default {
     };
   },
   methods: {
-    cancel() {
-      this.$emit("upload", false);
-    },
+
     getCategoryID(name) {
       let id = null;
       this.listCategories.forEach((category) => {

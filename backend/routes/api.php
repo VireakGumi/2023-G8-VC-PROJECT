@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PlayListController;
 use App\Http\Controllers\UserController;
@@ -43,15 +44,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/channels', [ChannelController::class, 'store']);
     Route::put('/channels/{id}', [ChannelController::class, 'update']);
     Route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
-    Route::get('/channels/{id}', [ChannelController::class, 'show']);
+    Route::get('/user/channels', [ChannelController::class, 'show'])->name('user.channels');
     Route::get('/channels', [ChannelController::class, 'index']);
-
+    Route::put('user/{id}', [UserController::class, 'update']);
+    Route::post('/follower', [ FollowerController::class, 'store']);
+    Route::get('/follower', [FollowerController::class, 'index']);
 });
 Route::fallback(function () {
     return 'Page Not Found';
 }); 
 Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
 
+Route::delete('/follower', [FollowerController::class, 'destroy']);
+Route::get('/follower/{id}', [FollowerController::class, 'show']);
 Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);

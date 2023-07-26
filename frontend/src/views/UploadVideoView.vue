@@ -4,11 +4,14 @@
     <div class="upload-container">
       <v-icon
         style="width: 100%; font-size: 200px; margin: 0; padding: 0"
-        :icon="token ? 'mdi-upload' : 'mdi-upload-off'"
+        :icon="token || haveChannel ? 'mdi-upload' : 'mdi-upload-off'"
       ></v-icon>
-      <h2 v-if="!token">Can not upload video</h2>
+      <h2 v-if="!token && haveChannel">Can not upload video</h2>
       <p style="color: white" v-if="!token">
         Upload video isn't available when signed out.
+      </p>
+      <p style="color: white" v-if="!haveChannel && token">
+        Can't not upload video when you do have a channel
       </p>
       <v-btn
         class="mr-6 ml-8 mr-2"
@@ -18,6 +21,15 @@
         @click="upload = true"
       >
         Upload video
+      </v-btn>
+      <v-btn
+        class="mr-6 ml-8 mr-2"
+        rounded="pill"
+        prepend-icon="mdi-upload"
+        @click="channel = true"
+        v-else-if="haveChannel"
+      >
+        Create Channel
       </v-btn>
       <v-btn
         class="mr-6 ml-8 ml-8"
@@ -66,11 +78,13 @@ export default {
         user_id: "",
       },
       token: "",
+      channel: [],
+      haveChannel: false,
     };
   },
- 
+
   methods: {
-    uploadFile(){
+    uploadFile() {
       this.upload = false;
     },
     setUpload() {
@@ -113,14 +127,26 @@ export default {
           ? this.$cookies.get("token")
           : "";
     },
-    mouthed() {
-      if (this.$cookies.get("token")) {
-        this.token = this.$cookies.get("token");
-      }
+    getChannel() {
+      this.$http
+        .get(`/user/channels`, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          this.channel = response.data.data;
+          this.haveChannel = true;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
   },
   created() {
-    this.mouthed();
+    this.token = this.$cookies.get('token');
+    this.getChannel();
   },
 };
 </script>

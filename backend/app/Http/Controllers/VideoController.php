@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVideoRequest;
 use App\Models\Categories;
+use App\Models\Channel;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -19,10 +20,15 @@ class VideoController extends Controller
     public function getSrc($videos)
     {
         foreach ($videos as $video) {
+            $channel= Channel::find($video->channel_id);
             $path = storage_path() . '/app/public/videos/' . $video->path;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
+            if ($channel) {
+                $video->Channel_profile = route('video.image', ['imagePath' => $channel->profile]);
+                $video->Channel_name = $channel->name;
+            }
             $video->user;
         }
         return $videos;
@@ -97,7 +103,7 @@ class VideoController extends Controller
     // get videos of user
     public function getVideosOfUser()
     {
-        $videos = Auth::user()->videos; 
+        $videos = Auth::user()->channel->videos; 
         if ($videos->count()) {
             $videos = $this->getSrc($videos);
             return response()->json([
@@ -137,11 +143,17 @@ class VideoController extends Controller
     {
         $video = Video::find($id);
         if (isset($video)) {
+            $channel= Channel::find($video->channel_id);
+            
             $path = storage_path() . '/app/public/videos/' . $video->path;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
             $video->user;
+            if ($channel) {
+                $video->Channel_profile = route('video.image', ['imagePath' => $channel->profile]);
+                $video->Channel_name = $channel->name;
+            }
             return response()->json([
                 'message' => 'Successful',
                 'data' => $video
@@ -156,7 +168,8 @@ class VideoController extends Controller
     public function update($id, StoreVideoRequest $video)
     {
         //
-        $videos = Auth::user()->videos->find($id);
+        $user = Auth::user()->channel;
+        $videos = $user->video->find($id);
         if ($video) {
             $videos->update($video);
             return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $video], 200);
@@ -186,7 +199,7 @@ class VideoController extends Controller
         $video = Arr::add($video, 'viewer', 0);
         $video['thumbnail'] = $thumbNail;
         $video = Arr::add($video, 'path', $fileName);
-        $video = Arr::add($video, 'user_id', Auth::user()->id);
+        $video = Arr::add($video, 'channel_id', Auth::user()->channel->id);
         $isFileUploaded = Storage::disk('public')->put('videos/' . $fileName, file_get_contents($request->path));
         $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend

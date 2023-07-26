@@ -47,10 +47,10 @@
           <v-list-item>
             <v-avatar
               class="mr-5"
-              image="https://image.lexica.art/full_jpg/19f280a2-2b97-4be2-b782-1fd5c70b84f4"
+              :image="profilePictureUrl"
               size="40"
             ></v-avatar>
-            <v-item-title> Hirito </v-item-title>
+            <v-item-title>{{ user.full_name }} </v-item-title>
           </v-list-item>
           <v-divider :thickness="3"></v-divider>
 
@@ -59,8 +59,10 @@
             :title="profiles[0].title"
             :value="profiles[0].title"
             :to="profiles[0].to"
+            v-if="haveChannel"
           ></v-list-item>
           <v-list-item
+            v-if="!haveChannel"
             :prepend-icon="profiles[0].icon"
             title="Create Channel"
             :value="profiles[0].title"
@@ -93,17 +95,15 @@
     </v-app-bar>
     <v-navigation-drawer app theme="dark" v-model="drawer" width="200">
       <v-list>
-        
-          <v-list-item
-            v-for="icon of icons"
-            :key="icon.title"
-            class="ml-2"
-            @click="drawer = !drawer"
-            :prepend-icon="icon.icon"
-            :title="icon.title"
-            :to="icon.to"
-          ></v-list-item>
-    
+        <v-list-item
+          v-for="icon of icons"
+          :key="icon.title"
+          class="ml-2"
+          @click="drawer = !drawer"
+          :prepend-icon="icon.icon"
+          :title="icon.title"
+          :to="icon.to"
+        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main
@@ -157,18 +157,14 @@ export default {
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Upload", icon: "mdi-video-plus", to: "/upload" },
         { title: "History", icon: "mdi-history", to: "/history" },
-        { title: "Message", icon: "mdi-email-outline", to: "/messages" },
-        { title: "Bookmark", icon: "mdi-bookmark-outline", to: "/bookmark" },
         { title: "Playlist", icon: "mdi-playlist-play", to: "/uerPlaylist" },
-        {
-          title: "More",
-          icon: "mdi-dots-horizontal-circle-outline",
-          to: "/about",
-        },
       ],
       loginForm: false,
       registerForm: false,
       showChannelDialog: false,
+      channel: [],
+      haveChannel: false,
+      profilePictureUrl: require("@/assets/users.jpg"),
     };
   },
   watch: {
@@ -207,6 +203,23 @@ export default {
           console.log(this.user);
           location.loading;
         }, 200)
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+    getChannel() {
+      this.$http
+        .get(`/user/channels`, {
+          headers: {
+            Authorization: "Bearer " + this.user.token,
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          this.channel = response.data.data;
+          this.haveChannel = true;
+          document.cookie = "channel_id="+ this.channel.id
+        })
         .catch((error) => {
           console.log(error.message);
         });
@@ -275,6 +288,7 @@ export default {
   mounted() {
     this.getDataFromCookies();
     this.querySelections();
+    this.getChannel();
   },
 };
 </script>

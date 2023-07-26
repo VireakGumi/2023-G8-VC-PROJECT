@@ -24,7 +24,7 @@
         {{ truncatedDescription(video.title) }}
       </v-card-text>
       <v-card-subtitle>{{
-        truncatedDescription(video.description)
+        truncatedDescription(video.Channel_name)
       }}</v-card-subtitle>
       <v-card-subtitle>
         {{ video.viewer }}
