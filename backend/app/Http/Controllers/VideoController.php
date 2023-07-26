@@ -16,17 +16,6 @@ class VideoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getSrc($videos)
-    {
-        foreach ($videos as $video) {
-            $path = storage_path() . '/app/public/videos/' . $video->path;
-            $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
-            $video->videoType = mime_content_type($path);
-            $video->src = route('video.play', ['id' => $video->id]);
-            $video->user;
-        }
-        return $videos;
-    }
     public function getVideos()
     {
         $videos = Video::orderByDesc('date_time')
@@ -262,5 +251,16 @@ class VideoController extends Controller
             return response()->json(['success' => true, 'message' => 'Viewer has been stored'], 200);
         }
         return response()->json(['success' => false, 'message' => 'Store viewer failed'], 404);
+    }
+    public function getSrc($videos)
+    {
+        foreach ($videos as $video) {
+            $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+            $video->videoType = mime_content_type($path);
+            $video->src = route('video.play', ['id' => $video->id]);
+            $video->user;
+        }
+        return $videos;
     }
 }
