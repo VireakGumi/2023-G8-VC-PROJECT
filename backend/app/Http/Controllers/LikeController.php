@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LikeRequest;
 use App\Models\Like;
 use App\Models\Video;
 use Auth;
@@ -19,7 +18,7 @@ class LikeController extends Controller
         $video = Video::find($id);
         if($video){
             $likes = $video->likes;
-            return response()->json(['success' => true, 'message' => 'You have liked this video', 'data' => $likes],200);
+            return response()->json(['success' => true, 'message' => 'the likes of this video', 'data' => $likes],200);
         }
         return response()->json(['success' => true, 'message' => 'Video undefind'],404);
 
@@ -28,7 +27,7 @@ class LikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LikeRequest $request)
+    public function store(Request $request)
     {
         //
 
@@ -66,8 +65,13 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Like $like)
+    public function destroy($id)
     {
         //
+        $user = Auth::user();
+        $like = Video::find($id)->likes->where('user_id', $user->id)->first();
+        $like->delete();
+        return response()->json(['success' => true, 'message' => 'You unlike this video'],200);
+
     }
 }

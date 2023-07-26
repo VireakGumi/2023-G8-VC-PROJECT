@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/likes', [LikeController::class, 'store']);
     Route::post('/comments', [CommentController::class, 'store']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
+    Route::delete('/likes/{id}', [LikeController::class, 'destroy']);
 });
 Route::fallback(function () {
     return 'Page Not Found';

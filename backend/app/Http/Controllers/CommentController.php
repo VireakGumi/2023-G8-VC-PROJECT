@@ -21,6 +21,9 @@ class CommentController extends Controller
         $video = Video::find($id);
         if($video){
             $comments = $video->comments;
+            foreach($comments as $comment){
+                $comment->user;
+            }
             return response()->json(['success' => true, 'message' => 'You have liked this video', 'data' => $comments],200);
         }
         return response()->json(['success' => true, 'message' => 'Video undefind'],404);
@@ -34,7 +37,6 @@ class CommentController extends Controller
         //
         
         $video = Video::find($request->video_id);
-        // $validator = Validated
         if($video){
             $commnet= Comment::create([
                 'comment_text' => $request->comment_text,
