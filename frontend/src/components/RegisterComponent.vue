@@ -153,6 +153,15 @@ export default {
     },
   },
   methods: {
+    userRole(role) {
+      if (role == 3) {
+        return "admin";
+      } else if (role == 2) {
+        return "content-creator";
+      } else {
+        return "user";
+      }
+    },
     Register() {
       let value = {
         full_name: this.full_name,
@@ -167,6 +176,7 @@ export default {
           document.cookie = "user_id=" + response.data.user.id;
           document.cookie = "full_name=" + response.data.user.full_name;
           document.cookie = "email=" + response.data.user.email;
+          document.cookie = "user_role=" + this.userRole(response.data.user.role_id);
           this.full_name = "";
           this.email = "";
           this.password = "";
