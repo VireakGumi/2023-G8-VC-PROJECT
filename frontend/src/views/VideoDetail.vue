@@ -148,6 +148,26 @@
                     label="comment..."
                     class="my-text-field"
                   ></v-text-field>
+                    " width="45" height="45" />
+                  <v-text-field label="comment..." class="my-text-field" v-model="comments"
+                    v-on:keyup.enter="addComment"></v-text-field>
+                </div>
+              </div>
+              <div>
+                <div v-for="comment of allComments.slice().reverse()" :key="comment"
+                  class="d-flex align-start my-3 text-no-wrap">
+                  <img :src="video.thumbnail" style="
+                      margin-top: 10px;
+                      margin-left: 10px;
+                      margin-right: 2px;
+                      border-radius: 50%;
+                    " width="40" height="40" />
+                  <div class="mt-3 ml-4 d-flex flex-column w-75">
+                    <h5>{{ comment.user.full_name }}</h5>
+                    <p class="text-wrap w-100 mt-1">
+                      {{ comment.comment_text }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -218,6 +238,7 @@ export default {
     url: "",
     isClicked: false,
     isFollowed: false,
+    isLiked: false,
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
     srcvideo: "",
@@ -227,7 +248,11 @@ export default {
     follower: 0,
     dialogFollower: false,
     dialogFollowerText: "",
+    comments: "",
+    allComments: [],
+    likes: [],
   }),
+
   methods: {
     following(){
       const now = new Date();
@@ -319,6 +344,7 @@ export default {
           });
       }
     },
+
     download() {
       this.$http
         .get(`/video/id/${this.$route.params.id}`)
@@ -334,6 +360,193 @@ export default {
           console.log(e.message);
         });
     },
+
+    async getLikes() {
+      this.$http
+        .get(`/likes/${this.video.id}`)
+        .then((response) => {
+          this.likes = response.data.data;
+          let user_id =
+            this.$cookies.get("user_id") !== "undefined" &&
+              this.$cookies.get("user_id") !== null
+              ? this.$cookies.get("user_id")
+              : "";
+          for (let like of this.likes) {
+            if (like.video_id == this.video.id && like.user_id == user_id) {
+              this.isLiked = true;
+            }
+          }
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    addLike() {
+      this.isLiked = !this.isLiked;
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+          this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      let data = {
+        video_id: this.video.id,
+        date_time: new Date()
+          .toISOString()
+          .replace(/T/, " ")
+          .replace(/\..+/, ""),
+      };
+      if (this.isLiked) {
+        this.$http
+          .post("/likes", data, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.getLikes();
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      } else {
+        this.$http
+          .delete(`/likes/${this.video.id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.getLikes();
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      }
+    },
+    addComment() {
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+          this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      let data = {
+        comment_text: this.comments,
+        video_id: this.video.id,
+        date_time: new Date()
+          .toISOString()
+          .replace(/T/, " ")
+          .replace(/\..+/, ""),
+      };
+      if (this.comments) {
+        this.$http
+          .post("/comments", data, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.getAllComments();
+            this.comments = "";
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
+      }
+    },
+    async getAllComments() {
+      this.$http
+        .get(`/comments/${this.video.id}`)
+        .then((response) => {
+          this.allComments = response.data.data;
+          console.log(this.allComments);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    },
+    playNextVideo() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "block";
+      this.nextVideoTimeout = setTimeout(() => {
+        countdown.style.display = "none";
+        // Get the index of the current video
+        const currentIndex = this.videos.findIndex(
+          (video) => video.id === this.video.id
+        );
+
+        // Check if there is a next video
+        if (currentIndex < this.videos.length - 1) {
+          const nextVideo = this.videos[currentIndex + 1];
+          this.video = {
+            id: nextVideo.id,
+            title: nextVideo.title,
+            description: nextVideo.description,
+            thumbnail: nextVideo.thumbnail,
+            src: nextVideo.src,
+            videoType: nextVideo.videoType,
+            viewer: nextVideo.viewer,
+            date_time: nextVideo.date_time,
+            user: nextVideo.user.full_name,
+          };
+        } else {
+          // There is no next video, do something else
+          console.log("No more videos to play");
+        }
+      }, 7000);
+      this.startCountdown();
+    },
+
+    startCountdown() {
+      this.interval = setInterval(() => {
+        if (this.counter > 0) {
+          this.counter--;
+          if (this.counter == 0) {
+            this.counter = 7;
+            clearInterval(this.interval);
+          }
+        } else {
+          clearInterval(this.interval);
+        }
+      }, 1000);
+    },
+
+    cancelNext() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "none";
+      this.counter = 7;
+      clearInterval(this.interval);
+      clearTimeout(this.nextVideoTimeout);
+    },
+
+    playNow() {
+      let countdown = document.querySelector(".next-video");
+      countdown.style.display = "none";
+      const videoPlayer = this.$refs.videoPlayer;
+      videoPlayer.pause();
+      const currentIndex = this.videos.findIndex(
+        (video) => video.id === this.video.id
+      );
+
+      // Check if there is a next video
+      if (currentIndex < this.videos.length - 1) {
+        const nextVideo = this.videos[currentIndex + 1];
+        this.video = {
+          id: nextVideo.id,
+          title: nextVideo.title,
+          description: nextVideo.description,
+          thumbnail: nextVideo.thumbnail,
+          src: nextVideo.src,
+          videoType: nextVideo.videoType,
+          viewer: nextVideo.viewer,
+          date_time: nextVideo.date_time,
+          user: nextVideo.user.full_name,
+        };
+      } else {
+        // There is no next video, do something else
+        console.log("No more videos to play");
+      }
+      this.counter = 7;
+      clearInterval(this.interval);
+      clearTimeout(this.nextVideoTimeout);
+    },
+
     clickShare() {
       this.$http
         .get(`/video/id/${this.$route.params.id}`)
@@ -345,6 +558,7 @@ export default {
           console.log(e.message);
         });
     },
+
     copylink() {
       this.url = window.location.href;
       return this.url;
@@ -362,8 +576,13 @@ export default {
           console.log(error.message);
         });
     },
+<<<<<<< HEAD
     getVideosById() {
       let id = this.$route.params.id;
+=======
+
+    getVideosById: function () {
+>>>>>>> 4188200d097096c3a934f6e289c6821b7323075d
       this.$http
         .get(`/video/id/${id}`)
         .then((response) => {
@@ -406,6 +625,8 @@ export default {
             channel_name: data.Channel_name,
             channel_profile: data.Channel_profile,
           };
+          this.getAllComments();
+          this.getLikes();
         })
         .catch((error) => {
           console.log(error.message);
@@ -453,7 +674,17 @@ export default {
       }
     },
     createHistory() {
+<<<<<<< HEAD
       if (this.token !== null) {
+=======
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+          this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+
+      if (token !== null) {
+>>>>>>> 4188200d097096c3a934f6e289c6821b7323075d
         this.$http
           .post(
             "/history",
@@ -489,6 +720,7 @@ export default {
       window.location.reload();
     },
   },
+
   watch: {
     $route: {
       handler: function () {
@@ -505,7 +737,12 @@ export default {
     this.clickFollow(this.video.channel_id);
     this.getVideos();
     this.copylink();
+<<<<<<< HEAD
     this.createfollower(this.following());
+=======
+
+    // this.$refs.videoPlayer.addEventListener("ended", this.playNextVideo);
+>>>>>>> 4188200d097096c3a934f6e289c6821b7323075d
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
@@ -518,10 +755,12 @@ export default {
 .blue--text {
   color: rgba(0, 136, 255, 0.776);
 }
+
 .my-text-field {
   border-radius: 4px;
   padding: 2px;
 }
+
 .like-container {
   display: flex;
   flex-direction: row;
@@ -530,13 +769,16 @@ export default {
   justify-content: flex-end;
   width: 100%;
 }
+
 .like-container .v-btn {
   background-color: rgb(43, 52, 65);
 }
+
 .v-card {
   background-color: #1f262e00;
   color: white;
 }
+
 .v-card:hover {
   background-color: #1f262e49;
   cursor: pointer;

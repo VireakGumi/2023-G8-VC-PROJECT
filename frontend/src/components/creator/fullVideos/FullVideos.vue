@@ -129,7 +129,7 @@ export default {
   name: "App",
   data() {
     return {
-      url: "/playlistByID/1",
+      url: "/playlistByID",
       linkVideos: [],
     };
   },

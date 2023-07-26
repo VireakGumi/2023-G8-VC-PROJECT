@@ -4,18 +4,14 @@
     <v-container class="card-container" fluid>
       <v-row class="my-card">
         <v-col v-for="video in linkVideos" :key="video.id">
-          <div class="video-card">
+          <div class="video-card" @click="route(video.id)">
             <div class="video-wrapper">
-              <img               
-                width="330"
-                height="230"
-                :src="video.image"
-                frameborder="0"
-                allowfullscreen alt="">
+              <img width="330" height="230" :src="video.image" frameborder="0" allowfullscreen alt="">
               <div class="video-count">{{ video.video_play_lists.length }} videos</div>
             </div>
-              <p class="title">{{ video.title }}</p>
-              <router-link class="my-btn" style="font-weight: bold;" color="primary" to="/full" dark>View full videos</router-link>
+            <p class="title">{{ video.title }}</p>
+            <router-link class="my-btn" style="font-weight: bold;" color="primary" to="/full" dark>View full
+              videos</router-link>
           </div>
           <router-view></router-view>
         </v-col>
@@ -25,7 +21,7 @@
 </template>
 
 <script>
-
+import router from "@/router";
 export default {
   data() {
     return {
@@ -36,11 +32,16 @@ export default {
   methods: {
     fetchVideo() {
       let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      this.$http.get(this.url, {headers: {'Authorization': `Bearer ${token}`}}).then((response) => {
-        this.linkVideos = response.data;
-        console.log(this.linkVideos);
-      }).catch((error) => {console.log(error.response);});
+      if (token) {
+        this.$http.get(this.url, { headers: { 'Authorization': `Bearer ${token}` } }).then((response) => {
+          this.linkVideos = response.data.data;
+          console.log(this.linkVideos);
+        }).catch((error) => { console.log(error.response); });
+      }
     },
+    route(id) {
+      router.push({ name: "viewPlaylist", params: { id: id } });
+    }
   },
   mounted() {
     this.fetchVideo();
@@ -70,7 +71,7 @@ export default {
   font-size: 15px;
 }
 
-.v-col{
+.v-col {
   padding: 0;
   width: 80%;
   flex-grow: 0;
@@ -106,10 +107,10 @@ img {
   margin-right: 67%;
   margin-top: 1%;
   font-size: small;
-  
+
 }
 
-.text{
+.text {
   margin-left: 4%;
   margin-top: 15px;
   margin-bottom: 10px;
