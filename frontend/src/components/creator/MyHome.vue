@@ -113,6 +113,8 @@ export default {
         .get(this.url, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.linkVideos = response.data.data;
+        }).catch((error) => {
+          console.error(error.message);
         });
     },
   },

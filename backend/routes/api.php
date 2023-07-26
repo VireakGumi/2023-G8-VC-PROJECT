@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PlayListController;
@@ -44,6 +45,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/comments', [CommentController::class, 'store']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
     Route::delete('/likes/{id}', [LikeController::class, 'destroy']);
+    Route::post('/channels', [ChannelController::class, 'store']);
+    Route::put('/channels/{id}', [ChannelController::class, 'update']);
+    Route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
+    Route::get('/channels/{id}', [ChannelController::class, 'show']);
+    Route::get('/channels', [ChannelController::class, 'index']);
+
 });
 Route::fallback(function () {
     return 'Page Not Found';
