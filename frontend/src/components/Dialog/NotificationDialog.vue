@@ -1,40 +1,31 @@
 <template>
   <div>
     <v-dialog v-model="dialog" style="margin-left: 60%; margin-top: 2.5%">
-      <v-card-all
-        style="
+      <v-card-all style="
           height: 670px;
           overflow-y: auto;
           background-color: white;
           border-radius: 15px;
           width: 100%;
-        "
-      >
+        ">
         <v-card-icon style="display: flex; justify-content: space-between; margin-right: 10px; margin-top: 10px">
           <v-card-title style="height: 50px">Notifications</v-card-title>
           <svg-icon type="mdi" :path="path" style="margin-top: 10px;"></svg-icon>
         </v-card-icon>
         <hr />
         <v-list style="height: 545px; background-color: white">
-          <v-card
-            v-for="(notification, index) in notifications"
-            :key="index"
-            :style="{
-              backgroundColor: notification.hover
-                ? 'rgb(240, 235, 235)'
-                : 'white',
-              color: 'black',
-            }"
-            v-on:mouseover="notification.hover = true"
-            v-on:mouseout="notification.hover = false"
-            class="pa-2"
-          >
+          <v-card v-for="(notification, index) in notifications" :key="index" :style="{
+            backgroundColor: notification.hover
+              ? 'rgb(240, 235, 235)'
+              : 'white',
+            color: 'black',
+          }" v-on:mouseover="notification.hover = true" v-on:mouseout="notification.hover = false" class="pa-2">
             <router-link to="/video-details" @click="dialog = false">
               <v-card-title class="headline">{{
-                notification.title
+                notification.video.title
               }}</v-card-title>
               <v-card-subtitle class="grey--text">{{
-                notification.subtitle
+                notification.video.description
               }}</v-card-subtitle>
             </router-link>
           </v-card>
@@ -65,11 +56,12 @@ export default {
     };
   },
   methods: {
-    getNotifications(){
-      this.$http.get("/notification").then((response) => {
-        this.notifications = response.data;
-      }).catch((error) => {console.log(error.message);});
-    },  
+    getNotifications() {
+      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
+      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${token}` } }).then((response) => {
+        this.notifications = response.data.data;
+      }).catch((error) => { console.log(error.message); });
+    },
     removeNotification(notification) {
       const index = this.notifications.indexOf(notification);
       this.notifications.splice(index, 1);
