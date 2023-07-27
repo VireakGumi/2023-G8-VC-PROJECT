@@ -276,15 +276,15 @@ class VideoController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Store viewer failed'], 404);
     }
-    public function getSrc($videos)
-    {
-        foreach ($videos as $video) {
-            $path = storage_path() . '/app/public/videos/' . $video->path;
-            $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
-            $video->videoType = mime_content_type($path);
-            $video->src = route('video.play', ['id' => $video->id]);
-            $video->user;
-        }
-        return $videos;
-    }
+    // public function getSrc($videos)
+    // {
+    //     foreach ($videos as $video) {
+    //         $path = storage_path() . '/app/public/videos/' . $video->path;
+    //         $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
+    //         $video->videoType = mime_content_type($path);
+    //         $video->src = route('video.play', ['id' => $video->id]);
+    //         $video->user;
+    //     }
+    //     return $videos;
+    // }
 }

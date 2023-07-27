@@ -69,6 +69,15 @@ export default {
     };
   },
   methods: {
+    playVideo(id, categories_id) {
+      router.push("/videodetail/" + id);
+      this.$http.get('videos/viewer/'+id).then((response) => {
+        console.log(response.data);
+      }).catch((error) => {
+        console.log(error.message);
+      });
+      document.cookie = "favorites=" + categories_id;
+    },
     fetchVideo() {
       this.$http
         .get("/history", { headers: { Authorization: `Bearer ${this.token}` } })
@@ -78,18 +87,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-    playVideo(id, categories_id) {
-      router.push("/videodetail/" + id);
-      this.$http
-        .get("videos/viewer/" + id)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-      document.cookie = "favorites=" + categories_id;
     },
     setUpload() {
       this.$emit("show", { register: true, login: false });
