@@ -23,8 +23,8 @@ class Follower extends Model
     public function users():BelongsToMany{
         return $this->belongsToMany(User::class);
     }
-    public function channels():BelongsToMany{
-        return $this->belongsToMany(Channel::class);
+    public function channel():BelongsTo{
+        return $this->belongsTo(Channel::class);
     }
 
 }

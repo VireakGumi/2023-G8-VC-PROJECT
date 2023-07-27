@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import HomeView from "../views/HomeView.vue";
 import SearchPage from "../views/SearchPage.vue";
 import CoverPage from "../views/ProfilePage/CoverPage.vue";
@@ -42,20 +43,20 @@ const routes = [
     path: "/user",
     name: "user",
     component: AdminUser,
-    // beforeEnter: requireAuth,
-    // meta: {
-    //   permission: 'admin'
-    // }
+    beforeEnter: requireAuth,
+    meta: {
+      permission: 'admin'
+    }
   },
   
   {
     path: "/dashboard",
     name: "dashboard",
     component: () => import("../views/AdminView.vue"),
-    // beforeEnter: requireAuth,
-    // meta: {
-    //   permission: 'admin'
-    // }
+    beforeEnter: requireAuth,
+    meta: {
+      permission: 'admin'
+    }
   },
   {
     path: "/cover-user",

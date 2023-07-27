@@ -255,8 +255,6 @@ class VideoController extends Controller
                 'date_time' => $request->date_time
             ]);
             $response = $notificationController->store($request);
-            // dd($response);
-
             return response()->json(['success' => true, 'message' => 'Uploaded video successfully', 'video' => $video], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful'], 404);
