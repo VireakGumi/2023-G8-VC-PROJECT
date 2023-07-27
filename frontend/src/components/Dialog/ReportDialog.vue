@@ -284,7 +284,6 @@ export default {
             console.error(error.message);
           });
       } else {
-        // alert('login pg')
         this.showReportData = false;
         this.showDialogin = true;
       }

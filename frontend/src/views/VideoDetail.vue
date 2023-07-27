@@ -5,7 +5,13 @@
         <v-row>
           <div style="width: 100%">
             <vue-plyr :options="options" width="100%">
-              <video width="100%" controls :src="video.src" :type="video.videoType" autoplay></video>
+              <video
+                width="100%"
+                controls
+                :src="video.src"
+                :type="video.videoType"
+                autoplay
+              ></video>
             </vue-plyr>
           </div>
         </v-row>
@@ -14,42 +20,128 @@
             <div class="ml-2">
               <div>
                 <h3 style="margin-left: 10px">{{ video.title }}</h3>
-                <v-row style="
+                <v-row
+                  style="
                     margin: 1px;
                     display: flex;
                     justify-content: space-between;
-                  ">
+                  "
+                >
                   <v-col class="d-flex flex align-center pa-0" width="100%">
-                    <img :src="video.Channel_profile" style="border-radius: 50%" width="40" height="40" />
+                    <img
+                      :src="video.Channel_profile"
+                      style="border-radius: 50%"
+                      width="40"
+                      height="40"
+                    />
                     <div class="ml-2">
-                      <h4>{{ video.Channel_name}}</h4>
+                      <h4>{{ video.Channel_name }}</h4>
                       <p>100K follower</p>
                     </div>
                   </v-col>
-
                   <v-col class="like-container pa-0">
-                    <v-btn class="ma-1" height="50px" rounded :class="{ 'blue--text': isClicked }" variant="text"
-                      @click="(isClicked = !isClicked), clickfollow()">
+                    <v-btn
+                      class="ma-1"
+                      height="50px"
+                      rounded
+                      :class="{ 'blue--text': isClicked }"
+                      variant="text"
+                      @click="(isClicked = !isClicked), clickfollow()"
+                    >
                       {{ Followtext }}
                     </v-btn>
                     <div class="d-flex align-center mx-2">
-                      <v-btn class="ma-1" :class="{ 'blue--text': isLiked }" variant="text" @click="addLike"
-                        icon="mdi-thumb-up"></v-btn>
+                      <v-btn
+                        class="ma-1"
+                        :class="{ 'blue--text': isLiked }"
+                        variant="text"
+                        @click="addLike"
+                        icon="mdi-thumb-up"
+                      ></v-btn>
                       <p class="">{{ likes.length }}</p>
                     </div>
-
-                    <v-btn class="ma-1" variant="text" @click="dialog = true" icon="mdi-share"></v-btn>
-                    <v-btn class="ml-1" variant="text" icon="mdi-download" @click="download"></v-btn>
-
-                    <v-dialog v-model="dialog" max-width="500" style="background-color: #00000094">
+                    <v-btn
+                      class="ma-1"
+                      variant="text"
+                      @click="dialog = true"
+                      icon="mdi-share"
+                    ></v-btn>
+                    <v-btn
+                      class="ml-1"
+                      variant="text"
+                      icon="mdi-download"
+                      @click="download"
+                    ></v-btn>
+                    <v-dialog
+                      v-model="dialog"
+                      max-width="500"
+                      style="background-color: #00000094"
+                    >
                       <v-card style="background-color: #1b242e">
-                        <v-btn icon="mdi-close" class="ma-1" variant="text" @click="dialog = false"></v-btn>
+                        <v-btn
+                          icon="mdi-close"
+                          class="ma-1"
+                          variant="text"
+                          @click="dialog = false"
+                        ></v-btn>
+                        <div
+                          style="
+                            width: 500px;
+                            display: flex;
+                            justify-content: center;
+                          "
+                        >
+                          <div>
+                            <img
+                              @click="shareFacebook"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/facebook.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareTelegram"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/Telegram.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareInstagram"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/instagrame.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareTwitter"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/twitter1.png')"
+                              alt=""
+                            />
+                          </div>
+                        </div>
                         <v-card-text>
                           <div class="d-flex flex">
                             <v-card-text>
                               <div class="d-flex flex">
-                                <v-text-field :value="url" required></v-text-field>
-                                <v-btn class="ma-1" variant="text" @click="clickShare" icon="mdi-content-copy"></v-btn>
+                                <v-text-field
+                                  :value="url"
+                                  required
+                                ></v-text-field>
+                                <v-btn
+                                  class="ma-1"
+                                  variant="text"
+                                  @click="clickShare"
+                                  icon="mdi-content-copy"
+                                ></v-btn>
                               </div>
                             </v-card-text>
                           </div>
@@ -60,7 +152,10 @@
                 </v-row>
               </div>
             </div>
-            <div class="mt-2 ml-2 rounded-lg" style="padding: 7px; background-color: rgb(43, 52, 65)">
+            <div
+              class="mt-2 ml-2 rounded-lg"
+              style="padding: 7px; background-color: rgb(43, 52, 65)"
+            >
               <v-col>
                 <v-row rows="4" sm="4" md="4">
                   <h4 class="mr-2">
@@ -83,25 +178,42 @@
             <div class="ml-2 mt-2" width="720">
               <div>
                 <div class="d-flex flex">
-                  <img :src="video.thumbnail" style="
+                  <img
+                    :src="video.thumbnail"
+                    style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
                       border-radius: 50%;
-                    " width="45" height="45" />
-                  <v-text-field label="comment..." class="my-text-field" v-model="comments"
-                    v-on:keyup.enter="addComment"></v-text-field>
+                    "
+                    width="45"
+                    height="45"
+                  />
+                  <v-text-field
+                    label="comment..."
+                    class="my-text-field"
+                    v-model="comments"
+                    v-on:keyup.enter="addComment"
+                  ></v-text-field>
                 </div>
               </div>
               <div>
-                <div v-for="comment of allComments.slice().reverse()" :key="comment"
-                  class="d-flex align-start my-3 text-no-wrap">
-                  <img :src="video.thumbnail" style="
+                <div
+                  v-for="comment of allComments.slice().reverse()"
+                  :key="comment"
+                  class="d-flex align-start my-3 text-no-wrap"
+                >
+                  <img
+                    :src="video.thumbnail"
+                    style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
                       border-radius: 50%;
-                    " width="40" height="40" />
+                    "
+                    width="40"
+                    height="40"
+                  />
                   <div class="mt-3 ml-4 d-flex flex-column w-75">
                     <h5>{{ comment.user.full_name }}</h5>
                     <p class="text-wrap w-100 mt-1">
@@ -116,8 +228,16 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-row>
-          <CardDetail class="mb-3 ml-3" rounded="50" color="#1b242e" v-for="(video, index) in videos" :key="index"
-            :video="video" @click="createHistory" @click.stop="clickvideo(video.id, video.categories_id)" />
+          <CardDetail
+            class="mb-3 ml-3"
+            rounded="50"
+            color="#1b242e"
+            v-for="(video, index) in videos"
+            :key="index"
+            :video="video"
+            @click="createHistory"
+            @click.stop="clickvideo(video.id, video.categories_id)"
+          />
         </v-row>
       </v-col>
     </v-row>
@@ -198,7 +318,7 @@ export default {
           this.likes = response.data.data;
           let user_id =
             this.$cookies.get("user_id") !== "undefined" &&
-              this.$cookies.get("user_id") !== null
+            this.$cookies.get("user_id") !== null
               ? this.$cookies.get("user_id")
               : "";
           for (let like of this.likes) {
@@ -215,7 +335,7 @@ export default {
       this.isLiked = !this.isLiked;
       let token =
         this.$cookies.get("token") !== "undefined" &&
-          this.$cookies.get("token") !== null
+        this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       let data = {
@@ -254,7 +374,7 @@ export default {
     addComment() {
       let token =
         this.$cookies.get("token") !== "undefined" &&
-          this.$cookies.get("token") !== null
+        this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       let data = {
@@ -402,9 +522,7 @@ export default {
 
     getVideos() {
       this.$http
-        .get(
-          `/videos/recommendation/${this.videoId}/${this.favorites}`
-        )
+        .get(`/videos/recommendation/${this.videoId}/${this.favorites}`)
         .then((response) => {
           this.videos = response.data.data;
         })
@@ -488,7 +606,7 @@ export default {
     createHistory() {
       let token =
         this.$cookies.get("token") !== "undefined" &&
-          this.$cookies.get("token") !== null
+        this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
 
@@ -526,6 +644,24 @@ export default {
       document.cookie = "favorites=" + categories_id;
       await router.push({ name: "videodetail", params: { id: id } });
       window.location.reload();
+    },
+    shareFacebook() {
+      const url = "https://www.facebook.com";
+      window.open(url, "Share on Facebook");
+    },
+    shareTelegram() {
+      const url = "https://t.me/share/url?url=" + window.location.href;
+      window.open(url);
+    },
+
+    shareInstagram() {
+      const url = "https://www.instagram.com/";
+      window.open(url, "_blank");
+    },
+
+    shareTwitter() {
+      const url = "https://twitter.com/";
+      window.open(url, "_twitter");
     },
   },
 
