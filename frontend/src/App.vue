@@ -9,7 +9,6 @@
   </div>
   <!-- <p>{{ userRole }}</p> -->
 </template>
-
 <script>
 import AdminNavTop from "./components/Nav/AdminNavTop.vue";
 import NavigationBar from "./components/Nav/NavigationBar.vue";
