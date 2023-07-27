@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function followers():HasMany{
         return $this->hasMany(Follower::class);
     }
-    public function userBlocked():HasMany{
+    public function userblocked():HasMany{
         return $this->hasMany(UserBlocked::class);
     }
     public function videos():HasMany{

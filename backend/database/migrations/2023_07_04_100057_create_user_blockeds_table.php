@@ -18,11 +18,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('blocking_channel_id');
-            $table->foreign('blocking_channel_id')
-                ->references('id')
-                ->on('channels')
-                ->onDelete('cascade');
             $table->dateTime('date_time');
             $table->timestamps();
         });

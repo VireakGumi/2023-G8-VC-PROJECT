@@ -80,7 +80,6 @@ export default {
         const response = await this.$http.get("/category/" + categoryId);
         if (response.data.data != null) {
           this.videos = response.data.data;
-          console.log(response.data.data);
         } else {
           this.message = response.data.message;
           this.videos = [];

@@ -26,10 +26,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/userblocked', [UserBlockedController::class, 'index']);
+Route::get('/blockeduser', [UserBlockedController::class, 'getblock']);
+Route::post('/admin/{id}', [UserBlockedController::class, 'store']);
+Route::delete('/admin/unblock/{id}', [UserBlockedController::class, 'destroy']);
+Route::delete('/admin/{id}', [UserController::class, 'destroy']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/userblocked', [UserBlockedController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlist', [PlayListController::class, 'getPlayListOfUser']);

@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-       <v-toolbar-title>ADMIN</v-toolbar-title>
+      <v-toolbar-title>ADMIN</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
@@ -16,12 +16,17 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn class="text-none" to="/notifications" icon>
-      <v-badge content="2" color="error">
-        <v-icon>mdi-bell-outline</v-icon>
-      </v-badge>
-    </v-btn>
+        <v-badge content="2" color="error">
+          <v-icon>mdi-bell-outline</v-icon>
+        </v-badge>
+      </v-btn>
 
-      <v-menu transition="slide-x-transition" bottom right :open-on-click="true">
+      <v-menu
+        transition="slide-x-transition"
+        bottom
+        right
+        :open-on-click="true"
+      >
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" icon>
             <v-icon size="x-large">mdi-account</v-icon>
