@@ -218,7 +218,6 @@ export default {
       try {
         const response = await this.$http.get("/userblocked");
         this.userBlock = response.data.data.length;
-        // this.blockedUsers = response.data.data;
         this.Blocked();
       } catch (error) {
         console.log(error);
