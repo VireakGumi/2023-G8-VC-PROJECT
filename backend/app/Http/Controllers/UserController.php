@@ -18,11 +18,14 @@ class UserController extends Controller
     public function index()
     {
         //
-        $user = user::all();
+        $users = user::all();
+        foreach ($users as $user) {
+            $user->date_time = $user->created_at;
+        }
         return response()->json([
             'success' => true,
             'message' => 'Request is successfully.',
-            'user' => $user
+            'user' => $users
         ], 200);
     }
 
