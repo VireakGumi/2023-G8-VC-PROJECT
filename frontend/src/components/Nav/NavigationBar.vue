@@ -2,7 +2,6 @@
   <v-app>
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
