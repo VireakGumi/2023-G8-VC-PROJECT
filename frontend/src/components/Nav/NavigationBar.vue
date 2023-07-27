@@ -31,7 +31,12 @@
         hide-details
       ></v-autocomplete>
     </v-container>
-
+    <v-btn class="text-none" @click="dialog = !dialog" icon>
+        <v-badge content="2" color="error">
+          <v-icon>mdi-bell-outline</v-icon>
+        </v-badge>
+        <notification-dialog v-if="dialog"></notification-dialog>
+      </v-btn>
     <DropDown v-if="getReady" :user="user" @logout="logout"></DropDown>
 
     <v-btn
@@ -44,6 +49,7 @@
       Sign in
     </v-btn>
   </v-app-bar>
+
   <LoginForm
     @reloadPage="reloadPage"
     v-model="loginForm"
@@ -63,6 +69,7 @@
     width="75px"
     :rail="rail"
   >
+
     <v-list density="compact" nav width="180px">
       <v-list-item v-for="item in items" :key="item.title" :to="item.to">
         <v-list-item
@@ -81,11 +88,14 @@ import router from "@/router";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
 import DropDown from "./DropDown.vue";
+import NotificationDialog from "../Dialog/NotificationDialog.vue"
 export default {
   components: {
     LoginForm,
     RegisterForm,
     DropDown,
+    NotificationDialog
+
   },
   data() {
     return {
@@ -95,6 +105,7 @@ export default {
         email: "",
         user_id: "",
       },
+      dialog: false,
       drawer: false,
       rail: true,
       loading: false,

@@ -59,74 +59,25 @@ export default {
   },
   data() {
     return {
-      notifications: [
-        {
-          title: "Notification 1",
-          subtitle: "This is the first notification",
-          icon: "mdi-alert",
-          color: "red",
-          hover: false,
-        },
-        {
-          title: "Notification 2",
-          subtitle: "This is the second notification",
-          icon: "mdi-information",
-          color: "blue",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-        {
-          title: "Notification 3",
-          subtitle: "This is the third notification",
-          icon: "mdi-check-circle",
-          color: "green",
-          hover: false,
-        },
-      ],
+      notifications: [],
       dialog: true,
       path: mdiCog,
     };
   },
   methods: {
+    getNotifications(){
+      this.$http.get("/notification").then((response) => {
+        this.notifications = response.data;
+      }).catch((error) => {console.log(error.message);});
+    },  
     removeNotification(notification) {
       const index = this.notifications.indexOf(notification);
       this.notifications.splice(index, 1);
     },
   },
+  created() {
+    this.getNotifications()
+  }
 };
 </script>
 

@@ -17,13 +17,21 @@ class NotificationController extends Controller
         $user = Auth::user();
         $followers = $user->followers;
         $listNotification = [];
-        foreach ($followers as $follow) {
-            $lists = $follow->channel->notification;
-            foreach ($lists as $list) {
-                array_push($listNotification, $list);
+        if($followers) {
+            foreach ($followers as $follow) {
+                $lists = $follow->channel->notification;
+                foreach ($lists as $list) {
+                    $list->video;
+                    array_push($listNotification, $list);
+                }
             }
+            if($listNotification){
+               return response()->json(['success' => true, 'message' => "Those are your notification", 'data' => $listNotification], 200 );
+            }
+            return response()->json(['success' => false, 'message' => "Don't have yet"], 404 );
         }
-        return $listNotification;
+        return response()->json(['success' => false, 'message' => "You don't follow any yet"], 404 );
+
     }
 
     /**
