@@ -7,6 +7,7 @@
      <NavigationBar/>
     </template>
   </div>
+  <!-- <p>{{ userRole }}</p> -->
 </template>
 
 <script>

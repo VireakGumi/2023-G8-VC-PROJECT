@@ -47,7 +47,8 @@ export default {
       timer: null,
       currentTime: null,
       plyrOptions: {
-        controls: ["play", "progress", "mute"],
+        muted: true,
+        controls: ["mute"],
         quality: { default: "1080p" },
       },
     };

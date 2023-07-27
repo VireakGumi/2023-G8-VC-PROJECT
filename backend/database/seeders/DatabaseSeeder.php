@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ChannelSeeder::class);
         $this->call(CategoriesSeeder::class);
         $this->call(Video::class);
         $this->call(PlaylistSeeder::class);

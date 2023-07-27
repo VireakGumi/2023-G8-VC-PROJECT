@@ -154,10 +154,8 @@ export default {
   },
   methods: {
     userRole(role) {
-      if (role == 3) {
+      if (role == 2) {
         return "admin";
-      } else if (role == 2) {
-        return "content-creator";
       } else {
         return "user";
       }
@@ -171,9 +169,11 @@ export default {
             document.cookie = "user_id=" + response.data.user.id;
             document.cookie = "full_name=" + response.data.user.full_name;
             document.cookie = "email=" + response.data.user.email;
+            document.cookie = "user_role=" + this.userRole(response.data.user.role_id);
+
             this.password = "";
             this.email = "";
-            this.dialog = false;
+            this.dialog = false
             window.location.reload();
           })
           .catch((error) => {

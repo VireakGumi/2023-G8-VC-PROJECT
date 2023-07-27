@@ -65,7 +65,7 @@ export default {
       timer: null,
       currentTime: null,
       plyrOptions: {
-        controls: ["play", "progress", "mute"],
+        controls: [ "mute"],
         quality: { default: "1080p" },
       },
       profilePictureUrl: require("@/assets/users.jpg"),

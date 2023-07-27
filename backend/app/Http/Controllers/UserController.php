@@ -23,6 +23,7 @@ class UserController extends Controller
         $users = user::all();
         foreach ($users as $user) {
             $user->date_time = $user->created_at;
+            $user->channel;
         }
         return response()->json([
             'success' => true,
@@ -67,7 +68,6 @@ class UserController extends Controller
             if (!$isProfileUpload) {
                 return response()->json(['success' => false, 'message' => 'Image upload failed'], 404);
             }
-            $credentails['profile'] = $profileName;
         }
         $user->update($credentails);
         return Response()->json(['success' => true, 'message' => 'User updated successfully', 'data' => $user], 200);
