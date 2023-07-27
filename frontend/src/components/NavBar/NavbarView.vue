@@ -6,6 +6,7 @@
         <v-tab v-for="item in items" :key="item" :value="item">
           {{ item.name }}
         </v-tab>
+        
       </v-tabs>
         <input
           type="search"
