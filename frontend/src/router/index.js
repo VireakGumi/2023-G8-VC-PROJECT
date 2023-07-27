@@ -5,7 +5,6 @@ import SearchPage from "../views/SearchPage.vue";
 import CoverPage from "../views/ProfilePage/CoverPage.vue";
 import FullVideos from "../components/creator/fullVideos/FullVideos.vue";
 import ContentCreatorPage from "../components/creator/contentCreatorPage/ContentCreatorPage.vue";
-import AdminUser from "../views/AdminUser.vue";
 import AdminVideo from "../views/AdminVideo.vue";
 function requireAuth(to, from, next) {
   const cookies = document.cookie.split('; ');
@@ -49,9 +48,9 @@ const routes = [
     },
   },
   {
-    path: "/user",
-    name: "user",
-    component: AdminUser,
+    path: "/user-list",
+    name: "user-list",
+    component: () => import("../views/AdminUser.vue"),
     beforeEnter: requireAuth,
     meta: {
       permission: 'admin',

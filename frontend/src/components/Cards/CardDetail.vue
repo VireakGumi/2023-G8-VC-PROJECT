@@ -103,7 +103,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 img {
   opacity: 1;
   transition: filter 0.4s ease-in-out;
