@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\NotificationResource;
+use App\Http\Resources\VideoResource;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,14 @@ class NotificationController extends Controller
                 $lists = $follow->channel->notification;
                 foreach ($lists as $list) {
                     $list->video;
+                    $list->video->channel;
+                    $list->video->channel->profile = route('video.image', ['imagePath' => $list->video->channel->profile]);
+                    $list->video->thumbnail = route('video.image', ['imagePath' => $list->video->thumbnail]);
+
                     array_push($listNotification, $list);
                 }
-            }
+            } 
+
             if($listNotification){
                return response()->json(['success' => true, 'message' => "Those are your notification", 'data' => $listNotification], 200 );
             }

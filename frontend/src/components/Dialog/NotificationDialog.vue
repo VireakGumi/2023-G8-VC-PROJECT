@@ -20,14 +20,23 @@
               : 'white',
             color: 'black',
           }" v-on:mouseover="notification.hover = true" v-on:mouseout="notification.hover = false" class="pa-2">
-            <router-link to="/video-details" @click="dialog = false">
-              <v-card-title class="headline">{{
-                notification.video.title
-              }}</v-card-title>
-              <v-card-subtitle class="grey--text">{{
-                notification.video.description
-              }}</v-card-subtitle>
-            </router-link>
+
+            <div  @click="dialog = false, playVideo(notification.video.id, notification.video.categories_id)" class="d-flex justify-space-between align-center">
+              <div class="d-flex align-center"> 
+                <img :src="notification.video.thumbnail" alt="" width="130" height="80">
+                <div>
+                  <v-card-title class="headline ml-3">{{
+                    notification.video.title
+                  }}</v-card-title>
+                  <h4 class="headline ml-7">{{
+                    notification.video.channel.name
+                  }}</h4>
+                </div>
+              </div>
+              <div>
+                <img :src="notification.video.channel.profile" alt="" width="45" height="45" class="rounded-circle">
+              </div>
+            </div>
           </v-card>
         </v-list>
 
@@ -41,6 +50,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiCog } from "@mdi/js";
 export default {
@@ -50,24 +60,31 @@ export default {
   },
   data() {
     return {
+      token: '',
       notifications: [],
       dialog: true,
       path: mdiCog,
     };
   },
   methods: {
+    playVideo(id, categories_id) {
+      this.dialog = false;
+      router.push("/videodetail/" + id);
+      this.$http.get('videos/viewer/'+id).then((response) => {
+        console.log(response.data);
+      }).catch((error) => {
+        console.log(error.message);
+      });
+      document.cookie = "favorites=" + categories_id;
+    },
     getNotifications() {
-      let token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
-      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${token}` } }).then((response) => {
+      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${this.token}` } }).then((response) => {
         this.notifications = response.data.data;
       }).catch((error) => { console.log(error.message); });
     },
-    removeNotification(notification) {
-      const index = this.notifications.indexOf(notification);
-      this.notifications.splice(index, 1);
-    },
   },
   created() {
+    this.token = (this.$cookies.get('token') !== 'undefined' && this.$cookies.get('token') !== null) ? this.$cookies.get('token') : '';
     this.getNotifications()
   }
 };
