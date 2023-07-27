@@ -3,6 +3,7 @@
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
+      <img src="../../assets/my-logo.png" width="100" height="100" style="border-radius: 25px; margin-top: 10px" alt="">
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
