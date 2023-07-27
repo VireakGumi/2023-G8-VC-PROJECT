@@ -54,6 +54,7 @@
     <v-main>
       <router-view></router-view>
     </v-main>
+    <p> {{getVideos()}} </p>
   </v-app>
 </template>
 <script>
@@ -86,6 +87,13 @@ export default {
         { title: "Video Report", icon: "mdi-video-off", to: "/report" },
       ],
     };
+  },
+  methods:{
+    getVideos:function(){
+      this.$http.get('/videos').thenn((response)=>{
+        console.log(response.data.data);
+      })
+    }
   },
 };
 </script>

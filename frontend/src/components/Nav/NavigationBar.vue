@@ -239,9 +239,7 @@ export default {
           this.loading = true;
           // set this.videos to the response data
           this.videos = response.data.data;
-          this.listVideos = this.videos.filter((e) => {
-            return e.title.toLowerCase().includes(this.search.toLowerCase());
-          });
+          this.listVideos = this.videos;
           this.loading = false;
         }, 500)
         .catch((error) => {
