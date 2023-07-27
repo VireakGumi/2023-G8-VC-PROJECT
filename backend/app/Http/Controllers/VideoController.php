@@ -6,6 +6,7 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Models\Categories;
 use App\Models\User;
 use App\Models\Video;
+use App\Http\Controllers\NotificationController as NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
@@ -168,8 +169,15 @@ class VideoController extends Controller
         return response()->json(['success' => false, 'message' => "The video is not your"], 404);
     }
 
+    public function deleteVideo($id)
+    {
+        $videos = Video::find($id)->delete();
+        return $videos;
+    }
+
     public function uploadVideo(StoreVideoRequest $request)
     {
+
         $video = $request->only('title', 'description', 'thumbnail', 'date_time', 'privacy', 'categories_id');
         $fileName = $request->path->getClientOriginalName();
         $thumbNail = $request->thumbnail->getClientOriginalName();
@@ -184,6 +192,15 @@ class VideoController extends Controller
 
         if ($isFileUploaded && $isThumbnailUploaded) {
             $video = Video::create($video);
+            $notificationController = new NotificationController();
+            $request = new Request([
+                'video_id' => $video->id,
+                'channel_id' => Auth::user()->channel->id,
+                'date_time' => $request->date_time
+            ]);
+            $response = $notificationController->store($request);
+            // dd($response);
+
             return response()->json(['success' => true, 'message' => 'Uploaded video successfully', 'video' => $video], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful'], 404);

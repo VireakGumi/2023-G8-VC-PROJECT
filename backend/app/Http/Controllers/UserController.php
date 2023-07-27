@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
+
 class UserController extends Controller
 {
     /**
@@ -17,6 +18,15 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = user::all();
+        foreach ($users as $user) {
+            $user->date_time = $user->created_at;
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Request is successfully.',
+            'user' => $users
+        ], 200);
     }
 
     /**
@@ -46,18 +56,30 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
         //
+        $user = User::find($user);
+        if ($user != null){
+            $user->delete();
+            return Response()->json([
+                'success' => true,
+                'message' => 'User has been deleted',
+            ], 200);
+        }
+        return Response()->json([
+            'success' => false,
+            'message' => 'User does not exist',
+        ], 200);
     }
     public function register(StoreRegisterRequest $request)
     {
         $credentails = $request->only('full_name', 'email', 'password');
-        $credentails= Arr::add($credentails,'role_id',1);
+        $credentails = Arr::add($credentails, 'role_id', 1);
         $credentails["password"] = bcrypt($credentails["password"]);
 
         $user = User::create($credentails);
-        if($user){
+        if ($user) {
             $token = $user->createToken('API Token', ['select', 'create', 'update'])->plainTextToken;
 
             return response()->json([

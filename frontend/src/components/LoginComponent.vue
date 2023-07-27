@@ -153,6 +153,15 @@ export default {
     },
   },
   methods: {
+    userRole(role) {
+      if (role == 3) {
+        return "admin";
+      } else if (role == 2) {
+        return "content-creator";
+      } else {
+        return "user";
+      }
+    },
     login() {
         let value = { email: this.email, password: this.password };
         this.$http

@@ -35,7 +35,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'created_at',
         'updated_at'
     ];
 
@@ -60,7 +59,7 @@ class User extends Authenticatable
     public function followers():HasMany{
         return $this->hasMany(Follower::class);
     }
-    public function userBlocked():HasMany{
+    public function userblocked():HasMany{
         return $this->hasMany(UserBlocked::class);
     }
     public function videos():HasMany{
@@ -68,6 +67,12 @@ class User extends Authenticatable
     }
     public function playlists():HasMany{
         return $this->hasMany(PlayList::class);
+    }
+    public function reports():HasMany{
+        return $this->hasMany(Report::class);
+    }
+    public function notifications():HasMany{
+        return $this->hasMany(Notification::class);
     }
     public function channel():HasOne{
         return $this->hasOne(Channel::class);

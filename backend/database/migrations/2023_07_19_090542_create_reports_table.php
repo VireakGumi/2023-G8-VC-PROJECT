@@ -11,14 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_blockeds', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('blocked_user_id');
-            $table->foreign('blocked_user_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->dateTime('date_time');
+            $table->unsignedBigInteger('video_id');
+            $table->foreign('video_id')
+                ->references('id')
+                ->on('videos')
+                ->onDelete('cascade');
+
+            $table->text("comment");
+            $table->string("type_of_report");
+            $table->string("content_video");
             $table->timestamps();
         });
     }
@@ -28,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_blockeds');
+        Schema::dropIfExists('reports');
     }
 };

@@ -6,20 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserBlocked extends Model
+class Notification extends Model
 {
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'blocked_user_id',
-        'date_time',
+        'user_id',
+        'video_id',
+        'channel_id',
+        'date_time'
     ];
-
     protected $hidden = [
         'created_at',
         'updated_at'
@@ -28,8 +23,10 @@ class UserBlocked extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function channels(): BelongsTo
-    {
+    public function video(): BelongsTo{
+        return $this->belongsTo(Video::class);
+    }
+    public function channel(): BelongsTo{
         return $this->belongsTo(Channel::class);
     }
 }

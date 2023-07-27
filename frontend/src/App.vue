@@ -1,19 +1,34 @@
 <template>
-  <navigation-bar/>
-  <!-- <v-layout class="bg-surface-variant ma-0 pa-0 bg-red-accent-4 " width="100%">
-    <v-row no-gutters>
-      <v-col>
-      </v-col>
-    </v-row>
-    <v-row no-gutters style="overflow-y: hidden" class="ml-10 mt-16 w-100">
-      <v-col>
-        <router-view />
-      </v-col>
-    </v-row>
-  </v-layout> -->
+  <div>
+    <template v-if="userRole === 'admin'">
+      <AdminNavTop />
+    </template>
+    <template v-else>
+      <NavigationBar/>
+    </template>
+  </div>
 </template>
+
 <script>
+import AdminNavTop from "./components/Nav/AdminNavTop.vue";
+import NavigationBar from "./components/Nav/NavigationBar.vue";
+
 export default {
+  components: { AdminNavTop,NavigationBar },
+  data() {
+    return {
+      userRole: ''
+    }
+  },
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
+  },
+  created() {
+    this.userRole = this.$cookies.get('user_role');
+  }
 };
 </script>
+
 <style scoped></style>

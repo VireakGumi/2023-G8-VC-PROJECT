@@ -15,6 +15,12 @@
         rounded="pill"
       ></v-text-field>
       <v-spacer></v-spacer>
+      <v-btn class="text-none" @click="dialog = !dialog" icon>
+        <v-badge content="2" color="error">
+          <v-icon>mdi-bell-outline</v-icon>
+        </v-badge>
+        <notification-dialog v-if="dialog"></notification-dialog>
+      </v-btn>
       <v-btn
         v-if="user.token == ''"
         class="mr-6 ml-8 mr-2 bg-white"
@@ -24,12 +30,6 @@
       >
         Sign in
       </v-btn>
-      <v-btn class="text-none" to="/notifications" icon v-if="user.token != ''">
-        <v-badge content="2" color="error">
-          <v-icon>mdi-bell-outline</v-icon>
-        </v-badge>
-      </v-btn>
-
       <v-menu
         v-if="user.token != ''"
         transition="slide-x-transition"
@@ -127,8 +127,15 @@
 import ChannelDialog from "../Dialog/ChannelDialog.vue";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
+import NotificationDialog from "../Dialog/NotificationDialog.vue"
 export default {
-  components: { LoginForm, RegisterForm, ChannelDialog },
+  components: {
+    LoginForm,
+    RegisterForm,
+    NotificationDialog,
+    ChannelDialog
+
+  },
   data() {
     return {
       user: {
@@ -137,6 +144,7 @@ export default {
         email: "",
         user_id: "",
       },
+      dialog: false,
       drawer: false,
       profiles: [
         {

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChannelRequest;
+use App\Http\Resources\ChannerlResource;
 use App\Models\Channel;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ChannelController extends Controller
 {
@@ -134,7 +136,7 @@ class ChannelController extends Controller
     {
         $channel = Auth::user()->channel()->find($id);
         if ($channel) {
-            $channel->delete($channel);
+            $channel->delete();
             return response()->json(['success' => true, 'message' => 'Delete channel successfully'], 200);
         }
         return response()->json(['success' => false, 'message' => 'Failed to delete your channel'], 404);
