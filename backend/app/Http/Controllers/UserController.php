@@ -56,9 +56,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
         //
+        $user = User::find($user);
+        if ($user != null){
+            $user->delete();
+            return Response()->json([
+                'success' => true,
+                'message' => 'User has been deleted',
+            ], 200);
+        }
+        return Response()->json([
+            'success' => false,
+            'message' => 'User does not exist',
+        ], 200);
     }
     public function register(StoreRegisterRequest $request)
     {

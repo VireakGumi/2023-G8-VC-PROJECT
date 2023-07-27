@@ -14,7 +14,12 @@
         <notification-dialog v-if="dialog"></notification-dialog>
       </v-btn>
 
-      <v-menu transition="slide-x-transition" bottom right :open-on-click="true">
+      <v-menu
+        transition="slide-x-transition"
+        bottom
+        right
+        :open-on-click="true"
+      >
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" icon>
             <v-icon size="x-large">mdi-account</v-icon>
