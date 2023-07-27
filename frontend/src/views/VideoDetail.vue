@@ -39,6 +39,7 @@
                       <p>100K follower</p>
                     </div>
                   </v-col>
+                  
                   <v-col class="like-container pa-0">
                     <v-btn
                       class="ma-1"
@@ -60,6 +61,7 @@
                       ></v-btn>
                       <p class="">{{ likes.length }}</p>
                     </div>
+
                     <v-btn
                       class="ma-1"
                       variant="text"
