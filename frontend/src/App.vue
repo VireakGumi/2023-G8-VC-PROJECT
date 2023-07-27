@@ -7,7 +7,6 @@
      <NavigationBar/>
     </template>
   </div>
-  <!-- <p>{{ userRole }}</p> -->
 </template>
 <script>
 import AdminNavTop from "./components/Nav/AdminNavTop.vue";
