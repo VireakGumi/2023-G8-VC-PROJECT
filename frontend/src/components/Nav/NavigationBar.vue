@@ -113,7 +113,7 @@
         @show="handOver"
         @isShow="handOverIsShowLogin"
       />
-      <ChannelDialog v-if="showChannelDialog" />
+      <ChannelDialog v-model="showChannelDialog" @haveChannel="createChannel" />
       <RegisterForm
         v-model="registerForm"
         @show="handOver"
@@ -196,6 +196,10 @@ export default {
     },
   },
   methods: {
+    createChannel(item) {
+      this.haveChannel = item;
+      this.getChannel();
+    },
     getNotifications() {
       this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${this.user.token}` } }).then((response) => {
         this.notifications = response.data.data;
@@ -258,7 +262,6 @@ export default {
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
       this.loginForm = item;
-      console.log(this.loginForm);
     },
     handOverIsShowRegister(item) {
       this.getDataFromCookies();
