@@ -39,12 +39,7 @@
                       <p>100K follower</p>
                     </div>
                   </v-col>
-<<<<<<< HEAD
-
-                  <v-col class="like-container pa-0 mr-4">
-=======
                   <v-col class="like-container pa-0">
->>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-btn
                       class="ma-1"
                       height="50px"
@@ -65,10 +60,6 @@
                       ></v-btn>
                       <p class="">{{ likes.length }}</p>
                     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-btn
                       class="ma-1"
                       variant="text"
@@ -81,7 +72,6 @@
                       icon="mdi-download"
                       @click="download"
                     ></v-btn>
-<<<<<<< HEAD
 
                     <v-btn
                       class="ml-2 text-white"
@@ -94,8 +84,6 @@
                     ></v-btn>
                      <report-dialog v-if="showDialog"></report-dialog>
 
-=======
->>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-dialog
                       v-model="dialog"
                       max-width="500"
@@ -108,8 +96,6 @@
                           variant="text"
                           @click="dialog = false"
                         ></v-btn>
-<<<<<<< HEAD
-=======
                         <div
                           style="
                             width: 500px;
@@ -154,7 +140,6 @@
                             />
                           </div>
                         </div>
->>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                         <v-card-text>
                           <div class="d-flex flex">
                             <v-card-text>
