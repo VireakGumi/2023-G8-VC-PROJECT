@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVideoRequest;
+use App\Http\Requests\EditVideoRequest;
 use App\Models\Categories;
 use App\Models\Channel;
 use App\Models\User;
@@ -22,8 +23,28 @@ class VideoController extends Controller
         foreach ($videos as $video) {
             $channel= Channel::find($video->channel_id);
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image =  $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
+            $extension = pathinfo($video->thumbnail, PATHINFO_EXTENSION);
+            switch ($extension) {
+                case 'jpg':
+                case 'jpeg':
+                    $video->imageType = 'image/jpeg';
+                    break;
+                case 'png':
+                    $video->imageType = 'image/png';
+                    break;
+                case 'gif':
+                    $video->imageType = 'image/gif';
+                    break;
+                case 'svg':
+                    $video->imageType = 'image/svg+xml';
+                    break;
+                default:
+                    $video->imageType = '';
+                    break;
+            }
             $video->src = route('video.play', ['id' => $video->id]);
             if ($channel) {
                 $video->Channel_profile = route('video.image', ['imagePath' => $channel->profile]);
@@ -147,6 +168,7 @@ class VideoController extends Controller
             $channel= Channel::find($video->channel_id);
             
             $path = storage_path() . '/app/public/videos/' . $video->path;
+            $video->image = $video->thumbnail;
             $video->thumbnail = route('video.image', ['imagePath' => $video->thumbnail]);
             $video->videoType = mime_content_type($path);
             $video->src = route('video.play', ['id' => $video->id]);
@@ -166,16 +188,36 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id, StoreVideoRequest $video)
+    public function update($id, EditVideoRequest $request)
     {
-        //
-        $user = Auth::user()->channel;
-        $videos = $user->video->find($id);
-        if ($video) {
-            $videos->update($video);
-            return response()->json(['success' => true, 'message' => 'Update video is successfully ', 'videos' => $video], 200);
+        $video = $request->only([
+            'title',
+            'description',
+            'date_time',
+            'privacy',
+            'categories_id'
+        ]);
+        $videos= Auth::user()->channel->videos()->find($id);
+        return $videos;
+        if (!$videos) {
+            return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
         }
-        return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
+        if ($request->hasFile('thumbnail')) {
+            if ($request->hasFile('thumbnail')) {
+                $thumbnail = $request->file('thumbnail');
+                $thumbnailName = $thumbnail->getClientOriginalName();
+                $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbnailName, file_get_contents($thumbnail));
+                if (!$isThumbnailUploaded) {
+                    return response()->json(['success' => false, 'message' => 'Image upload failed'], 404);
+                }
+                if ($videos->thumbnail != $thumbnailName) {
+                    // Only update the video thumbnail if the new thumbnail file is different from the existing one
+                    $video['thumbnail'] = $thumbnailName;
+                }
+            }
+        }
+        $videos->update($video);
+        return response()->json(['success' => true, 'message' => 'Video updated successfully', 'videos' => $videos], 200);
     }
 
     /**

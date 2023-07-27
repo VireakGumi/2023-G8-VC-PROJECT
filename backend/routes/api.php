@@ -41,9 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
     Route::post('/add-video/playlist', [VideoPlayListController::class, 'store']);
     Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
-    Route::post('/videos/update/{id}', [VideoController::class, 'update']);
     Route::post('/likes', [LikeController::class, 'store']);
     Route::post('/comments', [CommentController::class, 'store']);
+    Route::put('/videos/{id}', [VideoController::class, 'update']);
     Route::post('/videos', [VideoController::class, 'uploadVideo'])->name('video.upload');
     Route::delete('/likes/{id}', [LikeController::class, 'destroy']);
     Route::post('/channels', [ChannelController::class, 'store']);
