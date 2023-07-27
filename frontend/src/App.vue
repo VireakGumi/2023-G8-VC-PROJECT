@@ -4,7 +4,7 @@
       <AdminNavTop />
     </template>
     <template v-else>
-      <NavigationBar/>
+     <NavigationBar/>
     </template>
   </div>
 </template>

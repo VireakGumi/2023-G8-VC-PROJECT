@@ -500,13 +500,6 @@ export default {
     },
 
     getVideosById() {
-
-
-
-
-
-
-
       this.$http
         .get(`/video/id/${this.$route.params.id}`)
         .then((response) => {
