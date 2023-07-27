@@ -634,12 +634,12 @@ export default {
     },
   },
   created() {
+    this.videoId = this.$route.params.id;
     this.clickfollow();
     this.getVideosById();
     this.favorites = this.$cookies.get("favorites");
     this.getVideos();
     this.copylink();
-    this.videoId = this.$route.params.id;
     // this.$refs.videoPlayer.addEventListener("ended", this.playNextVideo);
   },
   mounted() {

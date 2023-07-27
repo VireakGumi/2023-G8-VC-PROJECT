@@ -43,7 +43,9 @@
     </v-container>
   </v-card>
 </template>
+
 <script>
+
 export default {
   props: ["video"],
   data() {
@@ -139,6 +141,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .group-pf {
   display: flex;
