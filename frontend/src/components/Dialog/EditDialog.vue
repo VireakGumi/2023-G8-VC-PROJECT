@@ -1,31 +1,9 @@
 <template>
-  <div class="text-center" >
-    <v-dialog v-model="upload" width="400">
-      <v-card height="400" class="pa-5">
-        <h1 class="text-center">Upload Video</h1>
-        <v-icon
-          icon="mdi-upload"
-          style="width: 100%; font-size: 200px; margin: 0; padding: 0"
-        ></v-icon>
-        <div class="group">
-          <input
-            type="file"
-            name="file"
-            id="file"
-            ref="video"
-            @change="filesChange()"
-            class="inputfile"
-            accept="video/*"
-          />
-          <label for="file">Choose a file</label>
-          <button @click="upload = false">Cancel</button>
-        </div>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="postInfo" width="1024">
+  <div class="text-center">
+    <v-dialog v-model="postInfo" width="1024" @click:outside="isShow">
       <v-card>
         <v-card-title>
-          <h1>Post Video</h1>
+          <h1 class="mt-2">Edit Video</h1>
         </v-card-title>
         <v-container>
           <v-row>
@@ -51,28 +29,32 @@
                 ></v-text-field>
               </div>
               <div>
-                <label for="thumbnail-input">Thumbnail</label>
+                <label for="thumbnail-input" class="mb-2">Thumbnail</label>
                 <v-file-input
                   label="Select thumbnail"
-                  accept="image/*"
+                  accept="image/*,video/*"
                   :rules="thumbnailRule"
                   v-model="thumbnail"
                 ></v-file-input>
               </div>
             </v-col>
-            <v-col v-if="showVideo">
+            <v-col>
               <label for="">Video</label>
               <video ref="video" controls>
-                <source ref="videoSource" :src="videoSource" />
+                <source
+                  ref="videoSource"
+                  :src="videoData.src"
+                  type="video/mp4"
+                />
               </video>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <label for="">Privacy</label>
+              <label for="" class="mb-2">Privacy</label>
               <v-select
                 :items="['Public', 'Private']"
-                selected="Select Privacy"
+                placeholder="Select Privacy"
                 :rules="privacyRule"
                 v-model="privacy"
               ></v-select>
@@ -88,33 +70,14 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-card-actions>
-          <v-btn variant="text" @click="(postInfo = false), (upload = true)">
-            Back
-          </v-btn>
-          <v-btn variant="text" @click="postInfo = false" @click.stop="cancel">
-            Cancel
-          </v-btn>
-          <v-btn variant="text" @click="postVideo()"> Post </v-btn>
+        <v-card-actions class="group ma-2 pa-2">
+          <v-btn variant="text" @click="isShow">Cancel</v-btn>
+          <v-btn variant="text" @click="editVideo">Edit</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog width="500" v-model="uploading">
+    <v-dialog width="500" v-model="uploading" @click:outside="isShow">
       <v-card height="200" class="d-flex justify-center pa-5 align-center">
-        <div v-if="uploadProgress < 100">
-          <div class="d-flex justify-space-between align-center">
-            <h1>Uploading</h1>
-            <v-progress-circular
-              v-if="uploadProgress !== null"
-              :value="uploadProgress"
-              size="100"
-              color="white"
-              indeterminate
-              class="ml-5"
-              >{{ uploadProgress }} %</v-progress-circular
-            >
-          </div>
-        </div>
         <div
           v-if="uploadProgress == 100"
           class="d-flex justify-space-between align-center"
@@ -122,7 +85,7 @@
           <v-icon size="100" style="color: green"
             >mdi-check-circle-outline</v-icon
           >
-          <h1>Upload successful!</h1>
+          <h1>Edite Video successful!</h1>
         </div>
       </v-card>
     </v-dialog>
@@ -130,6 +93,12 @@
 </template>
 <script>
 export default {
+  props: {
+    videoData: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       uploading: false,
@@ -137,16 +106,16 @@ export default {
       authToken: "",
       listCategories: [],
       category_name: [],
-      video: null,
+      video: {},
       showVideo: false,
       upload: true,
-      postInfo: false,
+      postInfo: true,
       videoSource: null,
       title: "",
       description: "",
       thumbnail: [],
       privacy: "",
-      category: null,
+      category: "",
       titleRule: [
         (v) => !!v || "Title is required",
         (v) =>
@@ -168,7 +137,6 @@ export default {
     };
   },
   methods: {
-
     getCategoryID(name) {
       let id = null;
       this.listCategories.forEach((category) => {
@@ -178,9 +146,7 @@ export default {
       });
       return id;
     },
-    setUpload() {
-      this.$emit("show", { register: true, login: false });
-    },
+
     filesChange() {
       this.postInfo = true;
       this.upload = false;
@@ -192,7 +158,12 @@ export default {
         this.$refs.videoSource.parentElement.load();
       });
     },
-    postVideo() {
+
+    isShow() {
+      this.$emit("isShow", false);
+    },
+
+    editVideo() {
       if (
         this.title &&
         this.description &&
@@ -203,24 +174,24 @@ export default {
       ) {
         this.postInfo = false;
         this.uploading = true;
-        const now = new Date();
-        const date = now.toISOString().slice(0, 10);
-        const time = now.toLocaleTimeString("en-US", { hour12: false });
-        const dateTime = `${date} ${time}`;
         let formData = new FormData();
         formData.append("title", this.title);
         formData.append("description", this.description);
         formData.append("thumbnail", this.thumbnail[0]);
-        formData.append("date_time",dateTime);
-        formData.append("path", this.video);
+        formData.append(
+          "date_time",
+          new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")
+        );
         formData.append("privacy", this.privacy);
         formData.append("categories_id", this.getCategoryID(this.category));
+        formData.append("_method", "PUT"); // Add this line to indicate that it's a PUT request
+
         this.$http
-          .post("/videos", formData, {
+          .put(`/videos/${this.videoData.id}`, formData, {
             headers: {
               Authorization: "Bearer " + this.authToken,
               Accept: "application/json",
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
             },
             onUploadProgress: (progressEvent) => {
               let progress = Math.round(
@@ -229,20 +200,17 @@ export default {
               if (progress == 0) {
                 progress = 100;
               }
-              console.log(`Upload progress: ${progress}`);
               this.uploadProgress = progress;
             },
           })
           .then((response) => {
             if (response.status >= 200 && response.status < 300) {
               console.log("Upload successful!");
-
               console.log(response.data);
             } else {
               console.log("Upload failed!");
               console.log(response.data);
             }
-            this.$emit("upload", false);
           })
           .catch((error) => {
             console.log("Error uploading video:", error.message);
@@ -256,10 +224,34 @@ export default {
       .get("/categories")
       .then((response) => {
         this.listCategories = response.data.data;
-        this.category_name = []; // set to an empty array before assigning values
+        this.category_name = [];
+        if (this.videoData) {
+          const file = new File(
+            [this.videoData.thumbnail],
+            this.videoData.image,
+            { type: this.videoData.imageType }
+          );
+          this.thumbnail = new Proxy([file], {
+            get(target, prop) {
+              return target[prop];
+            },
+            set(target, prop, value) {
+              target[prop] = value;
+              return true;
+            },
+          });
+        }
         this.category_name = this.listCategories.map(
           (category) => category.category_name
         );
+        this.title = this.videoData.title;
+        this.description = this.videoData.description;
+        this.privacy = this.videoData.privacy;
+        for (let item of this.listCategories) {
+          if (item.id == this.videoData.categories_id) {
+            this.category = item.category_name;
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -269,8 +261,14 @@ export default {
 </script>
 
 <style scoped>
-.v-dialog {
+/* .v-dialog {
   position: absolute;
+} */
+.v-dialog--active {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
 }
 .v-card-actions {
   display: flex;
@@ -281,7 +279,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #252525;
+  background-color: #15202b;
   color: white;
 }
 
@@ -305,8 +303,7 @@ export default {
 }
 .inputfile + label,
 .group button {
-  font-size: 1.25em;
-  font-weight: 700;
+  font-size: large;
   color: white;
   background-color: #5d5bd0;
   /* display: inline-block; */
@@ -334,8 +331,11 @@ video {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  padding: 0;
+  height: 60px;
 }
 .group button {
-  width: 40%;
+  width: 49%;
+  height: 50px;
 }
 </style>

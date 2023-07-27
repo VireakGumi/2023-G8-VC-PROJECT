@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      videos: null,
+      videos: [],
       Pages: 2,
       isLoading: false,
       isClick: false,

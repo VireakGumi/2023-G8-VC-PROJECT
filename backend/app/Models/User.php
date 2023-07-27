@@ -24,7 +24,8 @@ class User extends Authenticatable
         'full_name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'profile'
     ];
 
     /**
@@ -61,9 +62,6 @@ class User extends Authenticatable
     }
     public function userblocked():HasMany{
         return $this->hasMany(UserBlocked::class);
-    }
-    public function videos():HasMany{
-        return $this->hasMany(Video::class);
     }
     public function playlists():HasMany{
         return $this->hasMany(PlayList::class);

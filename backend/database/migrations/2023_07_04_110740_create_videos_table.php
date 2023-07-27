@@ -25,10 +25,10 @@ return new class extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
+            $table->unsignedBigInteger('channel_id');
+            $table->foreign('channel_id')
                 ->references('id')
-                ->on('users')
+                ->on('channels')
                 ->onDelete('cascade');
             $table->timestamps();
         });

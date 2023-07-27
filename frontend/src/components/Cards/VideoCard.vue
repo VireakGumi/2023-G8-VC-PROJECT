@@ -27,12 +27,12 @@
       <v-avatar rounded="50">
         <v-img
           cover
-          src="https://images.alphacoders.com/131/1314427.jpeg"
+          :src="profilePictureUrl"
         ></v-img>
       </v-avatar>
       <v-container class="pt-0 ma-0 text-white" rounded="50">
         <v-list-item-title> {{ truncatedDescription(video.title) }} </v-list-item-title>
-        <v-list-item-subtitle class="mb-1"> {{ truncatedDescription(video.description) }} </v-list-item-subtitle>
+        <v-list-item-subtitle class="mb-1"> {{ video.Channel_name }} </v-list-item-subtitle>
         <v-list-item-subtitle>{{video.viewer }}
         {{
           video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
@@ -43,7 +43,9 @@
     </v-container>
   </v-card>
 </template>
+
 <script>
+
 export default {
   props: ["video"],
   data() {
@@ -54,6 +56,7 @@ export default {
         controls: ["play", "progress", "mute"],
         quality: { default: "1080p" }
       },
+      profilePictureUrl: require("@/assets/users.jpg"),
     };
   },
   methods: {
@@ -131,8 +134,14 @@ export default {
       return duration;
     },
   },
+  mounted(){
+    if (this.video.Channel_profile){
+      this.profilePictureUrl= this.video.Channel_profile
+    }
+  }
 };
 </script>
+
 <style scoped>
 .group-pf {
   display: flex;

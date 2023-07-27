@@ -30,7 +30,7 @@ class StoreChannelRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
             'date_time' => 'required|string',
         ];
     }

@@ -21,6 +21,7 @@ class Channel extends Model
         'description',
         'date_time',
         'user_id',
+        'profile'
     ];
     protected $hidden = [
         'created_at',
@@ -39,4 +40,7 @@ class Channel extends Model
         return $this->hasMany(Notification::class);
     }
    
+    public function videos():HasMany{
+        return $this->hasMany(Video::class);
+    }
 }

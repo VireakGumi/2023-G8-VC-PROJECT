@@ -19,16 +19,16 @@ class Video extends Model
         'path',
         'privacy',
         'categories_id',
-        'user_id',
+        'channel_id',
     ];
     protected $hidden = [
         'created_at',
         'remember_token',
         'updated_at'
     ];
-    public function user(): BelongsTo
+    public function channel(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Channel::class);
     }
     public function comments(): HasMany
     {

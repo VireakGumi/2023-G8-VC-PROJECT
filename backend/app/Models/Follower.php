@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Follower extends Model
 {
@@ -19,11 +20,11 @@ class Follower extends Model
         'created_at',
         'updated_at'
     ];
-    public function user():BelongsTo{
-        return $this->belongsTo(User::class);
+    public function users():BelongsToMany{
+        return $this->belongsToMany(User::class);
     }
-    public function channel():BelongsTo{
-        return $this->belongsTo(Channel::class);
+    public function channels():BelongsToMany{
+        return $this->belongsToMany(Channel::class);
     }
 
 }

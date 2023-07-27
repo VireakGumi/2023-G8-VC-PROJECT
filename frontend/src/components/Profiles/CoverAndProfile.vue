@@ -2,10 +2,10 @@
   <v-app style="background-color: #252525; color: white; height: 600px">
     <v-container class="profile-section" fluid></v-container>
     <v-row class="profile" flex-md="column">
-      <v-col class="profile-image">
-        <img src="../../assets/pare-m.jpg" alt="Profile image" />
+      <v-col class="profile-image" >
+        <img :src="profilePictureUrl" alt="Profile image" />
         <div class="ml-4">
-          <h2>{{ user_name }}</h2>
+          <h2>{{ channel.name}}</h2>
           <p>@{{ user_name }}</p>
           <p>200M subscribers</p>
         </div>
@@ -30,18 +30,38 @@
 export default {
   data() {
     return {
-      user_name: "",
+      user_name:'',
+      token: '',
+      channel:[],
+      profilePictureUrl: require("@/assets/users.jpg"),
     };
   },
   methods: {
-    getUser() {
-      const fullName = this.$cookies.get("full_name");
-      this.user_name =
-        fullName !== "full_name" && fullName !== null ? fullName : "";
+    getChannel() {
+      this.$http
+      .get(`/user/channels`, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          this.channel = response.data.data;
+          if (this.channel.profile != null){
+            this.profilePictureUrl = this.channel.path
+            console.log(this.profilePictureUrl)
+          }
+          this.haveChannel = true;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
   },
   mounted() {
-    this.getUser();
+    this.token = this.$cookies.get("token");
+    this.user_name = this.$cookies.get("full_name");
+    this.getChannel();
   },
 };
 </script>

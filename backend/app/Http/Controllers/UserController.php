@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLoginRequest;
 use App\Http\Requests\StoreRegisterRequest;
+use App\Http\Requests\StoreUserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -48,11 +50,28 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserUpdateRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) {
+            return Response()->json(['success' => false, 'message' => 'User not found'], 404);
+        }
+    
+        $credentails = $request->only('full_name', 'email', 'password');
+        return $credentails;
+        $credentails["password"] = bcrypt($credentails["password"]);
+        if ($request->hasFile('profile')) {
+            $profile = $request->file('profile');
+            $profileName = $profile->getClientOriginalName();
+            $isProfileUpload = Storage::disk('public')->put('image/' . $profileName, file_get_contents($request->file('profile')));
+            if (!$isProfileUpload) {
+                return response()->json(['success' => false, 'message' => 'Image upload failed'], 404);
+            }
+            $credentails['profile'] = $profileName;
+        }
+        $user->update($credentails);
+        return Response()->json(['success' => true, 'message' => 'User updated successfully', 'data' => $user], 200);
     }
-
     /**
      * Remove the specified resource from storage.
      */

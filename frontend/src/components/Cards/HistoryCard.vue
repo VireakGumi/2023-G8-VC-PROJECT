@@ -32,10 +32,10 @@
           width="40"
           height="40"
           style="border-radius: 50%; margin-left: 15px; background-size: cover;"
-          :src="video.video.thumbnail"
+          :src="profilePictureUrl"
         />
         <v-card-subtitle class="ml-4">{{
-          truncatedDescription(video.video.description)
+          truncatedDescription(video.video.Channel_name)
         }}</v-card-subtitle>
       </div>
       <v-card-subtitle class="ml-4 mt-3">{{
@@ -68,6 +68,7 @@ export default {
         controls: ["play", "progress", "mute"],
         quality: { default: "1080p" },
       },
+      profilePictureUrl: require("@/assets/users.jpg"),
     };
   },
   methods: {
@@ -117,6 +118,11 @@ export default {
       return duration;
     },
   },
+  mounted(){
+    if (this.video.Channel_profile){
+      this.profilePictureUrl= this.video.Channel_profile
+    }
+  }
 };
 </script>
 

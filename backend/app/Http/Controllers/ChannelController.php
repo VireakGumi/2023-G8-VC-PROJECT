@@ -20,7 +20,7 @@ class ChannelController extends Controller
     {
         foreach ($channels as $channel) {
             if ($channel->profile) {
-                $path=route('video.image', ['imagePath' => $channel->profile]);
+                $path = route('video.image', ['imagePath' => $channel->profile]);
                 $extension = pathinfo($channel->profile, PATHINFO_EXTENSION);
                 switch ($extension) {
                     case 'jpg':
@@ -40,7 +40,7 @@ class ChannelController extends Controller
                         $channel->imageType = '';
                         break;
                 }
-                $channel= Arr::add($channel, 'path', $path);    
+                $channel = Arr::add($channel, 'path', $path);
             }
         }
 
@@ -63,56 +63,51 @@ class ChannelController extends Controller
      */
     public function store(StoreChannelRequest $request)
     {
+        $channelData = $request->only('name', 'description', 'date_time');
         $user = Auth::user()->id;
-        $request->merge(['user_id' => $user]);
-        if ($request->hasFile('profile')) {
+        $channelData = Arr::add($channelData, 'user_id', $user);
+        if ($request->hasfile('profile')) {
             $profile = $request->file('profile');
             $profileName = $profile->getClientOriginalName();
-            $isProfileUpload = Storage::disk('public')->put('image/' . $profileName, file_get_contents($profile));
+            // return $profileName;
+            $isProfileUpload = Storage::disk('public')->put('image/' . $profileName, file_get_contents($request->profile));
             if (!$isProfileUpload) {
                 return response()->json(['success' => false, 'message' => 'Image upload failed'], 404);
             }
-            $request->merge(['profile' => $profileName]);
+            $channelData = Arr::add($channelData, 'profile', $profileName);
         }
-        $channel = Channel::create($request->input());
 
-        if ($channel) {
-            return response()->json(['success' => true, 'message' => 'Create Channel successfully', 'data' => $channel], 200);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Failed to create the channel'], 404);
+        $channel = Channel::create($channelData);
+        return $channel;
+        if (!$channel) {
+            return response()->json(['success' => false, 'message' => 'Failed to create the channel'], 500);
         }
+        return response()->json(['success' => true, 'message' => 'Channel created successfully', 'data' => $channel], 200);
     }
-
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
-        $channel = Channel::find($id);
-        if ($channel && $channel->user_id == auth()->id()) {
-            $path=route('video.image', ['imagePath' => $channel->profile]);
-            $extension = pathinfo($channel->profile, PATHINFO_EXTENSION);
-            switch ($extension) {
-                case 'jpg':
-                case 'jpeg':
-                    $channel->imageType = 'image/jpeg';
-                    break;
-                case 'png':
-                    $channel->imageType = 'image/png';
-                    break;
-                case 'gif':
-                    $channel->imageType = 'image/gif';
-                    break;
-                case 'svg':
-                    $channel->imageType = 'image/svg+xml';
-                    break;
-                default:
-                    $channel->imageType = '';
-                    break;
+        $channel = Auth::user()->channel;
+        if ($channel) {
+            if ($channel->profile) {
+                $path = route('video.image', ['imagePath' => $channel->profile]);
+                $extension = pathinfo($channel->profile, PATHINFO_EXTENSION);
+                $imageType = match ($extension) {
+                    'jpg', 'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                    'svg' => 'image/svg+xml',
+                    default => ''
+                };
+                $channel = Arr::add($channel, 'path', $path);
+                $channel = Arr::add($channel, 'imageType', $imageType);
             }
-            $channel= Arr::add($channel, 'path', $path);   
+
             return response()->json(['success' => true, 'message' => 'Get channel successfully', 'data' => $channel], 200);
         }
+
         return response()->json(['success' => false, 'message' => 'Failed to get the channel'], 404);
     }
 

@@ -21,10 +21,10 @@
     </div>
     <div style="margin-left: 5px">
       <v-card-text>
-        {{ truncatedDescription(video.title) }}
+        {{ video.title }}
       </v-card-text>
       <v-card-subtitle>{{
-        truncatedDescription(video.description)
+        video.Channel_name
       }}</v-card-subtitle>
       <v-card-subtitle>
         {{ video.viewer }}
