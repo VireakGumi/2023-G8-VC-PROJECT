@@ -39,8 +39,12 @@
                       <p>100K follower</p>
                     </div>
                   </v-col>
+<<<<<<< HEAD
 
                   <v-col class="like-container pa-0 mr-4">
+=======
+                  <v-col class="like-container pa-0">
+>>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-btn
                       class="ma-1"
                       height="50px"
@@ -61,7 +65,10 @@
                       ></v-btn>
                       <p class="">{{ likes.length }}</p>
                     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-btn
                       class="ma-1"
                       variant="text"
@@ -74,6 +81,7 @@
                       icon="mdi-download"
                       @click="download"
                     ></v-btn>
+<<<<<<< HEAD
 
                     <v-btn
                       class="ml-2 text-white"
@@ -86,6 +94,8 @@
                     ></v-btn>
                      <report-dialog v-if="showDialog"></report-dialog>
 
+=======
+>>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                     <v-dialog
                       v-model="dialog"
                       max-width="500"
@@ -98,6 +108,53 @@
                           variant="text"
                           @click="dialog = false"
                         ></v-btn>
+<<<<<<< HEAD
+=======
+                        <div
+                          style="
+                            width: 500px;
+                            display: flex;
+                            justify-content: center;
+                          "
+                        >
+                          <div>
+                            <img
+                              @click="shareFacebook"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/facebook.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareTelegram"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/Telegram.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareInstagram"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/instagrame.png')"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              @click="shareTwitter"
+                              class="ma-3"
+                              width="50"
+                              :src="require('@/assets/twitter1.png')"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+>>>>>>> 33844272529b6cea24b812390c7a173c52f0d6c7
                         <v-card-text>
                           <div class="d-flex flex">
                             <v-card-text>
@@ -616,6 +673,24 @@ export default {
       document.cookie = "favorites=" + categories_id;
       await router.push({ name: "videodetail", params: { id: id } });
       window.location.reload();
+    },
+    shareFacebook() {
+      const url = "https://www.facebook.com";
+      window.open(url, "Share on Facebook");
+    },
+    shareTelegram() {
+      const url = "https://t.me/share/url?url=" + window.location.href;
+      window.open(url);
+    },
+
+    shareInstagram() {
+      const url = "https://www.instagram.com/";
+      window.open(url, "_blank");
+    },
+
+    shareTwitter() {
+      const url = "https://twitter.com/";
+      window.open(url, "_twitter");
     },
   },
 
