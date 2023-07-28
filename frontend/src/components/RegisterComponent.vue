@@ -99,34 +99,6 @@
 
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p>Register with social accounts</p>
-              </a>
-            </v-card-text>
-
-            <div class="d-flex justify-center justify-space-evenly">
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/google.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/facebook.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="32"
-                :src="require('@/assets/twitter.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/instagrame.png')"
-              ></v-img>
-            </div>
-            <v-card-text class="text-center">
-              <a class="text-blue text-decoration-none">
                 <p>
                   Have an accounts?
                   <span class="login" @click="setForm">Login</span>
