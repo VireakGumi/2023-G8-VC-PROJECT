@@ -29,7 +29,7 @@
 
                   <v-col class="like-container pa-0">
                     <v-btn class="ma-1" height="50px" rounded :class="{ 'blue--text': isClicked }" variant="text"
-                      @click="clickfollow()">
+                      @click="clickfollow()" v-if="video.channel_id != this.channel_id">
                       {{ Followtext }}
                     </v-btn>
                     <div class="d-flex align-center mx-2">
@@ -196,7 +196,8 @@ export default {
     allComments: [],
     likes: [],
     videoId: "",
-    allFollowers: []
+    allFollowers: [],
+    channel_id: "",
   }),
   computed: {
     checking() {
@@ -672,6 +673,11 @@ export default {
   },
   created() {
     this.videoId = this.$route.params.id;
+    this.channel_id =
+        this.$cookies.get("channel_id") !== "undefined" &&
+          this.$cookies.get("channel_id") !== null
+          ? this.$cookies.get("channel_id")
+          : "";
     this.getVideosById();
     // this.clickfollow();
     this.favorites = this.$cookies.get("favorites");
