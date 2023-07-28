@@ -1,5 +1,5 @@
 <template>
-  <v-app class="mb-4">
+  <v-app class="fill-height">
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>ADMIN</v-toolbar-title>
