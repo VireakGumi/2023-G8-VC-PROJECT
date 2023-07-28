@@ -11,8 +11,55 @@
                 :src="video.src"
                 :type="video.videoType"
                 autoplay
+              @ended="playNextVideo"
               ></video>
             </vue-plyr>
+            <v-col class="next-video">
+              <p class="countdown" style="margin-top: 5%; margin-left: -20%">
+                Up next in {{ counter }}
+              </p>
+              <img
+                :src="this.video.thumbnail"
+                style="padding: 5px; border-radius: 10px"
+                width="250"
+              />
+              <div>
+                <v-card-text style="margin-top: 10px; margin-left: -25%">
+                  {{ video.title }}
+                </v-card-text>
+                <v-card-subtitle style="margin-left: -22%; margin-bottom: 2%;">
+                  {{ video.description }}
+                </v-card-subtitle>
+              </div>
+              <div class="btn d-flex:flex; margin-top: -10%; width: 100%;">
+                <button
+                  @click="cancelNext"
+                  style="
+                    padding: 5px;
+                    margin: 2%;
+                    margin-left: -1%;
+                    margin-top: -4%;
+                    background: gray;
+                    border-radius: 15px;
+                    width: 15%;
+                  "
+                >
+                  cancel
+                </button>
+                <button
+                  @click="playNow"
+                  style="
+                    padding: 5px;
+                    margin-top: -4%;
+                    background: green;
+                    border-radius: 15px;
+                    width: 15%;
+                  "
+                >
+                  play Now
+                </button>
+              </div>
+            </v-col>
           </div>
         </v-row>
         <v-row class="mt-5">
@@ -39,7 +86,7 @@
                       <p>100K follower</p>
                     </div>
                   </v-col>
-                  
+
                   <v-col class="like-container pa-0">
                     <v-btn
                       class="ma-1"
@@ -81,10 +128,8 @@
                       large
                       @click="showDialog = true"
                       icon="mdi-flag-outline"
-                      
-                      
                     ></v-btn>
-                     <report-dialog v-if="showDialog"></report-dialog>
+                    <report-dialog v-if="showDialog"></report-dialog>
 
                     <v-dialog
                       v-model="dialog"
@@ -262,14 +307,16 @@ import router from "@/router";
 
 import CardDetail from "@/components/Cards/CardDetail.vue";
 import MyCardVue from "@/components/Cards/MyCard.vue";
-import ReportDialog from '../components/Dialog/ReportDialog.vue';
+import ReportDialog from "../components/Dialog/ReportDialog.vue";
 export default {
   name: "VuePlyrVideo",
-  components: { CardDetail, ReportDialog  },
+  components: { CardDetail, ReportDialog },
   data: () => ({
     options: { quality: { default: "1080p" } },
     id: "",
     showDialog: false,
+    counter: 7,
+    interval: null,
     components: { MyCardVue },
     videos: [],
     video: {
@@ -294,6 +341,7 @@ export default {
     dialog: false,
     items: Array.from({ length: 10 }, (k, v) => v + 1),
     srcvideo: "",
+    nextVideoTimeout: null,
     Pages: 2,
     favorites: "",
     comments: "",
@@ -436,24 +484,10 @@ export default {
         const currentIndex = this.videos.findIndex(
           (video) => video.id === this.video.id
         );
-
         // Check if there is a next video
         if (currentIndex < this.videos.length - 1) {
           const nextVideo = this.videos[currentIndex + 1];
-          this.video = {
-            id: nextVideo.id,
-            title: nextVideo.title,
-            description: nextVideo.description,
-            thumbnail: nextVideo.thumbnail,
-            src: nextVideo.src,
-            videoType: nextVideo.videoType,
-            viewer: nextVideo.viewer,
-            date_time: nextVideo.date_time,
-            user: nextVideo.user.full_name,
-            channel_id: nextVideo.channel_id,
-            channel_name: nextVideo.Channel_name,
-            channel_profile: nextVideo.Channel_profile,
-          };
+          router.push('/videodetail/'+nextVideo.id);
         } else {
           // There is no next video, do something else
           console.log("No more videos to play");
@@ -461,8 +495,8 @@ export default {
       }, 7000);
       this.startCountdown();
     },
-
     startCountdown() {
+      // clearInterval(this.interval);
       this.interval = setInterval(() => {
         if (this.counter > 0) {
           this.counter--;
@@ -475,7 +509,6 @@ export default {
         }
       }, 1000);
     },
-
     cancelNext() {
       let countdown = document.querySelector(".next-video");
       countdown.style.display = "none";
@@ -483,33 +516,18 @@ export default {
       clearInterval(this.interval);
       clearTimeout(this.nextVideoTimeout);
     },
-
     playNow() {
       let countdown = document.querySelector(".next-video");
       countdown.style.display = "none";
-      const videoPlayer = this.$refs.videoPlayer;
-      videoPlayer.pause();
+      // const videoPlayer = this.$refs.videoPlayer;
+      // videoPlayer.pause();
       const currentIndex = this.videos.findIndex(
         (video) => video.id === this.video.id
       );
-
       // Check if there is a next video
       if (currentIndex < this.videos.length - 1) {
         const nextVideo = this.videos[currentIndex + 1];
-        this.video = {
-          id: nextVideo.id,
-          title: nextVideo.title,
-          description: nextVideo.description,
-          thumbnail: nextVideo.thumbnail,
-          src: nextVideo.src,
-          videoType: nextVideo.videoType,
-          viewer: nextVideo.viewer,
-          date_time: nextVideo.date_time,
-          user: nextVideo.user.full_name,
-          channel_id: nextVideo.channel_id,
-          channel_name: nextVideo.Channel_name,
-          channel_profile: nextVideo.Channel_profile,
-        };
+        router.push('/videodetail/'+nextVideo.id);
       } else {
         // There is no next video, do something else
         console.log("No more videos to play");
@@ -541,6 +559,7 @@ export default {
         .get(`/videos/recommendation/${this.videoId}/${this.favorites}`)
         .then((response) => {
           this.videos = response.data.data;
+          console.log(this.videos);
         })
         .catch((error) => {
           console.log(error.message);
@@ -741,5 +760,15 @@ export default {
 .v-card:active {
   transition: all 250ms ease-in-out;
   color: #1b242e;
+}
+
+.next-video {
+  display: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin-top: -47%;
+  position: relative;
+  background: black;
 }
 </style>
