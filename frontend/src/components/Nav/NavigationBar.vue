@@ -2,8 +2,14 @@
   <v-app>
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
-      <img src="../../assets/my-logo.png" width="100" height="100" style="border-radius: 25px; margin-top: 10px" alt="">
+      <router-link to="/" width="100" height="100"
+        ><img
+          src="../../assets/my-logo.png"
+          width="100"
+          height="100"
+          style="border-radius: 25px; margin-top: 10px"
+          alt=""
+      /></router-link>
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
@@ -128,14 +134,13 @@
 import ChannelDialog from "../Dialog/ChannelDialog.vue";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
-import NotificationDialog from "../Dialog/NotificationDialog.vue"
+import NotificationDialog from "../Dialog/NotificationDialog.vue";
 export default {
   components: {
     LoginForm,
     RegisterForm,
     NotificationDialog,
-    ChannelDialog
-
+    ChannelDialog,
   },
   data() {
     return {
@@ -174,25 +179,12 @@ export default {
       channel: [],
       haveChannel: false,
       profilePictureUrl: require("@/assets/users.jpg"),
-      notifications: []
+      notifications: [],
     };
   },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val);
-    },
-  },
-  computed: {
-    getReady() {
-      if (
-        this.user.token != "" &&
-        this.user.full_name != "" &&
-        this.user.user_id != "" &&
-        this.user.email
-      ) {
-        return true;
-      }
-      return false;
     },
   },
   methods: {
@@ -201,9 +193,16 @@ export default {
       this.getChannel();
     },
     getNotifications() {
-      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${this.user.token}` } }).then((response) => {
-        this.notifications = response.data.data;
-      }).catch((error) => { console.log(error.message); });
+      this.$http
+        .get("/notification", {
+          headers: { Authorization: `Bearer ${this.user.token}` },
+        })
+        .then((response) => {
+          this.notifications = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
     logout() {
       this.$http
@@ -237,7 +236,7 @@ export default {
         .then((response) => {
           this.channel = response.data.data;
           this.haveChannel = true;
-          document.cookie = "channel_id="+ this.channel.id
+          document.cookie = "channel_id=" + this.channel.id;
         })
         .catch((error) => {
           console.log(error.message);
@@ -307,8 +306,7 @@ export default {
   },
   created() {
     this.getDataFromCookies();
-    this.getNotifications() 
-
+    this.getNotifications();
   },
   mounted() {
     this.querySelections();

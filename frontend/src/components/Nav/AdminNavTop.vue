@@ -3,13 +3,14 @@
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>ADMIN</v-toolbar-title>
-      <img
-        src="../../assets/my-logo.png"
-        width="100"
-        height="100"
-        style="border-radius: 25px; margin-top: 10px"
-        alt=""
-      />
+      <router-link to="/" width="100" height="100"
+        ><img
+          src="../../assets/my-logo.png"
+          width="100"
+          height="100"
+          style="border-radius: 25px; margin-top: 10px"
+          alt=""
+      /></router-link>
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
@@ -77,7 +78,7 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-navigation-drawer app theme="dark" v-model="drawer">
+    <v-navigation-drawer app theme="dark" v-model="drawer" width="200">
       <v-list>
         <v-list-item
           v-for="icon of icons"
@@ -161,14 +162,11 @@ export default {
           };
           console.log(response.data);
           console.log(this.user);
-          location.loading;
+          window.location.reload();
         }, 200)
         .catch((error) => {
           console.log(error.message);
         });
-    },
-    handOverToken(user) {
-      this.user = user;
     },
     getDataFromCookies() {
       this.user.user_id =
@@ -207,3 +205,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.v-main {
+  background-color: #252525;
+  color: white;
+}
+</style>

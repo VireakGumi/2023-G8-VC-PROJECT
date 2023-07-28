@@ -1,5 +1,5 @@
 <template>
-  <div class="not-found">
+  <div class="not-found fill-height">
     <h1>404 Page Not Found</h1>
     <p>We're sorry, but the page you requested could not be found.</p>
   </div>
@@ -18,6 +18,5 @@
   color: white;
   text-align: center;
   padding: 50px;
-  height: 89vh;
 }
 </style>
