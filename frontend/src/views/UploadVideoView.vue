@@ -4,20 +4,20 @@
     <div class="upload-container">
       <v-icon
         style="width: 100%; font-size: 200px; margin: 0; padding: 0"
-        :icon="token || haveChannel ? 'mdi-upload' : 'mdi-upload-off'"
+        :icon="token && channel!='' ? 'mdi-upload' : 'mdi-upload-off'"
       ></v-icon>
-      <h2 v-if="!token && haveChannel">Can not upload video</h2>
+      <h2 v-if="!token && channel!='' ">Cannot upload video</h2>
       <p style="color: white" v-if="!token">
         Upload video isn't available when signed out.
       </p>
-      <p style="color: white" v-if="!haveChannel && token">
-        Can't not upload video when you do have a channel
+      <p style="color: white" v-if="channel=='' && token">
+        Cannot upload video when you do not have a channel.
       </p>
       <v-btn
         class="mr-6 ml-8 mr-2"
         rounded="pill"
         prepend-icon="mdi-upload"
-        v-if="token"
+        v-if="token && channel!=''"
         @click="upload = true"
       >
         Upload video
@@ -25,9 +25,9 @@
       <v-btn
         class="mr-6 ml-8 mr-2"
         rounded="pill"
-        prepend-icon="mdi-upload"
-        @click="channel = true"
-        v-else-if="haveChannel"
+        prepend-icon="mdi-laptop-account"
+        @click="showChannelDialog = true"
+        v-if="channel=='' && token"
       >
         Create Channel
       </v-btn>
@@ -35,8 +35,7 @@
         class="mr-6 ml-8 ml-8"
         rounded="pill"
         prepend-icon="mdi-account"
-        :setUpload="setUpload"
-        v-else
+        v-if="!token"
         @click="loginForm = true"
       >
         Sign in
@@ -52,12 +51,14 @@
       @show="handOver"
       @isShow="handOverIsShowRegister"
     />
-    <upload-dialog v-if="upload" @upload="uploadFile" ></upload-dialog>
+    <upload-dialog v-if="upload" @upload="uploadFile"></upload-dialog>
+    <channel-dialog :showChannelDialog="showChannelDialog" @haveChannel="createChannel"></channel-dialog>
   </div>
 </template>
 
 <script>
 import UploadDialog from "@/components/Dialog/UploadDialog.vue";
+import ChannelDialog from "@/components/Dialog/ChannelDialog.vue";
 import LoginForm from "../components/LoginComponent.vue";
 import RegisterForm from "../components/RegisterComponent.vue";
 export default {
@@ -65,6 +66,7 @@ export default {
     LoginForm,
     RegisterForm,
     UploadDialog,
+    ChannelDialog,
   },
   data() {
     return {
@@ -78,14 +80,18 @@ export default {
         user_id: "",
       },
       token: "",
-      channel: [],
-      haveChannel: false,
+      channel: '',
+      showChannelDialog: false,
     };
   },
 
   methods: {
     uploadFile() {
       this.upload = false;
+    },
+    createChannel(item) {
+      this.showChannelDialog = item;
+      this.getChannel();
     },
     setUpload() {
       this.$emit("show", { register: true, login: false });
@@ -112,7 +118,7 @@ export default {
           ? this.$cookies.get("user_id")
           : "";
       this.user.full_name =
-        this.$cookies.get("full_name") !== "full_name" &&
+        this.$cookies.get("full_name") !== null &&
         this.$cookies.get("full_name") !== null
           ? this.$cookies.get("full_name")
           : "";
@@ -121,7 +127,7 @@ export default {
         this.$cookies.get("email") !== null
           ? this.$cookies.get("email")
           : "";
-      this.user.token =
+     this.user.token =
         this.$cookies.get("token") !== "undefined" &&
         this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
@@ -140,12 +146,13 @@ export default {
           this.haveChannel = true;
         })
         .catch((error) => {
-          console.log(error.message);
+          console.error("Error getting channels:", error.message);
+          // Show an error message to the user
         });
     },
   },
   created() {
-    this.token = this.$cookies.get('token');
+    this.token = this.$cookies.get("token");
     this.getChannel();
   },
 };

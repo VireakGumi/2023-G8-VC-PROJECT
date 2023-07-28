@@ -59,7 +59,7 @@
           <p>Is checkbox checked: {{ reportData.isChecked }}</p>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="red" text @click="showReportData = false">Close</v-btn>
+          <v-btn color="red" text @click="cancel">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -71,7 +71,7 @@
           <p>Sign in to report inappropriate content.</p>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="red" text @click="showDialogin = false">Back</v-btn>
+          <v-btn color="red" text @click="cancel">Back</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

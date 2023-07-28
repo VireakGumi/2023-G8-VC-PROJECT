@@ -1,63 +1,28 @@
 <template>
   <v-app style="background-color: #252525; color: white">
-    <a href="#" class="play"
-      ><img
-        src="../../assets/video-play.png"
-        width="20"
-        height="20"
-        alt=""
-      />Play all</a
-    >
+    <a href="#" class="play"><img src="../../assets/video-play.png" width="20" height="20" alt="" />Play all</a>
     <p class="video">Videos</p>
-    <v-container class="card-container" fluid>
-      <v-row class="my-card">
-        <v-col v-for="video in linkVideos" :key="video.id">
-          <v-card rounded="50" max-width="400px" style="background-color: #252525;" >
-            <div
-              style="width: 400px; height: 255px"
-              @click="createHistory"
-            >
-              <img
-                :src="video.thumbnail"
-                alt=""
-                style="
-                  width: 100%;
-                  height: 100%;
-                  border-radius: 5px;
-                  background-size: cover;
-                "
-                v-show="!showVideo"
-              />
-            </div>
-            <v-container class="d-flex mt-5 pa-0">
-              <v-container class="pt-0 ma-0 text-white" rounded="50">
-                <v-list-item-title>
-                  {{ truncatedDescription(video.title) }}
-                </v-list-item-title>
-                <v-list-item-subtitle class="mb-1">
-                  {{ truncatedDescription(video.description) }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle
-                  >{{ video.viewer }}
-                  {{
-                    video.viewer > 0 && video.viewer !== 1 ? "views" : "view"
-                  }}
-                  .
-                  {{ durations(video.date_time) }}
-                </v-list-item-subtitle>
-              </v-container>
-            </v-container>
+    <v-container fluid>
+      <v-row>
+        <v-col class="mx-8">
+          <v-card v-if="!isClick" class="card-container ">
+            <v-row class="d-flex justify-center w-100 pt-5">
+              <VideoCard color="#252525" v-for="(video, index) in linkVideos" :key="index" :video="video" class="ma-3"
+                @click="playVideo(video.id, video.categories_id)" />
+            </v-row>
           </v-card>
         </v-col>
-          
+
       </v-row>
     </v-container>
   </v-app>
 </template>
 
 <script>
+import VideoCard from "../Cards/VideoCard.vue"
 export default {
   name: "App",
+  components: { VideoCard },
   data() {
     return {
       url: "/user/videos",
@@ -106,7 +71,7 @@ export default {
     fetchVideo() {
       let token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       this.$http
@@ -125,6 +90,14 @@ export default {
 </script>
 
 <style scoped>
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+  background-color: #252525;
+}
+
 .population {
   margin-left: 3.5%;
 }
@@ -136,10 +109,6 @@ export default {
   border-radius: 10px;
   background: #15202b;
   color: white;
-}
-
-.card-container {
-  margin-right: -3%;
 }
 
 .text {

@@ -2,8 +2,14 @@
   <v-app>
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
-      <img src="../../assets/my-logo.png" width="100" height="100" style="border-radius: 25px; margin-top: 10px" alt="">
+      <router-link to="/" width="100" height="100"
+        ><img
+          src="../../assets/my-logo.png"
+          width="100"
+          height="100"
+          style="border-radius: 25px; margin-top: 10px"
+          alt=""
+      /></router-link>
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
@@ -32,7 +38,7 @@
         Sign in
       </v-btn>
       <v-menu
-        v-if="user.token != ''"
+        v-else
         transition="slide-x-transition"
         bottom
         right
@@ -67,7 +73,7 @@
             :prepend-icon="profiles[0].icon"
             title="Create Channel"
             :value="profiles[0].title"
-            @click.stop="showChannelDialog = true"
+            @click="showChannelDialog = true"
           ></v-list-item>
           <v-list-item
             :prepend-icon="profiles[1].icon"
@@ -113,7 +119,7 @@
         @show="handOver"
         @isShow="handOverIsShowLogin"
       />
-      <ChannelDialog v-if="showChannelDialog" />
+      <ChannelDialog @haveChannel="createChannel" :showChannelDialog="showChannelDialog"/>
       <RegisterForm
         v-model="registerForm"
         @show="handOver"
@@ -128,14 +134,13 @@
 import ChannelDialog from "../Dialog/ChannelDialog.vue";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
-import NotificationDialog from "../Dialog/NotificationDialog.vue"
+import NotificationDialog from "../Dialog/NotificationDialog.vue";
 export default {
   components: {
     LoginForm,
     RegisterForm,
     NotificationDialog,
-    ChannelDialog
-
+    ChannelDialog,
   },
   data() {
     return {
@@ -174,7 +179,7 @@ export default {
       channel: [],
       haveChannel: false,
       profilePictureUrl: require("@/assets/users.jpg"),
-      notifications: []
+      notifications: [],
     };
   },
   watch: {
@@ -182,24 +187,22 @@ export default {
       val && val !== this.select && this.querySelections(val);
     },
   },
-  computed: {
-    getReady() {
-      if (
-        this.user.token != "" &&
-        this.user.full_name != "" &&
-        this.user.user_id != "" &&
-        this.user.email
-      ) {
-        return true;
-      }
-      return false;
-    },
-  },
   methods: {
+    createChannel(item) {
+      this.showChannelDialog = item;
+      this.getChannel();
+    },
     getNotifications() {
-      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${this.user.token}` } }).then((response) => {
-        this.notifications = response.data.data;
-      }).catch((error) => { console.log(error.message); });
+      this.$http
+        .get("/notification", {
+          headers: { Authorization: `Bearer ${this.user.token}` },
+        })
+        .then((response) => {
+          this.notifications = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
     logout() {
       this.$http
@@ -223,6 +226,12 @@ export default {
         });
     },
     getChannel() {
+      const now = new Date();
+      const expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // set the expiration time to 30 days from now
+      const cookieOptions = {
+        expires: expires,
+        path: '/' // set the path to the root directory so the cookie can be accessed across the site
+      };
       this.$http
         .get(`/user/channels`, {
           headers: {
@@ -233,7 +242,7 @@ export default {
         .then((response) => {
           this.channel = response.data.data;
           this.haveChannel = true;
-          document.cookie = "channel_id="+ this.channel.id
+          this.$cookies.set('channel_id', this.channel.id, cookieOptions)
         })
         .catch((error) => {
           console.log(error.message);
@@ -258,7 +267,6 @@ export default {
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
       this.loginForm = item;
-      console.log(this.loginForm);
     },
     handOverIsShowRegister(item) {
       this.getDataFromCookies();
@@ -292,6 +300,7 @@ export default {
         this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
+      console.log(this.user);
     },
     deleteCookie() {
       this.$cookies.remove("user_id");
@@ -300,16 +309,17 @@ export default {
       this.$cookies.remove("token");
       this.$cookies.remove("user_role");
       this.$cookies.remove("channel_id");
+      this.$cookies.remove("favorites");
     },
   },
   created() {
     this.getDataFromCookies();
-    this.getNotifications() 
-
+    this.getChannel();
+    this.getNotifications();
   },
   mounted() {
     this.querySelections();
-    this.getChannel();
+    
   },
 };
 </script>

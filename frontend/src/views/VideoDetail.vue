@@ -43,7 +43,7 @@
                     <v-btn class="ml-1" variant="text" icon="mdi-download" @click="download"></v-btn>
 
                     <v-btn class="ml-2 text-white" dark large @click="showReport" icon="mdi-flag-outline"></v-btn>
-                    <report-dialog v-if="showDialog" :show="handOver"></report-dialog>
+                    <report-dialog v-if="showDialog" @show="handOver"></report-dialog>
 
                     <v-dialog v-model="dialog" max-width="500" style="background-color: #00000094">
                       <v-card style="background-color: #1b242e">
@@ -109,7 +109,7 @@
             <div class="ml-2 mt-2" width="720">
               <div>
                 <div class="d-flex flex">
-                  <img :src="video.thumbnail" style="
+                  <img src="@/assets/users.jpg" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
@@ -122,7 +122,7 @@
               <div>
                 <div v-for="comment of allComments.slice().reverse()" :key="comment"
                   class="d-flex align-start my-3 text-no-wrap">
-                  <img :src="video.thumbnail" style="
+                  <img src="@/assets/users.jpg" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
