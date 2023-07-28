@@ -880,10 +880,10 @@ export default {
 .next-video {
   display: none;
   width: 100%;
-  height: 105%;
+  height: 104%;
   text-align: center;
-  margin-top: -49%;
+  margin-top: -53.5%;
   position: relative;
-  background: black;
+  background: rgba(0, 0, 0, 0.822);
 }
 </style>
