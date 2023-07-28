@@ -150,14 +150,6 @@ class VideoController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'This user dose not have any videos yet'], 404);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-
-    }
 
     /**
      * Display the specified resource.
@@ -198,7 +190,6 @@ class VideoController extends Controller
             'categories_id'
         ]);
         $videos= Auth::user()->channel->videos()->find($id);
-        return $videos;
         if (!$videos) {
             return response()->json(['success' => false, 'message' => 'Error updating video'], 404);
         }
@@ -227,7 +218,7 @@ class VideoController extends Controller
     {
         $user = Auth::user();
         $video = $user->videos->find($id);
-        if ($video != null) {
+        if ($video) {
             $video->delete();
             return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
         }
@@ -264,8 +255,6 @@ class VideoController extends Controller
                 'date_time' => $request->date_time
             ]);
             $response = $notificationController->store($request);
-            // dd($response);
-
             return response()->json(['success' => true, 'message' => 'Uploaded video successfully', 'video' => $video], 200);
         }
         return response()->json(['success' => false, 'message' => 'Video uploaded unsuccessful'], 404);
@@ -274,7 +263,6 @@ class VideoController extends Controller
     public function searchVideo($title)
     {
         $videos = Video::where('title', 'like', '%' . $title . '%')
-            ->orWhere('user_id', 'like', '%' . $title . '%')
             ->get();
         if ($videos->count()) {
             $this->getSrc($videos);

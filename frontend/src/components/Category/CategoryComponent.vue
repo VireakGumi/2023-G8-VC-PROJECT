@@ -19,7 +19,7 @@
       </v-tab>
     </v-tabs>
   </v-sheet>
-  <v-window v-if="clicked" class="ml-4" v-model="tab">
+  <v-window v-if="clicked" v-model="tab">
     <v-window-item
       v-for="category in categories"
       :key="category"

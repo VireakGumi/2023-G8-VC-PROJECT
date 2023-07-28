@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Follower;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FollowerController extends Controller
 {
@@ -71,14 +72,13 @@ class FollowerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $user_id = $request->user()->id;
-        $channel_id = $request->input('channel_id');
-        $channel = Channel::find($channel_id);
+        $user_id = Auth::user()->id;
+        $channel = Channel::find($id);
         if ($channel) {
             $follower = Follower::where('user_id', $user_id)
-                ->where('channel_id', $channel_id)
+                ->where('channel_id', $channel->id)
                 ->first();
             if ($follower) {
                 $follower->delete();

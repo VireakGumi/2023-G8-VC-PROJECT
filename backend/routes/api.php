@@ -66,17 +66,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notification', [NotificationController::class, 'index']);
     Route::post('/notification', [NotificationController::class, 'store']);
     Route::put('user/{id}', [UserController::class, 'update']);
-    Route::post('/follower', [ FollowerController::class, 'store']);
+    Route::post('/follower', [FollowerController::class, 'store']);
     Route::get('/follower', [FollowerController::class, 'index']);
+    Route::delete('/follower/{id}', [FollowerController::class, 'destroy']);
+
 });
 Route::fallback(function () {
     return 'Page Not Found';
 });
 // Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
 
-Route::delete('/follower', [FollowerController::class, 'destroy']);
+Route::get('/allVideos', [VideoController::class, 'getVideos']);
 Route::get('/follower/{id}', [FollowerController::class, 'show']);
-Route::get('/videos/{title}',[VideoController::class,'searchVideo']);
+Route::get('/allVideos/{title}', [VideoController::class, 'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');

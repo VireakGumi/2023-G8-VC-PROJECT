@@ -1,19 +1,19 @@
 <template>
-  <div id="report">
-    <div class="ml-4">
+  <div id="report" class="fill-height ">
+    <div class="ma-4">
       <v-text class="text-h4 font-weight-black ml-4">Report</v-text>
       <p class="ml-4">Here are the lists of video that users report.</p>
-      <v-btn active class="ml-4 mt-4 rounded-xl text-body-2">All reports</v-btn>
-      <v-btn class="ml-4 mt-4 rounded-xl text-body-2">Currently reports</v-btn>
-      <v-table>
+      <v-btn active class="ml-4 mt-4 rounded-xl text-body-2 my-5">All reports</v-btn>
+      <v-btn class="ml-4 mt-4 rounded-xl text-body-2 my-5">Currently reports</v-btn>
+      <v-table class="fill-height">
         <thead>
-          <tr>
-            <th class="text-left">User Name</th>
-            <th class="text-left">Content Video</th>
-            <th class="text-left">Type's Report</th>
-            <th class="text-left">Comment</th>
-            <th class="text-left">View Detail</th>
-            <th class="text-center">Action</th>
+          <tr >
+            <th class="text-center text-white">User Name</th>
+            <th class="text-center text-white">Content Video</th>
+            <th class="text-center text-white">Type's Report</th>
+            <th class="text-center text-white">Comment</th>
+            <th class="text-center text-white">View Detail</th>
+            <th class="text-center text-white">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -101,17 +101,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 #report {
-  color: black;
-  background-color: white;
+  color: rgb(255, 255, 255);
+  background-color:  #252525;
 }
-tr,th{
-  border-collapse: none;
+td,th{
+  background:#252525 ;
+  border-collapse: collapse;
 }
 </style>

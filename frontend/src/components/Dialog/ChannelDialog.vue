@@ -65,7 +65,7 @@
           <v-btn class="button" variant="text" @click="createChannel">
             Create
           </v-btn>
-          <v-btn class="button" variant="text" @click="dialog = false">
+          <v-btn class="button" variant="text" @click="closeDialog">
             Cancel
           </v-btn>
         </v-card-actions>
@@ -76,9 +76,11 @@
 
 <script>
 export default {
+  props: {
+    showChannelDialog: Boolean,
+  },
   data() {
     return {
-      dialog: true,
       authToken: "",
       name: "",
       description: "",
@@ -102,6 +104,16 @@ export default {
       profile: [],
     };
   },
+  computed: {
+    dialog: {
+      get() {
+        return this.showChannelDialog;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
+  },
   methods: {
     createChannel() {
       const now = new Date();
@@ -114,7 +126,7 @@ export default {
         formData.append("name", this.name);
         formData.append("description", this.description);
         formData.append("date_time", dateTime);
-        if (this.profile){
+        if (this.profile) {
           formData.append("profile", this.profile);
         }
         this.$http
@@ -126,13 +138,14 @@ export default {
           })
           .then((response) => {
             console.log(response);
+            this.$emit("haveChannel", false);
+            window.location.reload();
           })
           .catch((error) => {
             console.log(error.message);
           });
-        this.dialog = false;
-        window.location.reload();
       }
+      this.$emit("haveChannel", false);
     },
     handleFileUpload() {
       this.profile = this.$refs.profile.files[0];
@@ -142,6 +155,11 @@ export default {
         this.profilePictureUrl = reader.result;
       };
     },
+    closeDialog() {
+      this.dialog = false;
+      this.$emit("haveChannel", false);
+    },
+    
   },
   mounted() {
     this.authToken = this.$cookies.get("token");

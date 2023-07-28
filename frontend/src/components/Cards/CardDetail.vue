@@ -47,7 +47,8 @@ export default {
       timer: null,
       currentTime: null,
       plyrOptions: {
-        controls: ["play", "progress", "mute"],
+        muted: true,
+        controls: ["mute"],
         quality: { default: "1080p" },
       },
     };
@@ -102,7 +103,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 img {
   opacity: 1;
   transition: filter 0.4s ease-in-out;

@@ -100,26 +100,6 @@ import router from "@/router";
 export default {
     data() {
         return {
-            // categories: [
-            //     "Anime",
-            //     "Adventure",
-            //     "Cartoon",
-            //     "Comedy",
-            //     "Drama",
-            //     "Ecchi",
-            //     "Anime",
-            //     "School",
-            //     "Adventure",
-            //     "Cartoon",
-            //     "Drama",
-            //     "Comedy",
-            //     "School",
-            //     "Ecchi",
-            // ],
-            // series: [{
-            //     name: 'Inflation',
-            //     data: [0,0,0,0,3.2,0,0,0,0,0,0,0],
-            // }],
             chartOptions: {
                 chart: {
                     height: 350,
@@ -239,7 +219,6 @@ export default {
                     this.popularVideos.push(video);
                 }
             }
-            console.log(this.popularVideos);
         },
         getVideos() {
             this.$http.get('/videos').then((response) => {
@@ -260,7 +239,6 @@ export default {
         getCategories() {
             this.$http.get('/categories').then((response) => {
                 this.allCategories = response.data.data;
-                console.log(this.allCategories);
             }).catch((error) => { console.log(error.message) });
         },
         getDate() {
