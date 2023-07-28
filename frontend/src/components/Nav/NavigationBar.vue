@@ -253,6 +253,7 @@ export default {
           this.filteredVideos.push(video);
         }
       });
+      
       if (this.filteredVideos.length > 0) {
         this.$router.push({
           name: "search",
