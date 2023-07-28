@@ -767,7 +767,7 @@ export default {
   width: 100%;
   height: 105%;
   text-align: center;
-  margin-top: -48%;
+  margin-top: -49%;
   position: relative;
   background: black;
 }
