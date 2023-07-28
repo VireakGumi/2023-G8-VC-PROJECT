@@ -765,9 +765,9 @@ export default {
 .next-video {
   display: none;
   width: 100%;
-  height: 100%;
+  height: 105%;
   text-align: center;
-  margin-top: -47%;
+  margin-top: -48%;
   position: relative;
   background: black;
 }
