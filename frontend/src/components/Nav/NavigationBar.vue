@@ -3,7 +3,6 @@
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
-      <img src="../../assets/my-logo.png" width="100" height="100" style="border-radius: 25px; margin-top: 10px" alt="">
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
@@ -16,8 +15,8 @@
         rounded="pill"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn class="text-none" @click="dialog = !dialog" icon v-if="user.token">
-        <v-badge :content="notifications.length" color="error">
+      <v-btn class="text-none" @click="dialog = !dialog" icon>
+        <v-badge content="2" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
         <notification-dialog v-if="dialog"></notification-dialog>
@@ -174,7 +173,6 @@ export default {
       channel: [],
       haveChannel: false,
       profilePictureUrl: require("@/assets/users.jpg"),
-      notifications: []
     };
   },
   watch: {
@@ -196,11 +194,6 @@ export default {
     },
   },
   methods: {
-    getNotifications() {
-      this.$http.get("/notification", { headers: { 'Authorization': `Bearer ${this.user.token}` } }).then((response) => {
-        this.notifications = response.data.data;
-      }).catch((error) => { console.log(error.message); });
-    },
     logout() {
       this.$http
         .post(`/logout`, null, {
@@ -246,7 +239,9 @@ export default {
           this.loading = true;
           // set this.videos to the response data
           this.videos = response.data.data;
-          this.listVideos = this.videos;
+          this.listVideos = this.videos.filter((e) => {
+            return e.title.toLowerCase().includes(this.search.toLowerCase());
+          });
           this.loading = false;
         }, 500)
         .catch((error) => {
@@ -296,16 +291,10 @@ export default {
       this.$cookies.remove("full_name");
       this.$cookies.remove("email");
       this.$cookies.remove("token");
-      this.$cookies.remove("user_role");
-      this.$cookies.remove("channel_id");
     },
   },
-  created() {
-    this.getDataFromCookies();
-    this.getNotifications() 
-
-  },
   mounted() {
+    this.getDataFromCookies();
     this.querySelections();
     this.getChannel();
   },

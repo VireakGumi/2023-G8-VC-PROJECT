@@ -6,10 +6,13 @@
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
+        :item="filteredVideos"
         density="compact"
         variant="solo"
         label="Search here"
         append-inner-icon="mdi-magnify"
+        v-model="searchQuery"
+        @keyup.enter="searchVideos"
         single-line
         hide-details
         rounded="pill"
@@ -72,7 +75,6 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    <p> {{getVideos()}} </p>
   </v-app>
 </template>
 <script>
@@ -84,6 +86,10 @@ export default {
   data() {
     return {
       drawer: true,
+      listVideos: [],
+      videosAll: "",
+      searchQuery: "",
+      filteredVideos: [],
       dialog: false,
       profiles: [
         { title: "Your Channel", icon: "mdi-laptop-account", to: "" },
@@ -105,12 +111,38 @@ export default {
       ],
     };
   },
-  methods:{
-    getVideos:function(){
-      this.$http.get('/videos').thenn((response)=>{
-        console.log(response.data.data);
-      })
-    }
+  methods: {
+    getVideos: function () {
+      this.$http.get(`/allVideos`).then((response) => {
+        this.listVideos = response.data;
+      });
+    },
+
+    searchVideos() {
+      this.filteredVideos = [];
+      const videos = this.listVideos;
+      videos.forEach((video) => {
+        if (
+          video.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        ) {
+          this.filteredVideos.push(video);
+        }
+      });
+      if (this.filteredVideos.length > 0) {
+        this.$router.push({
+          name: "search",
+          params: {
+            title: this.searchQuery,
+          }
+        });
+      }
+    },
+  },
+  mounted() {
+    this.getVideos();
+    this.$http.get(`/allVideos`).then((response) => {
+      this.listVideos = response.data;
+    });
   },
 };
 </script>

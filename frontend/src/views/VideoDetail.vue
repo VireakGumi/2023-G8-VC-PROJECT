@@ -421,7 +421,6 @@ export default {
         .get(`/comments/${this.video.id}`)
         .then((response) => {
           this.allComments = response.data.data;
-          console.log(this.allComments);
         })
         .catch((e) => {
           console.log(e.message);
