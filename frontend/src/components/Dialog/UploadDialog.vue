@@ -1,22 +1,12 @@
 <template>
-  <div class="text-center" >
+  <div class="text-center">
     <v-dialog v-model="upload" width="400">
       <v-card height="400" class="pa-5">
         <h1 class="text-center">Upload Video</h1>
-        <v-icon
-          icon="mdi-upload"
-          style="width: 100%; font-size: 200px; margin: 0; padding: 0"
-        ></v-icon>
+        <v-icon icon="mdi-upload" style="width: 100%; font-size: 200px; margin: 0; padding: 0"></v-icon>
         <div class="group">
-          <input
-            type="file"
-            name="file"
-            id="file"
-            ref="video"
-            @change="filesChange()"
-            class="inputfile"
-            accept="video/*"
-          />
+          <input type="file" name="file" id="file" ref="video" @change="filesChange()" class="inputfile"
+            accept="video/*" />
           <label for="file">Choose a file</label>
           <button @click="upload = false">Cancel</button>
         </div>
@@ -32,32 +22,18 @@
             <v-col>
               <div>
                 <label for="title">Title</label>
-                <v-text-field
-                  required
-                  name="title"
-                  placeholder="Please enter your title"
-                  :rules="titleRule"
-                  v-model="title"
-                ></v-text-field>
+                <v-text-field required name="title" placeholder="Please enter your title" :rules="titleRule"
+                  v-model="title"></v-text-field>
               </div>
               <div>
                 <label for="des">Description</label>
-                <v-text-field
-                  required
-                  name="des"
-                  placeholder="Please enter your Description"
-                  :rules="descriptionRule"
-                  v-model="description"
-                ></v-text-field>
+                <v-text-field required name="des" placeholder="Please enter your Description" :rules="descriptionRule"
+                  v-model="description"></v-text-field>
               </div>
               <div>
                 <label for="thumbnail-input">Thumbnail</label>
-                <v-file-input
-                  label="Select thumbnail"
-                  accept="image/*"
-                  :rules="thumbnailRule"
-                  v-model="thumbnail"
-                ></v-file-input>
+                <v-file-input label="Select thumbnail" accept="image/*" :rules="thumbnailRule"
+                  v-model="thumbnail"></v-file-input>
               </div>
             </v-col>
             <v-col v-if="showVideo">
@@ -70,21 +46,13 @@
           <v-row>
             <v-col>
               <label for="">Privacy</label>
-              <v-select
-                :items="['Public', 'Private']"
-                selected="Select Privacy"
-                :rules="privacyRule"
-                v-model="privacy"
-              ></v-select>
+              <v-select :items="['Public', 'Private']" selected="Select Privacy" :rules="privacyRule"
+                v-model="privacy"></v-select>
             </v-col>
             <v-col>
               <label for="">Category</label>
-              <v-select
-                placeholder="Select category"
-                :items="category_name"
-                :rules="categoryRule"
-                v-model="category"
-              ></v-select>
+              <v-select placeholder="Select category" :items="category_name" :rules="categoryRule"
+                v-model="category"></v-select>
             </v-col>
           </v-row>
         </v-container>
@@ -104,24 +72,12 @@
         <div v-if="uploadProgress < 100">
           <div class="d-flex justify-space-between align-center">
             <h1>Uploading</h1>
-            <v-progress-circular
-              v-if="uploadProgress !== null"
-              :value="uploadProgress"
-              size="100"
-              color="white"
-              indeterminate
-              class="ml-5"
-              >{{ uploadProgress }} %</v-progress-circular
-            >
+            <v-progress-circular v-if="uploadProgress !== null" :value="uploadProgress" size="100" color="white"
+              indeterminate class="ml-5">{{ uploadProgress }} %</v-progress-circular>
           </div>
         </div>
-        <div
-          v-if="uploadProgress == 100"
-          class="d-flex justify-space-between align-center"
-        >
-          <v-icon size="100" style="color: green"
-            >mdi-check-circle-outline</v-icon
-          >
+        <div v-if="uploadProgress == 100" class="d-flex justify-space-between align-center">
+          <v-icon size="100" style="color: green">mdi-check-circle-outline</v-icon>
           <h1>Upload successful!</h1>
         </div>
       </v-card>
@@ -211,10 +167,13 @@ export default {
         formData.append("title", this.title);
         formData.append("description", this.description);
         formData.append("thumbnail", this.thumbnail[0]);
-        formData.append("date_time",dateTime);
+        formData.append("date_time", dateTime);
         formData.append("path", this.video);
         formData.append("privacy", this.privacy);
         formData.append("categories_id", this.getCategoryID(this.category));
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ": " + pair[1]);
+        }
         this.$http
           .post("/videos", formData, {
             headers: {
@@ -245,7 +204,7 @@ export default {
             this.$emit("upload", false);
           })
           .catch((error) => {
-            console.log("Error uploading video:", error.message);
+            console.log("Error uploading video:", error);
           });
       }
     },
@@ -272,11 +231,13 @@ export default {
 .v-dialog {
   position: absolute;
 }
+
 .v-card-actions {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
 }
+
 .v-card {
   display: flex;
   justify-content: space-evenly;
@@ -288,6 +249,7 @@ export default {
 .v-file-input {
   height: 10px !important;
 }
+
 .v-btn {
   padding: 20px;
   width: 32%;
@@ -295,6 +257,7 @@ export default {
   color: white;
   background-color: #5d5bd0;
 }
+
 .inputfile {
   width: 0.1px;
   height: 0.1px;
@@ -303,7 +266,8 @@ export default {
   position: absolute;
   z-index: -1;
 }
-.inputfile + label,
+
+.inputfile+label,
 .group button {
   font-size: 1.25em;
   font-weight: 700;
@@ -314,27 +278,33 @@ export default {
   border-radius: 5px;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover,
+.inputfile:focus+label,
+.inputfile+label:hover,
 .group button:hover {
   background-color: white;
   color: black;
 }
-.inputfile + label {
-  cursor: pointer; /* "hand" cursor */
+
+.inputfile+label {
+  cursor: pointer;
+  /* "hand" cursor */
 }
+
 img {
   width: 50%;
   color: white;
 }
+
 video {
   width: 100%;
 }
+
 .group {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
 }
+
 .group button {
   width: 40%;
 }

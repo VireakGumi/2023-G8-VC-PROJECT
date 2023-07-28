@@ -595,9 +595,8 @@ export default {
         );
         // Check if there is a next video
         if (currentIndex < this.videos.length - 1) {
-          const nextVideo = this.videos[currentIndex + 1];
-          router.push('/videodetail/'+nextVideo.id);
-          this.getVideos()
+          this.nextVideo = this.videos[currentIndex + 1];
+          router.push('/videodetail/'+this.nextVideo.id);
         } else {
           // There is no next video, do something else
           console.log("No more videos to play");
@@ -634,8 +633,8 @@ export default {
       );
       // Check if there is a next video
       if (currentIndex < this.videos.length - 1) {
-        const nextVideo = this.videos[currentIndex + 1];
-        router.push('/videodetail/'+nextVideo.id);
+        this.nextVideo = this.videos[currentIndex + 1];
+        router.push('/videodetail/'+this.nextVideo.id);
       } else {
         // There is no next video, do something else
         console.log("No more videos to play");
@@ -828,6 +827,7 @@ export default {
       handler: function () {
         this.getVideosById(); // call the getVideosById method to update the component data
         this.copylink();
+        this.getVideos();
       },
       deep: true,
     },

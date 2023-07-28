@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="video in linkVideos" :key="video.id">
+        <tr v-for="video in linkVideos.slice().reverse()" :key="video.id">
           <td>
             <div class="my-video">
               <v-checkbox></v-checkbox>

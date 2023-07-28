@@ -245,7 +245,6 @@ class VideoController extends Controller
         $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
         $url = Storage::disk('public')->url('videos/' . $fileName);
-
         if ($isFileUploaded && $isThumbnailUploaded) {
             $video = Video::create($video);
             $notificationController = new NotificationController();

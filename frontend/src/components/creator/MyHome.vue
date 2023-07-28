@@ -1,6 +1,6 @@
 <template>
   <v-app color="#252525">
-    <v-card color="#252525" class=" w-100">
+    <v-card color="#252525" class="w-100">
       <v-row class="d-flex justify-space-evenly">
         <VideoCard color="#252525" v-for="(video, index) in linkVideos" :key="index" :video="video" 
           @click="playVideo(video.id, video.categories_id)" />
