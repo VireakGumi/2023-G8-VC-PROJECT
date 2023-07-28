@@ -23,12 +23,11 @@ class FollowerController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = $request->user()->id;
-        $channel_id = $request->input('channel_id');
-        $channel = Channel::find($channel_id);
+        $user_id = Auth::user()->id;
+        $channel = Channel::find($request->channel_id);
         if ($channel) {
             $follower = Follower::where('user_id', $user_id)
-                ->where('channel_id', $channel_id)
+                ->where('channel_id', $channel->id)
                 ->first();
             if ($follower) {
                 return response()->json(['success' => false, 'message' => 'You have already followed this channel.'],404);
@@ -38,7 +37,7 @@ class FollowerController extends Controller
                 } else {
                     $follower = Follower::create([
                         'user_id' => $user_id,
-                        'channel_id' => $channel_id,
+                        'channel_id' => $channel->id,
                         'date_time' => $request->date_time
                     ]);
                     return response()->json(['success' => true, 'message' => 'You have successfully followed this channel.'], 200);
@@ -53,11 +52,11 @@ class FollowerController extends Controller
      */
     public function show($id)
     {
-        $followerCount = Follower::where('channel_id', $id)->count();
+        $followers = Channel::find($id)->followers;
         return response()->json([
             'success' => true,
             'message' => 'Successfully retrieved the number of followers for the channel',
-            'data' => $followerCount
+            'data' => $followers
         ], 200);
     }
 

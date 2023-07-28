@@ -108,6 +108,9 @@ img {
   opacity: 1;
   transition: filter 0.4s ease-in-out;
 }
+.container-card {
+  cursor: pointer;
+}
 
 img:hover {
   filter: brightness(1%);
