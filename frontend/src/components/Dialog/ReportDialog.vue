@@ -8,46 +8,25 @@
               <p>Report video</p>
             </v-card-text>
             <hr />
-            <v-radio-group
-              v-model="selected"
-              column
-              v-on:change="selectedItem = 'Choose One'"
-              v-if="!showReport"
-            >
+            <v-radio-group v-model="selected" column v-on:change="selectedItem = 'Choose One'" v-if="!showReport">
               <template v-for="(item, index) in itemsWithValues" :key="index">
                 <v-radio :label="item.label" :value="item.value"></v-radio>
-                <v-select
-                  v-model="selectedItem"
-                  v-if="
-                    selected === item.value &&
-                    item.value != 6 &&
-                    item.value != 7 &&
-                    item.value != 8
-                  "
-                  :items="items[item.value]"
-                  outlined
-                  v-bind:key="item.value"
-                ></v-select>
+                <v-select v-model="selectedItem" v-if="selected === item.value &&
+                  item.value != 6 &&
+                  item.value != 7 &&
+                  item.value != 8
+                  " :items="items[item.value]" outlined v-bind:key="item.value"></v-select>
               </template>
             </v-radio-group>
             <v-card-text v-if="selected && !showReport">
-              <v-checkbox
-                v-model="isChecked"
-                label="This applies to links within the video description"
-                v-if="selected"
-              ></v-checkbox>
+              <v-checkbox v-model="isChecked" label="This applies to links within the video description"
+                v-if="selected"></v-checkbox>
             </v-card-text>
             <v-card-text-report v-if="showReport">
               <p style="margin-top: 10px">Timestamp selected *</p>
               <input type="time" v-model="timestamp" />
-              <v-textarea
-                :rules="rules"
-                label="Provide additional details"
-                v-model="inputValue"
-                :counter="500"
-                style="margin-top: 20px"
-                :counter-value="inputCount"
-              ></v-textarea>
+              <v-textarea :rules="rules" label="Provide additional details" v-model="inputValue" :counter="500"
+                style="margin-top: 20px" :counter-value="inputCount"></v-textarea>
             </v-card-text-report>
             <v-card-text>
               <p style="font-size: small">
@@ -62,29 +41,14 @@
           </v-container>
         </v-card-text>
         <hr />
-        <v-card-actions
-          style="display: flex; justify-content: flex-end; align-item: end"
-        >
+        <v-card-actions style="display: flex; justify-content: flex-end; align-item: end">
           <v-btn color="red" text @click="cancel">Cancel</v-btn>
-          <v-btn
-            color="green"
-            text
-            @click="next"
-            v-if="!showReport"
-            :disabled="!isChecked"
-            >Next</v-btn
-          >
-          <v-btn color="green" text @click="reportVideo" v-if="showReport"
-            >Report</v-btn
-          >
+          <v-btn color="green" text @click="next" v-if="!showReport" :disabled="!isChecked">Next</v-btn>
+          <v-btn color="green" text @click="reportVideo" v-if="showReport">Report</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      v-model="showReportData"
-      max-width="600"
-      style="border-radius: 15px"
-    >
+    <v-dialog v-model="showReportData" max-width="600" style="border-radius: 15px">
       <v-card>
         <v-card-title>Report Data</v-card-title>
         <v-card-text>
@@ -100,11 +64,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog
-      v-model="showDialogin"
-      max-width="600"
-      style="border-radius: 15px"
-    >
+    <v-dialog v-model="showDialogin" max-width="600" style="border-radius: 15px">
       <v-card>
         <v-card-text>
           <h3>Need to report the video?</h3>
@@ -243,6 +203,7 @@ export default {
       this.inputValue = "";
       this.inputCount = 0;
       this.showReport = false;
+      this.$emit("show", false);
     },
     next() {
       this.showReport = true;
@@ -252,7 +213,7 @@ export default {
       this.showReportData = true;
       let token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       this.reportData = {
@@ -279,6 +240,8 @@ export default {
             this.showDialog = false;
             this.showReportData = true;
             this.reportData = response.data;
+            this.$emit("show", false);
+
           })
           .catch((error) => {
             console.error(error.message);

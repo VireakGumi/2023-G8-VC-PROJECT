@@ -17,7 +17,8 @@ class ChannelSeeder extends Seeder
         $channels = [
             ['name' => 'The best channel', 'description' => 'best of the world', 'date_time' => '2023/7/5 11:36:14', 'user_id' => 1, 'profile' => '571963-star-wars-4k.jpg'],
             ['name' => 'BoomRange', 'description' => 'best of the world', 'date_time' => '2023/7/5 11:36:14', 'user_id' => 3, 'profile' => '19457.jpg'],
-            ['name' => 'Fantacy', 'description' => 'best of the world', 'date_time' => '2023/7/5 11:36:14', 'user_id' => 4, 'profile' => '568018-fantasy-art.jpg']
+            ['name' => 'Fantacy', 'description' => 'best of the world', 'date_time' => '2023/7/5 11:36:14', 'user_id' => 4, 'profile' => '568018-fantasy-art.jpg'],
+            ['name' => 'kaka', 'description' => 'best of the world', 'date_time' => '2023/7/5 11:36:14', 'user_id' => 5, 'profile' => '568018-fantasy-art.jpg']
         ];
         foreach ($channels as $channel) {
             Channel::create($channel);

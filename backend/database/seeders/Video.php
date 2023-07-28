@@ -15,7 +15,7 @@ class Video extends Seeder
     {
         //
         $videos = [
-            ['title' => 'team8', 'description' => 'Introduction', 'thumbnail' => '2638499.jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'Team8.mp4', 'privacy' => 'public', 'categories_id' => 1, 'channel_id' => 1],
+            ['title' => 'team8', 'description' => 'Introduction', 'thumbnail' => '2638499.jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'Team8.mp4', 'privacy' => 'public', 'categories_id' => 1, 'channel_id' => 4],
             ['title' => 'rothana', 'description' => 'Introduction', 'thumbnail' => '120697-the-flash-dc-comics-superheroes-5k.jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'lonely-anime-boy-playing-guitar-under-the-moon-moewalls.com.mp4', 'privacy' => 'public', 'categories_id' => 2, 'channel_id' => 1],
             ['title' => 'vila', 'description' => 'Introduction', 'thumbnail' => 'marguerite-729510_1280 (2).jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'WIN_20230627_17_37_46_Pro.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 1],
             ['title' => 'car', 'description' => 'Introduction', 'thumbnail' => '4.png', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'WIN_20230627_18_00_58_Pro.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 2],
@@ -46,7 +46,7 @@ class Video extends Seeder
             ['title' => 'history', 'description' => 'Introduction', 'thumbnail' => 'R (1).png', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'WIN_20230627_18_00_58_Pro.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 1],
             ['title' => 'tutorials', 'description' => 'Introduction', 'thumbnail' => '2638499.jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'tears-in-the-rain-ao-no-exorcist-moewalls.com.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 2],
             ['title' => 'general', 'description' => 'Introduction', 'thumbnail' => 'R (1).jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'pexels-jill-burrow-6392282 (1080p).mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 1],
-            ['title' => 'information', 'description' => 'Introduction', 'thumbnail' => 'marguerite-729510_1280 (2).jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'neon-sign-moewalls.com.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 1],
+            ['title' => 'information', 'description' => 'Introduction', 'thumbnail' => 'marguerite-729510_1280 (2).jpg', 'date_time' => '2023/7/5 11:36:14', 'viewer' => 0, 'path' => 'neon-sign-moewalls.com.mp4', 'privacy' => 'public', 'categories_id' => 3, 'channel_id' => 4],
 
         ];
         foreach ($videos as $video) {

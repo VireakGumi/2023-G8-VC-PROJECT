@@ -52,7 +52,7 @@
       @show="handOver"
       @isShow="handOverIsShowRegister"
     />
-    <upload-dialog v-if="upload" @upload="uploadFile"></upload-dialog>
+    <upload-dialog v-if="upload" @upload="uploadFile" ></upload-dialog>
   </div>
 </template>
 

@@ -215,8 +215,8 @@ export default {
             user_id: "",
           };
           console.log(response.data);
-          console.log(this.user);
           location.loading;
+          window.location.reload();
         }, 200)
         .catch((error) => {
           console.log(error.message);
