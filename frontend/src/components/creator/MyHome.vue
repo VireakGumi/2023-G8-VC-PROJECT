@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import VideoCard from "../Cards/VideoCard.vue"
+import VideoCard from "../Cards/VideoCard.vue";
+import router from "@/router";
+
 export default {
   name: "App",
   components: { VideoCard },
@@ -31,6 +33,20 @@ export default {
     };
   },
   methods: {
+    async playVideo(id, categories_id) {
+      document.cookie = "favorites=" + categories_id;
+      this.$http
+        .get("videos/viewer/" + id)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      document.cookie = "favorites=" + categories_id;
+      await router.push({ name: "videodetail", params: { id: id } });
+      window.location.reload();
+    },
     truncatedDescription(character) {
       const maxChars = 100;
       if (character.length > maxChars) {

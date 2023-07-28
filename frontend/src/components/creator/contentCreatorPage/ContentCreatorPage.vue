@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #252525; color: white" >
     <div v-if="editDialog">
       <EditDialog @isShow="handOver" :videoData="selectedVideo" />
     </div>
-    <div class="container">
+    <div class="container pt-5" >
       <h1>CHANNEL CONTENT</h1>
       <div class="btn">
         <button>Videos</button>
@@ -11,15 +11,15 @@
       </div>
       <hr />
     </div>
-    <v-table>
-      <thead>
+    <v-table style="background-color: #252525; color: white" >
+      <thead >
         <tr>
-          <th class="text-left">Video</th>
-          <th class="text-left">Visibility</th>
-          <th class="text-left">Date</th>
-          <th class="text-left">Viewer</th>
-          <th class="text-left">Comment</th>
-          <th class="text-left">Like</th>
+          <th class="text-left" style="color: white;">Video</th>
+          <th class="text-left"  style="color: white;">Visibility</th>
+          <th class="text-left"  style="color: white;">Date</th>
+          <th class="text-left"  style="color: white;">Viewer</th>
+          <th class="text-left"  style="color: white;">Comment</th>
+          <th class="text-left"  style="color: white;">Like</th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +27,7 @@
           <td>
             <div class="my-video">
               <v-checkbox></v-checkbox>
-              <div style="width: 50%; padding: 0;">
+              <div style="width: 50%; padding: 0">
                 <img class="video-thumbnail" :src="video.thumbnail" alt="" />
               </div>
               <div class="my-action">
@@ -58,10 +58,13 @@
         </tr>
       </tbody>
     </v-table>
-    <v-dialog width="400" >
+    <v-dialog width="400">
       <v-card height="200" class="d-flex justify-center pa-5 align-center">
-        <div v-if="uploadProgress < 100" >
-          <div class="d-flex column justify-center align-center" justify="space-evenly">
+        <div v-if="uploadProgress < 100">
+          <div
+            class="d-flex column justify-center align-center"
+            justify="space-evenly"
+          >
             <h1 class="text-center">Uploading</h1>
             <v-progress-circular
               v-if="uploadProgress !== null"
@@ -69,7 +72,8 @@
               size="80"
               color="primary"
               indeterminate
-            >{{ uploadProgress }} %</v-progress-circular>
+              >{{ uploadProgress }} %</v-progress-circular
+            >
           </div>
         </div>
         <div v-if="uploadProgress == 100">
@@ -204,5 +208,4 @@ button {
   margin-top: 18%;
   margin-left: -2%;
 }
-
 </style>

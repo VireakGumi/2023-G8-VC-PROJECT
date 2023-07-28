@@ -247,7 +247,6 @@ export default {
           this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
-      console.log(this.user);
     },
     deleteCookie() {
       this.$cookies.remove("user_id");
