@@ -263,7 +263,6 @@ class VideoController extends Controller
     public function searchVideo($title)
     {
         $videos = Video::where('title', 'like', '%' . $title . '%')
-            ->orWhere('user_id', 'like', '%' . $title . '%')
             ->get();
         if ($videos->count()) {
             $this->getSrc($videos);

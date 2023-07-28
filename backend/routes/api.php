@@ -76,8 +76,9 @@ Route::fallback(function () {
 });
 // Route::get('/playlistByID/{id}', [PlayListController::class, 'show']);
 
+Route::get('/allVideos', [VideoController::class, 'getVideos']);
 Route::get('/follower/{id}', [FollowerController::class, 'show']);
-Route::get('/videos/{title}', [VideoController::class, 'searchVideo']);
+Route::get('/allVideos/{title}', [VideoController::class, 'searchVideo']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/video/id/{id}', [VideoController::class, 'show']);
 Route::get('/videos/play/{id}', [VideoController::class, 'playVideo'])->name('video.play');

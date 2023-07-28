@@ -1,7 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="mb-4"> 
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
       <router-link to="/" width="100" height="100"
         ><img
           src="../../assets/my-logo.png"
@@ -11,39 +12,21 @@
           alt=""
       /></router-link>
       <v-spacer></v-spacer>
-      <v-text-field
-        class="w-50"
-        density="compact"
-        variant="solo"
-        label="Search here"
-        append-inner-icon="mdi-magnify"
-        single-line
-        hide-details
-        rounded="pill"
-      ></v-text-field>
+      <v-text-field class="w-50" :item="filteredVideos" density="compact" variant="solo" label="Search here"
+        append-inner-icon="mdi-magnify" v-model="searchQuery" @keyup.enter="searchVideos" single-line hide-details
+        rounded="pill"></v-text-field>
       <v-spacer></v-spacer>
       <v-btn class="text-none" @click="dialog = !dialog" icon v-if="user.token">
-        <v-badge :content="notifications.length" color="error">
+        <v-badge content="2" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
         <notification-dialog v-if="dialog"></notification-dialog>
       </v-btn>
-      <v-btn
-        v-if="user.token == ''"
-        class="mr-6 ml-8 mr-2 bg-white"
-        rounded="pill"
-        prepend-icon="mdi-account"
-        @click="loginForm = true"
-      >
+      <v-btn v-if="user.token == ''" class="mr-6 ml-8 mr-2 bg-white" rounded="pill" prepend-icon="mdi-account"
+        @click="loginForm = true">
         Sign in
       </v-btn>
-      <v-menu
-        v-else
-        transition="slide-x-transition"
-        bottom
-        right
-        :open-on-click="true"
-      >
+      <v-menu v-else transition="slide-x-transition" bottom right :open-on-click="true">
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" icon>
             <v-icon size="x-large">mdi-account</v-icon>
@@ -52,79 +35,37 @@
 
         <v-list width="300px">
           <v-list-item>
-            <v-avatar
-              class="mr-5"
-              :image="profilePictureUrl"
-              size="40"
-            ></v-avatar>
+            <v-avatar class="mr-5" :image="profilePictureUrl" size="40"></v-avatar>
             <v-item-title>{{ user.full_name }} </v-item-title>
           </v-list-item>
           <v-divider :thickness="3"></v-divider>
 
-          <v-list-item
-            :prepend-icon="profiles[0].icon"
-            :title="profiles[0].title"
-            :value="profiles[0].title"
-            :to="profiles[0].to"
-            v-if="haveChannel"
-          ></v-list-item>
-          <v-list-item
-            v-if="!haveChannel"
-            :prepend-icon="profiles[0].icon"
-            title="Create Channel"
-            :value="profiles[0].title"
-            @click="showChannelDialog = true"
-          ></v-list-item>
-          <v-list-item
-            :prepend-icon="profiles[1].icon"
-            :title="profiles[1].title"
-            :value="profiles[1].title"
-          ></v-list-item>
-          <v-list-item
-            :prepend-icon="profiles[2].icon"
-            :title="profiles[2].title"
-            :value="profiles[2].title"
-          ></v-list-item>
-          <v-list-item
-            :prepend-icon="profiles[3].icon"
-            :title="profiles[3].title"
-            :value="profiles[3].title"
-          ></v-list-item>
-          <v-list-item
-            :prepend-icon="profiles[4].icon"
-            :title="profiles[4].title"
-            :value="profiles[4].title"
-            @click="logout"
-          ></v-list-item>
+          <v-list-item :prepend-icon="profiles[0].icon" :title="profiles[0].title" :value="profiles[0].title"
+            :to="profiles[0].to" v-if="haveChannel"></v-list-item>
+          <v-list-item v-if="!haveChannel" :prepend-icon="profiles[0].icon" title="Create Channel"
+            :value="profiles[0].title" @click="showChannelDialog = true"></v-list-item>
+          <v-list-item :prepend-icon="profiles[1].icon" :title="profiles[1].title"
+            :value="profiles[1].title"></v-list-item>
+          <v-list-item :prepend-icon="profiles[2].icon" :title="profiles[2].title"
+            :value="profiles[2].title"></v-list-item>
+          <v-list-item :prepend-icon="profiles[3].icon" :title="profiles[3].title"
+            :value="profiles[3].title"></v-list-item>
+          <v-list-item :prepend-icon="profiles[4].icon" :title="profiles[4].title" :value="profiles[4].title"
+            @click="logout"></v-list-item>
           <v-divider :thickness="1"></v-divider>
         </v-list>
       </v-menu>
     </v-app-bar>
     <v-navigation-drawer app theme="dark" v-model="drawer" width="200">
       <v-list>
-        <v-list-item
-          v-for="icon of icons"
-          :key="icon.title"
-          class="ml-2"
-          @click="drawer = !drawer"
-          :prepend-icon="icon.icon"
-          :title="icon.title"
-          :to="icon.to"
-        ></v-list-item>
+        <v-list-item v-for="icon of icons" :key="icon.title" class="ml-2" @click="drawer = !drawer"
+          :prepend-icon="icon.icon" :title="icon.title" :to="icon.to"></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main
-      ><LoginForm
-        v-model="loginForm"
-        @show="handOver"
-        @isShow="handOverIsShowLogin"
-      />
-      <ChannelDialog @haveChannel="createChannel" :showChannelDialog="showChannelDialog"/>
-      <RegisterForm
-        v-model="registerForm"
-        @show="handOver"
-        @isShow="handOverIsShowRegister"
-      />
+    <v-main>
+      <LoginForm v-model="loginForm" @show="handOver" @isShow="handOverIsShowLogin" />
+      <ChannelDialog @haveChannel="createChannel" :showChannelDialog="showChannelDialog" />
+      <RegisterForm v-model="registerForm" @show="handOver" @isShow="handOverIsShowRegister" />
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -150,6 +91,8 @@ export default {
         email: "",
         user_id: "",
       },
+      searchQuery: "",
+      filteredVideos: [],
       dialog: false,
       drawer: false,
       profiles: [
@@ -182,15 +125,15 @@ export default {
       notifications: [],
     };
   },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    },
-  },
   methods: {
     createChannel(item) {
       this.showChannelDialog = item;
       this.getChannel();
+    },
+    getVideos: function () {
+      this.$http.get(`/allVideos`).then((response) => {
+        this.listVideos = response.data;
+      });
     },
     getNotifications() {
       this.$http
@@ -248,21 +191,25 @@ export default {
           console.log(error.message);
         });
     },
-    querySelections() {
-      this.$http
-        .get(`/videos/${this.select}`)
-        .then((response) => {
-          this.loading = true;
-          // set this.videos to the response data
-          this.videos = response.data.data;
-          this.listVideos = this.videos.filter((e) => {
-            return e.title.toLowerCase().includes(this.search.toLowerCase());
-          });
-          this.loading = false;
-        }, 500)
-        .catch((error) => {
-          console.log(error.message);
+    searchVideos() {
+      this.filteredVideos = [];
+      const videos = this.listVideos;
+      videos.forEach((video) => {
+        if (
+          video.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        ) {
+          this.filteredVideos.push(video);
+        }
+      });
+
+      if (this.filteredVideos.length > 0) {
+        this.$router.push({
+          name: "search",
+          params: {
+            title: this.searchQuery,
+          },
         });
+      }
     },
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
@@ -282,22 +229,22 @@ export default {
     getDataFromCookies() {
       this.user.user_id =
         this.$cookies.get("user_id") !== "undefined" &&
-        this.$cookies.get("user_id") !== null
+          this.$cookies.get("user_id") !== null
           ? this.$cookies.get("user_id")
           : "";
       this.user.full_name =
         this.$cookies.get("full_name") !== "full_name" &&
-        this.$cookies.get("full_name") !== null
+          this.$cookies.get("full_name") !== null
           ? this.$cookies.get("full_name")
           : "";
       this.user.email =
         this.$cookies.get("email") !== "email" &&
-        this.$cookies.get("email") !== null
+          this.$cookies.get("email") !== null
           ? this.$cookies.get("email")
           : "";
       this.user.token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       console.log(this.user);
@@ -312,14 +259,14 @@ export default {
       this.$cookies.remove("favorites");
     },
   },
-  created() {
+  mounted() {
     this.getDataFromCookies();
     this.getChannel();
     this.getNotifications();
-  },
-  mounted() {
-    this.querySelections();
-    
+    this.getVideos();
+    this.$http.get(`/allVideos`).then((response) => {
+      this.listVideos = response.data;
+    });
   },
 };
 </script>
