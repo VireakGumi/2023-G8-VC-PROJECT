@@ -1,5 +1,5 @@
 <template>
-  <v-carousel cycle height="400" hide-delimiter-background show-arrows="hover" class="mt-5">
+  <v-carousel cycle height="400" hide-delimiter-background show-arrows="hover" class="mt-6">
     <v-carousel-item v-for="(slide, i) in slides" :key="i">
       <v-sheet height="100%" width="100%">
         <div class="d-flex fill-height w-100 justify-center align-center">

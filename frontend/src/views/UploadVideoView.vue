@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="ml-12 pt-5">Upload video</h1>
+  <div class="container pa-8">
+    <h1>Upload video</h1>
     <div class="upload-container">
       <v-icon
         style="width: 100%; font-size: 200px; margin: 0; padding: 0"
