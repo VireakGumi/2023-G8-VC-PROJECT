@@ -21,7 +21,7 @@ function requireAuth(to, from, next) {
     switch (permission) {
       case 'admin':
         if (userRole === 'admin') {
-          if (to.name === 'dashboard' || to.name === 'report') {
+          if (to.name === 'dashboard' || to.name === 'report' || to.name=== 'video' || to.name==='user-list') {
             next();
           } else {
             next('/user');
