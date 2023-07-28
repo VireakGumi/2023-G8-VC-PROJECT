@@ -1,27 +1,26 @@
 <template>
-  <v-card class="card">
+  <v-card class="card fill-height">
     <v-toolbar>
       <!-- <template v-slot:extension> -->
       <v-tabs v-model="tab" align-tabs="title">
         <v-tab v-for="item in items" :key="item" :value="item">
           {{ item.name }}
         </v-tab>
-        
       </v-tabs>
-        <input
-          type="search"
-          placeholder="Search"
-          id="search"
-          v-model="searchQuery"
-          @input="search"
-        />
-        <img
-          src="../../assets/search.png"
-          class="search"
-          alt=""
-          width="30"
-          height="30"
-        />
+      <input
+        type="search"
+        placeholder="Search"
+        id="search"
+        v-model="searchQuery"
+        @input="search"
+      />
+      <img
+        src="../../assets/search.png"
+        class="search"
+        alt=""
+        width="30"
+        height="30"
+      />
       <!-- </template> -->
     </v-toolbar>
     <hr />
@@ -71,8 +70,8 @@ export default {
 
 <style scoped>
 .v-toolbar {
- background-color: #252525; 
- color: white;
+  background-color: #252525;
+  color: white;
   border: none;
 }
 

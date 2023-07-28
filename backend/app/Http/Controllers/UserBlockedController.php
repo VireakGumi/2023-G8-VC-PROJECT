@@ -71,8 +71,11 @@ class UserBlockedController extends Controller
     public function destroy($id)
     {
         //
-        $unBlock = UserBlocked::find($id);
-        $unBlock->delete();
+        $unBlock = UserBlocked::where('blocked_user_id', $id)->first();
+        if ($unBlock) {
+            $unBlock->delete();
+        }
+        return "null";
     }
     public function getblock()
     {

@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-5" style="max-width: 600px; margin-top: 10px">
+  <div class="ml-5" style="max-width: 600px; margin-top: 30px">
     <h1 class="ml-10">Search Result</h1>
     <div style="width: 400px">
       <div

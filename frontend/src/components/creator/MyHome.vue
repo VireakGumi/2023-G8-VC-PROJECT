@@ -23,14 +23,19 @@ export default {
     };
   },
   methods: {
-    playVideo(id, categories_id) {
-      router.push("/videodetail/" + id);
-      this.$http.get('videos/viewer/'+id).then((response) => {
-        console.log(response.data);
-      }).catch((error) => {
-        console.log(error.message);
-      });
+    async playVideo(id, categories_id) {
       document.cookie = "favorites=" + categories_id;
+      this.$http
+        .get("videos/viewer/" + id)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      document.cookie = "favorites=" + categories_id;
+      await router.push({ name: "videodetail", params: { id: id } });
+      window.location.reload();
     },
     truncatedDescription(character) {
       const maxChars = 100;
@@ -44,7 +49,6 @@ export default {
       const now = new Date();
       const dateTime = new Date(dateTimeString);
       const diffInMilliseconds = now.getTime() - dateTime.getTime();
-      console.log(diffInMilliseconds)
       let duration;
       if (diffInMilliseconds < 60 * 1000) {
         duration = Math.floor(diffInMilliseconds / 1000) + " second";

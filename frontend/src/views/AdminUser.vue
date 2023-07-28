@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-5 bg-blue-grey-darken-4 fill-height">
+  <div class="pa-4 bg-blue-grey-darken-4 fill-height">
     <h1>USER LISTS</h1>
     <v-divider :thickness="3"></v-divider>
     <v-row class="mt-1">

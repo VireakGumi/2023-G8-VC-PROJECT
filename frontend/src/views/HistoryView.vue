@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h1 class="ml-12 pt-5">History</h1>
-    <div v-if="token == ''" class="history-container ml-12">
+  <div class="pa-8">
+    <h1>History</h1>
+    <div v-if="token == ''" class="history-container pa-16">
       <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0"
         >mdi-history</v-icon
       >
       <h2>Keep track of what you watch</h2>
-      <p>Watch history isn't viewable when signed out.</p>
+      <p class="text-white">Watch history isn't viewable when signed out.</p>
       <v-btn
         class="mr-6 ml-8 mr-2"
         rounded="pill"
@@ -26,7 +26,7 @@
         @click="playVideo(video.id, video.categories_id)"
       />
     </div>
-    <div v-if="videos == null && token" class="history-container ml-12">
+    <div v-if="videos == null && token" class="history-container">
       <v-icon style="width: 100%; font-size: 200px; margin: 0; padding: 0"
         >mdi-history</v-icon
       >
@@ -180,7 +180,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 78.8vh;
 }
 .v-btn {
   margin-top: 5px;
