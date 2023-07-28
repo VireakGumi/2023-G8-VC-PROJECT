@@ -2,28 +2,31 @@
   <v-app>
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <router-link to="/" width="100" height="100"
-        ><img
-          src="../../assets/my-logo.png"
-          width="100"
-          height="100"
-          style="border-radius: 25px; margin-top: 10px"
-          alt=""
-      /></router-link>
+      <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
+      <img
+        src="../../assets/my-logo.png"
+        width="100"
+        height="100"
+        style="border-radius: 25px; margin-top: 10px"
+        alt=""
+      />
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
+        :item="filteredVideos"
         density="compact"
         variant="solo"
         label="Search here"
         append-inner-icon="mdi-magnify"
+        v-model="searchQuery"
+        @keyup.enter="searchVideos"
         single-line
         hide-details
         rounded="pill"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn class="text-none" @click="dialog = !dialog" icon v-if="user.token">
-        <v-badge :content="notifications.length" color="error">
+      <v-btn class="text-none" @click="dialog = !dialog" icon>
+        <v-badge content="2" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
         <notification-dialog v-if="dialog"></notification-dialog>
@@ -150,6 +153,8 @@ export default {
         email: "",
         user_id: "",
       },
+      searchQuery: "",
+      filteredVideos: [],
       dialog: false,
       drawer: false,
       profiles: [
@@ -182,15 +187,11 @@ export default {
       notifications: [],
     };
   },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    },
-  },
   methods: {
-    createChannel(item) {
-      this.haveChannel = item;
-      this.getChannel();
+    getVideos: function () {
+      this.$http.get(`/allVideos`).then((response) => {
+        this.listVideos = response.data;
+      });
     },
     getNotifications() {
       this.$http
@@ -242,21 +243,25 @@ export default {
           console.log(error.message);
         });
     },
-    querySelections() {
-      this.$http
-        .get(`/videos/${this.select}`)
-        .then((response) => {
-          this.loading = true;
-          // set this.videos to the response data
-          this.videos = response.data.data;
-          this.listVideos = this.videos.filter((e) => {
-            return e.title.toLowerCase().includes(this.search.toLowerCase());
-          });
-          this.loading = false;
-        }, 500)
-        .catch((error) => {
-          console.log(error.message);
+    searchVideos() {
+      this.filteredVideos = [];
+      const videos = this.listVideos;
+      videos.forEach((video) => {
+        if (
+          video.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        ) {
+          this.filteredVideos.push(video);
+        }
+      });
+      
+      if (this.filteredVideos.length > 0) {
+        this.$router.push({
+          name: "search",
+          params: {
+            title: this.searchQuery,
+          },
         });
+      }
     },
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
@@ -300,17 +305,17 @@ export default {
       this.$cookies.remove("full_name");
       this.$cookies.remove("email");
       this.$cookies.remove("token");
-      this.$cookies.remove("user_role");
-      this.$cookies.remove("channel_id");
     },
   },
-  created() {
+  mounted() {
     this.getDataFromCookies();
     this.getNotifications();
-  },
-  mounted() {
     this.querySelections();
     this.getChannel();
+    this.getVideos();
+    this.$http.get(`/allVideos`).then((response) => {
+      this.listVideos = response.data;
+    });
   },
 };
 </script>
