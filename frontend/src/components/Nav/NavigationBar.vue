@@ -17,7 +17,7 @@
         rounded="pill"></v-text-field>
       <v-spacer></v-spacer>
       <v-btn class="text-none" @click="dialog = !dialog" icon v-if="user.token">
-        <v-badge content="2" color="error">
+        <v-badge :content=notifications.length color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
         <notification-dialog v-if="dialog"></notification-dialog>

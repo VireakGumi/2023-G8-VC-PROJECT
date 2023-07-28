@@ -217,7 +217,7 @@ class VideoController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $video = $user->videos->find($id);
+        $video = $user->channel->videos->find($id);
         if ($video) {
             $video->delete();
             return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);

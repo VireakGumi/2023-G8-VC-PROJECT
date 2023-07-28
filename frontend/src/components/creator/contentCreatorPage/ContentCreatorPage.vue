@@ -120,6 +120,7 @@ export default {
         this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
+      console.log(id);
       if (token) {
         this.$http
           .delete(`/videos/${id}`, {

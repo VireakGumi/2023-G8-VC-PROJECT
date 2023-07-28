@@ -188,6 +188,12 @@ export default {
       }
     },
     Register() {
+      const now = new Date();
+      const expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // set the expiration time to 30 days from now
+      const cookieOptions = {
+        expires: expires,
+        path: '/' // set the path to the root directory so the cookie can be accessed across the site
+      };
       let value = {
         full_name: this.full_name,
         email: this.email,
@@ -197,11 +203,11 @@ export default {
       this.$http
         .post("/register", value)
         .then((response) => {
-          document.cookie = "token=" + response.data.token;
-          document.cookie = "user_id=" + response.data.user.id;
-          document.cookie = "full_name=" + response.data.user.full_name;
-          document.cookie = "email=" + response.data.user.email;
-          document.cookie = "user_role=" + this.userRole(response.data.user.role_id);
+          this.$cookies.set('token', response.data.token, cookieOptions);
+          this.$cookies.set('user_id', response.data.user.id, cookieOptions);
+          this.$cookies.set('full_name', response.data.user.full_name, cookieOptions);
+          this.$cookies.set('email', response.data.user.email, cookieOptions);
+          this.$cookies.set('user_role', this.userRole(response.data.user.role_id), cookieOptions)
           this.full_name = "";
           this.email = "";
           this.password = "";

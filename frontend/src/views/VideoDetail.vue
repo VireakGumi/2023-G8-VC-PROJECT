@@ -19,16 +19,16 @@
                 Up next in {{ counter }}
               </p>
               <img
-                :src="this.video.thumbnail"
+                :src="nextVideo.thumbnail"
                 style="padding: 5px; border-radius: 10px"
                 width="250"
               />
               <div>
                 <v-card-text style="margin-top: 10px; margin-left: -25%">
-                  {{ video.title }}
+                  {{ nextVideo.title }}
                 </v-card-text>
                 <v-card-subtitle style="margin-left: -22%; margin-bottom: 2%;">
-                  {{ video.description }}
+                  {{ nextVideo.description }}
                 </v-card-subtitle>
               </div>
               <div class="btn d-flex:flex; margin-top: -10%; width: 100%;">
@@ -255,6 +255,7 @@ export default {
     videoId: "",
     allFollowers: [],
     channel_id: "",
+    nextVideo: {},
   }),
   computed: {
     checking() {
@@ -476,8 +477,8 @@ export default {
         );
         // Check if there is a next video
         if (currentIndex < this.videos.length - 1) {
-          const nextVideo = this.videos[currentIndex + 1];
-          router.push('/videodetail/'+nextVideo.id);
+          this.nextVideo = this.videos[currentIndex + 1];
+        router.push('/videodetail/'+this.nextVideo.id);
         } else {
           // There is no next video, do something else
           console.log("No more videos to play");
@@ -509,15 +510,13 @@ export default {
     playNow() {
       let countdown = document.querySelector(".next-video");
       countdown.style.display = "none";
-      // const videoPlayer = this.$refs.videoPlayer;
-      // videoPlayer.pause();
       const currentIndex = this.videos.findIndex(
         (video) => video.id === this.video.id
       );
       // Check if there is a next video
       if (currentIndex < this.videos.length - 1) {
-        const nextVideo = this.videos[currentIndex + 1];
-        router.push('/videodetail/'+nextVideo.id);
+        this.nextVideo = this.videos[currentIndex + 1];
+        router.push('/videodetail/'+this.nextVideo.id);
       } else {
         // There is no next video, do something else
         console.log("No more videos to play");
@@ -525,6 +524,19 @@ export default {
       this.counter = 7;
       clearInterval(this.interval);
       clearTimeout(this.nextVideoTimeout);
+    },
+    getTheNextVideo() {
+      const currentIndex = this.videos.findIndex(
+        (video) => video.id === this.video.id
+      );
+      // Check if there is a next video
+      if (currentIndex < this.videos.length - 1) {
+        this.nextVideo = this.videos[currentIndex + 1];
+      }else {
+          // There is no next video, do something else
+          console.log("No more videos to play");
+        }
+
     },
 
     clickShare() {
@@ -593,6 +605,7 @@ export default {
           this.getAllFollwer();
           this.getAllComments();
           this.getLikes();
+          this.getTheNextVideo();
         })
         .catch((error) => {
           console.log(error.message);
