@@ -3,13 +3,23 @@
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
+      <img
+        src="../../assets/my-logo.png"
+        width="100"
+        height="100"
+        style="border-radius: 25px; margin-top: 10px"
+        alt=""
+      />
       <v-spacer></v-spacer>
       <v-text-field
         class="w-50"
+        :item="filteredVideos"
         density="compact"
         variant="solo"
         label="Search here"
         append-inner-icon="mdi-magnify"
+        v-model="searchQuery"
+        @keyup.enter="searchVideos"
         single-line
         hide-details
         rounded="pill"
@@ -112,7 +122,7 @@
         @show="handOver"
         @isShow="handOverIsShowLogin"
       />
-      <ChannelDialog v-if="showChannelDialog" />
+      <ChannelDialog v-model="showChannelDialog" @haveChannel="createChannel" />
       <RegisterForm
         v-model="registerForm"
         @show="handOver"
@@ -127,14 +137,13 @@
 import ChannelDialog from "../Dialog/ChannelDialog.vue";
 import LoginForm from "../LoginComponent.vue";
 import RegisterForm from "../RegisterComponent.vue";
-import NotificationDialog from "../Dialog/NotificationDialog.vue"
+import NotificationDialog from "../Dialog/NotificationDialog.vue";
 export default {
   components: {
     LoginForm,
     RegisterForm,
     NotificationDialog,
-    ChannelDialog
-
+    ChannelDialog,
   },
   data() {
     return {
@@ -144,6 +153,8 @@ export default {
         email: "",
         user_id: "",
       },
+      searchQuery: "",
+      filteredVideos: [],
       dialog: false,
       drawer: false,
       profiles: [
@@ -173,27 +184,27 @@ export default {
       channel: [],
       haveChannel: false,
       profilePictureUrl: require("@/assets/users.jpg"),
+      notifications: [],
     };
   },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    },
-  },
-  computed: {
-    getReady() {
-      if (
-        this.user.token != "" &&
-        this.user.full_name != "" &&
-        this.user.user_id != "" &&
-        this.user.email
-      ) {
-        return true;
-      }
-      return false;
-    },
-  },
   methods: {
+    getVideos: function () {
+      this.$http.get(`/allVideos`).then((response) => {
+        this.listVideos = response.data;
+      });
+    },
+    getNotifications() {
+      this.$http
+        .get("/notification", {
+          headers: { Authorization: `Bearer ${this.user.token}` },
+        })
+        .then((response) => {
+          this.notifications = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
     logout() {
       this.$http
         .post(`/logout`, null, {
@@ -226,32 +237,34 @@ export default {
         .then((response) => {
           this.channel = response.data.data;
           this.haveChannel = true;
-          document.cookie = "channel_id="+ this.channel.id
+          document.cookie = "channel_id=" + this.channel.id;
         })
         .catch((error) => {
           console.log(error.message);
         });
     },
-    querySelections() {
-      this.$http
-        .get(`/videos/${this.select}`)
-        .then((response) => {
-          this.loading = true;
-          // set this.videos to the response data
-          this.videos = response.data.data;
-          this.listVideos = this.videos.filter((e) => {
-            return e.title.toLowerCase().includes(this.search.toLowerCase());
-          });
-          this.loading = false;
-        }, 500)
-        .catch((error) => {
-          console.log(error.message);
+    searchVideos() {
+      this.filteredVideos = [];
+      const videos = this.listVideos;
+      videos.forEach((video) => {
+        if (
+          video.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        ) {
+          this.filteredVideos.push(video);
+        }
+      });
+      if (this.filteredVideos.length > 0) {
+        this.$router.push({
+          name: "search",
+          params: {
+            title: this.searchQuery,
+          },
         });
+      }
     },
     handOverIsShowLogin(item) {
       this.getDataFromCookies();
       this.loginForm = item;
-      console.log(this.loginForm);
     },
     handOverIsShowRegister(item) {
       this.getDataFromCookies();
@@ -295,8 +308,13 @@ export default {
   },
   mounted() {
     this.getDataFromCookies();
+    this.getNotifications();
     this.querySelections();
     this.getChannel();
+    this.getVideos();
+    this.$http.get(`/allVideos`).then((response) => {
+      this.listVideos = response.data;
+    });
   },
 };
 </script>
