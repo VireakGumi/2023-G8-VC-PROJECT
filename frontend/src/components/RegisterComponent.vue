@@ -99,34 +99,6 @@
 
             <v-card-text class="text-center">
               <a class="text-blue text-decoration-none">
-                <p>Register with social accounts</p>
-              </a>
-            </v-card-text>
-
-            <div class="d-flex justify-center justify-space-evenly">
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/google.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/facebook.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="32"
-                :src="require('@/assets/twitter.png')"
-              ></v-img>
-              <v-img
-                class="my-2"
-                max-width="25"
-                :src="require('@/assets/instagrame.png')"
-              ></v-img>
-            </div>
-            <v-card-text class="text-center">
-              <a class="text-blue text-decoration-none">
                 <p>
                   Have an accounts?
                   <span class="login" @click="setForm">Login</span>
@@ -188,20 +160,35 @@ export default {
       }
     },
     Register() {
+      const now = new Date();
+      const expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // set the expiration time to 30 days from now
+      const cookieOptions = {
+        expires: expires,
+        path: "/", // set the path to the root directory so the cookie can be accessed across the site
+      };
       let value = {
         full_name: this.full_name,
         email: this.email,
         password: this.password,
-        confirm_password: this.confirmPassword,
+        comfirm_password: this.confirmPassword,
       };
+      console.log(value);
       this.$http
         .post("/register", value)
         .then((response) => {
-          document.cookie = "token=" + response.data.token;
-          document.cookie = "user_id=" + response.data.user.id;
-          document.cookie = "full_name=" + response.data.user.full_name;
-          document.cookie = "email=" + response.data.user.email;
-          document.cookie = "user_role=" + this.userRole(response.data.user.role_id);
+          this.$cookies.set("token", response.data.token, cookieOptions);
+          this.$cookies.set("user_id", response.data.user.id, cookieOptions);
+          this.$cookies.set(
+            "full_name",
+            response.data.user.full_name,
+            cookieOptions
+          );
+          this.$cookies.set("email", response.data.user.email, cookieOptions);
+          this.$cookies.set(
+            "user_role",
+            this.userRole(response.data.user.role_id),
+            cookieOptions
+          );
           this.full_name = "";
           this.email = "";
           this.password = "";

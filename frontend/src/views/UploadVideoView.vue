@@ -26,7 +26,7 @@
         class="mr-6 ml-8 mr-2"
         rounded="pill"
         prepend-icon="mdi-laptop-account"
-        @click="haveChannel = true"
+        @click="showChannelDialog = true"
         v-if="channel=='' && token"
       >
         Create Channel
@@ -52,7 +52,7 @@
       @isShow="handOverIsShowRegister"
     />
     <upload-dialog v-if="upload" @upload="uploadFile"></upload-dialog>
-    <channel-dialog v-if="haveChannel" @haveChannel="createChannel"></channel-dialog>
+    <channel-dialog :showChannelDialog="showChannelDialog" @haveChannel="createChannel"></channel-dialog>
   </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
       },
       token: "",
       channel: '',
-      haveChannel: false,
+      showChannelDialog: false,
     };
   },
 
@@ -89,9 +89,9 @@ export default {
     uploadFile() {
       this.upload = false;
     },
-    createChannel() {
+    createChannel(item) {
+      this.showChannelDialog = item;
       this.getChannel();
-      this.haveChannel = false;
     },
     setUpload() {
       this.$emit("show", { register: true, login: false });

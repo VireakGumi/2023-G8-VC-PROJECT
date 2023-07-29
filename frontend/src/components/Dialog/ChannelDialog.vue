@@ -139,7 +139,6 @@ export default {
           .then((response) => {
             console.log(response);
             this.$emit("haveChannel", false);
-            window.location.reload();
           })
           .catch((error) => {
             console.log(error.message);

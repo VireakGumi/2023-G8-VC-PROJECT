@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="" width="100%">
+  <v-layout class="mt-7"  width="100%">
     <v-row class="pa-7" cols="12">
       <v-col cols="12" md="8">
         <v-row>
@@ -67,140 +67,69 @@
             <div class="ml-2">
               <div>
                 <h3 style="margin-left: 10px">{{ video.title }}</h3>
-                <v-row
-                  style="
+                <v-row style="
                     margin: 1px;
                     display: flex;
                     justify-content: space-between;
-                  "
-                >
+                  ">
                   <v-col class="d-flex flex align-center pa-0" width="100%">
-                    <img
-                      :src="video.Channel_profile"
-                      style="border-radius: 50%"
-                      width="40"
-                      height="40"
-                    />
+                    <img :src="video.Channel_profile" style="border-radius: 50%" width="40" height="40" />
                     <div class="ml-2">
                       <h4>{{ video.Channel_name }}</h4>
-                      <p>100K follower</p>
+                      <p>{{ this.allFollowers.length }} follower</p>
                     </div>
                   </v-col>
 
                   <v-col class="like-container pa-0">
-                    <v-btn
-                      class="ma-1"
-                      height="50px"
-                      rounded
-                      :class="{ 'blue--text': isClicked }"
-                      variant="text"
-                      @click="(isClicked = !isClicked), clickfollow()"
-                    >
+                    <v-btn class="ma-1" height="50px" rounded :class="{ 'blue--text': isClicked }" variant="text"
+                      @click="clickfollow()" v-if="video.channel_id != this.channel_id">
                       {{ Followtext }}
                     </v-btn>
                     <div class="d-flex align-center mx-2">
-                      <v-btn
-                        class="ma-1"
-                        :class="{ 'blue--text': isLiked }"
-                        variant="text"
-                        @click="addLike"
-                        icon="mdi-thumb-up"
-                      ></v-btn>
+                      <v-btn class="ma-1" :class="{ 'blue--text': isLiked }" variant="text" @click="addLike"
+                        icon="mdi-thumb-up"></v-btn>
                       <p class="">{{ likes.length }}</p>
                     </div>
 
-                    <v-btn
-                      class="ma-1"
-                      variant="text"
-                      @click="dialog = true"
-                      icon="mdi-share"
-                    ></v-btn>
-                    <v-btn
-                      class="ml-1"
-                      variant="text"
-                      icon="mdi-download"
-                      @click="download"
-                    ></v-btn>
 
-                    <v-btn
-                      class="ml-2 text-white"
-                      dark
-                      large
-                      @click="showDialog = true"
-                      icon="mdi-flag-outline"
-                    ></v-btn>
-                    <report-dialog v-if="showDialog"></report-dialog>
+                    <v-btn class="ma-1" variant="text" @click="dialog = true" icon="mdi-share"></v-btn>
+                    <v-btn class="ml-1" variant="text" icon="mdi-download" @click="download"></v-btn>
 
-                    <v-dialog
-                      v-model="dialog"
-                      max-width="500"
-                      style="background-color: #00000094"
-                    >
+
+                    <v-btn class="ml-2 text-white" dark large @click="showReport" icon="mdi-flag-outline"></v-btn>
+                    <report-dialog v-if="showDialog" @show="handOver"></report-dialog>
+
+                    <v-dialog v-model="dialog" max-width="500" style="background-color: #00000094">
                       <v-card style="background-color: #1b242e">
-                        <v-btn
-                          icon="mdi-close"
-                          class="ma-1"
-                          variant="text"
-                          @click="dialog = false"
-                        ></v-btn>
-                        <div
-                          style="
+                        <v-btn icon="mdi-close" class="ma-1" variant="text" @click="dialog = false"></v-btn>
+                        <div style="
                             width: 500px;
                             display: flex;
                             justify-content: center;
-                          "
-                        >
+                          ">
                           <div>
-                            <img
-                              @click="shareFacebook"
-                              class="ma-3"
-                              width="50"
-                              :src="require('@/assets/facebook.png')"
-                              alt=""
-                            />
+                            <img @click="shareFacebook" class="ma-3" width="50" :src="require('@/assets/facebook.png')"
+                              alt="" />
                           </div>
                           <div>
-                            <img
-                              @click="shareTelegram"
-                              class="ma-3"
-                              width="50"
-                              :src="require('@/assets/Telegram.png')"
-                              alt=""
-                            />
+                            <img @click="shareTelegram" class="ma-3" width="50" :src="require('@/assets/Telegram.png')"
+                              alt="" />
                           </div>
                           <div>
-                            <img
-                              @click="shareInstagram"
-                              class="ma-3"
-                              width="50"
-                              :src="require('@/assets/instagrame.png')"
-                              alt=""
-                            />
+                            <img @click="shareInstagram" class="ma-3" width="50" :src="require('@/assets/instagrame.png')"
+                              alt="" />
                           </div>
                           <div>
-                            <img
-                              @click="shareTwitter"
-                              class="ma-3"
-                              width="50"
-                              :src="require('@/assets/twitter1.png')"
-                              alt=""
-                            />
+                            <img @click="shareTwitter" class="ma-3" width="50" :src="require('@/assets/twitter1.png')"
+                              alt="" />
                           </div>
                         </div>
                         <v-card-text>
                           <div class="d-flex flex">
                             <v-card-text>
                               <div class="d-flex flex">
-                                <v-text-field
-                                  :value="url"
-                                  required
-                                ></v-text-field>
-                                <v-btn
-                                  class="ma-1"
-                                  variant="text"
-                                  @click="clickShare"
-                                  icon="mdi-content-copy"
-                                ></v-btn>
+                                <v-text-field :value="url" required></v-text-field>
+                                <v-btn class="ma-1" variant="text" @click="clickShare" icon="mdi-content-copy"></v-btn>
                               </div>
                             </v-card-text>
                           </div>
@@ -211,10 +140,7 @@
                 </v-row>
               </div>
             </div>
-            <div
-              class="mt-2 ml-2 rounded-lg"
-              style="padding: 7px; background-color: rgb(43, 52, 65)"
-            >
+            <div class="mt-2 ml-2 rounded-lg" style="padding: 7px; background-color: rgb(43, 52, 65)">
               <v-col>
                 <v-row rows="4" sm="4" md="4">
                   <h4 class="mr-2">
@@ -237,42 +163,25 @@
             <div class="ml-2 mt-2" width="720">
               <div>
                 <div class="d-flex flex">
-                  <img
-                    :src="video.thumbnail"
-                    style="
+                  <img src="@/assets/users.jpg" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
                       border-radius: 50%;
-                    "
-                    width="45"
-                    height="45"
-                  />
-                  <v-text-field
-                    label="comment..."
-                    class="my-text-field"
-                    v-model="comments"
-                    v-on:keyup.enter="addComment"
-                  ></v-text-field>
+                    " width="45" height="45" />
+                  <v-text-field label="comment..." class="my-text-field" v-model="comments"
+                    v-on:keyup.enter="addComment"></v-text-field>
                 </div>
               </div>
               <div>
-                <div
-                  v-for="comment of allComments.slice().reverse()"
-                  :key="comment"
-                  class="d-flex align-start my-3 text-no-wrap"
-                >
-                  <img
-                    :src="video.thumbnail"
-                    style="
+                <div v-for="comment of allComments.slice().reverse()" :key="comment"
+                  class="d-flex align-start my-3 text-no-wrap">
+                  <img src="@/assets/users.jpg" style="
                       margin-top: 10px;
                       margin-left: 10px;
                       margin-right: 2px;
                       border-radius: 50%;
-                    "
-                    width="40"
-                    height="40"
-                  />
+                    " width="40" height="40" />
                   <div class="mt-3 ml-4 d-flex flex-column w-75">
                     <h5>{{ comment.user.full_name }}</h5>
                     <p class="text-wrap w-100 mt-1">
@@ -287,19 +196,13 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-row>
-          <CardDetail
-            class="mb-3 ml-3"
-            rounded="50"
-            color="#1b242e"
-            v-for="(video, index) in videos"
-            :key="index"
-            :video="video"
-            @click="createHistory"
-            @click.stop="clickvideo(video.id, video.categories_id)"
-          />
+          <CardDetail class="mb-3 ml-3" rounded="50" color="#1b242e" v-for="(video, index) in videos" :key="index"
+            :video="video" @click="createHistory" @click.stop="clickvideo(video.id, video.categories_id)" />
         </v-row>
       </v-col>
+      <MessageDialog v-if="checking" />
     </v-row>
+
   </v-layout>
 </template>
 <script>
@@ -307,14 +210,16 @@ import router from "@/router";
 
 import CardDetail from "@/components/Cards/CardDetail.vue";
 import MyCardVue from "@/components/Cards/MyCard.vue";
-import ReportDialog from "../components/Dialog/ReportDialog.vue";
+import ReportDialog from '../components/Dialog/ReportDialog.vue';
+import MessageDialog from '../components/Dialog/MessageDialog.vue';
 export default {
   name: "VuePlyrVideo",
-  components: { CardDetail, ReportDialog },
+  components: { CardDetail, ReportDialog, MessageDialog },
   data: () => ({
     options: { quality: { default: "1080p" } },
     id: "",
     showDialog: false,
+    messageDialing: false,
     counter: 7,
     interval: null,
     components: { MyCardVue },
@@ -329,9 +234,9 @@ export default {
       viewer: "",
       date_time: "",
       user: "",
-      channel_id: "",
-      channel_name: "",
-      channel_profile: "",
+      Channel_id: "",
+      Channel_name: "",
+      Channel_profile: "",
     },
     Followtext: "Follow",
     day: null,
@@ -348,17 +253,83 @@ export default {
     allComments: [],
     likes: [],
     videoId: "",
+    allFollowers: [],
+    channel_id: "",
   }),
-
+  computed: {
+    checking() {
+      return this.messageDialing;
+    }
+  },
   methods: {
-    clickfollow() {
-      if (this.isClicked == true) {
-        this.Followtext = "Followed";
+    handOver(bool) {
+      this.showDialog = bool;
+    },
+    showReport() {
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+          this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      if (token) {
+        this.showDialog = true;
       } else {
-        this.Followtext = "Follow";
+        this.messageDialing = true;
+        setTimeout(() => {
+          this.messageDialing = false;
+        }, 3000)
       }
     },
-
+    clickfollow() {
+      let token =
+        this.$cookies.get("token") !== "undefined" &&
+          this.$cookies.get("token") !== null
+          ? this.$cookies.get("token")
+          : "";
+      let data = {
+        channel_id: this.video.channel_id, date_time: new Date()
+          .toISOString()
+          .replace(/T/, " ")
+          .replace(/\..+/, ""),
+      }
+      if (token) {
+        this.isClicked = !this.isClicked
+        if (this.isClicked == true) {
+          this.$http.post('/follower', data, { headers: { Authorization: `Bearer ${token}` } }).then((response) => {
+            this.Followtext = "Followed";
+            console.log(response.data);
+            this.getAllFollwer();
+          }).catch((error) => { console.log(error.message) });
+        } else {
+          this.$http.delete('/follower/' + this.video.channel_id, { headers: { Authorization: `Bearer ${token}` } }).then((response) => {
+            this.Followtext = "Follow";
+            console.log(response.data);
+            this.getAllFollwer();
+          }).catch((error) => { console.log(error.message) });
+        }
+      } else {
+        this.messageDialing = true;
+        setTimeout(() => {
+          this.messageDialing = false;
+        }, 3000)
+      }
+    },
+    getAllFollwer() {
+      let user_id =
+        this.$cookies.get("user_id") !== "undefined" &&
+          this.$cookies.get("user_id") !== null
+          ? this.$cookies.get("user_id")
+          : "";
+      this.$http.get('/follower/' + this.video.channel_id).then((response) => {
+        this.allFollowers = response.data.data;
+        for (let follower of this.allFollowers) {
+          if (follower.user_id == user_id) {
+            this.isClicked = !this.isClicked
+            this.Followtext = "Followed";
+          }
+        }
+      }).catch((error) => { console.log(error.message) });
+    },
     download() {
       this.$http
         .get(`/video/id/${this.videoId}`)
@@ -382,7 +353,7 @@ export default {
           this.likes = response.data.data;
           let user_id =
             this.$cookies.get("user_id") !== "undefined" &&
-            this.$cookies.get("user_id") !== null
+              this.$cookies.get("user_id") !== null
               ? this.$cookies.get("user_id")
               : "";
           for (let like of this.likes) {
@@ -396,10 +367,10 @@ export default {
         });
     },
     addLike() {
-      this.isLiked = !this.isLiked;
+
       let token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       let data = {
@@ -409,36 +380,47 @@ export default {
           .replace(/T/, " ")
           .replace(/\..+/, ""),
       };
-      if (this.isLiked) {
-        this.$http
-          .post("/likes", data, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((response) => {
-            console.log(response.data);
-            this.getLikes();
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
+      if (token != "") {
+        this.isLiked = !this.isLiked;
+        if (this.isLiked) {
+          this.$http
+            .post("/likes", data, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.getLikes();
+            })
+            .catch((e) => {
+              console.log(e.message);
+            });
+        } else {
+          this.$http
+            .delete(`/likes/${this.video.id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.getLikes();
+            })
+            .catch((e) => {
+              console.log(e.message);
+            });
+        }
       } else {
-        this.$http
-          .delete(`/likes/${this.video.id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((response) => {
-            console.log(response.data);
-            this.getLikes();
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
+        this.messageDialing = true;
+        this.getLikes();
+        setTimeout(() => {
+          this.messageDialing = false;
+
+        }, 3000)
       }
+
     },
     addComment() {
       let token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
       let data = {
@@ -449,19 +431,28 @@ export default {
           .replace(/T/, " ")
           .replace(/\..+/, ""),
       };
-      if (this.comments) {
-        this.$http
-          .post("/comments", data, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((response) => {
-            console.log(response.data);
-            this.getAllComments();
-            this.comments = "";
-          })
-          .catch((e) => {
-            console.log(e.message);
-          });
+      if (token) {
+        if (this.comments) {
+          this.$http
+            .post("/comments", data, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.getAllComments();
+              this.comments = "";
+            })
+            .catch((e) => {
+              console.log(e.message);
+            });
+        }
+      } else {
+        this.messageDialing = true;
+        this.getAllComments();
+        setTimeout(() => {
+          this.messageDialing = false;
+
+        }, 3000)
       }
     },
     async getAllComments() {
@@ -599,7 +590,7 @@ export default {
           this.video = data;
           this.video.date_time = duration;
           this.getVideos();
-
+          this.getAllFollwer();
           this.getAllComments();
           this.getLikes();
         })
@@ -640,7 +631,7 @@ export default {
     createHistory() {
       let token =
         this.$cookies.get("token") !== "undefined" &&
-        this.$cookies.get("token") !== null
+          this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
 
@@ -712,6 +703,11 @@ export default {
     this.videoId = this.$route.params.id;
     this.getVideosById();
     this.clickfollow();
+    this.channel_id =
+        this.$cookies.get("channel_id") !== "undefined" &&
+          this.$cookies.get("channel_id") !== null
+          ? this.$cookies.get("channel_id")
+          : "";
     this.favorites = this.$cookies.get("favorites");
     this.copylink();
   },
@@ -766,8 +762,8 @@ export default {
   width: 100%;
   height: 105%;
   text-align: center;
-  margin-top: -49%;
+  margin-top: -50%;
   position: relative;
-  background: black;
+  background: rgba(0, 0, 0, 0.822);
 }
 </style>
