@@ -1,13 +1,17 @@
 <template>
-  <div id="report" class="fill-height ">
-    <div class="ma-4">
+  <div id="report" class="fill-height pa-4 bg-blue-grey-darken-4 text-white">
+    <div>
       <v-text class="text-h4 font-weight-black ml-4">Report</v-text>
       <p class="ml-4">Here are the lists of video that users report.</p>
-      <v-btn active class="ml-4 mt-4 rounded-xl text-body-2 my-5">All reports</v-btn>
-      <v-btn class="ml-4 mt-4 rounded-xl text-body-2 my-5">Currently reports</v-btn>
+      <v-btn active class="ml-4 mt-4 rounded-xl text-body-2 my-5"
+        >All reports</v-btn
+      >
+      <v-btn class="ml-4 mt-4 rounded-xl text-body-2 my-5"
+        >Currently reports</v-btn
+      >
       <v-table class="fill-height">
         <thead>
-          <tr >
+          <tr class="bg-blue-grey-darken-4">
             <th class="text-center text-white">User Name</th>
             <th class="text-center text-white">Content Video</th>
             <th class="text-center text-white">Type's Report</th>
@@ -17,7 +21,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.name">
+          <tr
+            v-for="user in users"
+            :key="user.name"
+            class="bg-blue-grey-darken-4"
+          >
             <td>
               <img
                 src="https://w7.pngwing.com/pngs/1003/701/png-transparent-dog-walking-pet-sitting-dog-food-dog-animals-pet-dog-like-mammal.png"
@@ -107,12 +115,8 @@ img {
   height: 40px;
   border-radius: 50%;
 }
-#report {
-  color: rgb(255, 255, 255);
-  background-color:  #252525;
-}
-td,th{
-  background:#252525 ;
+td,
+th {
   border-collapse: collapse;
 }
 </style>

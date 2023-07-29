@@ -217,7 +217,7 @@ class VideoController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $video = $user->videos->find($id);
+        $video = $user->channel->videos->find($id);
         if ($video) {
             $video->delete();
             return response()->json(['success' => true, 'message' => 'You have delete the successfully ',], 200);
@@ -245,7 +245,6 @@ class VideoController extends Controller
         $isThumbnailUploaded = Storage::disk('public')->put('image/' . $thumbNail, file_get_contents($request->thumbnail));
         // File URL to access the video in frontend
         $url = Storage::disk('public')->url('videos/' . $fileName);
-
         if ($isFileUploaded && $isThumbnailUploaded) {
             $video = Video::create($video);
             $notificationController = new NotificationController();

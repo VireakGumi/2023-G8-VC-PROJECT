@@ -20,7 +20,8 @@
     </v-tabs>
   </v-sheet>
   <v-window v-if="clicked" v-model="tab">
-    <v-window-item
+    <v-window-item 
+      class="fill-height"
       v-for="category in categories"
       :key="category"
       :value="category.id"
@@ -38,7 +39,7 @@
           ></VideoCard>
         </v-row>
       </v-card>
-      <v-container v-else class="ma-16 pa-6 d-flex justify-center"
+      <v-container v-else class="fill-height d-flex justify-center"
         ><h1>{{ message }}</h1></v-container
       >
     </v-window-item>
@@ -94,4 +95,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="mb-4"> 
+  <v-app class="fill-height"> 
     <v-app-bar app theme="dark">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- <v-toolbar-title>ADMIN</v-toolbar-title> -->
@@ -17,7 +17,7 @@
         rounded="pill"></v-text-field>
       <v-spacer></v-spacer>
       <v-btn class="text-none" @click="dialog = !dialog" icon v-if="user.token">
-        <v-badge content="2" color="error">
+        <v-badge :content=notifications.length color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
         <notification-dialog v-if="dialog"></notification-dialog>
@@ -246,7 +246,6 @@ export default {
           this.$cookies.get("token") !== null
           ? this.$cookies.get("token")
           : "";
-      console.log(this.user);
     },
     deleteCookie() {
       this.$cookies.remove("user_id");

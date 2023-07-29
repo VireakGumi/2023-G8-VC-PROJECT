@@ -32,7 +32,7 @@ class StoreRegisterRequest extends FormRequest
             'full_name'=> 'required|string',
             'email'=> 'required|email|unique:users',
             'password'=> 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
-            'comfirm_password'=> 'required_with:password|same:password|min:8',
+            'confirm_password'=> 'required_with:password|same:password|min:8',
         ];
     }
 }

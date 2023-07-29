@@ -1,24 +1,16 @@
 <template>
-  <v-app style="background-color: #252525; color: white">
-    <a href="#" class="play"><img src="../../assets/video-play.png" width="20" height="20" alt="" />Play all</a>
-    <p class="video">Videos</p>
-    <v-container fluid>
-      <v-row>
-        <v-col class="mx-8">
-          <v-card v-if="!isClick" class="card-container ">
-            <v-row class="d-flex justify-center w-100 pt-5">
-              <VideoCard color="#252525" v-for="(video, index) in linkVideos" :key="index" :video="video" class="ma-3"
-                @click="playVideo(video.id, video.categories_id)" />
-            </v-row>
-          </v-card>
-        </v-col>
-
+  <v-app color="#252525">
+    <v-card color="#252525" class="w-100">
+      <v-row class="d-flex justify-space-evenly">
+        <VideoCard color="#252525" v-for="(video, index) in linkVideos" :key="index" :video="video" 
+          @click="playVideo(video.id, video.categories_id)" />
       </v-row>
-    </v-container>
+    </v-card>
   </v-app>
 </template>
-
+/
 <script>
+import router from "@/router";
 import VideoCard from "../Cards/VideoCard.vue"
 export default {
   name: "App",
@@ -31,6 +23,20 @@ export default {
     };
   },
   methods: {
+    async playVideo(id, categories_id) {
+      document.cookie = "favorites=" + categories_id;
+      this.$http
+        .get("videos/viewer/" + id)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      document.cookie = "favorites=" + categories_id;
+      await router.push({ name: "videodetail", params: { id: id } });
+      window.location.reload();
+    },
     truncatedDescription(character) {
       const maxChars = 100;
       if (character.length > maxChars) {
@@ -43,7 +49,6 @@ export default {
       const now = new Date();
       const dateTime = new Date(dateTimeString);
       const diffInMilliseconds = now.getTime() - dateTime.getTime();
-      console.log(diffInMilliseconds)
       let duration;
       if (diffInMilliseconds < 60 * 1000) {
         duration = Math.floor(diffInMilliseconds / 1000) + " second";
@@ -90,14 +95,6 @@ export default {
 </script>
 
 <style scoped>
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0;
-  background-color: #252525;
-}
-
 .population {
   margin-left: 3.5%;
 }

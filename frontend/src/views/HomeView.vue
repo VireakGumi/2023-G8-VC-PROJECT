@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fill-height">
     <SlideShow />
     <Category :clicked="isClick" @isShow="handOver" />
     <v-card v-if="!isClick"  class="card-container">

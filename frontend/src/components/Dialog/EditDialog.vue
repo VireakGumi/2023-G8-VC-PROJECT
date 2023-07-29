@@ -174,24 +174,24 @@ export default {
       ) {
         this.postInfo = false;
         this.uploading = true;
-        let formData = new FormData();
+        const now = new Date();
+        const date = now.toISOString().slice(0, 10);
+        const time = now.toLocaleTimeString("en-US", { hour12: false });
+        const dateTime = `${date} ${time}`;
+        const formData = new FormData();
         formData.append("title", this.title);
         formData.append("description", this.description);
         formData.append("thumbnail", this.thumbnail[0]);
-        formData.append(
-          "date_time",
-          new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")
-        );
+        formData.append("date_time", dateTime);
         formData.append("privacy", this.privacy);
         formData.append("categories_id", this.getCategoryID(this.category));
-        formData.append("_method", "PUT"); // Add this line to indicate that it's a PUT request
-
+        formData.append("_method", "PUT");
         this.$http
-          .put(`/videos/${this.videoData.id}`, formData, {
+          .post(`/videos/${this.videoData.id}`, formData, {
             headers: {
               Authorization: "Bearer " + this.authToken,
               Accept: "application/json",
-              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+              "Content-Type": "multipart/form-data",
             },
             onUploadProgress: (progressEvent) => {
               let progress = Math.round(
