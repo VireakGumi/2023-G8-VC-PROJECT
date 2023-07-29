@@ -59,9 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/channels/{id}', [ChannelController::class, 'destroy']);
     Route::get('/user/channels', [ChannelController::class, 'show'])->name('user.channels');
     Route::get('/channels', [ChannelController::class, 'index']);
-    Route::get('/report', [ReportController::class, 'getVideos']);
-    Route::delete('/report/{id}', [ReportController::class, 'destroy']);
-    Route::delete('/videosById/{id}', [VideoController::class, 'deleteVideo']);
     Route::post('/reports', [ReportController::class, 'store']);
     Route::get('/notification', [NotificationController::class, 'index']);
     Route::post('/notification', [NotificationController::class, 'store']);
@@ -95,3 +92,6 @@ Route::get('/videos/recommendation/{id}/{categories_id}', [VideoController::clas
 Route::get('/videos/recommendationHomePage/{categories_id}', [VideoController::class, 'videoRecommendationHomePage']);
 Route::get('/videos/viewer/{id}', [VideoController::class, 'storeViewer']);
 Route::get('/channel', [ChannelController::class, 'index']);
+Route::get('/report', [ReportController::class, 'getVideos']);
+Route::delete('/report/{id}', [ReportController::class, 'destroy']);
+Route::delete('/videosById/{id}', [VideoController::class, 'deleteVideo']);
