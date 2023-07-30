@@ -134,7 +134,6 @@ export default {
         { title: "Home", icon: "mdi-home", to: "/" },
         { title: "Board", icon: "mdi-view-dashboard", to: "/dashboard" },
         { title: "User", icon: "mdi-account", to: "/user-list" },
-        { title: "Video", icon: "mdi-video", to: "/video" },
         { title: "Video Report", icon: "mdi-video-off", to: "/report" },
       ],
       profilePictureUrl: require("@/assets/users.jpg"),

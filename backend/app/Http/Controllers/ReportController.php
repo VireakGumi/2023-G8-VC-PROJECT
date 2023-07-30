@@ -54,8 +54,6 @@ class ReportController extends Controller
      */
     public function destroy(string $id)
     {
-        // $report = Auth::user()->report->find($id);
-        // $report ->delete();
         $report = Report::find($id)->delete();
         return $report;
     }

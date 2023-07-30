@@ -834,6 +834,8 @@ export default {
   },
   created() {
     this.videoId = this.$route.params.id;
+    this.getVideosById();
+    this.clickfollow();
     this.channel_id =
       this.$cookies.get("channel_id") !== "undefined" &&
       this.$cookies.get("channel_id") !== null

@@ -170,8 +170,9 @@ export default {
         full_name: this.full_name,
         email: this.email,
         password: this.password,
-        confirm_password: this.confirmPassword,
+        comfirm_password: this.confirmPassword,
       };
+      console.log(value);
       this.$http
         .post("/register", value)
         .then((response) => {

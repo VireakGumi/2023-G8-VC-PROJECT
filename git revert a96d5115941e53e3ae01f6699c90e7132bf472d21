@@ -1,0 +1,1550 @@
+[33mcommit a96d5115941e53e3ae01f6699c90e7132bf472d2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Fri Jul 28 09:01:42 2023 +0700
+
+    fix the protect route
+
+[33mcommit 42e3f6487459ccb31e1258dc31eb7236753bb826[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 28 08:58:41 2023 +0700
+
+    fix navbar
+
+[33mcommit c8bb3c35fde6f6cbb9cfdf789cb6011fd8b1a287[m
+Merge: d772edd 1b6f4c4
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 23:32:09 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit d772edd968af7e42e546560e5a050f33d2c839b4[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 23:32:00 2023 +0700
+
+    create protect route
+
+[33mcommit 1b6f4c4ecd60587c4585fb0d1d98af42017446ce[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 27 20:57:10 2023 +0700
+
+    fix bug on admin page
+
+[33mcommit 25ffdc98ea7e90681ce80ff03f5eadd0610fa13c[m
+Merge: b282faf e3e526d
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 27 19:52:54 2023 +0700
+
+    pull
+
+[33mcommit b282faf4611a9e155c99b04b9fded26c6e1a2b5b[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 27 19:48:14 2023 +0700
+
+    fix
+
+[33mcommit e3e526d39b744af9ea407ffcea1d286cd7322cc6[m
+Merge: c943a2c 4fd5a97
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 16:53:13 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit c943a2c9fd01c58a43c83740d47f2009e46e2acf[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 16:52:53 2023 +0700
+
+    [VC2-97] Get data when content creator post videos and send it to baack-end.
+
+[33mcommit 4fd5a974f46042153b39f64dbe007a3473a4c0f8[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 27 16:40:03 2023 +0700
+
+    [VC2-117] make form for report the videos
+
+[33mcommit 54236baba5f4926a11eccf088f43389e90be6447[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 27 16:28:17 2023 +0700
+
+    [VC2-117] make form for report the videos
+
+[33mcommit d8b5982a1793166806c25d31a1c126195aa9da6f[m
+Merge: 2743c21 3384427
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 27 16:23:23 2023 +0700
+
+    [VC2-117] make form for report the videos
+
+[33mcommit 2743c2112422d4ad34f974419cc7fb3aa259e812[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 27 16:23:03 2023 +0700
+
+    [VC2-117] make form for report the videos
+
+[33mcommit 33844272529b6cea24b812390c7a173c52f0d6c7[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Thu Jul 27 14:04:13 2023 +0700
+
+    Update share social media
+
+[33mcommit b73e5f96977830837c205ad3a71556c0c15aa225[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 13:04:13 2023 +0700
+
+    fix videoDetail
+
+[33mcommit 278d1a285c3d496ea57a76d2ad93fa64670c5da7[m
+Merge: fe30ea8 8b27a7b
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 13:03:21 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit fe30ea8f5d4a77b0a0eb829b6313953d0d87f1ed[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 13:02:43 2023 +0700
+
+    fix videoDetail
+
+[33mcommit 8b27a7bd5766b1c1e5e6e85fcfdbb1ddeed73e97[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 10:09:01 2023 +0700
+
+    add
+
+[33mcommit 35eca19ac0d20f82d1837ac188d97b11c7b36d33[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 09:37:24 2023 +0700
+
+    pull
+
+[33mcommit 57d84d5a93d03adfedd73cb2f88e7b654be954cf[m
+Merge: 0fa4c00 a2b4d3f
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 09:25:12 2023 +0700
+
+    pull
+
+[33mcommit 0fa4c002eb552f87563a03dd30ea9310aa2d1503[m
+Merge: 4188200 4361d85
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 08:57:46 2023 +0700
+
+    merge adminPage
+
+[33mcommit a2b4d3f58fa0540c6677308d8e0a8739bcf46728[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 08:53:42 2023 +0700
+
+    add
+
+[33mcommit d47059fc11bc54c0f0b4c3bf3043e61a2a7a3158[m
+Merge: 3152ed9 69fd3ae
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 08:50:31 2023 +0700
+
+    merge
+
+[33mcommit 4361d85edc8669edb03dbd6d20f8429620836343[m[33m ([m[1;31morigin/adminPage[m[33m)[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 08:30:59 2023 +0700
+
+    [VC2-97] Get data when content creator post videos and send it to baack-end.
+
+[33mcommit 78bf4645a80e4bd8b9fb56b1a9fe3fb0a2ce635c[m
+Merge: 7e76d92 0a6c5ee
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 08:28:25 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit 7e76d923d54e55c06f1fe2e44823f5d38b28e96e[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 08:28:17 2023 +0700
+
+    [VC2-97] Get data when content creator post videos and send it to baack-end.
+
+[33mcommit 3152ed9e329df3c8db0f51a272e971449b671c1e[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 08:26:20 2023 +0700
+
+    add
+
+[33mcommit 0a6c5eed79b4a5c8091f6e44460ac687a8ebf88f[m
+Merge: 526e2a5 6076185
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 27 08:21:45 2023 +0700
+
+    [#VC2-103] fix backend and edit user list in admin page
+
+[33mcommit 526e2a5700da15023e9ea9770edeba41ea7498a5[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 27 08:20:09 2023 +0700
+
+    [#VC2-103] fix backend and edit user list in admin page
+
+[33mcommit d7b276ab98deea0d39703caef3565e423b1403ca[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 08:07:23 2023 +0700
+
+    noting
+
+[33mcommit aeeecfc43cfe50e8661cf5998da3fd97daedb751[m
+Merge: 997d184 4188200
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 00:13:09 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit 997d18406fb843b66a392d43f1d1ed8fd06ce961[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 27 00:07:13 2023 +0700
+
+    [VC2-129] created function to to follow and get the follower for backend
+
+[33mcommit 4188200d097096c3a934f6e289c6821b7323075d[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 27 00:06:01 2023 +0700
+
+    fix login
+
+[33mcommit c3db4dbd25ccea3992c0a13d15f61793cec7c193[m
+Merge: b9a32f6 09693c2
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 20:59:38 2023 +0700
+
+    merge homePage into main
+
+[33mcommit b9a32f6b826a57ac972ec9dc324fd2a87eab60ef[m
+Merge: 8d7ee41 279f399
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 20:56:49 2023 +0700
+
+    merge homePage into main
+
+[33mcommit 279f3996c0212afeddb6c051e28e9a4d5a6ea341[m[33m ([m[1;31morigin/homePage[m[33m, [m[1;32mhomePage[m[33m)[m
+Merge: c6feccd 6da68bc
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 19:59:40 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit c6feccd022fe2906f9d83c9e9a8599cae6c58951[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 19:59:34 2023 +0700
+
+    [VC2-114] create function to get the video in database.
+
+[33mcommit 60761857bb72596fb55cc7300b26ff17b523fdfe[m
+Merge: 046d861 eb161a9
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 19:57:27 2023 +0700
+
+    [VC2-102] create view by mock-up.
+
+[33mcommit 046d861cfed0bb95ef24d604781037cafb84db74[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 19:56:27 2023 +0700
+
+    [VC2-102] create view by mock-up.
+
+[33mcommit eb161a9dafd5fe836fa64bfc8dadb70e8700133c[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 19:11:44 2023 +0700
+
+    [VC2-118]Send what user choose to backend
+
+[33mcommit 6da68bc86d25ad3d164079e406ef6e449c9ae2de[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 16:30:48 2023 +0700
+
+    [VC2-113]:download video
+
+[33mcommit 5542eb79616ddc3854ecfddd2bd1c955ab0b0059[m
+Merge: da96a01 9b75c9c
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 16:28:39 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit da96a0134cd9edda1079ff850554c8ecbbe2569c[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 16:28:22 2023 +0700
+
+    [VC2-67]Create a function for share
+
+[33mcommit 9b75c9c3e22e9795182e416d81e652153b20724d[m
+Merge: 8676a44 775d3b7
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 16:24:43 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit 8676a44393b4151d1ba2ec2faf136fda609185f7[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 26 16:24:29 2023 +0700
+
+    [VC2-98]: Get data from front-end and send it back to front-end
+
+[33mcommit 769ec50b3f16a3ccc99b1963357930dce4573aa4[m
+Merge: f099dc1 775d3b7
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 10:09:43 2023 +0700
+
+    pull
+
+[33mcommit 09693c27ba1224650274ae296f2d31943abb5f38[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 26 09:40:58 2023 +0700
+
+    a
+
+[33mcommit 047673b2e8b4793a44de3a24d42088cce9df1f23[m
+Merge: 5a2f21f 8d7ee41
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 26 09:40:44 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit 5a2f21fec48e704ac4082d96e7214543e2b5324c[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 26 09:40:35 2023 +0700
+
+    [VC2-129] create channel controller
+
+[33mcommit 5c6ce845b193c30658198107ff5c4a65c227b8b8[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 26 09:38:15 2023 +0700
+
+    [VC2-129] create controller channel
+
+[33mcommit 287ea5f08ac0282e9107a18f0b5683866ae407ec[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 09:13:49 2023 +0700
+
+    [VC2-94] when click on button like or type on comment send data to back-end.
+
+[33mcommit 8d7ee41b5054d4e92ac43828ec2640849c21e04d[m[33m ([m[1;31morigin/product[m[33m)[m
+Merge: 5a366e0 7547f5b
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 07:43:45 2023 +0700
+
+    pull main
+
+[33mcommit 4865cf0cac37e4643e098f86da976bb6d6f029b4[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 26 07:38:27 2023 +0700
+
+    [VC2-94] when click on button like or type on comment send data to back-end.
+
+[33mcommit 775d3b708d16aed033f41eaaed707132f095e213[m
+Merge: 8257d36 ce8e6c6
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 20:34:13 2023 +0700
+
+    [VC2-100] create mock-up and create notification page by follow mock-up
+
+[33mcommit 8257d36f99a0b2e35e7e3806ef0f99fdb189d51c[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 20:33:47 2023 +0700
+
+    [VC2-100] create mock-up and create notification page by follow mock-up
+
+[33mcommit ce8e6c67fc690c7dc45ea197fcdb72337e517a61[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 25 19:33:44 2023 +0700
+
+    [VC2-128] create protect route
+
+[33mcommit 7547f5b0cb8de22abddf0efb98cde3196eb670ca[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 25 15:48:11 2023 +0700
+
+    change nav-bar
+
+[33mcommit 5a366e04e599afdfbbcc8eedebfb1c3487511bfe[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 25 09:43:36 2023 +0700
+
+    pull main
+
+[33mcommit ef8d7564773c48999ca312de7937e9be91503cd6[m
+Merge: 37f9730 2fae69b
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 25 09:14:04 2023 +0700
+
+    merge main to homepage
+
+[33mcommit 19cfe61e1d922e8b45e7c17a9bd03f69e48773ca[m
+Merge: d868993 34fde70
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 08:32:13 2023 +0700
+
+    [VC2-119]:create report backend
+
+[33mcommit d8689933ed5bcc994cae289051633a2de3395218[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 08:04:34 2023 +0700
+
+    [VC2-119]:create report backend
+
+[33mcommit 34fde7025d639b1c8659d0bcff1a653ab7a9f1a2[m
+Merge: eb6e8c3 f7e95f3
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 08:02:59 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit eb6e8c3d3de2f33e0f4a7bad29e4536ee877b267[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Tue Jul 25 08:00:46 2023 +0700
+
+    [VC2-117]make form for report the videos
+
+[33mcommit 5a00b9966605d5872acc52f55be1ee422e6374a8[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Mon Jul 24 20:51:59 2023 +0700
+
+    [VC2-82] add the second and the minute in card
+
+[33mcommit 69fd3ae93e0627c4b955e4d573b079ebc2561968[m[33m ([m[1;31morigin/pageContentCreator[m[33m)[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Mon Jul 24 14:33:09 2023 +0700
+
+    [VC2-57] create validation edite video
+
+[33mcommit 2fae69bc89577a6f17f98335a47f88b6579cb82c[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sat Jul 22 23:28:28 2023 +0700
+
+    add time
+
+[33mcommit 1bd64b92dc67ed51a7e13b76ce0115035f5dd2a2[m
+Merge: f192943 36189cb
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sat Jul 22 23:21:22 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit f1929438e4f9acf3c240146d64c74b773c5a3ed3[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sat Jul 22 23:21:06 2023 +0700
+
+    [VC2-81] create get the recommandation from backend to display at frontend
+
+[33mcommit f7e95f37164db78d4cad1353ea9ac7da70ab02b6[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 22 16:20:58 2023 +0700
+
+    [#VC2-103] show new user and fix bug
+
+[33mcommit cab8aa8fc5d0e7037f1a768291071d46c54cdd8c[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 22 15:34:33 2023 +0700
+
+    [#VC2-104] get data from database and provide to frontend
+
+[33mcommit 37f973037ae00fd8ea40065cc9461eb190f10d7d[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sat Jul 22 15:24:24 2023 +0700
+
+    [VC2-950] store like and comment that user have like and comment
+
+[33mcommit fffbe2db41a3d1bc480d6993b90fe8262d589c0a[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 22 15:20:50 2023 +0700
+
+    [#VC2-103] get data and show it on fron end
+
+[33mcommit 66bd151a9820ab034fa0016bfbf330aadaec9eca[m
+Merge: 4491ef3 0dcc3ed
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 21 10:13:00 2023 +0700
+
+    [VC2-57] Validation form before send to back-end~
+
+[33mcommit 36189cb5fa4fc047ab6b2591d31a690fd5af1452[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 20 14:34:33 2023 +0700
+
+    fix backend
+
+[33mcommit 2c15d736db7cdf2ce263a0a9448bd955826d2551[m
+Merge: 6e9c2bf 2626724
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 20 13:28:53 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit 6e9c2bffaf4027eeb6d3773eea613dd2a73c69fa[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 20 13:28:48 2023 +0700
+
+    get video that user report from backend
+
+[33mcommit 2626724d63b67ff33d3684b10ed2d96f95377e58[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 20 11:54:16 2023 +0700
+
+    [#VC2-103] create view of user list
+
+[33mcommit 5009e01e3564a3ccb6a8300015976c443868efaf[m
+Merge: 679a0e9 3bac6d9
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 20 08:16:12 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit 679a0e951bd952a9ded7c4f63ca4f3b203f9d520[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 20 08:16:04 2023 +0700
+
+    [VC2-109]creaview for report page
+
+[33mcommit 4491ef35144cd3824185f0c66e25bfb28b2c206f[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 20 07:40:44 2023 +0700
+
+    pull
+
+[33mcommit f099dc10a4c5b951924b6207df2d423f255be295[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 20 07:36:05 2023 +0700
+
+    [VC2-102] create view by mock-up.
+
+[33mcommit 0dcc3edb8107b9a61d46d7b753d1f7611faddc65[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Thu Jul 20 07:29:48 2023 +0700
+
+    Create validation edit dialog
+
+[33mcommit 6a748aaa4d20e4e4217f73f3fedc75d5354858cf[m
+Merge: b2da88e 3bac6d9
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 19 23:23:22 2023 +0700
+
+    Merge branch 'adminPage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into adminPage
+
+[33mcommit b2da88e186749c355e4fe1565a86ef0a1eb631e0[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 19 23:19:28 2023 +0700
+
+    [VC2-102] create view by mock-up.
+
+[33mcommit 3bac6d99277aaf34619c4e66c1be76890d676f83[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Wed Jul 19 16:35:14 2023 +0700
+
+    [#VC2-103] create navbar admin
+
+[33mcommit 51262025c4dd195e084349296b84ca5e8d594953[m
+Merge: 65b1b49 8663034
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Wed Jul 19 15:29:01 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 65b1b49331735e669dbc2a2ee2f046d2ccbb5499[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Wed Jul 19 15:28:45 2023 +0700
+
+    [VC2-115] FRONTEND: go to the next video after 7 seconds
+
+[33mcommit 8663034d8b43cfadf3069941d8745e4151e87fb5[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 19 10:22:52 2023 +0700
+
+    [VC2-92] make a page that manage videos that in playlist
+
+[33mcommit 4736ac6bac72123a6a257365b42bdd40a5a217a2[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Tue Jul 18 19:30:33 2023 +0700
+
+    [#VC2-1] create branch
+
+[33mcommit 2c5e3d26194c8b3d489ad805758104f1231aaaf3[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 18 14:56:59 2023 +0700
+
+    [VC2-46] make a playlist and return to FRONTEND.
+
+[33mcommit cbc678fbee2cdd26463a0d109fcfdd9eeb6461e4[m
+Merge: df14b6d ae9a963
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Mon Jul 17 07:49:52 2023 +0700
+
+    Merge branch 'pageContentCreator' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into pageContentCreator
+
+[33mcommit df14b6d15d673b6403e1e13c92f8dd91b721b234[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Mon Jul 17 07:29:53 2023 +0700
+
+    noting to update
+
+[33mcommit b7af09ca2fe6c9ca61db72cab7a2645eb8abfaa5[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sun Jul 16 21:58:01 2023 +0700
+
+    pull main
+
+[33mcommit 21f6800bbb40aaa8b6dfb1dfbe20a859b020bac0[m
+Merge: a128823 f765906
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 21:42:06 2023 +0700
+
+    update
+
+[33mcommit a128823b74aeaa42937f93889b7ece975421d9fd[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 21:32:41 2023 +0700
+
+    nothing
+
+[33mcommit ae9a963f2a6d0fd93c1eadaa40425122e1524988[m
+Merge: 51195ae f765906
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sun Jul 16 14:44:09 2023 +0700
+
+    merge main to pageContenCreator
+
+[33mcommit f7659064b54776f3dc1a6b73e55509f5754835cc[m
+Merge: e2702c0 a6eb98e
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sun Jul 16 14:34:36 2023 +0700
+
+    pull main
+
+[33mcommit a6eb98e7966672fbdb10cb5b6f68d6c41977b42e[m
+Merge: 801094f 12e8b4f
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 13:52:56 2023 +0700
+
+    Merge branch 'main' of https://github.com/VireakGumi/2023-G8-VC-PROJECT
+
+[33mcommit 801094ffa312cef2bb8fdf1535a4e8e3a9f3fee9[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 13:49:25 2023 +0700
+
+    update uploadVideo
+
+[33mcommit 233fcfbebf409beb75eeee874d62385301b85e83[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 13:48:57 2023 +0700
+
+    update uploadVideo
+
+[33mcommit 12e8b4f93ce637d28cbbc34c930dffb5fee00a7b[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sun Jul 16 12:24:34 2023 +0700
+
+    [#VC2] create file env
+
+[33mcommit f253862ed9e5c72668f49b3d97458e7ac78d5d7b[m
+Merge: 0756d6a f7a7c4f
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 10:48:39 2023 +0700
+
+    nothing
+
+[33mcommit f7a7c4fb3f821c1b455e9909bca3163ec4456756[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 16 10:47:34 2023 +0700
+
+    nothing is add
+
+[33mcommit e2702c006d96b142c8124b1bf092989ed5efbbbb[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sat Jul 15 23:08:31 2023 +0700
+
+    change link api url
+
+[33mcommit f377b93be29e2cf1ff1bac7f58cead4e67b0b63e[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sat Jul 15 22:30:04 2023 +0700
+
+    change api link
+
+[33mcommit 4f3d73987bcf33dd369c9b10c1502b65e7ae76ec[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 15 20:17:35 2023 +0700
+
+    [#VC2] add file env
+
+[33mcommit 41381d1d2a18ac9804e1f23a4d972d143a30a2fb[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 15 16:48:52 2023 +0700
+
+    [#VC2] edit api url
+
+[33mcommit 02c88ee0a14c4b94700a69a874de1ed74ccaa57e[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sat Jul 15 15:51:09 2023 +0700
+
+    just change the link the hold project to localhost
+
+[33mcommit 30099f0e5103335ec74a5000cb5fc09b9f0c98de[m
+Merge: faa7295 0756d6a
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 14 19:01:46 2023 +0700
+
+    Merge branch 'main' into product
+
+[33mcommit 0756d6a1bf9a4c093e567e41277570dbc5bdd740[m
+Merge: 477a0cc c526810
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 14 18:59:50 2023 +0700
+
+    Merge branch 'homePage'
+
+[33mcommit c526810ed2b214dd22daeb8f6e34677aec2bf6c8[m
+Merge: af8ee2a 6a52d92
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 14 18:56:59 2023 +0700
+
+    pull home page
+
+[33mcommit af8ee2a87e792d3253aad577c9ddb12f7635a47b[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 14 18:47:48 2023 +0700
+
+    fix login and logout
+
+[33mcommit faa729598b006da7e6adc6452d57e2aef4b22d49[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 14 18:00:04 2023 +0700
+
+    [#VC2] merage
+
+[33mcommit b70eae035d0035e631e3a5ed9b82452d0e653bb6[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Fri Jul 14 08:36:49 2023 +0700
+
+    update
+
+[33mcommit 477a0cc94e6d777fbc0e7cd694cac3b98c545552[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 14 07:49:23 2023 +0700
+
+    [#VC2] merge branch
+
+[33mcommit 6a52d92d1d62f5d4bbd7ac6dd48a5fe2bf39b6cb[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 14 07:36:36 2023 +0700
+
+    [#VC2-38] fix some bug
+
+[33mcommit 1ea1ca47163a851d81f133a1f1fb9e2d7b32039b[m
+Merge: 1a6d6fe 6317e6d
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 13 20:38:16 2023 +0700
+
+    [#VC2-38] edit style
+
+[33mcommit 1a6d6fe68a02262a1a26fd38c718a57268c45c51[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 13 20:36:22 2023 +0700
+
+    [#VC2-38] edit style
+
+[33mcommit 6317e6d5152addbb40de8d979752c8736b0d6572[m
+Merge: 17f1f9f bce1e48
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 13 19:54:15 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 17f1f9ff26abbee334b68f3b32aac1223cbde01d[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 13 19:53:55 2023 +0700
+
+    nothing
+
+[33mcommit b307c178ce6ccc83aa6850d4ad1dd1923b6bf6f0[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 13 19:51:25 2023 +0700
+
+    [VC2-82] create uploadVideoView
+
+[33mcommit c4a7c3dd4dfc4ba80b280b632f23bde8c6adda24[m
+Merge: 4582b94 bce1e48
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 16:51:37 2023 +0700
+
+    pull homePage
+
+[33mcommit 4582b943621c81438216a3d1f2834ebe038eb297[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 16:41:03 2023 +0700
+
+    fix delete function
+
+[33mcommit bce1e48c22ededda91e64eea206bb6cbbcb3a4cd[m
+Merge: d5bcbeb 7d9e060
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 15:50:07 2023 +0700
+
+    [VC2-44]:update code for display video
+
+[33mcommit d5bcbebe1e78893b34cfb5c7d96916c6c46da5e2[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 15:48:55 2023 +0700
+
+    [VC2-44]:update code for display video
+
+[33mcommit 7d9e060433febaf9c28d74a521e4723dd81342e7[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 13 15:07:03 2023 +0700
+
+    [#VC2-38] update  select category
+
+[33mcommit 4a45de3dc915788bec1ec4a2114d4438080f078c[m
+Merge: a7c31fa 1232be3
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 13 14:40:25 2023 +0700
+
+    [#VC2-38] show video by select category
+
+[33mcommit a7c31fa8a8f51d340575c1148345e01412f783f7[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 13 14:38:24 2023 +0700
+
+    [#VC2-38] show video by select category
+
+[33mcommit 1232be340354471c0234136a3157f58fc2d85ef3[m
+Merge: 8bb24ce 66ecc2e
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 14:29:54 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 8bb24ceb735c47bdcd90820756f5b8ae6163986e[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 14:28:58 2023 +0700
+
+    [VC2-49]Get the ID from the video that you have selected and send it to the backend by URL API
+
+[33mcommit 51195ae21149cb1c0828fe561a36d35e15e43ef7[m
+Merge: c1bc67d 31aa9a1
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 13:10:25 2023 +0700
+
+    Merge branch 'pageContentCreator' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into pageContentCreator
+
+[33mcommit c1bc67d13adcba8ddebf5c60a24b4a9cd4737c90[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 13:09:37 2023 +0700
+
+    [VC2-91] get data from backend display on webpage
+
+[33mcommit 66ecc2ea5b2466acf7fee7ccbc0de8fda68b86ec[m
+Merge: 1a17735 2e29f89
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 10:40:18 2023 +0700
+
+    [VC2-44]:update style card
+
+[33mcommit 1a177350f7922f7d5dd4869e2932461cb39eb139[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 10:39:27 2023 +0700
+
+    [VC2-44]:update style card
+
+[33mcommit 2e29f892a7a784a5dd5cf9052fd3df5cd860ca46[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 13 10:20:46 2023 +0700
+
+    [VC2-82] create function recommadation
+
+[33mcommit fa746fcf6c67785c96a192adcd37b42098453503[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 08:55:44 2023 +0700
+
+    [VC2-91] get data from backend display on webpage
+
+[33mcommit 31aa9a1de860db60fc8abc84b55d48cf8eac69a7[m
+Merge: bc49671 68ca7c6
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 08:20:39 2023 +0700
+
+    Merge branch 'pageContentCreator' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into pageContentCreator
+
+[33mcommit bc49671fb8b4b3732dc03eb52818e2302a6487f6[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 08:19:06 2023 +0700
+
+    [VC2-64] Display the form dialog
+
+[33mcommit bc79417e3e5daae9085951cb0c9395056f0ab842[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 08:01:07 2023 +0700
+
+    [VC2-91] get data from backend display on webpage
+
+[33mcommit fa823024cf77e460b1c1ca947f376319994a8d09[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 08:00:03 2023 +0700
+
+    put route to my channel
+
+[33mcommit 9514eebe85bc723b016605d7328c77288d58df14[m
+Merge: 902589f 68ca7c6
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 07:57:12 2023 +0700
+
+    megre pageContentCreator
+
+[33mcommit 68ca7c6a1dd2ac41fe72c985a9b5a31fd60930b5[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 07:54:55 2023 +0700
+
+    pull pageContentCreator
+
+[33mcommit da9abc91f2d17e6d83335bde3800498d49bcca95[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Thu Jul 13 07:52:39 2023 +0700
+
+    [VC2-91] get data from backend display on webpage
+
+[33mcommit 902589f8187cf72aab11a52d1df1ecb464fafdfd[m
+Merge: 56e25fd 6dab383
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 13 07:49:54 2023 +0700
+
+    megre pageContentCreator
+
+[33mcommit 56e25fd502f6c4ea8aedbefd1e21f2486688e26f[m
+Merge: 0356e83 e73fc8f
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 12 19:59:16 2023 +0700
+
+    [VC2-93] Store data and get data from cookies and display on nav bar.
+
+[33mcommit 0356e83688d237cffb0fa994e78fa634cbbc604e[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 12 16:41:37 2023 +0700
+
+    [VC2-93] store data and get data from cookies and display on nav bar.
+
+[33mcommit d978b063dc85749c698e999e389fe0d04958b6c2[m
+Merge: 489fc6d 9fd63ab
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 12 16:40:58 2023 +0700
+
+    [VC2-93] store data and get data from cookies and display on nav bar.
+
+[33mcommit 6dab3832f59456b4683244b6012806d72b150572[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 16:05:25 2023 +0700
+
+    [VC2-91] get data from backend display on webpage
+
+[33mcommit e73fc8fc897758af87fc354b382dfb0ae175483e[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 15:16:15 2023 +0700
+
+    [VC2-44]: test and fix
+
+[33mcommit 4fbafae5480178ae045b1708368f162ddd999ffb[m
+Merge: 4a7f633 abd238b
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 14:39:45 2023 +0700
+
+    [VC2-92] make a page that manage videos that in playlist
+
+[33mcommit f626c9eefdde40b19314af10865e48a2dca9833f[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 14:28:23 2023 +0700
+
+    [VC2-44]: update style
+
+[33mcommit b1877e916416eb3c97826276eadab193208f0b99[m
+Merge: 2236b1d 32eed51
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 14:26:17 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 2236b1d062c7f15d7b9ed5497090e5d2dfd2d769[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 14:26:10 2023 +0700
+
+    [VC2-44]: display video
+
+[33mcommit 32eed518a5650d234cc7ed2bd4c2f6aa383ab81b[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 13:58:56 2023 +0700
+
+    change style of videocard
+
+[33mcommit a806e671a255e502e8c9494fcf630e2e8898a1aa[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 13:10:51 2023 +0700
+
+    change background color in history
+
+[33mcommit 662de6f3eedefd1553c7ee2ca8b8eb5fc0483970[m
+Merge: dd7ee33 ac17c24
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 10:40:23 2023 +0700
+
+    nothing are change
+
+[33mcommit dd7ee3347386ba693e5a4888e5c07b0d0f7dc22c[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 10:39:19 2023 +0700
+
+    [VC2-59] create function update of the video on videocontroller
+
+[33mcommit 57c7ec570e7829e570e3bf67ae3c922a61218e41[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 10:38:49 2023 +0700
+
+    [VC2-59] create function update of the video on videocontroller
+
+[33mcommit ac17c241bea9fa1d61ec4a199bdb60bb9479ab91[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Wed Jul 12 10:17:33 2023 +0700
+
+    [#VC2-90] create infinite scroll
+
+[33mcommit 3b49ff65d8fc85aab31a7b25b7e2a760cb0f4c8a[m
+Merge: 2e26a6a 7649a4e
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Wed Jul 12 10:12:34 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 7649a4e5c0043bb3b7f9abece9bb427f5f12e205[m
+Merge: 7af0e58 1a5266e
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 08:36:38 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 7af0e580c329fe998b3ceda4d4bf47e8d54d0db4[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 12 08:36:34 2023 +0700
+
+    nothing are update
+
+[33mcommit 1a5266e14741efca13db2ec77b2733bcf0b2e367[m
+Merge: 210d5ff 9fd63ab
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 07:39:54 2023 +0700
+
+    fix code complex
+
+[33mcommit 210d5ffe66b9e890a9814d544083d902d00f68d2[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Wed Jul 12 07:37:20 2023 +0700
+
+    [VC2-44]: create view for playlist and videoDetail
+
+[33mcommit 2e26a6a775fe8449999481071021135a18a1a14f[m
+Merge: 25879c8 9fd63ab
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Tue Jul 11 20:02:12 2023 +0700
+
+    [#VC2-90] create infinite scroll
+
+[33mcommit 25879c85e5def05ebc656a564fe7c7231c41a854[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Tue Jul 11 19:59:04 2023 +0700
+
+    [#VC2-90] create infinite scroll
+
+[33mcommit 489fc6d004ae1c09ce2a986d4901280f16b73e7e[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 19:51:08 2023 +0700
+
+    fix
+
+[33mcommit 05a57c7ea8130aee414c1338f403e554a70cadcc[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 19:50:18 2023 +0700
+
+    fix
+
+[33mcommit 9fd63ab021327bb462038b07f3331be91e2fccb3[m
+Merge: e852a08 1ee7bd2
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 19:25:51 2023 +0700
+
+    [VC2-19] fix some of the style in historyview
+
+[33mcommit e852a0842d0360ae08331fb86943076d87df29a4[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 19:19:11 2023 +0700
+
+    [VC2-19] create and Interface of the HistoryView by the mock-up
+
+[33mcommit df8488d7e7c8bd8c97ca6af9a0dbc133b034febd[m
+Merge: e580d98 8a30618
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 18:41:37 2023 +0700
+
+    add
+
+[33mcommit 1ee7bd2a612998ab807eab98b7169bfad5ba98d9[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 16:57:06 2023 +0700
+
+    [VC2-46] make a playlist and return all playlist of user to view.
+
+[33mcommit e254f67ba326b75c9da95eb7d7358d06eddaad15[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 15:25:04 2023 +0700
+
+    [VC2-35] provide videos by category.
+
+[33mcommit fec34a0b61b8e59964cf638068886b502e3b91a3[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 14:52:01 2023 +0700
+
+    [VC2-50] get ID from frontend and delete.
+
+[33mcommit 958b4a9f5880c9c85b3ab465c480b6fcb7bce2c8[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 14:23:34 2023 +0700
+
+    [VC2-46] make a playlist and return all playlist of user to view.
+
+[33mcommit b2c38e1d9a6806c13769314cdf1daebb8ef24b23[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 08:51:13 2023 +0700
+
+    [VC2-56] get data from database of the content creator video
+
+[33mcommit f605ad97d3770879e6d9cdf97723906c817d0c08[m
+Merge: c8792a2 8a30618
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 08:49:02 2023 +0700
+
+    pull homepage
+
+[33mcommit c8792a2a982bb1d7b8b6319e7e5c896b08a991e2[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Tue Jul 11 08:37:15 2023 +0700
+
+    [VC2-56] get data from database of the content creator video
+
+[33mcommit e580d98d081c79b80750e5a870463a0f79c3e395[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 08:19:37 2023 +0700
+
+    nothing to commit
+
+[33mcommit 77ff416b3a9ab5889be077a42b716da235c0bc2f[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 08:16:12 2023 +0700
+
+    [VC2-19] create view historyview
+
+[33mcommit a5bc4904476eb16f14352978412af2890a995f63[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Tue Jul 11 08:13:21 2023 +0700
+
+    add
+
+[33mcommit 8a30618c6d9b31d816acd8a6a124341f3ba279cf[m
+Merge: a1919b8 1a77b74
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Tue Jul 11 08:11:43 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit a1919b8181341880d4dd301e96556fbb7ae9df58[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Tue Jul 11 08:11:37 2023 +0700
+
+    [#VC2-16] fix bug on home page
+
+[33mcommit 1a77b7403d63ad0f52e6f028d6de944274f01ffc[m
+Merge: 1f9aba4 65ba5b9
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 20:47:54 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 1f9aba420797c4d6bb322acc6f7a658e6d9c026f[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 20:47:49 2023 +0700
+
+    [VC2-25]:update code and fix error
+
+[33mcommit 65ba5b94340ab38fd83b115eb5871b5849a8c4a5[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Mon Jul 10 16:49:22 2023 +0700
+
+    [#VC2-16] create slideshow
+
+[33mcommit f47a3d1815e71ece9390a9a3fb9db47a6c1a13cb[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Mon Jul 10 16:25:12 2023 +0700
+
+    [VC2-56] Get data from database of the content creator video
+
+[33mcommit 230f1f6f31fd4e9cd88640c155dc8b72d945aa9a[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Mon Jul 10 14:20:18 2023 +0700
+
+    [#VC2-16] show register and login dialog
+
+[33mcommit 671fe5b60537505f65e01e61150eaa84d8f47dda[m
+Merge: eda02f3 87be2d1
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 13:37:29 2023 +0700
+
+    [VC2-25]:update code and style on search page
+
+[33mcommit eda02f34cafbde7952d4678513af81272ec442be[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 13:35:06 2023 +0700
+
+    [VC2-25]:update code and style on search page
+
+[33mcommit 87be2d1a35b48a943484f3dec51eeb86daf744a6[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Mon Jul 10 13:31:43 2023 +0700
+
+    [VC2-18] add function destory and store in HistoryController
+
+[33mcommit 580d52f6a1a74cd8ce168765939b3f29ac882537[m
+Merge: 9482b7f d0f50cc
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 11:06:50 2023 +0700
+
+    merge auth to homePage
+
+[33mcommit 4a7f633af693c14e32cee5067151d7ff1600993c[m
+Author: makara-yuern <makara.yuern@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 10:52:06 2023 +0700
+
+    [VC2-52] view content creator page subscribe tabs
+
+[33mcommit abd238b12180a1d7cb96cac6381146b9146c5375[m
+Merge: b60bbbe 9482b7f
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Mon Jul 10 10:46:35 2023 +0700
+
+    merge homepage into pageContentCreator
+
+[33mcommit d0f50cc226e137754797aef160c997af80a6a9ab[m[33m ([m[1;31morigin/auth[m[33m)[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Mon Jul 10 10:44:27 2023 +0700
+
+    [VC2-32]Create form validation
+
+[33mcommit 9482b7fe536875f2d57fcc890992b3c8b9970bcd[m
+Merge: 598f27a dc5074b
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Mon Jul 10 10:37:51 2023 +0700
+
+    merge navBar to homepage
+
+[33mcommit 598f27a5c4954164d69d60e117b3e8c9295ab2ae[m
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Mon Jul 10 10:25:57 2023 +0700
+
+    pull homePage
+
+[33mcommit dc5074ba5694a7c794d3625361ff42babf9fd010[m
+Merge: b531280 d3a0906
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Mon Jul 10 10:24:01 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit b53128086e0d0d8a4241c24a2e8904b6886cef68[m
+Merge: 741d825 c8a6f86
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Mon Jul 10 10:23:40 2023 +0700
+
+    [#VC2-16] fetch data from api to disply in home page
+
+[33mcommit d3a0906d19a849cf0c0cf53ba96064d437af1b07[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Mon Jul 10 10:22:52 2023 +0700
+
+    [VC2-18] create function to get all history in historycontrollerat backend
+
+[33mcommit 49e7b0256e75c622552ccbea2b1dbf417f8a51c5[m
+Merge: c8a6f86 77c2ccc
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Mon Jul 10 10:05:15 2023 +0700
+
+    Merge branch 'navBar' into homePage
+
+[33mcommit 77c2cccd9bd9b71f131f63d8e869758ef28b3c30[m
+Author: VIREAK.ROEUN <VIREAK.ROEUN@pnc.lan>
+Date:   Mon Jul 10 10:03:06 2023 +0700
+
+    put route in loop
+
+[33mcommit b60bbbeac450b66de89d904869790a52da3b5122[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Mon Jul 10 09:23:48 2023 +0700
+
+    [VC2-55] add cancel butotn on upload video
+
+[33mcommit caa334912917e68d546faa5b7cc775fb4db9290b[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Mon Jul 10 07:37:11 2023 +0700
+
+    pull code in main
+
+[33mcommit 741d82554fd2bbd5cb0d5c9c26b16fdd20406ef5[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Mon Jul 10 07:33:28 2023 +0700
+
+    [#VC2-16] get data from API and display it on home page
+
+[33mcommit c8a6f864d2359acd9cbb79faf97dba18f444a0e0[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 9 21:20:26 2023 +0700
+
+    add
+
+[33mcommit 5e1203855aac162e9404429be2862779cd133bef[m
+Merge: c955339 6d5e250
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 9 21:16:57 2023 +0700
+
+    [VC2-61] accent complict videoController
+
+[33mcommit c955339e90afa78993d3c42326f5610350b406c5[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 9 21:08:40 2023 +0700
+
+    [VC2-61] edite Videocontroller of method uploadvideo
+
+[33mcommit 6d5e250cd1a49eecb1e09badb0bbd5c0e89c2a7e[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Sun Jul 9 12:49:18 2023 +0700
+
+    get videos by category
+
+[33mcommit b9087812d8f5c468a508a01e154ce4dbf845aa11[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 9 12:27:40 2023 +0700
+
+    [VC2-55] change keyword of video when send to backend
+
+[33mcommit 442dfe62720db5ff688c036981b7a6c1959733bf[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Sun Jul 9 12:20:38 2023 +0700
+
+    [VC2-55] create from post by mock-up and get data to frontend
+
+[33mcommit 36a742d5927f0821cbe3ab978960a4ffffa3d80c[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Sun Jul 9 11:13:57 2023 +0700
+
+    [VC2-25]:create view search
+
+[33mcommit 9f2d3ac261c33943d619a26097bd44ce2908581f[m
+Merge: 6feb92a 620e1ec
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 8 13:46:39 2023 +0700
+
+    [#VC2-16] merge branch navbar to branch homepage
+
+[33mcommit 6feb92a914d9e13f2b04227060c8f6464b4d2f07[m
+Merge: f8c9e75 12dc65d
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 8 13:40:59 2023 +0700
+
+    [#VC2-16] merge navbar to homepage
+
+[33mcommit 12dc65d5b7349c5e30d9e79804535dee3c3fab7f[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Sat Jul 8 13:30:24 2023 +0700
+
+    [#VC2-87] edit navbar and fix error style
+
+[33mcommit 7e38f75af1458076413a9df8e3be10943754d90d[m
+Merge: b085f03 e2fc729
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Sat Jul 8 12:57:46 2023 +0700
+
+    Merge branch 'navBar' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into navBar
+
+[33mcommit b085f03ca8e23ce5829345a3aec91b1eeab3dcac[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Sat Jul 8 12:54:14 2023 +0700
+
+    [VC2-27]:BACKEND: Provide search videos to view.
+
+[33mcommit 0c9e49cc85a708e552bfcf2b60137a9cb35d46f8[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Fri Jul 7 11:55:52 2023 +0700
+
+    [VC2-27]:Provide search to view
+
+[33mcommit f8c9e75d51dba9b3566ae844cea60ea00ef96a4f[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 7 10:50:13 2023 +0700
+
+    [#VC2-16] chang stye of video card
+
+[33mcommit 620e1ec2bc7d864388c0b91934de9945b51dcfd3[m
+Merge: 3138258 425c644
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 7 08:44:46 2023 +0700
+
+    merge main to homepage
+
+[33mcommit 425c6448dac6df275803158e5816e5bee3bfc224[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 7 08:38:06 2023 +0700
+
+    fix videoController
+
+[33mcommit 065e3aadc3c15eeb7923ec87a43b6eb7cc885ff3[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Fri Jul 7 08:34:50 2023 +0700
+
+    merge auth to main
+
+[33mcommit e2fc729263fecda280c23513b2536b1158353de4[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 7 08:02:29 2023 +0700
+
+    [#VC2-87] fix navbar
+
+[33mcommit 7e2abae4bdaf7331a553f98c0a1ed1beb8779a83[m
+Merge: 0e13ad2 641a409
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 7 07:56:21 2023 +0700
+
+    Merge branch 'navBar' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into navBar
+
+[33mcommit 0e13ad235d829c24f3de528514ba49fa57e40f8d[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Fri Jul 7 07:53:56 2023 +0700
+
+    [#VC2-87] fix navbar
+
+[33mcommit 641a409787162fa153b8d2c56ed3a4e3bc02bd3c[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Fri Jul 7 07:17:10 2023 +0700
+
+    [VC2-25]: View create follow by interface
+
+[33mcommit 31382583abcbc767097bbd9d5ae2afbf7cf27b29[m
+Merge: a3f0556 7b8fe35
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 6 16:50:41 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit a3f0556e2c08a930dca441b9aeac8399f2f09f84[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Thu Jul 6 16:45:12 2023 +0700
+
+    [VC2-20]
+
+[33mcommit 7b8fe35496e66bb43e24d5cc0860cec408d2a9af[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Thu Jul 6 16:36:16 2023 +0700
+
+    [VC2-61] create uploadvideo controller  on backend side
+
+[33mcommit ce81f9f381610b8d11874a513b998c7465295668[m
+Merge: c22faf7 fa982bd
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 6 13:52:42 2023 +0700
+
+    [#VC2-87] create view navbar and sidebar
+
+[33mcommit c22faf7ed2b083a1e8ae70337f60d78d9d2551db[m
+Author: Rothana69 <godkiller69@gmail.com>
+Date:   Thu Jul 6 13:48:50 2023 +0700
+
+    [#VC2-87] create view navbar and side
+
+[33mcommit fa982bdd1d6e545ae6ed980b7401218dbe820532[m
+Author: SoriyaTY <soriya.hor@student.passerellesnumeriques.org>
+Date:   Thu Jul 6 11:02:53 2023 +0700
+
+    [VC2-25]: create view for searchPage
+
+[33mcommit cceb99676e725a8c7943240efe62ba96bd31a19c[m
+Merge: 7d6c147 e4ddfbf
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 5 20:46:03 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 7d6c1477fd826882b170f909b2802bfc17f3a3ed[m
+Author: VireakGumi <chanvireak906@gmail.com>
+Date:   Wed Jul 5 20:45:39 2023 +0700
+
+    [VC2-20] get data from data base and provide videos to view.
+
+[33mcommit 5a4af3242d4a0c1d0ff6e1fefb4a0cbb74809a3f[m
+Author: villa0505 <villa.nhea@student.passerellesnumeriques.org>
+Date:   Wed Jul 5 18:55:19 2023 +0700
+
+    Views Register
+
+[33mcommit e4ddfbfc99d97398d3a7fcda33311ccb97f6fe4d[m
+Merge: 2e0c20f 55c5ba0
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 18:06:42 2023 +0700
+
+    Merge branch 'homePage' of https://github.com/VireakGumi/2023-G8-VC-PROJECT into homePage
+
+[33mcommit 2e0c20f8fbd054423a9bd9c62e67666a66daeb87[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 18:06:35 2023 +0700
+
+    create component card
+
+[33mcommit 55c5ba00cf47681e06d45129db1c91847032fbff[m
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Wed Jul 5 16:29:25 2023 +0700
+
+    [VC2-20] get data from data base and provide videos to view.
+
+[33mcommit 66d2b4a63312fc4935abdf2c8e05bc7baed8b038[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 10:15:33 2023 +0700
+
+    [VC2-41] rewrite word token in the correct way
+
+[33mcommit 49b4a2ce6aca9a03bca3ca4cfe3b3ebde7cba370[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 09:40:46 2023 +0700
+
+    [VC2-41] create logout method to destory token on backend side
+
+[33mcommit 5c3f2e25677bc1347e0b8b48ad97d7619f2cd073[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 09:26:11 2023 +0700
+
+    [VC2-41] create login method and validation in Usercontroller backend
+
+[33mcommit c947a60d36685ee2c3184ba797824b738e1d187a[m
+Author: animeocean <ahseangeng777@gmail.com>
+Date:   Wed Jul 5 08:59:52 2023 +0700
+
+    [VC2-33] validation register before put in backend, work on backend
+
+[33mcommit e913d166bf1b0d11a1e949a29735fc1a4fd0e533[m[33m ([m[1;31morigin/history[m[33m)[m
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Tue Jul 4 21:00:07 2023 +0700
+
+    [VC2-84] creates a database and tables by following the diagram and making relationships
+
+[33mcommit 620bff5d7268cad0b42d89e842cc8a7edf774bf3[m
+Author: VIREAK.ROEUN <VIREAK.ROEUN@PNC.LAN>
+Date:   Sun Jul 2 13:27:28 2023 +0700
+
+    init
+
+[33mcommit 2192d2276e9358dc6716b365bab77e01f26608fe[m
+Author: VireakGumi <111325148+VireakGumi@users.noreply.github.com>
+Date:   Sun Jul 2 13:22:08 2023 +0700
+
+    Initial commit
